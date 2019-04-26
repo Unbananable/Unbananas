@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/07 17:03:18 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:13:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+char	*ft_strchr(const char *s, int c)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int		i;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	if (s[i] == c)
+		return ((char *)(s + i));
+	else
+		return (NULL);
 }

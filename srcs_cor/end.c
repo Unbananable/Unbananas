@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
+/*   Updated: 2019/04/26 18:00:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	initialize(t_cor *cor)
+void	end(t_cor *cor)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int		i;
+
+	if (cor->champs)
+	{
+		i = -1;
+		while (cor->champs[++i])
+			free(cor->champs);
+	}
+	free(cor->champs);
+	free(cor->arena);
+	exit(0);
+}
+
+void	error(t_cor *cor, char *err_type)
+{
+	ft_putstr_fd("error: ", 2);
+	ft_putendl_fd(err_type, 2);
+	end(cor);
 }

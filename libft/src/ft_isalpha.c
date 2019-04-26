@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/07 08:44:07 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:08:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
-void	initialize(t_cor *cor)
+int		ft_isalpha(int c)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else
+		return (0);
 }

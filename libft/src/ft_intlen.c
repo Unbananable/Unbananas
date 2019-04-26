@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2019/03/14 18:46:13 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/03/14 18:49:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
-void	initialize(t_cor *cor)
+int	ft_intlen(unsigned int nb)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int	res;
+
+	res = 0;
+	if (!nb)
+		return (1);
+	while (nb)
+	{
+		res++;
+		nb /= 10;
+	}
+	return (res);
 }

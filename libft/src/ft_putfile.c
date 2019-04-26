@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_putfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/19 09:19:16 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:11:49 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+void	ft_putfile(int fd)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	char	buf[51];
+	int		readchar;
+
+	buf[50] = 0;
+	readchar = read(fd, buf, 50);
+	while (readchar > 0)
+	{
+		ft_putstr(buf);
+		readchar = read(fd, buf, 50);
+	}
 }

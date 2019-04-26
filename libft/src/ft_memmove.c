@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/09 19:00:11 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:10:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int		i;
+	char	*d;
+	char	*s;
+
+	i = -1;
+	d = (char *)dst;
+	s = (char *)src;
+	if (dst < src)
+	{
+		while (++i < (int)len)
+			*(d++) = *(s++);
+	}
+	else
+	{
+		d += len - 1;
+		s += len - 1;
+		while (++i < (int)len)
+			*(d--) = *(s--);
+	}
+	return (dst);
 }

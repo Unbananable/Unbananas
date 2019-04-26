@@ -1,21 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/14 14:31:49 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:12:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+void	ft_putnbr_fd(int n, int fd)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int		pow;
+	char	s[1];
+
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n == 0)
+		write(fd, "0", 1);
+	else
+	{
+		if (n < 0)
+		{
+			write(fd, "-", 1);
+			n *= -1;
+		}
+		pow = 1;
+		while (n / pow >= 10)
+			pow *= 10;
+		while (pow)
+		{
+			*s = n / pow + '0';
+			write(fd, s, 1);
+			n = n % pow;
+			pow /= 10;
+		}
+	}
 }

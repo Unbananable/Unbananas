@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_filelinecount.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/19 09:18:47 by anleclab          #+#    #+#             */
+/*   Updated: 2019/04/26 18:23:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+int		ft_filelinecount(int fd)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	int		nblines;
+	int		readchar;
+	char	buf[51];
+	int		i;
+
+	buf[50] = 0;
+	readchar = read(fd, buf, 50);
+	nblines = (readchar > 0 ? 1 : 0);
+	while (readchar > 0)
+	{
+		i = 0;
+		while (i < 50)
+		{
+			if (buf[i] == '\n')
+				nblines++;
+			i++;
+		}
+		readchar = read(fd, buf, 50);
+	}
+	return (nblines);
 }

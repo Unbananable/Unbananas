@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/12 17:57:19 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:09:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+static t_list	*al_lstadd(t_list *elem, t_list *lst)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	if (!elem)
+		return (lst);
+	elem->next = lst;
+	return (elem);
+}
+
+t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	if (!lst)
+		return (NULL);
+	if (!lst->next)
+		return (f(lst));
+	else
+		return (al_lstadd(f(lst), ft_lstmap(lst->next, f)));
 }

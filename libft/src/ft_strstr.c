@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:04 by anleclab         ###   ########.fr       */
+/*   Created: 2018/11/07 17:18:40 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:15:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	initialize(t_cor *cor)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	cor->champs = NULL;
-	if (!(cor->arena = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		error(cor, "malloc failed");
-	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
+	size_t	ln;
+	size_t	lh;
+
+	if (!*needle)
+		return ((char *)haystack);
+	ln = ft_strlen(needle);
+	lh = ft_strlen(haystack);
+	if (lh < ln)
+		return (NULL);
+	else if (ft_strnequ(haystack, needle, ln))
+		return ((char *)haystack);
+	else
+		return (ft_strstr(haystack + 1, needle));
 }

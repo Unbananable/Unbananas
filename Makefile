@@ -6,23 +6,27 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/26 13:54:59 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/26 18:16:31 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 
+NAME = corewar
 
-CFLAGS = -Wall -Wextra -Werror
-SRC = 
-SRCSFD = srcs/
-OBJSFD = objs/
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+SRC = main.c \
+	  end.c \
+	  get_champions.c \
+	  initialize.c \
+	  dev.c
+SRCSFD = srcs_cor/
+OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-HDR = 
+HDR = corewar.h op.h 
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
-HDR_INC = -I./includes
+HDR_INC = -I./$(HDRSFD)
 LIBFT_HDR = -I./libft/inc
 LIB_BINARY = -L./libft -lft
 LIBFT= libft/libft.a
