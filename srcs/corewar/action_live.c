@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/04/30 14:36:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:00:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,16 @@ int		action_live(t_cor *cor, int idx)
 		return (0);
 	else
 	{
-		cor->champ->curr_lives[-(cor->arena + (idx + 4)) - 1]++;
-		cor->champ->last_lives[-(cor->arena + (idx + 4)) - 1] = cor->curr_cycle;
+		cor->champ[-(cor->arena + (idx + 4)) - 1]->curr_lives++;
+		cor->champ[-(cor->arena + (idx + 4)) - 1]->last_lives = cor->curr_cycle;
+		if (cor->option->verbose % 2)
+		{
+			ft_putstr_fd("Player ", 1);
+			ft_putnbr_fd(-(cor->arena + (idx + 4)) - 1, 1);
+			ft_putstr_fd(" (", 1);
+			ft_putstr_fd(cor->champ[-(cor->arena + (idx + 4)) - 1]->name, 1);
+			ft_putstr_fd(") is said to be alive\n", 1);
+		}
 		return (1);
 	}
 }
