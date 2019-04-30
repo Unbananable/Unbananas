@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/30 14:16:42 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/30 17:47:03 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC = main.c \
 	  get_champions.c \
 	  tools_get_champions.c \
 	  initialize.c \
+	  order_champions.c \
 	  dev.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/

@@ -29,7 +29,7 @@ void	print_cor(t_cor *cor)
 	i = -1;
 	while (++i < cor->nb_champs)
 	{
-		printf("\n==== CHAMPION %d ====\n", i + 1);
+		printf("\n==== CHAMPION %d ====\n", cor->champs[i]->player_no);
 		print_champ(cor->champs[i]);
 	}
 	printf("\n==== ARENA ====\n");
