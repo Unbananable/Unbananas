@@ -37,10 +37,10 @@ void	print_cor(t_cor *cor)
 	while (i < MEM_SIZE)
 	{
 		j = 0;
-		while (j < 128)
+		while (j < 16)
 		{
 			printf("%.2x ", cor->arena[i + j]);
-			j += 2;
+			j ++;
 		}
 		printf("\n");
 		i += j;

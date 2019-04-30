@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 18:05:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:36:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int				get_comment(t_champ *champ, int fd);
 unsigned char	*get_redcode(int fd, unsigned int size);
 
 void			order_champions(t_cor *cor);
+
+void			arena_setup(t_cor *cor);
 
 /* DEV */
 void		print_cor(t_cor *cor);
