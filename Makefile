@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/26 18:16:31 by anleclab         ###   ########.fr        #
+#    Updated: 2019/04/30 11:03:36 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = main.c \
 	  get_champions.c \
 	  initialize.c \
 	  dev.c
-SRCSFD = srcs_cor/
+SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
