@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 15:49:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:36:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static t_champ	*read_champion(char *str)
 		return (NULL);
 	if (!(champ = (t_champ *)malloc(sizeof(t_champ))))
 		return (NULL);
-	champ->instr = NULL;
+	champ->redcode = NULL;
 	if ((champ->head.magic = get_magic(fd)) != COREWAR_EXEC_MAGIC
 			|| get_prog_name(champ, fd) == -1 || skip_empty_bytes(fd) == -1) //FIX ME
 		delete_champion(&champ);
 	if (!champ || (champ->head.prog_size = get_prog_size(fd)) > CHAMP_MAX_SIZE
 			|| get_comment(champ, fd) == -1 || skip_empty_bytes(fd) == -1)
 		delete_champion(&champ);
-	if (!champ || !(champ->instr = get_instr(fd, champ->head.prog_size)))
+	if (!champ || !(champ->redcode = get_instr(fd, champ->head.prog_size)))
 		delete_champion(&champ);
 	if (close(fd) == -1)
 		delete_champion(&champ);

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 16:19:53 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:35:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 typedef struct		s_champ
 {
 	header_t		head;
-	unsigned char	*instr;
+	unsigned char	*redcode;
 	unsigned int	curr_live; //TODO initialize at start after parsing
 	unsigned int	last_live; //TODO initialize at start after parsing
 }					t_champ;
