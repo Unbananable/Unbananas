@@ -1,5 +1,7 @@
-objs/
+objs_cor/
 *.dSYM
 test
 test/
 *.swp
+libft/obj/
+libft/libft.a
