@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 14:58:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:19:53 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,22 @@ typedef struct		s_champ
 {
 	header_t		head;
 	unsigned char	*instr;
+	unsigned int	curr_live; //TODO initialize at start after parsing
+	unsigned int	last_live; //TODO initialize at start after parsing
 }					t_champ;
+
+typedef struct		s_option //TODO marqueurs des differentes options
+{
+	int				verbose; //TODO initialize apres parsing, prend une valeur, qui designe les donnees a afficher (cf resources/corewar)
+}					t_option;
 
 typedef struct		s_cor
 {
-	t_champ			**champs;
+	t_option		option;
 	int				nb_champs;
+	t_champ			**champs;
 	unsigned char	*arena;
+	unsigned int	curr_cycle; //TODO initialize at start after parsing
 }					t_cor;
 
 void			initialize(t_cor *cor);
