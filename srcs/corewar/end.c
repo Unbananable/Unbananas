@@ -6,11 +6,19 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:00:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:01:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	delete_champion(t_champ **champ)
+{
+	if (*champ)
+		free((*champ)->instr);
+	free(*champ);
+	*champ = NULL;
+}
 
 void	end(t_cor *cor)
 {
@@ -20,7 +28,7 @@ void	end(t_cor *cor)
 	{
 		i = -1;
 		while (cor->champs[++i])
-			free(cor->champs);
+			delete_champion(cor->champs);
 	}
 	free(cor->champs);
 	free(cor->arena);

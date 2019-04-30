@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:48:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:27:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 int					ft_atoi(const char *str);
+unsigned int		ft_atoi_base(unsigned char *str, int base);
 char				*ft_itoa(int n);
 void				ft_putnbr(int n);
 void				ft_putchar_fd(char c, int fd);

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/26 18:53:09 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 14:58:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int		main(int ac, char **av)
 
 	initialize(&cor);
 
-	// TEST ME: Recuperer les champions
+	// TO DO: Recuperer les champions
 	get_champions(&cor, ac, av);
-print_init_arena(&cor);
+print_cor(&cor);
 
 	// TO DO: Setup l'arene
 

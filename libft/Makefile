@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/04/12 15:38:20 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/04/30 14:26:21 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_NAMES = ft_round_double.c \
 	  ft_strcmp.c \
 	  ft_strncmp.c \
 	  ft_atoi.c \
+	  ft_atoi_base.c \
 	  ft_isalpha.c \
 	  ft_isdigit.c \
 	  ft_isalnum.c \

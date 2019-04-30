@@ -1,36 +1,48 @@
 #include "corewar.h"
 
-void	print_init_arena(t_cor *cor)
+void	print_champ(t_champ *champ)
+{
+	unsigned int	i;
+
+	printf("magic: %x\n", champ->head.magic);
+	printf("prog name: %s\n", champ->head.prog_name);
+	printf("prog size: %d\n", champ->head.prog_size);
+	printf("comment: %s\n", champ->head.comment);
+	printf("instr:\n");
+	i = 0;
+	while (i < champ->head.prog_size)
+	{
+		printf("%.2x ", champ->instr[i]);
+		if (++i % 16 == 0)
+			printf("\n");
+	}
+	if (i % 16 != 0)
+		printf("\n");
+}
+
+void	print_cor(t_cor *cor)
 {
 	int		i;
-	int		i_champ;
-	int		current;
+	int		j;
 
-	if (!cor->arena)
-		return ;
-	current = 0;
-	i_champ = 0;
+	printf("NUMBER OF CHAMPIONS: %d\n", cor->nb_champs);
 	i = -1;
-	while (++i < MEM_SIZE)
+	while (++i < cor->nb_champs)
 	{
-		if (current && current % 30 == 0)
-			printf("\n");
-		if (i == 0 || cor->arena[i - 1] == 0)
-		{
-			if (i_champ == 0)
-				printf("\033[0;30m");
-			else if (i_champ == 1)
-				printf("\033[0;31m");
-			else if (i_champ == 2)
-				printf("\033[0;32m");
-			else
-				printf("\033[0;33m");
-			i_champ++;
-		}
-		if (cor->arena[i] == 0)
-			printf("\033[0m");
-		printf("%.2x ", cor->arena[i]);
-		current++;
+		printf("\n==== CHAMPION %d ====\n", i + 1);
+		print_champ(cor->champs[i]);
 	}
-	printf("\n");
+	printf("\n==== ARENA ====\n");
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		j = 0;
+		while (j < 128)
+		{
+			printf("%.2x ", cor->arena[i + j]);
+			j += 2;
+		}
+		printf("\n");
+		i += j;
+	}
 }
