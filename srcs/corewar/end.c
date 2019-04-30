@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 15:01:39 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:36:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	delete_champion(t_champ **champ)
 {
 	if (*champ)
-		free((*champ)->instr);
+		free((*champ)->redcode);
 	free(*champ);
 	*champ = NULL;
 }

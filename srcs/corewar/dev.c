@@ -8,11 +8,11 @@ void	print_champ(t_champ *champ)
 	printf("prog name: %s\n", champ->head.prog_name);
 	printf("prog size: %d\n", champ->head.prog_size);
 	printf("comment: %s\n", champ->head.comment);
-	printf("instr:\n");
+	printf("redcode:\n");
 	i = 0;
 	while (i < champ->head.prog_size)
 	{
-		printf("%.2x ", champ->instr[i]);
+		printf("%.2x ", champ->redcode[i]);
 		if (++i % 16 == 0)
 			printf("\n");
 	}
