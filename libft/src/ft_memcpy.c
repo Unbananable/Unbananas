@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 18:33:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 14:10:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/01 20:25:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	i = 0;
 	while (i < n)
 	{
+printf("%x ", ((unsigned char *)src)[i]);
 		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 		i++;
 	}
