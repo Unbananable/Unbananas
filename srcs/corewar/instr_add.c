@@ -6,13 +6,17 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 17:34:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 19:05:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	instr_add(t_cor *cor, unsigned int proc_id)
-{
+/*
+** Takes 3 T_REG as parameters
+*/
 
+void	instr_add(t_cor *cor, t_proc *proc)
+{
+	
 }
