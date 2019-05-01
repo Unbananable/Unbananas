@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 15:14:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:53:42 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,23 @@ typedef struct		s_champ
 	unsigned int	curr_live; //TODO initialize at start after parsing
 	unsigned int	last_live; //TODO initialize at start after parsing
 }					t_champ;
-
+/*
 typedef struct		s_option //TODO marqueurs des differentes options
 {
 	int				verbose; //TODO initialize apres parsing, prend une valeur, qui designe les donnees a afficher (cf resources/corewar)
 }					t_option;
-
+*/
 typedef struct		s_proc
 {
-	unsigned int	id; //TODO initialize a la creation d un proc (numero d identification du processus)
-	t_bool			carry; // TODO initialize a la creation d un proc
-	unsigned int	cooldown; // TODO initialize a la creation d un proc
-	unsigned int	idx; //TODO initialize a la creation d un proc (position dans l arene pour surbrillance)
+	int				n; //unique identification number: initialised at creation, never changes
+	t_bool			carry; //flag: initialized at creation, changed by some operations
+	unsigned char	curr_opcode; //op_code of the operation the proc is on: not initialised, changed when the proc moves
+	unsigned int	last_live_cycle; //last cycle the proc performed live: initialized to 0 at creation, changed by live operation
+	unsigned int	wait; //number of cycles before the operation is performed: not initialized, decremented at each new cycle and reset when the proc moves
+	unsigned int	idx; //current proc position: initialized at creation, changed everytime the proc moves
+	unsigned int	move; //length of the step to get to the next instruction: not initialized, changed everytime the proc moves
+	unsigned char	regs[REG_NUMBER][REG_SIZE]; //registers: initialized at creation, changed by some operations
+	s_proc			*next; //next proc in the list;
 }					t_proc;
 
 typedef struct		s_cor

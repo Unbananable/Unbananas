@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 18:06:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:37:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static t_champ	*read_champion(char *str, int player_no)
 /*
 ** For all parameters of the corewar program, get the information contained in
 ** the files for the champions.
-** TO DO : Take options into account.
 */
 
 void			get_champions(t_cor *cor, int ac, char **av)

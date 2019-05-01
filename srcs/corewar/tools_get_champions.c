@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 12:20:12 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 17:47:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:41:49 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ unsigned char	*get_redcode(int fd, unsigned int size)
 	if (!(instr = (unsigned char *)malloc(sizeof(unsigned char)
 			* (size + 1))))
 		return (NULL);
-	if ((rval = read(fd, instr, size) != size))
+	if ((rval = read(fd, instr, size)) != (int)size)
 	{
 		free(instr);
 		return (NULL);
