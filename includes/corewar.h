@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 17:53:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:55:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define CYCLE_LIVE 10
 #define CYCLE_LD 5
 #define CYCLE_ST 25
+#define CYCLE_ADD 10
 
 #define BYTE1 1
 #define BYTES2 2
@@ -72,7 +73,7 @@ typedef struct		s_cor
 	unsigned char	**reg; // (register) TODO initialize the 16 possible registers (4 uchar each, plus terminating '\0')
 	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 	t_proc			*procs; // TODO initialize after parsing, realloc after a fork/lfork
-	t_option		option;
+/*	t_option		option;*/
 	int				nb_champs;
 	t_champ			**champs;
 	unsigned char	*arena;
@@ -83,8 +84,10 @@ typedef struct		s_cor
 void			initialize(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
+//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
+//int			cyd_val(int value);
 
-//int			instr_live(t_cor *cor, unsigned int proc_id);
+//void			instr_live(t_cor *cor, unsigned int proc_id);
 //void			instr_ld(t_cor *cor, unsigned int proc_id);
 //void			instr_st(t_cor *cor, unsigned int proc_id);
 
