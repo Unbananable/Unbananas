@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 18:03:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 11:24:50 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum		e_bool
 typedef struct		s_champ
 {
 	header_t		head;
+	int				player_no;
 	unsigned char	*redcode;
 	unsigned int	curr_live; //TODO initialize at start after parsing
 	unsigned int	last_live; //TODO initialize at start after parsing
@@ -71,7 +72,11 @@ unsigned int	get_magic(int fd);
 int				get_prog_name(t_champ *champ, int fd);
 unsigned int	get_prog_size(int fd);
 int				get_comment(t_champ *champ, int fd);
-unsigned char	*get_instr(int fd, unsigned int size);
+unsigned char	*get_redcode(int fd, unsigned int size);
+
+void			order_champions(t_cor *cor);
+
+void			arena_setup(t_cor *cor);
 
 /* DEV */
 void		print_cor(t_cor *cor);

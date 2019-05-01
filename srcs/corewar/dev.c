@@ -29,7 +29,7 @@ void	print_cor(t_cor *cor)
 	i = -1;
 	while (++i < cor->nb_champs)
 	{
-		printf("\n==== CHAMPION %d ====\n", i + 1);
+		printf("\n==== CHAMPION %d ====\n", cor->champs[i]->player_no);
 		print_champ(cor->champs[i]);
 	}
 	printf("\n==== ARENA ====\n");
@@ -37,10 +37,10 @@ void	print_cor(t_cor *cor)
 	while (i < MEM_SIZE)
 	{
 		j = 0;
-		while (j < 128)
+		while (j < 16)
 		{
 			printf("%.2x ", cor->arena[i + j]);
-			j += 2;
+			j ++;
 		}
 		printf("\n");
 		i += j;
