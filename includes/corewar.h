@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 17:55:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/01 20:47:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,23 @@ typedef struct		s_proc
 	unsigned int	wait; //number of cycles before the operation is performed: not initialized, decremented at each new cycle and reset when the proc moves
 	unsigned int	idx; //current proc position: initialized at creation, changed everytime the proc moves
 	unsigned int	move; //length of the step to get to the next instruction: not initialized, changed everytime the proc moves
-	unsigned char	regs[REG_NUMBER][REG_SIZE]; //registers: initialized at creation, changed by some operations
-	s_proc			*next; //next proc in the list;
+	unsigned char	*(regs[REG_NUMBER]); //registers: initialized at creation, changed by some operations
+	struct s_proc	*next; //next proc in the list;
 }					t_proc;
 
 typedef struct		s_cor
 {
-	unsigned char	**reg; // (register) TODO initialize the 16 possible registers (4 uchar each, plus terminating '\0')
-	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
-	t_proc			*procs; // TODO initialize after parsing, realloc after a fork/lfork
-/*	t_option		option;*/
 	int				nb_champs;
 	t_champ			**champs;
 	unsigned char	*arena;
-	unsigned int	curr_cycle; //TODO initialize at start after parsing
-	t_bool			last_alive; //TODO initialize
+	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
+	t_proc			*procs; // TODO initialize after parsing
+/*	t_option		option;*/
+	unsigned int	curr_cycle; //TO DO initialize at start after parsing
+	int				last_alive; //player_no of the last champion for whom live was performed
 }					t_cor;
 
 void			initialize(t_cor *cor);
-
-//void			fill_register(t_cor *cor, char reg_id, char *content);
-//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
-//int			cyd_val(int value);
-
-//void			instr_live(t_cor *cor, unsigned int proc_id);
-//void			instr_ld(t_cor *cor, unsigned int proc_id);
-//void			instr_st(t_cor *cor, unsigned int proc_id);
-
-void			end(t_cor *cor);
-void			error(t_cor *cor, char *err_type);
-void			delete_champion(t_champ **champ);
 
 void			get_champions(t_cor *cor, int ac, char **av);
 unsigned int	get_magic(int fd);
@@ -105,6 +92,23 @@ unsigned char	*get_redcode(int fd, unsigned int size);
 void			order_champions(t_cor *cor);
 
 void			arena_setup(t_cor *cor);
+
+//void			fill_register(t_cor *cor, char reg_id, char *content);
+//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
+//int			cyd_val(int value);
+
+//void			instr_live(t_cor *cor, unsigned int proc_id);
+//void			instr_ld(t_cor *cor, unsigned int proc_id);
+//void			instr_st(t_cor *cor, unsigned int proc_id);
+
+t_proc			*new_proc(void);
+t_proc			*add_proc(t_proc *new, t_proc *list);
+
+void			memcpy_big(void *dst, void *src, size_t size);
+
+void			end(t_cor *cor);
+void			error(t_cor *cor, char *err_type);
+void			delete_champion(t_champ **champ);
 
 /* DEV */
 void		print_cor(t_cor *cor);

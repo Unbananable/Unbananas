@@ -24,6 +24,7 @@ void	print_cor(t_cor *cor)
 {
 	int		i;
 	int		j;
+	t_proc	*cache;
 
 	printf("NUMBER OF CHAMPIONS: %d\n", cor->nb_champs);
 	i = -1;
@@ -44,5 +45,20 @@ void	print_cor(t_cor *cor)
 		}
 		printf("\n");
 		i += j;
+	}
+	printf("\n==== PROCESSES ====\n");
+	cache = cor->procs;
+	j = 1;
+	while (cache)
+	{
+		printf("%dth PROC:\n", j++);
+		printf("\tproc id: %d\n", cache->n);
+		printf("\tcarry: %d\n", cache->carry);
+		printf("\tproc index in arena: %d\n", cache->idx);
+		printf("\tregisters:\n");
+		i = -1;
+		while (++i < REG_NUMBER)
+			printf("\t\t%d\t%.2x %.2x %.2x %.2x\n", i, cache->regs[i][0], cache->regs[i][1], cache->regs[i][2], cache->regs[i][3]);
+		cache = cache->next;
 	}
 }
