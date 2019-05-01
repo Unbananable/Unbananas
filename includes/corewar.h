@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 15:14:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:17:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct		s_option //TODO marqueurs des differentes options
 
 typedef struct		s_proc
 {
-	unsigned int	id; //TODO initialize a la creation d un proc (numero d identification du processus)
 	t_bool			carry; // TODO initialize a la creation d un proc
 	unsigned int	cooldown; // TODO initialize a la creation d un proc
 	unsigned int	idx; //TODO initialize a la creation d un proc (position dans l arene pour surbrillance)
@@ -78,8 +77,10 @@ typedef struct		s_cor
 void			initialize(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
+//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
+//int			cyd_val(int value);
 
-//int			instr_live(t_cor *cor, unsigned int proc_id);
+//void			instr_live(t_cor *cor, unsigned int proc_id);
 //void			instr_ld(t_cor *cor, unsigned int proc_id);
 //void			instr_st(t_cor *cor, unsigned int proc_id);
 
