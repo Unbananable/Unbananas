@@ -5,4 +5,3 @@ test/
 *.swp
 libft/obj/
 libft/libft.a
-corewar

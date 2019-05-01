@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 11:24:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 15:14:07 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,26 @@
 
 #include <stdio.h>
 
+#define STDIN 0
+#define STDOUT 1
+#define STDERR 2
+
 #define CYCLE_LIVE 10
+#define CYCLE_LD 5
+#define CYCLE_ST 25
+
+#define BYTE1 1
+#define BYTES2 2
+#define BYTES3 3
+#define BYTES4 4
+#define BYTES5 5
+#define BYTES6 6
+#define BYTES7 7
 
 typedef enum		e_bool
 {
-	true,
-	false
+	false,
+	true
 }					t_bool;
 
 typedef struct		s_champ
@@ -50,6 +64,8 @@ typedef struct		s_proc
 
 typedef struct		s_cor
 {
+	unsigned char	**reg; // (register) TODO initialize the 16 possible registers (4 uchar each, plus terminating '\0')
+	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 	t_proc			*procs; // TODO initialize after parsing, realloc after a fork/lfork
 	t_option		option;
 	int				nb_champs;
@@ -61,7 +77,11 @@ typedef struct		s_cor
 
 void			initialize(t_cor *cor);
 
-//int			instr_live(t_cor *cor, int idx);
+//void			fill_register(t_cor *cor, char reg_id, char *content);
+
+//int			instr_live(t_cor *cor, unsigned int proc_id);
+//void			instr_ld(t_cor *cor, unsigned int proc_id);
+//void			instr_st(t_cor *cor, unsigned int proc_id);
 
 void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);
