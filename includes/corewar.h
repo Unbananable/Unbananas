@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 17:17:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:37:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define CYCLE_LIVE 10
 #define CYCLE_LD 5
 #define CYCLE_ST 25
+#define CYCLE_ADD 10
 
 #define BYTE1 1
 #define BYTES2 2
@@ -57,7 +58,7 @@ typedef struct		s_option //TODO marqueurs des differentes options
 typedef struct		s_proc
 {
 	t_bool			carry; // TODO initialize a la creation d un proc
-	unsigned int	cooldown; // TODO initialize a la creation d un proc
+	unsigned int	wait; // TODO initialize a la creation d un proc
 	unsigned int	idx; //TODO initialize a la creation d un proc (position dans l arene pour surbrillance)
 }					t_proc;
 

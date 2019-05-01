@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 17:15:29 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:36:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		instr_live(t_cor *cor, unsigned int proc_id)
 		cor->champ[-(cor->arena[cor->procs[proc_id].idx
 					+ REG_SIZE]) - 1]->last_lives = cor->curr_cycle;
 		cor->last_alive = -(cor->arena[cor->procs[proc_id].idx + 4]);
-		cor->procs[proc_id].cooldown = CYCLE_LIVE;
 		if (cor->option->verbose % 2)
 		{
 			ft_putstr_fd("Player ", STDOUT);

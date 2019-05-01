@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 17:17:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:36:50 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,4 @@ void		instr_st(t_cor *cor, unsigned int proc_id)
 				+ BYTES2)]][i];
 		cor->procs[proc_id].idx = set_next_idx(cor, proc_id, BYTES5);
 	}
-	cor->procs[proc_id].cooldown = CYCLE_ST;
 }

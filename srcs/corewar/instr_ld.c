@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 17:12:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/01 17:36:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,4 @@ void	instr_ld(t_cor *cor, unsigned int proc_id)
 	}
 	cor->procs[proc_id].carry = (!ft_atoi_base(hex, 16)) ? 1 : 0;
 	ft_bzero(cor->hex, REG_SIZE);
-	cor->procs[proc_id].cooldown = CYCLE_LD;
 }
