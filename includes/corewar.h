@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:47:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:22:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 #define CYCLE_LD 5
 #define CYCLE_ST 25
 #define CYCLE_ADD 10
+#define CYCLE_SUB 10
+#define CYCLE_AND 6
+#define CYCLE_OR 6
+#define CYCLE_XOR 6
 
 #define BYTE1 1
 #define BYTES2 2
@@ -97,9 +101,10 @@ void			arena_setup(t_cor *cor);
 //int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
 //int			cyd_val(int value);
 
-//void			instr_live(t_cor *cor, unsigned int proc_id);
-//void			instr_ld(t_cor *cor, unsigned int proc_id);
-//void			instr_st(t_cor *cor, unsigned int proc_id);
+//int			instr_live(t_cor *cor, t_proc *proc);
+//int			instr_ld(t_cor *cor, t_proc *proc);
+//int			instr_st(t_cor *cor, t_proc *proc);
+//int			instr_add(t_cor *cor, t_proc *proc);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);

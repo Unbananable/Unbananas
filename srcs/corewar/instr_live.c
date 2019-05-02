@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 19:57:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:49:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		instr_live(t_cor *cor, t_proc *proc)
 	int	target;
 
 	i = -1;
-	proc.last_live_cycle = cor->curr_cycle;
+	proc->last_live_cycle = cor->curr_cycle;
 	while (++i < DIR_SIZE)
-		cor->hex[i] = cor->arena[cyd_val(proc.idx + i)];
+		cor->hex[i] = cor->arena[cyd_val(proc->idx + i)];
 	target = -(ft_atoi_base(cor->hex, 16));
 	ft_bzero(cor->hex, REG_SIZE);
 	if (target <= cor->nb_champ)
@@ -36,7 +36,7 @@ int		instr_live(t_cor *cor, t_proc *proc)
 			ft_putstr_fd(cor->champ[target - 1]->head.prog_name, STDOUT);
 			ft_putstr_fd(") is said to be alive\n", STDOUT);
 		}
-		proc.idx = cyd_val(proc.idx + BYTES5);
+		proc->move = BYTES5;
 		return (1);
 	}
 	return (0);
