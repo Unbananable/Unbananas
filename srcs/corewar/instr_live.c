@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 14:49:32 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:37:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		instr_live(t_cor *cor, t_proc *proc)
 	proc->last_live_cycle = cor->curr_cycle;
 	while (++i < DIR_SIZE)
 		cor->hex[i] = cor->arena[cyd_val(proc->idx + i)];
-	target = -(ft_atoi_base(cor->hex, 16));
+	target = -(ft_uchar_to_int_base(cor->hex, 16));
 	ft_bzero(cor->hex, REG_SIZE);
 	if (target <= cor->nb_champ)
 	{

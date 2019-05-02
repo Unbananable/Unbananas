@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 14:50:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:40:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	instr_add(t_cor *cor, t_proc *proc)
 		return (0);
 	r1 = cor->arena[cyd_val(proc->idx + BYTES2)];
 	r2 = cor->arena[cyd_val(proc->idx + BYTES3)];
-	sum = ft_atoi_base(proc->regs[r1], 16) + ft_atoi_base(proc->regs[r2], 16);
+	sum = ft_uchar_to_int_base(proc->regs[r1], 16)
+		+ ft_uchar_to_int_base(proc->regs[r2], 16);
 	if (sum < INT_MIN || sum > INT_MAX)
 		return (0);
 	if (!(res = ft_itoa((int)sum)))
