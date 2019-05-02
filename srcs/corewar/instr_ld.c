@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 14:59:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:03:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,23 @@ int		instr_ld(t_cor *cor, t_proc *proc)
 	i = -1;
 	if (!arg_check_ld(&cor, &proc))
 		return (0);
-	if (cor->arena[proc->idx + BYTE1] & 0b01000000)
+	if (cor->arena[cyd_val(proc->idx + BYTE1)] & 0b01000000)
 	{
-		cor->hex[0] = cor->arena[proc->idx + BYTES2];
-		cor->hex[1] = cor->arena[proc->idx + BYTES3];
-		addr = restricted_addr(cor, proc, ft_atoi_base(cor->hex, 16));
+		while (++i < IND_SIZE)
+			cor->hex[i] = cor->arena[cyd_val(proc->val + BYTES2 + i)];
+		i = -1;
+		addr = restricted_addr(proc->idx, ft_atoi_base(cor->hex, 16));
+		ft_bzero(cor->hex, IND_SIZE);
 		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc->idx + addr + i)];
-		fill_register(cor, proc, BYTES4);
+		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES4)], cor->hex);
 		proc->move = BYTES5;
 	}
 	else
 	{
-		while (++i < 4)
+		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc->idx + BYTES2 + i)];
-		fill_register(cor, proc, BYTES6);
+		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES6)], cor->hex);
 		proc->move = BYTES7;
 	}
 	proc->carry = (!ft_atoi_base(cor->hex, 16)) ? 1 : 0;

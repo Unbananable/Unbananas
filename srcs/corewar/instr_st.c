@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 14:48:23 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:04:19 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		instr_st(t_cor *cor, t_proc *proc)
 	{
 		cor->hex[0] = cor->arena[cyd_val(proc->idx + BYTES3)];
 		cor->hex[1] = cor->arena[cyd_val(proc->idx + BYTES4)];
-		addr = restricted_addr(cor, proc, ft_atos_base(cor->hex, 16));
+		addr = restricted_addr(proc->idx, ft_atos_base(cor->hex, 16));
 		ft_bzero(cor->hex, REG_SIZE);
 		while (++i < REG_SIZE)
 			cor->arena[cyd_val(addr

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 14:22:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:18:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 #define CYCLE_OR 6
 #define CYCLE_XOR 6
 
+#define RGRGRG 0x54
+#define D4D4RG 0xa4
+#define IDIDRG 0xf4
+
 #define BYTE1 1
 #define BYTES2 2
 #define BYTES3 3
@@ -38,6 +42,10 @@
 #define BYTES5 5
 #define BYTES6 6
 #define BYTES7 7
+#define BYTES8 8
+#define BYTES9 9
+#define BYTES10 10
+#define BYTES11 11
 
 typedef enum		e_bool
 {
@@ -98,7 +106,7 @@ void			order_champions(t_cor *cor);
 void			arena_setup(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
-//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
+//int			restricted_addr(unsigned int program_counter, int addr);
 //int			cyd_val(int value);
 
 //int			instr_live(t_cor *cor, t_proc *proc);
