@@ -6,11 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 20:44:14 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:49:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:59:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** Copies the source (which is from a little endian memory area) to the
+** destination (which is big endian).
+*/
 
 void	memcpy_big(void *dst, void *src, size_t size)
 {

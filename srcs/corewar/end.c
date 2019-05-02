@@ -6,11 +6,15 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/04/30 16:36:51 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:53:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** Frees a single champion
+*/
 
 void	delete_champion(t_champ **champ)
 {
@@ -19,6 +23,10 @@ void	delete_champion(t_champ **champ)
 	free(*champ);
 	*champ = NULL;
 }
+
+/*
+** Frees the whole t_cor structure.
+*/
 
 void	end(t_cor *cor)
 {
@@ -32,8 +40,15 @@ void	end(t_cor *cor)
 	}
 	free(cor->champs);
 	free(cor->arena);
+	free(hex);
+	delete_procs(&(cor->procs)); //TO DO
 	exit(0);
 }
+
+/*
+** Frees the whole cor structure, prints the given error message on the error
+** output and exits the program.
+*/
 
 void	error(t_cor *cor, char *err_type)
 {

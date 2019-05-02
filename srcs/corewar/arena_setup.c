@@ -6,11 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:48:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:33:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** Copies each champion's redcode at the correct place in the arena, depending
+** on the number of champions.
+*/
 
 static void	place_champions(t_cor *cor)
 {
@@ -23,12 +28,21 @@ static void	place_champions(t_cor *cor)
 		j = 0;
 		while (j < cor->champs[i]->head.prog_size)
 		{
-			cor->arena[i * MEM_SIZE / cor->nb_champs + j]
-				= cor->champs[i]->redcode[j];
+			cor->arena[i * MEM_SIZE / cor->nb_champs + j] = cor->champs[i]
+				->redcode[j];
 			j++;
 		}
 	}
 }
+
+/*
+** Creates a new proc for each champion (procs are stores as a chained list) and
+** adds it at the beginning of the list.
+** The the proc is placed at the beginning of the champion's instruction in the
+** arena. The registers are initialised to 0, except the first one which is
+** initialised to -1 * player_no (the champion's player number) (/!\ the vm
+** is big endian while the Mac is little endian, hence the memcpy_big.
+*/
 
 void		initialize_procs(t_cor *cor)
 {
@@ -54,9 +68,8 @@ void		initialize_procs(t_cor *cor)
 	}
 }
 
-void	arena_setup(t_cor *cor)
+void		arena_setup(t_cor *cor)
 {
 	place_champions(cor);
-	//TO DO: Placer et initialiser les carriages [WIP]
 	initialize_procs(cor);
 }

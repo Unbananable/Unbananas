@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:47:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:13:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,43 +41,88 @@ typedef enum		e_bool
 	true
 }					t_bool;
 
+/*
+** CHAMPION STRUCTURE:
+** - head: structure containing information about the champion (name, comment,
+**         process size, etc. cf op.h)
+** - player_no: player number
+** - redcode: the champion's process code
+** - curr_live: //TO DO
+** - last_live: //TO DO
+*/
+
 typedef struct		s_champ
 {
 	header_t		head;
 	int				player_no;
 	unsigned char	*redcode;
-	unsigned int	curr_live; //TODO initialize at start after parsing
-	unsigned int	last_live; //TODO initialize at start after parsing
+	unsigned int	curr_live;
+	unsigned int	last_live;
 }					t_champ;
+
 /*
 typedef struct		s_option //TODO marqueurs des differentes options
 {
 	int				verbose; //TODO initialize apres parsing, prend une valeur, qui designe les donnees a afficher (cf resources/corewar)
 }					t_option;
 */
+
+/*
+** PROCESS / CURSOR STRUCTURE (chained list):
+** - n:	unique identification number: initialised at creation, never
+**      changes
+** - carry: flag: initialized at creation, changed by some operations
+** - curr_opcode: op_code of the operation the proc is on: not initialised,
+**                changed when the proc moves
+** - last_live_cycle: last cycle the proc performed live: initialized to 0
+**                    at creation, changed by live operation
+** - wait: number of cycles before the operation is performed: not initialized,
+**         decremented at each new cycle and reset when the proc moves
+** - idx: current proc position: initialized at creation, changed everytime the
+**        proc moves
+** - move: length of the step to get to the next instruction: not initialized,
+**         changed everytime the proc moves
+** - regs: registers: initialized at creation, changed by some operations
+** - next: next proc in the list
+*/
+
 typedef struct		s_proc
 {
-	int				n; //unique identification number: initialised at creation, never changes
-	t_bool			carry; //flag: initialized at creation, changed by some operations
-	unsigned char	curr_opcode; //op_code of the operation the proc is on: not initialised, changed when the proc moves
-	unsigned int	last_live_cycle; //last cycle the proc performed live: initialized to 0 at creation, changed by live operation
-	unsigned int	wait; //number of cycles before the operation is performed: not initialized, decremented at each new cycle and reset when the proc moves
-	unsigned int	idx; //current proc position: initialized at creation, changed everytime the proc moves
-	unsigned int	move; //length of the step to get to the next instruction: not initialized, changed everytime the proc moves
-	unsigned char	*(regs[REG_NUMBER]); //registers: initialized at creation, changed by some operations
-	struct s_proc	*next; //next proc in the list;
+	int				n;
+	t_bool			carry;
+	unsigned char	curr_opcode;
+	unsigned int	last_live_cycle;
+	unsigned int	wait;
+	unsigned int	idx;
+	unsigned int	move;
+	unsigned char	*(regs[REG_NUMBER]);
+	struct s_proc	*next;
 }					t_proc;
+
+/*
+** PROGRAM STRUCTURE:
+** - nb_champs: number of champions
+** - champs: list of champions (see champion structure)
+** - arena: VM memory area
+** - hex: //TO DO (string de taille REG_SIZE + 1 qui permettra de stocker les
+**        infos a deplacer via les instructions, plus simple a utiliser que
+**        char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
+** - procs: chained list of processes/cursors
+** - curr_cycle:
+** - last_alive: player number of the last champion who performed the live
+**               instruction
+*/
 
 typedef struct		s_cor
 {
 	int				nb_champs;
 	t_champ			**champs;
 	unsigned char	*arena;
-	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
-	t_proc			*procs; // TODO initialize after parsing
+	unsigned char	*hex; 
+	t_proc			*procs;
 /*	t_option		option;*/
-	unsigned int	curr_cycle; //TO DO initialize at start after parsing
-	int				last_alive; //player_no of the last champion for whom live was performed
+	unsigned int	curr_cycle;
+	int				last_alive;
 }					t_cor;
 
 void			initialize(t_cor *cor);
@@ -93,6 +138,8 @@ void			order_champions(t_cor *cor);
 
 void			arena_setup(t_cor *cor);
 
+void			battle(t_cor *cor);
+
 //void			fill_register(t_cor *cor, char reg_id, char *content);
 //int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
 //int			cyd_val(int value);
@@ -103,6 +150,7 @@ void			arena_setup(t_cor *cor);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
+void			delete_procs(t_proc **procs);
 
 void			memcpy_big(void *dst, void *src, size_t size);
 

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 15:37:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:53:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_champ	*read_champion(char *str, int player_no)
 	champ->player_no = player_no;
 	champ->redcode = NULL;
 	if ((champ->head.magic = get_magic(fd)) != COREWAR_EXEC_MAGIC
-			|| get_prog_name(champ, fd) == -1 || skip_empty_bytes(fd) == -1) //FIX ME
+			|| get_prog_name(champ, fd) == -1 || skip_empty_bytes(fd) == -1)
 		delete_champion(&champ);
 	if (!champ || (champ->head.prog_size = get_prog_size(fd)) > CHAMP_MAX_SIZE
 			|| get_comment(champ, fd) == -1 || skip_empty_bytes(fd) == -1)
@@ -97,14 +97,13 @@ void			get_champions(t_cor *cor, int ac, char **av)
 	i_champ = -1;
 	while (++i < ac && ++i_champ < cor->nb_champs)
 	{
+		player_no = 0;
 		if (ft_strequ(av[i], "-n"))
 		{
 			if (++i >= ac - 1 || (player_no = ft_atoi(av[i++])) > cor->nb_champs
-					|| player_no < 1) 
+					|| player_no < 1)
 				error(cor, "invalid option");
 		}
-		else
-			player_no = 0;
 		if (!(cor->champs[i_champ] = read_champion(av[i], player_no)))
 		{
 			while (--i_champ >= 0)

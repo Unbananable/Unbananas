@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:31:47 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:34:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:57:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	put_champ_here(t_champ **champs, int i, int j)
 ** player_no if necessary
 */
 
-void	order_champions(t_cor *cor)
+void		order_champions(t_cor *cor)
 {
 	int		i;
 	int		j;
