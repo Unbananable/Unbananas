@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:40:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 19:00:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	instr_add(t_cor *cor, t_proc *proc)
 		+ ft_uchar_to_int_base(proc->regs[r2], 16);
 	if (sum < INT_MIN || sum > INT_MAX)
 		return (0);
-	if (!(res = ft_itoa((int)sum)))
+	if (!(res = ft_int_to_uchar((int)sum)))
 		return (0);
 	fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES4)], res);
 	free(res);
 	proc->carry = (!sum) ? 1 : 0;
-	proc->move = BYTES5;
+	proc->move = BYTE1 + 3 * BYTE1 + BYTE1;
 	return (1);
 }

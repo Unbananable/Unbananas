@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:35:44 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:49:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int		instr_ld(t_cor *cor, t_proc *proc)
 		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc->idx + addr + i)];
 		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES4)], cor->hex);
-		proc->move = BYTES5;
+		proc->move = BYTE1 + IND_SIZE + BYTE1 + BYTE1;
 	}
 	else
 	{
 		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc->idx + BYTES2 + i)];
 		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES6)], cor->hex);
-		proc->move = BYTES7;
+		proc->move = BYTE1 + DIR_SIZE + BYTE1 + BYTE1;
 	}
 	proc->carry = (!ft_uchar_to_int_base(cor->hex, 16)) ? 1 : 0;
 	ft_bzero(cor->hex, REG_SIZE);

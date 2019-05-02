@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 17:41:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 19:00:03 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #define CYCLE_AND 6
 #define CYCLE_OR 6
 #define CYCLE_XOR 6
+#define CYCLE_ZJMP 20
 
 #define RGRGRG 0x54
 #define D4D4RG 0xa4
@@ -113,6 +114,11 @@ void			arena_setup(t_cor *cor);
 //int			instr_ld(t_cor *cor, t_proc *proc);
 //int			instr_st(t_cor *cor, t_proc *proc);
 //int			instr_add(t_cor *cor, t_proc *proc);
+//int			instr_sub(t_cor *cor, t_proc *proc);
+//int			instr_or(t_cor *cor, t_proc *proc);
+//int			instr_and(t_cor *cor, t_proc *proc);
+//int			instr_xor(t_cor *cor, t_proc *proc);
+//int			instr_zjmp(t_cor *cor, t_proc *proc);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);

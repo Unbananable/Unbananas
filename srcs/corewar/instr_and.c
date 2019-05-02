@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:52:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 19:00:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		instr_and(t_cor *cor, t_proc *proc)
 				& proc->regs[cor->arena[cyd_val(proc->idx + BYTES3)]][i];
 		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES4)], cor->hex);
 		proc->carry = (!ft_uchar_to_int_base(cor->hex, 16)) ? 1 : 0;
-		proc->move = BYTES5;
+		proc->move = BYTE1 + 3 * BYTE1 + BYTE1;
 	}
 	else if (cor->arena[cyd_val(proc->idx + BYTE1)] != D4D4RG)
 	{
@@ -63,11 +63,11 @@ int		instr_and(t_cor *cor, t_proc *proc)
 		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc.idx + BYTES6 + i)];
 		arg2 = ft_uchar_to_int_base(cor->hex, 16);
-		res = ft_itoa(arg1 & arg2);
+		res = ft_int_to_uchar(arg1 & arg2);
 		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES10)], res);
 		proc->carry = (arg1 & arg2 == 0) ? 1 : 0;
 		free(res);
-		proc->move = BYTES11;
+		proc->move = BYTE1 + 2 * DIR_SIZE + BYTE1 + BYTE1;
 	}
 	else
 	{
@@ -84,7 +84,7 @@ int		instr_and(t_cor *cor, t_proc *proc)
 			cor->hex[i] = cor->arena[cyd_val(addr + i)];
 		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES6)], cor->hex);
 		proc->carry = (!ft_uchar_to_int_base(cor->hex, 16)) ? 1 : 0;
-		proc->move = BYTES7;
+		proc->move = BYTE1 + 2 * IND_SIZE + BYTE1 + BYTE1;
 	}
 	ft_bzero(cor->hex, REG_SIZE);
 	return (1);

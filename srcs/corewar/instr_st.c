@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:04:19 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:51:17 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		instr_st(t_cor *cor, t_proc *proc)
 			proc->regs[cor->arena[cyd_val(proc->idx + BYTES3)]
 				- 1][i] = proc->regs[cor->arena[cyd_val(proc->idx
 						+ BYTES2)] - 1][i];
-		proc->move = BYTES4;
+		proc->move = BYTE1 + 2 * BYTE1 + BYTE1;
 	}
 	else
 	{
@@ -53,7 +53,7 @@ int		instr_st(t_cor *cor, t_proc *proc)
 			cor->arena[cyd_val(addr
 					+ i)] = proc->regs[cor->arena[cyd_val(proc->idx
 						+ BYTES2)]][i];
-		proc->move = BYTES5;
+		proc->move = BYTE1 + BYTE1 + IND_SIZE + BYTE1;
 	}
 	return (1);
 }

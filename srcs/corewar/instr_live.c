@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:37:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:49:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		instr_live(t_cor *cor, t_proc *proc)
 			ft_putstr_fd(cor->champ[target - 1]->head.prog_name, STDOUT);
 			ft_putstr_fd(") is said to be alive\n", STDOUT);
 		}
-		proc->move = BYTES5;
+		proc->move = REG_SIZE + BYTE1;
 		return (1);
 	}
 	return (0);
