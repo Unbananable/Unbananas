@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:39:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:42:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void			arena_setup(t_cor *cor);
 
 void			introduce_champions(t_cor *cor);
 
-void			battle(t_cor *cor);
+//void			battle(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
 //int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
@@ -193,7 +193,7 @@ void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);
 void			delete_champion(t_champ **champ);
 
-# include "op.c"
+//# include "op.c"
 
 /* DEV */
 void		print_cor(t_cor *cor);

@@ -6,12 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:34:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:42:42 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "op.c"
 
 static void	execute_process(t_proc *proc, t_cor *cor)
 {
