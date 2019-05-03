@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:16:23 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:26:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 #define OPC_BYTE 1
 #define ARGC_BYTE 1
 #define REG_BYTE 1
-#define IND_BYTE 2
-#define D2_BYTE 2
-#define D4_BYTE 4
+#define IND_BYTES IND_SIZE
+#define D2_BYTES DIR_SIZE / 2
+#define D4_BYTES DIR_SIZE
 
 #define BYTE_SIZE 8
 #define BIT 1
@@ -120,9 +120,10 @@ void			order_champions(t_cor *cor);
 void			arena_setup(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
+//void			fill_hex(t_cor *cor, int addr, int size);
 //int			restricted_addr(unsigned int program_counter, int addr);
-//int			cyd_val(int value);
 //int			bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
+//int			byte_offset(int param_type);
 
 //int			instr_live(t_cor *cor, t_proc *proc);
 //int			instr_ld(t_cor *cor, t_proc *proc);

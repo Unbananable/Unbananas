@@ -6,13 +6,13 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 15:34:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 16:49:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:43:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	byte_offset(int param_idx)
+static int	bit_offset(int param_idx)
 {
 	return (BYTE_SIZE - param_idx * 2 * BIT);
 }
@@ -24,12 +24,31 @@ int			type_bits_peer(t_cor *cor, t_proc *proc, int param_idx)
 	int		res
 
 	bit1 = (cor->arena[cyd_val(proc->idx
-				+ BYTE1)] >> (byte_offset(param_idx) + 1)) & 1;
+				+ BYTE1)] >> (bit_offset(param_idx) + 1)) & 1;
 	bit2 = (cor->arena[cyd_val(proc->idx
-				+ BYTE1)] >> byte_offset(param_idx)) & 1;
+				+ BYTE1)] >> bit_offset(param_idx)) & 1;
 	if (bit1)
 		res = (bit2) ? IND_CODE : DIR_CODE;
 	else
 		res = (bit2) ? REG_CODE : NULL_CODE;
 	return (res);
+}
+
+int			byte_offset(int param_type)
+{
+	if (param_type == REG_CODE)
+		return (REG_BYTE);
+	if (param_type == DIR_CODE)
+		return (DIR_BYTE);
+	if (param_type == IND_CODE)
+		return (IND_BYTES);
+	if (param_type == NULL_CODE)
+		return (0);
+}
+
+int			is_register(unsigned char reg)
+{
+	if (c < REG_NUMBER)
+		return (1);
+	return (0);
 }
