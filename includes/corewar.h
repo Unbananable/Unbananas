@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 14:20:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 10:20:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,12 @@ typedef struct		s_proc
 **        infos a deplacer via les instructions, plus simple a utiliser que
 **        char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 ** - procs: chained list of processes/cursors
-** - curr_cycle:
+** - curr_cycle: number of cycles since the beginning
+** - curr_cycle_period: number of cycles since the beginning of the new period
+** - cycle_to_die: number of cycles in a period
+** - nb_live: number of live instructions performed in the period
+** - nb_checks: number of periods since the last period when the period was
+**              last reduced
 ** - last_alive: player number of the last champion who performed the live
 **               instruction
 */
@@ -122,6 +127,10 @@ typedef struct		s_cor
 	t_proc			*procs;
 /*	t_option		option;*/
 	unsigned int	curr_cycle;
+	unsigned int	curr_cycle_period;
+	unsigned int	cycle_to_die;
+	unsigned int	nb_live;
+	unsigned int	nb_checks;
 	int				last_alive;
 }					t_cor;
 

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 14:55:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 10:23:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	initialize(t_cor *cor)
 	cor->curr_cycle = 1;
 	cor->cycle_to_die = CYCLE_TO_DIE;
 	cor->nb_live = 0;
+	cor->nb_checks = 0;
 	cor->last_alive = 0;
 }

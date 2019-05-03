@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 13:22:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 10:24:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	usage(void)
 {
-	ft_putstr_fd("usage: ./corewar [-n player_number] champion.cor ...\n", 2);
+	ft_putstr_fd("usage: ./corewar [-dump nbr_cycles] [[-n player_number] ", 2);
+	ft_putstr_fd("champion1.cor] ...\n", 2);
 }
 
 int		main(int ac, char **av)
 {
 	t_cor	cor;
 
-	// TO DO: Gestion des options
+	// TO DO: Gestion de l'option -dump (+visu ?)
 
 	ac--;
 	av++;
@@ -37,4 +38,6 @@ print_cor(&cor);
 
 	// TO DO: Lancer le jeu [WIP anleclab]
 	battle(&cor);
+
+	// To DO: Annoncer le gagnant
 }
