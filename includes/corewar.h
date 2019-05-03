@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 18:26:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:34:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,7 @@
 
 #define BYTE_SIZE 8
 #define BIT 1
-
-#define BYTE1 1
-#define BYTES2 2
-#define BYTES3 3
-#define BYTES4 4
-#define BYTES5 5
-#define BYTES6 6
-#define BYTES7 7
-#define BYTES8 8
-#define BYTES9 9
-#define BYTES10 10
-#define BYTES11 11
+#define BYTE 1
 
 typedef enum		e_bool
 {
@@ -125,15 +114,15 @@ void			arena_setup(t_cor *cor);
 //int			bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
 //int			byte_offset(int param_type);
 
-//int			instr_live(t_cor *cor, t_proc *proc);
-//int			instr_ld(t_cor *cor, t_proc *proc);
-//int			instr_st(t_cor *cor, t_proc *proc);
-//int			instr_add(t_cor *cor, t_proc *proc);
-//int			instr_sub(t_cor *cor, t_proc *proc);
-//int			instr_or(t_cor *cor, t_proc *proc);
-//int			instr_and(t_cor *cor, t_proc *proc);
-//int			instr_xor(t_cor *cor, t_proc *proc);
-//int			instr_zjmp(t_cor *cor, t_proc *proc);
+//void			instr_live(t_cor *cor, t_proc *proc);
+//void			instr_ld(t_cor *cor, t_proc *proc);
+//void			instr_st(t_cor *cor, t_proc *proc);
+//void			instr_add(t_cor *cor, t_proc *proc);
+//void			instr_sub(t_cor *cor, t_proc *proc);
+//void			instr_or(t_cor *cor, t_proc *proc);
+//void			instr_and(t_cor *cor, t_proc *proc);
+//void			instr_xor(t_cor *cor, t_proc *proc);
+//void			instr_zjmp(t_cor *cor, t_proc *proc);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);

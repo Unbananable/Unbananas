@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 18:52:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:33:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 ** S (RG), S (RG), D (RG)
 */
 
-int			instr_add(t_cor *cor, t_proc *proc)
+void		instr_add(t_cor *cor, t_proc *proc)
 {
 	int		type;
 	t_bool	to_exec;
