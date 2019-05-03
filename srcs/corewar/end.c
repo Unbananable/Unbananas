@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 13:53:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:09:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	end(t_cor *cor)
 	free(cor->champs);
 	free(cor->arena);
 	free(hex);
-	delete_procs(&(cor->procs)); //TO DO
+	delete_procs(&(cor->procs));
 	exit(0);
 }
 

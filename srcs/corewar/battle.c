@@ -6,49 +6,111 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 12:27:35 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:12:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+static void	execute_process(t_proc *proc, t_cor *cor)
+{
+	if (!cache->wait)
+	{
+		proc->opcode = cor->arena[proc->idx];
+		if (proc->opcode > NB_OPERATIONS)
+			proc->wait = 1;
+		else
+			proc->wait = op_tab[proc->opcode].wait;
+	}
+	if (!(--cache->wait))
+	{
+		if (proc->opcode > NB_OPERATIONS)
+			proc->move = 1;
+		else
+			op_tab[proc->opcode].f(cor, proc); //TO DO: que faire avec la valeur de retour ?
+		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
+	}
+}
 
-void   battle(t_cor *cor)
+/*
+** "Kills" (removes from the list) the processes that have not performed a
+** live operation in the last period.
+*/
+
+static void	kill_processes(t_cor *cor)
+{
+	t_proc *current;
+	t_proc *previous;
+
+	previous = NULL;
+	current = cor->procs;
+	while (current)
+	{
+		if (current->last_live_cycle > cor->cycle_to_die)
+		{
+			if (previous)
+				previous->next = current->next;
+			else
+				cor->procs = current->next;
+			delete_proc(current);
+			current = previous->next;
+		}
+		else
+		{
+			previous = current;
+			current = current->next;
+		}
+	}
+}
+
+static void	end_period(t_cor *cor)
+{
+	kill_processes(cor);
+	if (cor->nb_live >= NBR_LIVE || cor->nb_checks == MAX_CHECKS)
+	{
+		cor->cycle_to_die -= CYCLE_DELTA;
+		cor->nb_checks = 0;
+	}
+	else
+		cor->nb_checks++;
+	cor->curr_cycle_period = 0;
+}
+
+/*
+** This is the function that lets the champions fight. The algorithm is as
+** follows :
+**     As long as there is still a process alive:
+**         For every process in the list (see execute_process):
+**             -> if it is the begining of the game or the process moved in the
+**                last cycle, set the value of the opcode and wait time of the
+**                next process (the one on which the cursor stands)
+**             -> decrease the wait time
+**             -> if the wait time is over, execute the operation and move the
+**                cursor
+**         If the end of the period was reached or if the period is negative
+**         (see end_period):
+**             -> if more than NBR_LIVE live operations where performed in the
+**                last period, or if MAX_CHECKS periods took place without
+**                reducing the period, reduce the period
+**         -> go to the next cycle
+*/
+
+void		battle(t_cor *cor)
 {
 	t_proc	*cache;
 
-	while (cor->procs) //Tant que tous les processus ne sont pas morts
+	while (cor->procs)
 	{
 		cache = cor->procs;
-		while (cache) //Parcourir tous les processus l'un a la suite de l'autre
+		while (cache)
 		{
-			if (!cache->wait) //Si le proc a bouge au cycle precedent
-				//TO DO: Recuperer le opcode et le wait
-			if (!(--cache->wait)) //Si le temps d'attente est expire, executer
-			{
-				//TO DO: Executer l'instruction
-				//TO DO: Update le processus (position)
-			}
-			cache = cache->next; //Passer au processus suivant
+			execute_process(cache, cor);
+			cache = cache->next;
 		}
 		if (cor->cycle_to_die <= 0
 				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
-		{
-			//TO DO: Kill les processus qui n'ont pas fait de live
-			if (cor->nb_live >= NBR_LIVE || cor->nb_checks == MAX_CHECKS)
-					//Si au moins NBR_LIVE instructions live ont ete performee
-					//dans la periode, ou si le nombre de cycle par periode n'a
-					//pas ete decremente depuis MAX_CHECKS, decrementer le
-					//nombre de cycle par periode
-			{
-				cor->cycle_to_die -= CYCLE_DELTA;
-				cor->nb_checks = 0;
-			}
-			else
-				cor->nb_checks++;
-			cor->curr_cycle_period = 0;
-		}
-		cor->curr_cycle++; //Incrementer le cycle en cours
+			end_period(cor);
+		cor->curr_cycle++;
 		cor->curr_cycle_period++;
 	}
 }
