@@ -6,15 +6,16 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:12:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:34:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "op.c"
 
 static void	execute_process(t_proc *proc, t_cor *cor)
 {
-	if (!cache->wait)
+	if (!proc->wait)
 	{
 		proc->opcode = cor->arena[proc->idx];
 		if (proc->opcode > NB_OPERATIONS)
@@ -22,7 +23,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 		else
 			proc->wait = op_tab[proc->opcode].wait;
 	}
-	if (!(--cache->wait))
+	if (!(--(proc->wait)))
 	{
 		if (proc->opcode > NB_OPERATIONS)
 			proc->move = 1;
@@ -52,7 +53,7 @@ static void	kill_processes(t_cor *cor)
 				previous->next = current->next;
 			else
 				cor->procs = current->next;
-			delete_proc(current);
+			delete_proc(&current);
 			current = previous->next;
 		}
 		else
@@ -99,6 +100,7 @@ void		battle(t_cor *cor)
 {
 	t_proc	*cache;
 
+	ft_putendl("Let the fight begin!");
 	while (cor->procs)
 	{
 		cache = cor->procs;

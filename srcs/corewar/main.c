@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 10:24:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:28:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int		main(int ac, char **av)
 	arena_setup(&cor);
 print_cor(&cor);
 	
-	// TO DO: Introduire les champions
-
-	// TO DO: Lancer le jeu [WIP anleclab]
+//	introduce_champions(&cor);
 	battle(&cor);
 
-	// To DO: Annoncer le gagnant
+	// TO DO: Annoncer le gagnant
 }

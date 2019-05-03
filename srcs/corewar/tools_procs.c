@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 15:31:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:31:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	delete_proc(t_proc **proc)
 	while (++i < REG_NUMBER)
 		free((*proc)->regs[i]);
 	free(*proc);
-	*procs = NULL;
+	*proc = NULL;
 }
 
 void	delete_procs(t_proc **procs)
@@ -60,7 +60,7 @@ void	delete_procs(t_proc **procs)
 	while (*procs)
 	{
 		cache = (*procs)->next;
-		delete_proc(*procs);
+		delete_proc(procs);
 		*procs = cache;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:08:35 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:39:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,6 @@ typedef enum		e_bool
 	false,
 	true
 }					t_bool;
-
-/*
-** OPERATION STRUCTURE:
-** - name: nom de l'operation
-** - nb_args: nombre d'arguments que prend l'operation
-** - args : liste contenant les types d'arguments acceptable pour chaque
-**          argument
-** - opcode: code de l'operation
-** - wait: nombre de cycles d'attente avant execution de l'operation
-** - full_name: nom etendu de l'operation
-** - ?? //TO DO: identifier
-** - ?? //TO DO: identifier
-*/
-
-typedef struct		s_op
-{
-	char			*name;
-	int				nb_args;
-	t_arg_type		*args;
-	unsigned char	opcode;
-	unsigned int	wait;
-	char			*full_name;
-	/* ??? TO DO: identifier */
-	/* ??? TO DO: identifier : taille du indirect ? */
-	int				(*f)(t_cor *, t_proc *);
-}					t_op;
 
 /*
 ** CHAMPION STRUCTURE:
@@ -113,7 +87,7 @@ typedef struct		s_proc
 {
 	int				n;
 	t_bool			carry;
-	unsigned char	curr_opcode;
+	unsigned char	opcode;
 	unsigned int	last_live_cycle;
 	unsigned int	wait;
 	unsigned int	idx;
@@ -157,6 +131,32 @@ typedef struct		s_cor
 	int				last_alive;
 }					t_cor;
 
+/*
+** OPERATION STRUCTURE:
+** - name: nom de l'operation
+** - nb_args: nombre d'arguments que prend l'operation
+** - args : liste contenant les types d'arguments acceptable pour chaque
+**          argument
+** - opcode: code de l'operation
+** - wait: nombre de cycles d'attente avant execution de l'operation
+** - full_name: nom etendu de l'operation
+** - ?? //TO DO: identifier
+** - ?? //TO DO: identifier
+*/
+
+typedef struct		s_op
+{
+	char			*name;
+	int				nb_args;
+	t_arg_type		*args;
+	unsigned char	opcode;
+	unsigned int	wait;
+	char			*full_name;
+	/* ??? TO DO: identifier */
+	/* ??? TO DO: identifier : taille du indirect ? */
+	int				(*f)(t_cor *, t_proc *);
+}					t_op;
+
 void			initialize(t_cor *cor);
 
 void			get_champions(t_cor *cor, int ac, char **av);
@@ -169,6 +169,8 @@ unsigned char	*get_redcode(int fd, unsigned int size);
 void			order_champions(t_cor *cor);
 
 void			arena_setup(t_cor *cor);
+
+void			introduce_champions(t_cor *cor);
 
 void			battle(t_cor *cor);
 
@@ -183,12 +185,15 @@ void			battle(t_cor *cor);
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
 void			delete_procs(t_proc **procs);
+void			delete_proc(t_proc **proc);
 
 void			memcpy_big(void *dst, void *src, size_t size);
 
 void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);
 void			delete_champion(t_champ **champ);
+
+# include "op.c"
 
 /* DEV */
 void		print_cor(t_cor *cor);
