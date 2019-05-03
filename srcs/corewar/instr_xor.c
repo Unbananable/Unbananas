@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 19:00:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 11:45:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static int	arg_check_xor(t_cor cor, t_proc proc)
 {
 	if ((cor.arena[cyd_val(proc.idx + BYTE1)] != RGRGRG
-			&& cor.arena[cyd_val(proc.idx + BYTE1)] != D4D4RG
+			&& cor.arena[cyd_val(proc.idx + BYTE1)] != DIDIRG
 			&& cor.arena[cyd_val(proc.idx + BYTE1)] != IDIDRG)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] != RGRGRG
+			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == RGRGRG
 				&& (cor.arena[cyd_val(proc.idx + BYTE2)] > REG_NUMBER - 1
 					|| cor.arena[cyd_val(proc.idx + BYTE3)] > REG_NUMBER - 1
 					|| cor.arena[cyd_val(proc.idx + BYTE4)] > REG_NUMBER - 1))
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] != D4D4RG
+			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == DIDIRG
 				&& cor.arena[cyd_val(proc.idx + BYTES10)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] != IDIDRG
+			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == IDIDRG
 				&& cor.arena[cyd_val(proc.idx + BYTES6)] > REG_NUMBER - 1))
 		return (0);
 	return (1);
@@ -42,7 +42,7 @@ int		instr_xor(t_cor *cor, t_proc *proc)
 	int		arg2;
 	char	*res;
 
-	if (!arg_check_xor(&cor, &proc))
+	if (!arg_check_xor(*cor, *proc))
 		return (0);
 	i = -1;
 	if (cor->arena[cyd_val(proc->idx + BYTE1)] != RGRGRG)
@@ -54,7 +54,7 @@ int		instr_xor(t_cor *cor, t_proc *proc)
 		proc->carry = (!ft_uchar_to_int_base(cor->hex, 16)) ? 1 : 0;
 		proc->move = BYTE1 + 3 * BYTE1 + BYTE1;
 	}
-	else if (cor->arena[cyd_val(proc->idx + BYTE1)] != D4D4RG)
+	else if (cor->arena[cyd_val(proc->idx + BYTE1)] != DIDIRG)
 	{
 		while (++i < REG_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc.idx + BYTES2 + i)];

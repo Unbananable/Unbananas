@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 11:44:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	arg_check_ld(t_cor cor, t_proc proc)
 {
-	if ((cor.arena[cyd_val(proc.idx + BYTE1)] != 0xd0
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != 0x90)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] != 0xd0
+	if ((cor.arena[cyd_val(proc.idx + BYTE1)] != IDRGNN
+				&& cor.arena[cyd_val(proc.idx + BYTE1)] != DIRGNN)
+			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == IDRGNN
 				&& cor.arena[cyd_val(proc.idx + BYTES4)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] != 0x90
+			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == DIRGNN
 				&& cor.arena[cyd_val(proc.idx + BYTES6)] > REG_NUMBER - 1))
 		return (0);
 	return (1);
@@ -35,9 +35,9 @@ int		instr_ld(t_cor *cor, t_proc *proc)
 	int		addr;
 
 	i = -1;
-	if (!arg_check_ld(&cor, &proc))
+	if (!arg_check_ld(*cor, *proc))
 		return (0);
-	if (cor->arena[cyd_val(proc->idx + BYTE1)] & 0b01000000)
+	if (cor->arena[cyd_val(proc->idx + BYTE1)] == IDRGNN)
 	{
 		while (++i < IND_SIZE)
 			cor->hex[i] = cor->arena[cyd_val(proc->val + BYTES2 + i)];

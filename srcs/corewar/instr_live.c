@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 10:22:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		instr_live(t_cor *cor, t_proc *proc)
 	ft_bzero(cor->hex, REG_SIZE);
 	if (target <= cor->nb_champ)
 	{
+		cor->nb_live++;
 		cor->champ[target - 1]->curr_lives++;
 		cor->champ[target - 1]->last_live = cor->curr_cycle;
 		cor->last_alive = target;

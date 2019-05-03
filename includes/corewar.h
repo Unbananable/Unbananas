@@ -6,7 +6,7 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 19:00:03 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:16:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,23 @@
 #define CYCLE_OR 6
 #define CYCLE_XOR 6
 #define CYCLE_ZJMP 20
+#define CYCLE_LDI 25
 
-#define RGRGRG 0x54
-#define D4D4RG 0xa4
-#define IDIDRG 0xf4
+#define FIRST_PARAM 1
+#define SECOND_PARAM 2
+#define THIRD_PARAM 3
+
+#define NULL_CODE 4
+
+#define OPC_BYTE 1
+#define ARGC_BYTE 1
+#define REG_BYTE 1
+#define IND_BYTE 2
+#define D2_BYTE 2
+#define D4_BYTE 4
+
+#define BYTE_SIZE 8
+#define BIT 1
 
 #define BYTE1 1
 #define BYTES2 2
@@ -86,7 +99,7 @@ typedef struct		s_cor
 	int				nb_champs;
 	t_champ			**champs;
 	unsigned char	*arena;
-	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
+	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[REG_SIZE + 1] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 	t_proc			*procs; // TODO initialize after parsing
 /*	t_option		option;*/
 	unsigned int	curr_cycle; //TO DO initialize at start after parsing
@@ -109,6 +122,7 @@ void			arena_setup(t_cor *cor);
 //void			fill_register(t_cor *cor, char reg_id, char *content);
 //int			restricted_addr(unsigned int program_counter, int addr);
 //int			cyd_val(int value);
+//int			bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
 
 //int			instr_live(t_cor *cor, t_proc *proc);
 //int			instr_ld(t_cor *cor, t_proc *proc);
