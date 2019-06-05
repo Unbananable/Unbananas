@@ -17,7 +17,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	int		tmp;
 	char	*res;
 	
-	if (is_register(cor->arena[(proc->idx + proc->move) % MEM_SIZE]))
+	if (is_register(cor->arena[(proc->idx + proc->move) % MEM_SIZE])) // 05/06/19 is_register a ete declare inutile par la communauté (moi)
 	{
 		tmp = arg1 & arg2;
 		proc->carry = (!tmp);
@@ -51,7 +51,7 @@ void		instr_and(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, restricted_addr(ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move) % MEM_SIZE, IND_BYTES), 16)), REG_SIZE), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, IND_BYTES), 16), REG_SIZE), 16);
 	else if (type == DIR_CODE)
 		arg1 = ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move)
 					% MEM_SIZE, D4_BYTES), 16);
@@ -64,10 +64,9 @@ void		instr_and(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, restricted_addr(ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move) % MEM_SIZE, IND_BYTES), 16)), REG_SIZE), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, IND_BYTES), 16), REG_SIZE), 16);
 	else if (type == DIR_CODE)
-		arg2 = ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move)
-					% MEM_SIZE, D4_BYTES), 16);
+		arg2 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, D4_BYTES), 16);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
 	proc->move += byte_offset(type);

@@ -12,13 +12,38 @@
 
 #include "corewar.h"
 
-int		instr_live(t_cor *cor, t_proc *proc)
+/*
+** S (D4)
+*/
+
+void instr_live(t_cor *cor, t_proc *proc)
 {
-	int	i;
-	int	target;
+	int i;
+	int target;
+	t_bool to_exec;
 
 	i = -1;
+	to_exec = true;
 	proc->last_live_cycle = cor->curr_cycle;
+	while (++i < 3)
+		if (!cor->arena[(proc->idx + i + 1) % MEM_SIZE])
+			to_exec = false;
+	target = -(cor->arena[(proc->idx + i + 1) % MEM_SIZE]);
+	if (to_exec && target <= cor->nb_champs)
+	{
+		//Make the champ live
+		//Definir le dernier champ qui a dit LIVE (via le numero du cycle du dernier live par exemple) ou en definissant un COR->LAST_ALIVE au choix;
+		if (cor->verbose % 2)
+		{
+			//MSG I M ALIVE
+		}
+		//Actualiser move
+	}
+	else
+		//Actualiser move dans le cas echeant
+}
+
+/*
 	while (++i < DIR_SIZE)
 		cor->hex[i] = cor->arena[cyd_val(proc->idx + i)];
 	target = -(ft_uchar_to_int_base(cor->hex, 16));
@@ -42,3 +67,4 @@ int		instr_live(t_cor *cor, t_proc *proc)
 	}
 	return (0);
 }
+*/

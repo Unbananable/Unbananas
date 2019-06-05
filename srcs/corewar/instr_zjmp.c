@@ -20,13 +20,10 @@ void	instr_zjmp(t_cor *cor, t_proc *proc)
 {
 	int		type;
 	t_bool	to_exec;
-	short	arg;
 
 	to_exec = (proc->carry);
-	arg = ft_uchar_to_short_base(fill_hex(cor, (proc->idx + BYTE)
-				% MEM_SIZE, D2_BYTES), 16);
 	if (to_exec)
-		proc->move = (restricted_addr(proc->idx, arg)) % MEM_SIZE;
+		proc->move = ft_uchar_to_short_base(fill_hex(cor, proc->idx + 1, D2_BYTES), 16);
 	else
-		proc->move = IND_BYTES + OPC_BYTE;
+		proc->move = D2_BYTES + OPC_BYTE;
 }

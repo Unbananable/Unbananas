@@ -51,10 +51,9 @@ void			instr_xor(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, restricted_addr(ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move) % MEM_SIZE, IND_BYTES), 16)), REG_SIZE), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, IND_BYTES), 16), REG_SIZE), 16);
 	else if (type == DIR_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move)
-					% MEM_SIZE, D4_BYTES), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, D4_BYTES), 16);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec
 			&& (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
@@ -64,10 +63,9 @@ void			instr_xor(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, restricted_addr(ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move) % MEM_SIZE, IND_BYTES), 16)), REG_SIZE), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, IND_BYTES), 16), REG_SIZE), 16);
 	else if (type == DIR_CODE)
-		arg2 = ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move)
-					% MEM_SIZE, D4_BYTES), 16);
+		arg2 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move, D4_BYTES), 16);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
 	proc->move += byte_offset(type);

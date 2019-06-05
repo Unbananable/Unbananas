@@ -22,6 +22,9 @@
 #define STDOUT 1
 #define STDERR 2
 
+#define INT_MAX 214483647
+#define INT_MIN -2147483648
+
 #define CYCLE_LIVE 10
 #define CYCLE_LD 5
 #define CYCLE_ST 25
@@ -32,6 +35,11 @@
 #define CYCLE_XOR 6
 #define CYCLE_ZJMP 20
 #define CYCLE_LDI 25
+#define CYCLE_STI 25
+#define CYCLE_FORK 800
+#define CYCLE_LLD 10
+#define CYCLE_LFORK 1000
+#define CYCLE_AFF 2
 
 #define FIRST_PARAM 1
 #define SECOND_PARAM 2
@@ -64,12 +72,7 @@ typedef struct		s_champ
 	unsigned int	curr_live; //TODO initialize at start after parsing
 	unsigned int	last_live; //TODO initialize at start after parsing
 }					t_champ;
-/*
-typedef struct		s_option //TODO marqueurs des differentes options
-{
-	int				verbose; //TODO initialize apres parsing, prend une valeur, qui designe les donnees a afficher (cf resources/corewar)
-}					t_option;
-*/
+
 typedef struct		s_proc
 {
 	int				n; //unique identification number: initialised at creation, never changes
@@ -90,9 +93,9 @@ typedef struct		s_cor
 	unsigned char	*arena;
 	unsigned char	*hex; // (string de taille REG_SIZE + 1 qui permettra de stocker les infos a deplacer via les instructions, plus simple a utiliser que char[REG_SIZE + 1] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 	t_proc			*procs; // TODO initialize after parsing
-/*	t_option		option;*/
 	unsigned int	curr_cycle; //TO DO initialize at start after parsing
 	int				last_alive; //player_no of the last champion for whom live was performed
+	int				verbose;
 }					t_cor;
 
 void			initialize(t_cor *cor);
@@ -110,7 +113,6 @@ void			arena_setup(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
 //void			fill_hex(t_cor *cor, int addr, int size);
-//int			restricted_addr(unsigned int program_counter, int addr);
 //int			bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
 //int			byte_offset(int param_type);
 

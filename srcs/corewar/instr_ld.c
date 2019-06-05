@@ -12,51 +12,45 @@
 
 #include "corewar.h"
 
-static int	arg_check_ld(t_cor cor, t_proc proc)
+static void execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	if ((cor.arena[cyd_val(proc.idx + BYTE1)] != IDRGNN
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != DIRGNN)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == IDRGNN
-				&& cor.arena[cyd_val(proc.idx + BYTES4)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == DIRGNN
-				&& cor.arena[cyd_val(proc.idx + BYTES6)] > REG_NUMBER - 1))
-		return (0);
-	return (1);
+	char *res;
+	
+	proc->carry= (!arg1);
+	if (!(res = ft_int_to_uchar(arg1)))
+		error(cor, "Failed to ft_int_to_uchar in instr_ld");
+	fill_register(cor, arg2, res);
+	free(res);
 }
 
 /*
-** First case: T_IND case
-** Second case: T_DIR(4) case
+** S (ID/D4) D (RG)
 */
 
-int		instr_ld(t_cor *cor, t_proc *proc)
+void instr_ld(t_cor *cor, t_proc *proc)
 {
-	int		i;
-	int		addr;
+	t_bool to_exec;
+	int type;
+	int arg1;
+	int arg2;
 
-	i = -1;
-	if (!arg_check_ld(*cor, *proc))
-		return (0);
-	if (cor->arena[cyd_val(proc->idx + BYTE1)] == IDRGNN)
-	{
-		while (++i < IND_SIZE)
-			cor->hex[i] = cor->arena[cyd_val(proc->val + BYTES2 + i)];
-		i = -1;
-		addr = restricted_addr(proc->idx, ft_uchar_to_int_base(cor->hex, 16);
-		ft_bzero(cor->hex, IND_SIZE);
-		while (++i < REG_SIZE)
-			cor->hex[i] = cor->arena[cyd_val(proc->idx + addr + i)];
-		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES4)], cor->hex);
-		proc->move = BYTE1 + IND_SIZE + BYTE1 + BYTE1;
-	}
-	else
-	{
-		while (++i < REG_SIZE)
-			cor->hex[i] = cor->arena[cyd_val(proc->idx + BYTES2 + i)];
-		fill_register(cor, cor->arena[cyd_val(proc->idx + BYTES6)], cor->hex);
-		proc->move = BYTE1 + DIR_SIZE + BYTE1 + BYTE1;
-	}
-	proc->carry = (!ft_uchar_to_int_base(cor->hex, 16)) ? 1 : 0;
-	ft_bzero(cor->hex, REG_SIZE);
-	return (1);
+	to_exec = true;
+	proc->move = ARGC_BYTE;
+	type = bits_peer_type(cor, proc, FIRST_PARAM);
+	to_exec = (to_exec && (type == IND_CODE || type == DIR_CODE));
+	if (type == IND_CODE)
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, IND_BYTES), 16), REG_SIZE), 16);
+	else if (type == DIR_CODE)
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, D4_BYTES), 16);
+	proc->move += byte_offset(type);
+	type = bits_peer_type(cor, proc, SECOND_PARAM);
+	to_exec = (to_exec && type == REG_CODE);
+	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		to_exec = false;
+	proc->move += byte_offset(type);
+	type = bits_peer_type(cor, proc, THIRD_PARAM);
+	to_exec = (to_exec && type == NULL_CODE);
+	if (to_exec)
+		execute_instr(cor, proc, arg1, arg2);
+	proc->move += byte_offset(type) + OPC_BYTE;
 }
