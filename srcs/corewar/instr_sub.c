@@ -12,6 +12,10 @@
 
 #include "corewar.h"
 
+/*
+** arg1 and arg2 represente to values we process the calculus with
+*/
+
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	long	sum;
@@ -19,8 +23,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] >= REG_NUMBER)
 	{
-		sum = ft_uchar_to_int_base(proc->regs[arg1], 16)
-			- ft_uchar_to_int_base(proc->regs[arg2], 16);
+		sum = arg1 - arg2;
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
 		if (!(res = ft_int_to_uchar((int)sum)))
@@ -47,13 +50,23 @@ void		instr_sub(t_cor *cor, t_proc *proc)
 	proc->move = ARGC_BYTE;
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
-		to_exec = false;
+	if (type == REG_CODE)
+	{
+		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+			to_exec = false;
+		else
+			arg1 = ft_uchar_to_int_base(proc->regs[arg1], 16);
+	}
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
-		to_exec = false;
+	if (type == REG_CODE)
+	{
+		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+			to_exec = false;
+		else
+			arg2 = ft_uchar_to_int_base(proc->regs[arg2], 16);
+	}
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

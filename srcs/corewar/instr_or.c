@@ -12,6 +12,10 @@
 
 #include "corewar.h"
 
+/*
+** arg1 and arg2 are the VALUES registered in the registers (1st and 2nd arg)
+*/
+
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	int		tmp;
