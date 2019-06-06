@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:42:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:09:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ typedef struct		s_proc
 **              last reduced
 ** - last_alive: player number of the last champion who performed the live
 **               instruction
+** - dump: 1 if the dump option was used, 0 otherwise
+** - dump_cycle: number of the cycle at which the memory (arena) must be dumped
+**               (only when dump is set to 1)
 */
 
 typedef struct		s_cor
@@ -129,6 +132,8 @@ typedef struct		s_cor
 	unsigned int	nb_live;
 	unsigned int	nb_checks;
 	int				last_alive;
+	int				dump;
+	unsigned int	dump_cycle;
 }					t_cor;
 
 /*
@@ -158,6 +163,8 @@ typedef struct		s_op
 }					t_op;
 
 void			initialize(t_cor *cor);
+
+void			get_dump_info(t_cor *cor, int *ac, char ***av);
 
 void			get_champions(t_cor *cor, int ac, char **av);
 unsigned int	get_magic(int fd);

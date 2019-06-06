@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:42:42 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:09:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static void	end_period(t_cor *cor)
 **             -> if more than NBR_LIVE live operations where performed in the
 **                last period, or if MAX_CHECKS periods took place without
 **                reducing the period, reduce the period
-**         -> go to the next cycle
+**         -> go to the next cycle or dump the memory and exit if the dump
+**            option is set and the current cycle is the dump cycle
 */
 
 void		battle(t_cor *cor)
@@ -113,5 +114,7 @@ void		battle(t_cor *cor)
 			end_period(cor);
 		cor->curr_cycle++;
 		cor->curr_cycle_period++;
+		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
+			dump(cor);
 	}
 }
