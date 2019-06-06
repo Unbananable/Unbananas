@@ -43,3 +43,7 @@ int byte_offset(int param_type)
 	if (param_type == NULL_CODE)
 		return (0);
 }
+
+int get_int_arg_val() {}
+
+short get_short_arg_val() {}

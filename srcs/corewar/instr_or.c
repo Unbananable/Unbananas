@@ -25,8 +25,8 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	{
 		tmp = arg1 | arg2;
 		proc->carry = (!tmp);
-		if (!(res = ft_int_to_uchar(tmp)))
-			error(cor, "Failed to ft_int_to_uchar in instr_or");
+		if (!(res = itoua(tmp)))
+			error(cor, "Failed to itoua in instr_or");
 		fill_register(cor, cor->arena[(proc->idx + proc->move + 1)
 				% MEM_SIZE], res);
 		free(res);
@@ -55,13 +55,12 @@ void		instr_or(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
-			arg1 = ft_uchar_to_int_base(proc->regs[arg1], 16);		
+			arg1 = get_reg_value(proc->regs[arg1]);		
 	}
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + (ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, IND_BYTES), 16) % IDX_MOD), REG_SIZE), 16);
+		arg1 = get_int_arg_val(cor, proc->idx + (get_int_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD), REG_SIZE);
 	else if (type == DIR_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, (proc->idx + proc->move + 1)
-					% MEM_SIZE, D4_BYTES), 16);
+		arg1 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec
@@ -72,12 +71,12 @@ void		instr_or(t_cor *cor, t_proc *proc)
 					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
-			arg2 = ft_uchar_to_int_base(proc->regs[arg2], 16);
+			arg2 = get_reg_value(proc->regs[arg2]);
 	}
 	else if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + (ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, IND_BYTES), 16) % IDX_MOD), REG_SIZE), 16);
+		arg2 = get_int_arg_val(cor, proc->idx + (get_int_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD), REG_SIZE);
 	else if (type == DIR_CODE)
-		arg2 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, D4_BYTES), 16);
+		arg2 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
