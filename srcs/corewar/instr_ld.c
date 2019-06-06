@@ -38,9 +38,9 @@ void instr_ld(t_cor *cor, t_proc *proc)
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
 	to_exec = (to_exec && (type == IND_CODE || type == DIR_CODE));
 	if (type == IND_CODE)
-		arg1 = get_int_arg_val(cor, proc->idx + (get_int_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD), REG_SIZE);
+		arg1 = get_int_arg_val(cor, (proc->idx + (get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES) % IDX_MOD)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
-		arg1 = get_int_arg_val(cor, proc->idx + proc->move + 1, D4_BYTES);
+		arg1 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

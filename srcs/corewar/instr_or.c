@@ -53,7 +53,7 @@ void		instr_or(t_cor *cor, t_proc *proc)
 			arg1 = get_reg_value(proc->regs[arg1]);		
 	}
 	else if (type == IND_CODE)
-		arg1 = get_int_arg_val(cor, proc->idx + (get_int_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD), REG_SIZE);
+		arg1 = get_int_arg_val(cor, (proc->idx + (get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES) % IDX_MOD)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
 		arg1 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);
@@ -69,7 +69,7 @@ void		instr_or(t_cor *cor, t_proc *proc)
 			arg2 = get_reg_value(proc->regs[arg2]);
 	}
 	else if (type == IND_CODE)
-		arg2 = get_int_arg_val(cor, proc->idx + (get_int_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD), REG_SIZE);
+		arg2 = get_int_arg_val(cor, (proc->idx + (get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES) % IDX_MOD)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
 		arg2 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);

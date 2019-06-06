@@ -17,7 +17,7 @@ void    instr_fork(t_cor *cor, t_proc *proc)
     int     arg1;
     t_proc  *new_proc;
 
-    arg1 = get_short_arg_value(cor, proc->idx + 1, D2_BYTES);
+    arg1 = get_short_arg_value(cor, (proc->idx + 1) % MEM_SIZE, D2_BYTES);
     new_proc = clone_proc(cor, proc);
     new_proc->wait = 0;
     new_proc->idx = (proc->idx + arg1) % MEM_SIZE;
