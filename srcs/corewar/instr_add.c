@@ -22,8 +22,9 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	long	sum;
 
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
-	{
+	{	
 		sum = arg1 + arg2;
+		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
 		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], sum, REG_SIZE);

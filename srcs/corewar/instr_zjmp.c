@@ -23,7 +23,7 @@ void	instr_zjmp(t_cor *cor, t_proc *proc)
 
 	to_exec = (proc->carry);
 	if (to_exec)
-		proc->move = proc->idx + (get_short_arg_val(cor, (proc->idx + 1) % MEM_SIZE, D2_BYTES) % IDX_MOD);
+		proc->move = (proc->idx + (get_short_arg_val(cor, (proc->idx + 1) % MEM_SIZE, D2_BYTES) % IDX_MOD)) % MEM_SIZE;
 	else
 		proc->move = D2_BYTES + OPC_BYTE;
 }

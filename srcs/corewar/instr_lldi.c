@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_ldi.c                                        :+:      :+:    :+:   */
+/*   instr_lldi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 10:27:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 12:26:38 by dtrigalo         ###   ########.fr       */
+/*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/06/06 17:51:13 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 ** S (RG | ID | D2) S (RG | D2) D (RG)
 */
 
-void		instr_ldi(t_cor *cor, t_proc *proc)
+void		instr_lldi(t_cor *cor, t_proc *proc)
 {
 	int		type;
 	t_bool	to_exec;
@@ -47,13 +47,14 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg1 = cor->arena[(proc->idx + proc->move + 1)
+					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
 			arg1 = get_reg_value(proc->regs[arg1]);
 	}
 	else if (type == IND_CODE)
-		arg1 = get_int_arg_val(cor, (proc->idx + (get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % IDX_MOD) % MEM_SIZE, REG_SIZE);
+		arg1 = get_int_arg_val(cor, (proc->idx + get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
 		arg1 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
 	proc->move += byte_offset(type);
@@ -61,7 +62,8 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg2 = cor->arena[(proc->idx + proc->move + 1)
+					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
 			arg2 = get_reg_value(proc->regs[arg2]);
