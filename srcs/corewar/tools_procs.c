@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_procs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 19:36:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:29:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,18 @@ t_proc	*add_proc(t_proc *new, t_proc *list)
 {
 	new->next = list;
 	return (new);
+}
+
+t_proc *clone(t_cor *cor, t_proc *original)
+{
+	t_proc	*new;
+	int		i;
+
+	new = new_proc();
+	new->n = cor->procs->n + 1;
+	new->carry = original->carry;
+	new->last_live_cycle = original->last_live_cycle;
+	i = -1;
+	while (++i < REG_NUMBER)
+		ft_memcpy(new->regs[i], original->regs[i], REG_SIZE * sizeof(unsigned char));
 }
