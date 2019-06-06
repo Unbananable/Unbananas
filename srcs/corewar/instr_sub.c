@@ -20,19 +20,13 @@
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	long	sum;
-	char	*res;
 
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
 	{
 		sum = arg1 - arg2;
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		if (!(res = itoua((int)sum)))
-			error(cor, "Failed to itoua in instr_sub");
-		fill_register(cor, cor->arena[(proc->idx + proc->move + 1)
-				% MEM_SIZE], res);
-		free(res);
-		proc->carry = (!sum);
+		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], sum, REG_SIZE);
 	}
 }
 

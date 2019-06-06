@@ -25,11 +25,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	{
 		tmp = arg1 ^ arg2;
 		proc->carry = (!tmp);
-		if (!(res = itoua(tmp)))
-			error(cor, "Failed to itoua in instr_xor");
-		fill_register(cor, cor->arena[(proc->idx + proc->move + 1)
-				% MEM_SIZE], res);
-		free(res);
+		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], tmp, REG_SIZE);
 	}
 }
 

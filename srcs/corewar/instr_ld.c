@@ -18,13 +18,8 @@
 
 static void execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	char *res;
-	
 	proc->carry= (!arg1);
-	if (!(res = itoua(arg1)))
-		error(cor, "Failed to itoua in instr_ld");
-	fill_register(cor, arg2, res);
-	free(res);
+	ft_memcpy(proc->regs[arg2], arg1, REG_SIZE);
 }
 
 /*

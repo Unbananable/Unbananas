@@ -12,34 +12,18 @@
 
 #include "corewar.h"
 
-static int	arg_check_ldi(t_cor cor, t_proc proc)
+/*
+** S (RG | ID | D2) S (RG | D2) D (RG)
+*/
+
+void		instr_ldi(t_cor *cor, t_proc *proc)
 {
-	if ((cor.arena[cyd_val(proc.idx + BYTE1)] != DIDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != IDDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != RGDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != DIRGRG
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != IDRGRG
-				&& cor.arena[cyd_val(proc.idx + BYTE1)] != RGRGRG)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == DIDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTES6)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == IDDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTES6)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == RGDIRG
-				&& cor.arena[cyd_val(proc.idx + BYTES2)] > REG_NUMBER - 1
-				&& cor.arena[cyd_val(proc.idx + BYTES5)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == DIRGRG
-				&& cor.arena[cyd_val(proc.idx + BYTES4)] > REG_NUMBER - 1
-				&& cor.arena[cyd_val(proc.idx + BYTES5)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == IDRGRG
-				&& cor.arena[cyd_val(proc.idx + BYTES4)] > REG_NUMBER - 1
-				&& cor.arena[cyd_val(proc.idx + BYTES5)] > REG_NUMBER - 1)
-			|| (cor.arena[cyd_val(proc.idx + BYTE1)] == RGRGRG
-				&& cor.arena[cyd_val(proc.idx + BYTES2)] > REG_NUMBER - 1
-				&& cor.arena[cyd_val(proc.idx + BYTES3)] > REG_NUMBER - 1
-				&& cor.arena[cyd_val(proc.idx + BYTES4)] > REG_NUMBER - 1)
-		return (0);
-	return (1);
+	
 }
+
+
+
+/* ******************************************************************* */
 
 /*
 ** First case: T_DIR(2)/T_DIR(2)/T_REG

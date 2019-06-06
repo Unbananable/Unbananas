@@ -19,22 +19,10 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
-	char	*res;
-	short	tmp;
-	short	i;
-
-	if (!(res = itoua(arg)))
-		error(cor, "Failed to itoua in instr_st");
 	if (type == REG_CODE && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
-		fill_register(cor, cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE], res);
+		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], arg, REG_SIZE);
 	else if (type == IND_CODE)
-	{
-		i = -1;
-		tmp = proc->idx + (get_short_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD);
-		while (++i < REG_SIZE)
-			cor->arena[(tmp + i) % MEM_SIZE] = res[i];
-	}
-	free(res);
+		ft_memcpy(cor->arena[(proc->idx + (get_short_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD)) % MEM_SIZE], arg, REG_SIZE);
 }
 
 /*
