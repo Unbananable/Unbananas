@@ -25,3 +25,5 @@ void	fill_hex(t_cor *cor, int addr, int size)
 		cor->hex[i] = cor->arena[(addr + i) % MEM_SIZE];
 	cor->hex[size] = '\0';
 }
+
+int get_reg_value() {}
