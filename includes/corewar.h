@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 12:09:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/06 16:59:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,9 @@ void			arena_setup(t_cor *cor);
 
 void			introduce_champions(t_cor *cor);
 
-//void			battle(t_cor *cor);
+void			battle(t_cor *cor);
+
+void			announce_winner(t_cor *cor);
 
 //void			fill_register(t_cor *cor, char reg_id, char *content);
 //int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
