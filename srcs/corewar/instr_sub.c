@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 19:33:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/05/03 19:33:15 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	long	sum;
 	char	*res;
 
-	if (is_register(cor->arena[(proc->idx + proc->move) % MEM_SIZE]))
+	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] >= REG_NUMBER)
 	{
 		sum = ft_uchar_to_int_base(proc->regs[arg1], 16)
 			- ft_uchar_to_int_base(proc->regs[arg2], 16);
@@ -25,7 +25,8 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
 		if (!(res = ft_int_to_uchar((int)sum)))
 			error(cor, "Failed to ft_int_to_uchar in instr_sub");
-		fill_register(cor, cor->arena[(proc->idx + proc->move) % MEM_SIZE], res);
+		fill_register(cor, cor->arena[(proc->idx + proc->move + 1)
+				% MEM_SIZE], res);
 		free(res);
 		proc->carry = (!sum);
 	}
@@ -46,18 +47,17 @@ void		instr_sub(t_cor *cor, t_proc *proc)
 	proc->move = ARGC_BYTE;
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	proc->move += byte_offset(type);
-	if ((arg1 = cor->arena[(proc->idx + proc->move) % MEM_SIZE]) >= REG_NUMBER)
+	if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
 		to_exec = false;
+	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	proc->move += byte_offset(type);
-	if ((arg2 = cor->arena[(proc->idx + proc->move) % MEM_SIZE]) >= REG_NUMBER)
+	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
 		to_exec = false;
+	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	proc->move += byte_offset(type);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);
-	proc->move += OPC_BYTE;
+	proc->move += byte_offset(type) + OPC_BYTE;
 }

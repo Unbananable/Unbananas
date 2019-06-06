@@ -39,7 +39,7 @@ void instr_ld(t_cor *cor, t_proc *proc)
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
 	to_exec = (to_exec && (type == IND_CODE || type == DIR_CODE));
 	if (type == IND_CODE)
-		arg1 = ft_uchar_to_int_base(fill_hex(cor, ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, IND_BYTES), 16), REG_SIZE), 16);
+		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + (ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, IND_BYTES), 16) % IDX_MOD), REG_SIZE), 16);
 	else if (type == DIR_CODE)
 		arg1 = ft_uchar_to_int_base(fill_hex(cor, proc->idx + proc->move + 1, D4_BYTES), 16);
 	proc->move += byte_offset(type);
@@ -48,9 +48,7 @@ void instr_ld(t_cor *cor, t_proc *proc)
 	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
 		to_exec = false;
 	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, THIRD_PARAM);
-	to_exec = (to_exec && type == NULL_CODE);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);
-	proc->move += byte_offset(type) + OPC_BYTE;
+	proc->move += OPC_BYTE;
 }

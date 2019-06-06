@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//WIP
+//C est les proc qui vivent et pas les champs, une partie sarrete lorsque tous les process sont morts
+
 #include "corewar.h"
 
 /*
