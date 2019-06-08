@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 11:44:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:42:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 			arg3 = get_reg_value(proc->regs[arg3]);
 	}
     else if (type == DIR_CODE)
-		arg3 = (int)get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
+		arg3 = (int)get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
     arg2 = (arg2 + arg3) % IDX_MOD;
     if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);

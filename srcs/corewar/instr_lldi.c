@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/06 17:51:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:39:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			arg2 = get_reg_value(proc->regs[arg2]);
 	}
 	else if (type == DIR_CODE)
-		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
+		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

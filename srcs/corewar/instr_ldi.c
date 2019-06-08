@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:27:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 12:26:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:38:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 	else if (type == IND_CODE)
 		arg1 = get_int_arg_val(cor, (proc->idx + (get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % IDX_MOD) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
-		arg1 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
+		arg1 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
@@ -67,7 +67,7 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 			arg2 = get_reg_value(proc->regs[arg2]);
 	}
 	else if (type == DIR_CODE)
-		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
+		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

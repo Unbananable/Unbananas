@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:08:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 15:01:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/08 16:02:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@ void		instr_aff(t_cor *cor, t_proc *proc)
     {
         arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE];
         proc->carry = (!arg1);
-//      write(1, arg1, 1); 
+		write(1, arg1, 1); 
     }
     proc->move += byte_offset(type);
-/* *Partie a delete* */
-    if (to_exec && arg1 < REG_NUMBER)
-        ft_putchar((int)proc->regs[arg1] % 256);
-/* ** */
     proc->move += OPC_BYTE;
 }
