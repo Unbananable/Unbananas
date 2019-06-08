@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:42:05 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/08 16:30:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		instr_sti(t_cor *cor, t_proc *proc)
     else if (type == IND_CODE)
     	arg2 = get_int_arg_val(cor, (proc->idx + get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
     else if (type == DIR_CODE)
-		arg2 = (int)get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D2_BYTES);
+		arg2 = (int)get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
     proc->move += byte_offset(type);
     type = bits_peer_type(cor, proc, THIRD_PARAM);
     to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));

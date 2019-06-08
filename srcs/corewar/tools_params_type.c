@@ -6,7 +6,7 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 15:34:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:43:34 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/08 16:29:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,3 @@ int byte_offset(int param_type)
 		return (0);
 }
 
-int get_int_arg_val() {}
-
-short get_short_arg_val() {}
