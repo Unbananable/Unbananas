@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_add.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:36:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:11:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	long	sum;
+	long long	sum;
 
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
 	{	
@@ -27,7 +27,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], sum, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], (void *)&sum, REG_SIZE);
 	}
 }
 

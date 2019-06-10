@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 11:06:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:29:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	delete_procs(t_proc **procs)
 	}
 }
 
-t_proc *clone(t_cor *cor, t_proc *original)
+t_proc *clone_proc(t_cor *cor, t_proc *original)
 {
 	t_proc	*new;
 	int		i;
@@ -77,4 +77,5 @@ t_proc *clone(t_cor *cor, t_proc *original)
 	i = -1;
 	while (++i < REG_NUMBER)
 		ft_memcpy(new->regs[i], original->regs[i], REG_SIZE * sizeof(unsigned char));
+	return (new);
 }

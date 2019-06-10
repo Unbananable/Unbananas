@@ -6,11 +6,12 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 12:09:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:45:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "op.c"
 
 static void	execute_process(t_proc *proc, t_cor *cor)
 {
@@ -103,6 +104,7 @@ void		battle(t_cor *cor)
 	ft_putendl("Let the fight begin!");
 	while (cor->procs)
 	{
+printf("cycle no %d\n", cor->curr_cycle);
 		cache = cor->procs;
 		while (cache)
 		{

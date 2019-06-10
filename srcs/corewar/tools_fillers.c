@@ -3,27 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   tools_fillers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 18:21:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/03 18:36:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:27:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	fill_register()
-{
-}
-
-void	fill_hex(t_cor *cor, int addr, int size)
+int get_reg_value(unsigned char *reg)
 {
 	int		i;
+	int		res;
 
-	i = -1;
-	while (++i < size)
-		cor->hex[i] = cor->arena[(addr + i) % MEM_SIZE];
-	cor->hex[size] = '\0';
+	i = 4;
+	res = 0;
+	while (--i > 0)
+		res += reg[i] * 256;
+	res += reg[i];
+	return (res);
 }
-
-int get_reg_value() {}

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 11:05:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:26:01 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,11 @@ typedef struct		s_op
 {
 	char			*name;
 	int				nb_args;
-	t_arg_type		*args;
+	int				args[3];
 	unsigned char	opcode;
 	unsigned int	wait;
 	char			*full_name;
-	int				(*f)(t_cor *, t_proc *);
+	void			(*f)(t_cor *, t_proc *);
 }					t_op;
 
 void			initialize(t_cor *cor);
@@ -221,12 +221,19 @@ void			instr_aff(t_cor *cor, t_proc *proc);
 void			instr_fork(t_cor *cor, t_proc *proc);
 void			instr_lfork(t_cor *cor, t_proc *proc);
 
+short			get_short_arg_value(t_cor *cor, int idx);
+int				get_int_arg_value(t_cor *cor, int idx, int size);
+int 			get_reg_value(unsigned char *reg);
+
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
 void			delete_procs(t_proc **procs);
 void			delete_proc(t_proc **proc);
+t_proc 			*clone_proc(t_cor *cor, t_proc *original);
 
 void			memcpy_big(void *dst, void *src, size_t size);
+
+void    		dump(t_cor *cor);
 
 void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);

@@ -16,10 +16,10 @@
 ** arg1 is the int VALUE to store into arg2 (the targeted register number)
 */
 
-static void execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
+static void execute_instr(t_proc *proc, int arg1, int arg2)
 {
 	proc->carry= (!arg1);
-	ft_memcpy(proc->regs[arg2], arg1, REG_SIZE);
+	memcpy_big(proc->regs[arg2], (void *)&arg1, REG_SIZE);
 }
 
 /*
@@ -38,9 +38,9 @@ void instr_lld(t_cor *cor, t_proc *proc)
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
 	to_exec = (to_exec && (type == IND_CODE || type == DIR_CODE));
 	if (type == IND_CODE)
-		arg1 = get_int_arg_val(cor, (proc->idx + get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
+		arg1 = get_int_arg_value(cor, (proc->idx + get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
-		arg1 = get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
+		arg1 = get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, D4_BYTES);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
@@ -48,6 +48,6 @@ void instr_lld(t_cor *cor, t_proc *proc)
 		to_exec = false;
 	proc->move += byte_offset(type);
 	if (to_exec)
-		execute_instr(cor, proc, arg1, arg2);
+		execute_instr(proc, arg1, arg2);
 	proc->move += OPC_BYTE;
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 17:06:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:45:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int ac, char **av)
 	if (!ac)
 		usage();
 	initialize(&cor);
-	get_dump_info(&cor, &ac, &av); // [WIP] Dump option
+	get_dump_info(&cor, &ac, &av);
 	get_champions(&cor, ac, av);
 	order_champions(&cor);
 	arena_setup(&cor);

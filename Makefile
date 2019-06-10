@@ -6,24 +6,47 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/05/03 17:41:35 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/10 12:28:41 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = main.c \
+SRC = announce_winner.c \
+	  arena_setup.c \
+	  battle.c \
+	  dev.c \
+	  dump.c \
 	  end.c \
 	  get_champions.c \
-	  tools_get_champions.c \
+	  get_dump_info.c \
 	  initialize.c \
-	  order_champions.c \
-	  arena_setup.c \
-	  tools_procs.c \
-	  tools_mem.c \
+	  instr_add.c \
+	  instr_aff.c \
+	  instr_and.c \
+	  instr_fork.c \
+	  instr_ld.c \
+	  instr_ldi.c \
+	  instr_lfork.c \
+	  instr_live.c \
+	  instr_lld.c \
+	  instr_lldi.c \
+	  instr_or.c \
+	  instr_st.c \
+	  instr_sti.c \
+	  instr_sub.c \
+	  instr_xor.c \
+	  instr_zjmp.c \
 	  introduce_champions.c \
-	  dev.c
+	  main.c \
+	  order_champions.c \
+	  tools_fillers.c \
+	  tools_get_champions.c \
+	  tools_instr.c \
+	  tools_mem.c \
+	  tools_params_type.c \
+	  tools_procs.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

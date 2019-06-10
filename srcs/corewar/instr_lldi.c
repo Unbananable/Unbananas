@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_lldi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 16:29:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:17:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		tmp = (tmp < INT_MIN) ? INT_MIN : tmp;
 		tmp = (tmp > INT_MAX) ? INT_MAX : tmp;
 		proc->carry = (!tmp);
-		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], tmp, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], (void *)&tmp, REG_SIZE);
 	}
 }
 
@@ -54,9 +54,9 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			arg1 = get_reg_value(proc->regs[arg1]);
 	}
 	else if (type == IND_CODE)
-		arg1 = get_int_arg_val(cor, (proc->idx + get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
+		arg1 = get_int_arg_value(cor, (proc->idx + get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
-		arg1 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
+		arg1 = get_short_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
@@ -69,7 +69,7 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			arg2 = get_reg_value(proc->regs[arg2]);
 	}
 	else if (type == DIR_CODE)
-		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
+		arg2 = get_short_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

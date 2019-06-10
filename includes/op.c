@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/03 17:09:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:24:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "op.h"
-#include "corewar.h"
 
 t_op    op_tab[NB_OPERATIONS + 1] =
 {

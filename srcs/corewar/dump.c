@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:00:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 12:08:52 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:29:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    dump(t_cor *cor)
 {
     int     i;
+	int		j;
     char    *bytes;
 
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_st.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:41:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:20:47 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
 	if (type == REG_CODE && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
-		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], arg, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], (void *)&arg, REG_SIZE);
 	else if (type == IND_CODE)
-		ft_memcpy(cor->arena[(proc->idx + (get_short_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD)) % MEM_SIZE], arg, REG_SIZE);
+		memcpy_big(cor->arena + (proc->idx + (get_short_arg_value(cor, (proc->idx + proc->move + 1)) % IDX_MOD) % MEM_SIZE), (void *)&arg, REG_SIZE);
 }
 
 /*

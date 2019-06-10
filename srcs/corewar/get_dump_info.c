@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 11:37:44 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 12:09:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:31:54 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void    get_dump_info(t_cor *cor, int *ac, char ***av)
     if (*ac >= 2 && ft_strequ(**av, "-dump"))
     {
         i = -1;
-        while ((*av)[++i])
-            if ((*av)[i] > '9' || (*av)[i] < '0') // [IMPROVE] Verifier aussi que le nombre est un unsigned int
+        while ((*av)[1][++i])
+            if ((*av)[1][i] > '9' || (*av)[1][i] < '0') // [IMPROVE] Verifier aussi que le nombre est un unsigned int
             {
                 ft_putendl("Invalid dump option, ignoring...");
                 (*av)++;

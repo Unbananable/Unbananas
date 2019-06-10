@@ -6,13 +6,13 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:39:50 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/08 15:39:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:30:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void    instr_fork(t_cor *cor, t_proc *proc)
+void    instr_lfork(t_cor *cor, t_proc *proc)
 {
     int     arg1;
     t_proc  *new_proc;

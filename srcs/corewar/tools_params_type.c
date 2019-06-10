@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_params_type.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 15:34:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 16:29:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:31:47 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int bit_offset(int param_idx)
 	return (BYTE_SIZE - param_idx * 2 * BIT);
 }
 
-int type_bits_peer(t_cor *cor, t_proc *proc, int param_idx)
+int bits_peer_type(t_cor *cor, t_proc *proc, int param_idx)
 {
 	int bit1;
 	int bit2;
@@ -42,5 +42,6 @@ int byte_offset(int param_type)
 		return (IND_BYTES);
 	if (param_type == NULL_CODE)
 		return (0);
+	return (0);
 }
 
