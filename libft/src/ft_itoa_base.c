@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/02 11:39:22 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 14:09:16 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:20:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ static char	*init_base(int base)
 		return (NULL);
 	i = 0;
 	while (i < base && i < 10)
-		charbase[i] = i;
+	{
+		charbase[i] = '0' + i;
+		i++;
+	}
 	while (i < base)
-		charbase[i] = i - 10 + 'A';
+	{
+		charbase[i] = i - 10 + 'a';
+		i++;
+	}
 	return (charbase);
 }
 
@@ -59,7 +65,7 @@ char		*ft_itoa_base(int n, int base)
 	if (!(res = ft_strnew(nbdigits + 1)))
 		return (NULL);
 	i = -1;
-	while (++i < nbdigits - 1)
+	while (++i < nbdigits)
 	{
 		res[nbdigits - 1 - i] = charbase[nb % base];
 		nb /= base;

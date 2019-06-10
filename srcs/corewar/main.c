@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 13:45:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:22:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		main(int ac, char **av)
 	get_champions(&cor, ac, av);
 	order_champions(&cor);
 	arena_setup(&cor);
-print_cor(&cor);
+//print_cor(&cor);
 	
 	introduce_champions(&cor);
 	battle(&cor);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   introduce_champions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:17:55 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:45:02 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:42:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	introduce_champions(t_cor *cor)
 		ft_putstr(cor->champs[i]->head.prog_name);
 		ft_putstr("\" (\"");
 		ft_putstr(cor->champs[i]->head.comment);
-		ft_putendl("\")!");
+		ft_putendl("\") !");
 	}
 }

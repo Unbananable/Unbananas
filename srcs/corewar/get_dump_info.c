@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 11:37:44 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 11:31:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:47:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ void    get_dump_info(t_cor *cor, int *ac, char ***av)
         cor->dump_cycle = ft_atoi((*av)[1]); // [IMPROVE] atoi d'un unsigned int
         (*av) += 2;
         (*ac) -= 2;
-        return;
     }
 }

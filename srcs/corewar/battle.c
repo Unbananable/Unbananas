@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 13:45:36 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:45:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ void		battle(t_cor *cor)
 {
 	t_proc	*cache;
 
-	ft_putendl("Let the fight begin!");
 	while (cor->procs)
 	{
-printf("cycle no %d\n", cor->curr_cycle);
 		cache = cor->procs;
 		while (cache)
 		{
