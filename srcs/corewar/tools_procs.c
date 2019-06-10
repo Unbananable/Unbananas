@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_procs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/03 17:31:16 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:06:43 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,18 @@ void	delete_procs(t_proc **procs)
 		delete_proc(procs);
 		*procs = cache;
 	}
+}
+
+t_proc *clone(t_cor *cor, t_proc *original)
+{
+	t_proc	*new;
+	int		i;
+
+	new = new_proc();
+	new->n = cor->procs->n + 1;
+	new->carry = original->carry;
+	new->last_live_cycle = original->last_live_cycle;
+	i = -1;
+	while (++i < REG_NUMBER)
+		ft_memcpy(new->regs[i], original->regs[i], REG_SIZE * sizeof(unsigned char));
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/06 16:59:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:05:31 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,41 @@
 #define STDOUT 1
 #define STDERR 2
 
-#define BYTE1 1
-#define BYTES2 2
-#define BYTES3 3
-#define BYTES4 4
-#define BYTES5 5
-#define BYTES6 6
-#define BYTES7 7
+#define INT_MAX 214483647
+#define INT_MIN -2147483648
+
+#define CYCLE_LIVE 10
+#define CYCLE_LD 5
+#define CYCLE_ST 25
+#define CYCLE_ADD 10
+#define CYCLE_SUB 10
+#define CYCLE_AND 6
+#define CYCLE_OR 6
+#define CYCLE_XOR 6
+#define CYCLE_ZJMP 20
+#define CYCLE_LDI 25
+#define CYCLE_STI 25
+#define CYCLE_FORK 800
+#define CYCLE_LLD 10
+#define CYCLE_LFORK 1000
+#define CYCLE_AFF 2
+
+#define FIRST_PARAM 1
+#define SECOND_PARAM 2
+#define THIRD_PARAM 3
+
+#define NULL_CODE 4
+
+#define OPC_BYTE 1
+#define ARGC_BYTE 1
+#define REG_BYTE 1
+#define IND_BYTES IND_SIZE
+#define D2_BYTES DIR_SIZE / 2
+#define D4_BYTES DIR_SIZE
+
+#define BYTE_SIZE 8
+#define BIT 1
+#define BYTE 1
 
 #define NB_OPERATIONS 16
 
@@ -56,13 +84,6 @@ typedef struct		s_champ
 	unsigned int	curr_live;
 	unsigned int	last_live;
 }					t_champ;
-
-/*
-typedef struct		s_option //TODO marqueurs des differentes options
-{
-	int				verbose; //TODO initialize apres parsing, prend une valeur, qui designe les donnees a afficher (cf resources/corewar)
-}					t_option;
-*/
 
 /*
 ** PROCESS / CURSOR STRUCTURE (chained list):
@@ -123,9 +144,7 @@ typedef struct		s_cor
 	int				nb_champs;
 	t_champ			**champs;
 	unsigned char	*arena;
-	unsigned char	*hex; 
 	t_proc			*procs;
-/*	t_option		option;*/
 	unsigned int	curr_cycle;
 	unsigned int	curr_cycle_period;
 	unsigned int	cycle_to_die;
@@ -157,8 +176,6 @@ typedef struct		s_op
 	unsigned char	opcode;
 	unsigned int	wait;
 	char			*full_name;
-	/* ??? TO DO: identifier */
-	/* ??? TO DO: identifier : taille du indirect ? */
 	int				(*f)(t_cor *, t_proc *);
 }					t_op;
 
@@ -183,13 +200,26 @@ void			battle(t_cor *cor);
 
 void			announce_winner(t_cor *cor);
 
-//void			fill_register(t_cor *cor, char reg_id, char *content);
-//int			restricted_addr(t_cor *cor, unsigned int proc_id, int addr);
-//int			cyd_val(int value);
+void			fill_register(t_cor *cor, char reg_id, char *content);
+int				bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
+int				byte_offset(int param_type);
 
-//void			instr_live(t_cor *cor, unsigned int proc_id);
-//void			instr_ld(t_cor *cor, unsigned int proc_id);
-//void			instr_st(t_cor *cor, unsigned int proc_id);
+void			instr_live(t_cor *cor, t_proc *proc);
+void			instr_ld(t_cor *cor, t_proc *proc);
+void			instr_st(t_cor *cor, t_proc *proc);
+void			instr_add(t_cor *cor, t_proc *proc);
+void			instr_sub(t_cor *cor, t_proc *proc);
+void			instr_or(t_cor *cor, t_proc *proc);
+void			instr_and(t_cor *cor, t_proc *proc);
+void			instr_xor(t_cor *cor, t_proc *proc);
+void			instr_zjmp(t_cor *cor, t_proc *proc);
+void			instr_sti(t_cor *cor, t_proc *proc);
+void			instr_ldi(t_cor *cor, t_proc *proc);
+void			instr_lld(t_cor *cor, t_proc *proc);
+void			instr_lldi(t_cor *cor, t_proc *proc);
+void			instr_aff(t_cor *cor, t_proc *proc);
+void			instr_fork(t_cor *cor, t_proc *proc);
+void			instr_lfork(t_cor *cor, t_proc *proc);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);

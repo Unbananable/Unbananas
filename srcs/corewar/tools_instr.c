@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   tools_instr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 18:33:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:25:39 by anleclab         ###   ########.fr       */
+/*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
+/*   Updated: 2019/06/08 15:34:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+short	get_short_arg_value(t_cor *cor, int idx)
 {
-	size_t	i;
+	return ((short)(cor->arena[idx] * 256 + cor->arena[idx + 1]));
+}
 
+int		get_int_arg_value(t_cor *cor, int idx, int size)
+{
+	int		res;
+	int		i;
+
+	res = cor->arena[idx];
 	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dst);
+	while (++i < size)
+		res = res * 256 + cor->arena[idx + i];
+	return (res);
 }

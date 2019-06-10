@@ -6,52 +6,51 @@
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/01 21:03:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:41:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	arg_check_st(t_cor *cor, t_proc *proc)
+/*
+** arg is the int VALUE registered into the 1st argument (register)
+** type is the kind of the destination (register or indirect)
+*/
+
+static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
-	if (cor->arena[cyd_val(proc->idx + BYTES2)] > REG_NUMBER - 1
-		|| (cor->arena[cyd_val(proc->idx + BYTE1)] != 0x50
-			&& (cor->arena[cyd_val(proc->idx + BYTE1)] != 0x70
-				|| cor->arena[cyd_val(proc->idx + BYTES3)] > REG_NUMBER - 1)))
-		return (0);
-	return (1);
+	if (type == REG_CODE && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
+		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], arg, REG_SIZE);
+	else if (type == IND_CODE)
+		ft_memcpy(cor->arena[(proc->idx + (get_short_arg_val(cor, proc->idx + proc->move + 1, IND_BYTES) % IDX_MOD)) % MEM_SIZE], arg, REG_SIZE);
 }
 
 /*
-** First case: T_REG case
-** Second case: T_IND case
+** S (RG) D (RG | ID)
+** if ID as 2nd arg, value is short
 */
 
 void		instr_st(t_cor *cor, t_proc *proc)
 {
-	int		i;
-	int		addr;
+	int		type;
+	t_bool	to_exec;
+	int		arg;
 
-	if (!arg_check_st(cor, proc))
-		return (0);
-	i = -1;
-	if (cor->arena[cyd_val(proc->idx + BYTE1)] & 0b00100000)
+	to_exec = true;
+	proc->move = ARGC_BYTE;
+	type = bits_peer_type(cor, proc, FIRST_PARAM);
+	to_exec = (to_exec && type == REG_CODE);
+	if (type == REG_CODE)
 	{
-		while (++i < REG_SIZE)
-			proc->regs[cor->arena[cyd_val(proc->idx + BYTES3)]
-				- 1][i] = proc->regs[cor->arena[cyd_val(proc->idx + BYTES2)] - 1][i];
-		proc->idx = cyd_val(proc->idx + BYTES4);
+		if ((arg = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+			to_exec = false;
+		else
+			arg = get_reg_value(proc->regs[arg]);
 	}
-	else
-	{
-		cor->hex[0] = cor->arena[cyd_val(proc->idx + BYTES3)];
-		cor->hex[1] = cor->arena[cyd_val(proc->idx + BYTES4)];
-		addr = restricted_addr(cor, proc, ft_atos_base(cor->hex, 16));
-		ft_bzero(cor->hex, REG_SIZE);
-		while (++i < REG_SIZE)
-			cor->arena[cyd_val(addr
-					+ i)] = proc->regs[cor->arena[cyd_val(proc->idx + BYTES2)]][i];
-		proc->idx = cyd_val(proc->idx + BYTES5);
-	}
-	return (1);
+	proc->move += byte_offset(type);
+	type = bits_peer_type(cor, proc, SECOND_PARAM);
+	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE));
+	if (to_exec)
+		execute_instr(cor, proc, arg, type);
+	proc->move += byte_offset(type) + OPC_BYTE;
 }

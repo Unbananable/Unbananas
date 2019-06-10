@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_add.c                                        :+:      :+:    :+:   */
+/*   instr_lldi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:36:13 by anleclab         ###   ########.fr       */
+/*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/06/08 16:29:49 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-** arg1 and arg2 represente to VALUES (taken from their respective register)
-** we process the calculus with
+** arg1 and arg2 are the VALUES extracted from the 1st and 2nd args
 */
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	long	sum;
+	long	tmp;
 
-	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
-	{	
-		sum = arg1 + arg2;
-		proc->carry = (!sum);
-		sum = (sum < INT_MIN) ? INT_MIN : sum;
-		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], sum, REG_SIZE);
+	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] >= REG_NUMBER)
+	{
+		tmp = (int)arg1 + (int)arg2;
+		tmp = (tmp < INT_MIN) ? INT_MIN : tmp;
+		tmp = (tmp > INT_MAX) ? INT_MAX : tmp;
+		proc->carry = (!tmp);
+		ft_memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], tmp, REG_SIZE);
 	}
 }
 
 /*
-** S (RG), S (RG), D (RG)
+** S (RG | ID | D2) S (RG | D2) D (RG)
 */
 
-void		instr_add(t_cor *cor, t_proc *proc)
+void		instr_lldi(t_cor *cor, t_proc *proc)
 {
 	int		type;
 	t_bool	to_exec;
@@ -45,24 +44,32 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	to_exec = true;
 	proc->move = ARGC_BYTE;
 	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
+	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg1 = cor->arena[(proc->idx + proc->move + 1)
+					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
 			arg1 = get_reg_value(proc->regs[arg1]);
 	}
+	else if (type == IND_CODE)
+		arg1 = get_int_arg_val(cor, (proc->idx + get_int_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
+	else if (type == DIR_CODE)
+		arg1 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
+	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg2 = cor->arena[(proc->idx + proc->move + 1)
+					% MEM_SIZE]) >= REG_NUMBER)
 			to_exec = false;
 		else
 			arg2 = get_reg_value(proc->regs[arg2]);
 	}
+	else if (type == DIR_CODE)
+		arg2 = get_short_arg_val(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);

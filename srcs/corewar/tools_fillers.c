@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   tools_fillers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 18:33:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/01 20:25:39 by anleclab         ###   ########.fr       */
+/*   Created: 2019/05/03 18:21:35 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/05/03 18:36:49 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	fill_register()
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dst);
 }
+
+void	fill_hex(t_cor *cor, int addr, int size)
+{
+	int		i;
+
+	i = -1;
+	while (++i < size)
+		cor->hex[i] = cor->arena[(addr + i) % MEM_SIZE];
+	cor->hex[size] = '\0';
+}
+
+int get_reg_value() {}

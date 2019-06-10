@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_add.c                                        :+:      :+:    :+:   */
+/*   instr_sub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:36:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:42:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	long	sum;
 
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
-	{	
-		sum = arg1 + arg2;
+	{
+		sum = arg1 - arg2;
 		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
@@ -35,7 +35,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 ** S (RG), S (RG), D (RG)
 */
 
-void		instr_add(t_cor *cor, t_proc *proc)
+void		instr_sub(t_cor *cor, t_proc *proc)
 {
 	int		type;
 	t_bool	to_exec;

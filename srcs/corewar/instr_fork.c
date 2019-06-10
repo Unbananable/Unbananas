@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instr_live.c                                       :+:      :+:    :+:   */
+/*   instr_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/08 15:39:10 by anleclab         ###   ########.fr       */
+/*   Created: 2019/06/06 15:01:40 by anleclab          #+#    #+#             */
+/*   Updated: 2019/06/08 15:38:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*
-** S (D4)
-*/
-
-void instr_live(t_cor *cor, t_proc *proc)
+void    instr_fork(t_cor *cor, t_proc *proc)
 {
-	int		arg1;
+    int     arg1;
+    t_proc  *new_proc;
 
-	proc->last_live_cycle = cor->curr_cycle;
-	arg1 = get_int_arg_val(cor, (proc->idx + 1) % MEM_SIZE, D4_BYTES);
-	cor->nb_live++;
-	if (arg1 * -1 > 0 && arg1 * -1 <= cor->nb_champs)
-		cor->last_alive = arg1 * -1;
-	proc->move = OPC_BYTE + byte_offset(DIR_CODE);
+    arg1 = get_short_arg_value(cor, (proc->idx + 1) % MEM_SIZE);
+    new_proc = clone_proc(cor, proc);
+    new_proc->wait = 0;
+    new_proc->idx = (proc->idx + (arg1 % IDX_MOD)) % MEM_SIZE;
+    cor->procs = add_proc(new_proc, cor->procs);
+    proc->move = OPC_BYTE + byte_offset(D2_BYTES);
 }
