@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:39:50 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 12:30:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:10:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void    instr_lfork(t_cor *cor, t_proc *proc)
     new_proc->wait = 0;
     new_proc->idx = (proc->idx + arg1) % MEM_SIZE;
     cor->procs = add_proc(new_proc, cor->procs);
-    proc->move = OPC_BYTE + byte_offset(D2_BYTES);
+    proc->move = OPC_BYTE + D2_BYTES;
 }

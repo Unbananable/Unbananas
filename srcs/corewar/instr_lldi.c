@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/10 12:17:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:10:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			to_exec = false;
 		else
 			arg1 = get_reg_value(proc->regs[arg1]);
+		proc->move += byte_offset(type);
 	}
-	else if (type == IND_CODE)
+	else
+		proc->move += D2_BYTES;
+	if (type == IND_CODE)
 		arg1 = get_int_arg_value(cor, (proc->idx + get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
 		arg1 = get_short_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
-	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
@@ -67,10 +69,13 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			to_exec = false;
 		else
 			arg2 = get_reg_value(proc->regs[arg2]);
+		proc->move += byte_offset(type);
 	}
 	else if (type == DIR_CODE)
+	{
 		arg2 = get_short_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
-	proc->move += byte_offset(type);
+		proc->move += D2_BYTES;
+	}
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
 	if (to_exec)
