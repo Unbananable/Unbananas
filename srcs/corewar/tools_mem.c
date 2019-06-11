@@ -12,18 +12,22 @@
 
 #include "corewar.h"
 
-/*
-** Copies the source (which is from a little endian memory area) to the
-** destination (which is big endian).
-*/
+/* Ici repose memcpy_big ~ 2019 - 2019 */
 
-void	memcpy_big(void *dst, void *src, size_t size)
+void	mapcpy(t_cor *cor, unsigned int idx, void *content)
 {
-	int		i;
+	int	i;
 
-	if (!dst || !src)
-		return ;
-	i = 0;
-	while ((int)--size >= 0)
-		((unsigned char *)dst)[i++] = ((unsigned char *)src)[size];
+	i = -1;
+	while (++i < REG_SIZE)
+		cor->arena[restricted_addr(idx + i)] = ((unsigned char *)content)[i];
+}
+
+void	regcpy(unsigned char *reg, void *content)
+{
+	int i;
+
+	i = -1;
+	while (++i < REG_SIZE)
+		reg[i] = ((unsigned char *)content)[i];
 }
