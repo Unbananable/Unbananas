@@ -51,10 +51,10 @@ void instr_sti(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
 			to_exec = false;
 		else
-			arg2 = get_reg_value(proc->regs[arg2]);
+			arg2 = get_reg_value(proc->regs[arg2 - 1]);
 		proc->move += byte_offset(type);
 	}
 	if (type == IND_CODE)
@@ -67,10 +67,10 @@ void instr_sti(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg3 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg3 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg3)
 			to_exec = false;
 		else
-			arg3 = get_reg_value(proc->regs[arg3]);
+			arg3 = get_reg_value(proc->regs[arg3 - 1]);
 		proc->move += byte_offset(type) + OPC_BYTE;
 	}
 	else if (type == DIR_CODE)

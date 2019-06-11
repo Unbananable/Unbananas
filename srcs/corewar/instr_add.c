@@ -21,13 +21,13 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	long long	sum;
 
-	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] < REG_NUMBER)
+	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
 	{	
 		sum = arg1 + arg2;
 		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]], (void *)&sum, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&sum, REG_SIZE);
 	}
 }
 
@@ -48,20 +48,20 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg1)
 			to_exec = false;
 		else
-			arg1 = get_reg_value(proc->regs[arg1]);
+			arg1 = get_reg_value(proc->regs[arg1 - 1]);
 	}
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
 			to_exec = false;
 		else
-			arg2 = get_reg_value(proc->regs[arg2]);
+			arg2 = get_reg_value(proc->regs[arg2 - 1]);
 	}
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
