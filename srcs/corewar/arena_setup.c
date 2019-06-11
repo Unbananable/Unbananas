@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 15:00:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 09:13:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		initialize_procs(t_cor *cor)
 {
 	int		i;
 	t_proc	*new;
-	int		*player_no;
+	int		player_no;
 
 	i = -1;
 	while (++i < cor->nb_champs)
@@ -57,14 +57,12 @@ void		initialize_procs(t_cor *cor)
 			error(cor, "malloc failed");
 		new->n = i;
 		new->wait = 0;
+		new->move = 0;
 		new->carry = false;
 		new->last_live_cycle = 0;
 		new->idx = i * MEM_SIZE / cor->nb_champs;
-		if (!(player_no = (int *)malloc(sizeof(int))))
-			error(cor, "malloc failed");
-		*player_no = -1 * cor->champs[i]->player_no;
-		memcpy_big(new->regs[0], player_no, sizeof(char) * REG_SIZE);
-		free(player_no);
+		player_no = -1 * cor->champs[i]->player_no;
+		memcpy_big(new->regs[0], &player_no, sizeof(char) * REG_SIZE);
 		cor->procs = add_proc(new, cor->procs);
 	}
 }

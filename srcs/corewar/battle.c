@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 14:58:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 09:11:53 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 		if (proc->opcode > NB_OPERATIONS)
 			proc->wait = 1;
 		else
-			proc->wait = op_tab[proc->opcode].wait;
+			proc->wait = op_tab[proc->opcode - 1].wait;
 	}
 	if (!(--(proc->wait)))
 	{
-		if (proc->opcode > NB_OPERATIONS)
-			proc->move = 1;
-		else
-			op_tab[proc->opcode].f(cor, proc);
+		if (proc->opcode <= NB_OPERATIONS)
+			op_tab[proc->opcode - 1].f(cor, proc);
 		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
 	}
 }
@@ -54,7 +52,10 @@ static void	kill_processes(t_cor *cor)
 			else
 				cor->procs = current->next;
 			delete_proc(&current);
-			current = previous->next;
+			if (previous)
+				current = previous->next;
+			else
+				current = cor->procs;
 		}
 		else
 		{
