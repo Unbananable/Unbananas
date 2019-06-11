@@ -19,8 +19,13 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
+<<<<<<< HEAD
 	if (type == REG_CODE && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
 		regcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&arg);
+=======
+	if (type == REG_CODE && cor->arena[restricted_addr((proc->idx + proc->move + 1))] && cor->arena[restricted_addr((proc->idx + proc->move + 1))] <= REG_NUMBER)
+		memcpy_big(proc->regs[cor->arena[restricted_addr((proc->idx + proc->move + 1))] - 1], (void *)&arg, REG_SIZE);
+>>>>>>> 71a0d3b44c11b01eb776998f8bc9a73e442f5cb3
 	else if (type == IND_CODE)
 		mapcpy(cor, proc->idx + (get_short_arg_value(cor, (proc->idx + proc->move + 1)) % IDX_MOD), (void *)&arg);
 }
@@ -42,7 +47,7 @@ void		instr_st(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg)
+		if ((arg = cor->arena[restricted_addr((proc->idx + proc->move + 1))]) > REG_NUMBER || !arg)
 			to_exec = false;
 		else
 			arg = get_reg_value(proc->regs[arg - 1]);

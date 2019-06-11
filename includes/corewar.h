@@ -224,6 +224,7 @@ void			instr_lfork(t_cor *cor, t_proc *proc);
 short			get_short_arg_value(t_cor *cor, int idx);
 int				get_int_arg_value(t_cor *cor, int idx, int size);
 int 			get_reg_value(unsigned char *reg);
+int				restricted_addr(int new_idx);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
@@ -231,7 +232,9 @@ void			delete_procs(t_proc **procs);
 void			delete_proc(t_proc **proc);
 t_proc 			*clone_proc(t_cor *cor, t_proc *original);
 
-void			memcpy_big(void *dst, void *src, size_t size);
+void			mapcpy(t_cor *cor, unsigned int idx, void *content);
+void			regcpy(unsigned char *reg, void *content);
+
 
 void    		dump(t_cor *cor);
 
