@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/10 12:20:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:11:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
 	if (type == REG_CODE && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
-		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&arg, REG_SIZE);
+		regcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&arg);
 	else if (type == IND_CODE)
-		memcpy_big(cor->arena + (proc->idx + (get_short_arg_value(cor, (proc->idx + proc->move + 1)) % IDX_MOD) % MEM_SIZE), (void *)&arg, REG_SIZE);
+		mapcpy(cor, proc->idx + (get_short_arg_value(cor, (proc->idx + proc->move + 1)) % IDX_MOD), (void *)&arg);
 }
 
 /*

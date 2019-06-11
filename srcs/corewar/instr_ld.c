@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 13:37:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:08:33 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static void execute_instr(t_proc *proc, int arg1, int arg2)
 {
 	proc->carry= (!arg1);
-	memcpy_big(proc->regs[arg2 - 1], (void *)&arg1, REG_SIZE);
+	regcpy(proc->regs[arg2 - 1], (void *)&arg1);
 }
 
 /*

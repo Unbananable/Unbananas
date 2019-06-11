@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 13:39:51 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:09:26 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		tmp = (tmp < INT_MIN) ? INT_MIN : tmp;
 		tmp = (tmp > INT_MAX) ? INT_MAX : tmp;
 		proc->carry = (!tmp);
-		memcpy_big(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)] - 1], (void *)&tmp, REG_SIZE);
+		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)] - 1], (void *)&tmp);
 	}
 }
 
