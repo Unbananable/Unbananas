@@ -24,3 +24,11 @@ int get_reg_value(unsigned char *reg)
 	res += reg[i];
 	return (res);
 }
+
+int	restricted_addr(int new_idx)
+{
+	if (new_idx < 0)
+		return (MEM_SIZE + (new_idx % MEM_SIZE));
+	else
+		return (new_idx % MEM_SIZE);
+}
