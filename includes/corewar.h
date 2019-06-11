@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 13:26:01 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:21:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct		s_proc
 	unsigned int	last_live_cycle;
 	unsigned int	wait;
 	unsigned int	idx;
-	unsigned int	move;
+	int				move;
 	unsigned char	*(regs[REG_NUMBER]);
 	struct s_proc	*next;
 }					t_proc;

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 10:04:12 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 11:22:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void instr_sti(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg1)
 			to_exec = false;
 		else
-			arg1 = get_reg_value(proc->regs[arg1]);
+			arg1 = get_reg_value(proc->regs[arg1 - 1]);
 	}
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
@@ -57,12 +57,12 @@ void instr_sti(t_cor *cor, t_proc *proc)
 			arg2 = get_reg_value(proc->regs[arg2]);
 		proc->move += byte_offset(type);
 	}
-	else
-		proc->move += D2_BYTES;
 	if (type == IND_CODE)
 		arg2 = get_int_arg_value(cor, (proc->idx + get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % MEM_SIZE, REG_SIZE);
 	else if (type == DIR_CODE)
 		arg2 = (int)get_short_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE);
+	if (type != REG_CODE)
+		proc->move += D2_BYTES;
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)

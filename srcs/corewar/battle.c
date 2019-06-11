@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 09:11:53 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:15:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 	if (!proc->wait)
 	{
 		proc->opcode = cor->arena[proc->idx];
-		if (proc->opcode > NB_OPERATIONS)
+		if (proc->opcode == 0 || proc->opcode > NB_OPERATIONS)
 			proc->wait = 1;
 		else
 			proc->wait = op_tab[proc->opcode - 1].wait;
 	}
 	if (!(--(proc->wait)))
 	{
-		if (proc->opcode <= NB_OPERATIONS)
+		if (proc->opcode && proc->opcode <= NB_OPERATIONS)
 			op_tab[proc->opcode - 1].f(cor, proc);
 		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
 	}
