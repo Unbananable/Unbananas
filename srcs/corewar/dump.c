@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:00:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 16:11:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:22:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ void		dump(t_cor *cor)
 	int		j;
 	char	*bytes;
 
-	ft_putstr("\n============= DUMP =============\n\n");
-	t_proc *cache;
-	cache = cor->procs;
-	while (cache){
-		ft_putstr("Proc: idx = ");
-		ft_putnbr(cache->idx);
-		ft_putstr(", wait = ");
-		ft_putnbr(cache->wait);
-		ft_putstr(", move = ");
-		ft_putnbr(cache->move);
-		ft_putstr("\n\n");
-		cache = cache->next;}
+ft_putstr("\n============= DUMP =============\n\n");
+t_proc *cache;
+cache = cor->procs;
+while (cache)
+{
+ft_putstr("Proc: idx = ");
+ft_putnbr(cache->idx);
+ft_putstr(", wait = ");
+ft_putnbr(cache->wait);
+ft_putstr(", move = ");
+ft_putnbr(cache->move);
+ft_putstr("\n\n");
+cache = cache->next;
+}
 
 	i = 0;
 	while (i < MEM_SIZE)
