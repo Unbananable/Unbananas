@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/10 12:11:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:28:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	long long	sum;
 
-	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
+	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)] && cor->arena[restricted_addr(proc->idx + proc->move + 1)] <= REG_NUMBER)
 	{	
 		sum = arg1 + arg2;
 		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&sum, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)] - 1], (void *)&sum, REG_SIZE);
 	}
 }
 
@@ -48,7 +48,7 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg1)
+		if ((arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg1)
 			to_exec = false;
 		else
 			arg1 = get_reg_value(proc->regs[arg1 - 1]);
@@ -58,7 +58,7 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
+		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg2)
 			to_exec = false;
 		else
 			arg2 = get_reg_value(proc->regs[arg2 - 1]);

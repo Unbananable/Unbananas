@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/10 12:15:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:37:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void instr_ld(t_cor *cor, t_proc *proc)
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
+	if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg2)
 		to_exec = false;
 	proc->move += byte_offset(type);
 	if (to_exec)

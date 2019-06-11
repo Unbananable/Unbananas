@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:08:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 12:22:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:28:37 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		instr_aff(t_cor *cor, t_proc *proc)
     to_exec = (to_exec && type == REG_CODE);
     if (to_exec)
     {
-        arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE];
+        arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)];
         proc->carry = (!arg1);
 		write(1, &arg1, 1); 
     }
