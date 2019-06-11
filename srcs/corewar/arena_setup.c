@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arena_setup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 13:33:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:00:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		initialize_procs(t_cor *cor)
 		if (!(new = new_proc()))
 			error(cor, "malloc failed");
 		new->n = i;
+		new->wait = 0;
 		new->carry = false;
 		new->last_live_cycle = 0;
 		new->idx = i * MEM_SIZE / cor->nb_champs;

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 14:45:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:58:41 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 		if (proc->opcode > NB_OPERATIONS)
 			proc->move = 1;
 		else
-			op_tab[proc->opcode].f(cor, proc); //TO DO: que faire avec la valeur de retour ?
+			op_tab[proc->opcode].f(cor, proc);
 		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
 	}
 }
