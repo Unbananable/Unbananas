@@ -19,7 +19,7 @@
 static void execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	proc->carry = (!arg1);
-	memcpy_big(cor->arena + ((proc->idx + arg2) % MEM_SIZE), (void *)&arg1, REG_SIZE);
+	mapcpy(cor, (proc->idx + arg2) % MEM_SIZE, (void *)&arg1);
 }
 
 /*

@@ -27,7 +27,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		proc->carry = (!sum);
 		sum = (sum < INT_MIN) ? INT_MIN : sum;
 		sum = (sum > INT_MAX) ? INT_MAX : sum;
-		memcpy_big(proc->regs[cor->arena[restricted_addr((proc->idx + proc->move + 1) % MEM_SIZE)] - 1], (void *)&sum, REG_SIZE);
+		regcpy(proc->regs[cor->arena[restricted_addr((proc->idx + proc->move + 1) % MEM_SIZE)] - 1], (void *)&sum);
 	}
 }
 
