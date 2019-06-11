@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 10:53:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:14:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		initialize_procs(t_cor *cor)
 		new->last_live_cycle = 0;
 		new->idx = i * MEM_SIZE / cor->nb_champs;
 		player_no = -1 * cor->champs[i]->player_no;
-		memcpy_big(new->regs[0], &player_no, sizeof(char) * REG_SIZE);
+		regcpy(new->regs[0], &player_no);
 		cor->procs = add_proc(new, cor->procs);
 	}
 }
