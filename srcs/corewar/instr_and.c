@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 11:30:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:42:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	int		tmp;
 	
-	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
+	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)] && cor->arena[restricted_addr(proc->idx + proc->move + 1)] <= REG_NUMBER)
 	{
 		tmp = arg1 & arg2;
 		proc->carry = (!tmp);
-		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&tmp, REG_SIZE);
+		memcpy_big(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)]], (void *)&tmp, REG_SIZE);
 	}
 }
 
@@ -62,11 +62,10 @@ void		instr_and(t_cor *cor, t_proc *proc)
 			&& (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1)
-					% MEM_SIZE]) >= REG_NUMBER)
+		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg2)
 			to_exec = false;
 		else
-			arg2 = get_reg_value(proc->regs[arg2]);
+			arg2 = get_reg_value(proc->regs[arg2 - 1]);
 	}
 	else if (type == IND_CODE)
 		arg2 = get_int_arg_value(cor, (proc->idx + (get_int_arg_value(cor, (proc->idx + proc->move + 1) % MEM_SIZE, IND_BYTES)) % IDX_MOD) % MEM_SIZE, REG_SIZE);

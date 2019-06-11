@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:27:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 10:07:33 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:38:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	long	tmp;
 
-	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
+	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)] && cor->arena[restricted_addr(proc->idx + proc->move + 1)] <= REG_NUMBER)
 	{
 		tmp = (int)arg1 + (int)arg2;
 		tmp = (tmp < INT_MIN) ? INT_MIN : tmp;
 		tmp = (tmp > INT_MAX) ? INT_MAX : tmp;
 		proc->carry = (!tmp);
-		memcpy(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&tmp, REG_SIZE);
+		memcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)] - 1], (void *)&tmp, REG_SIZE);
 	}
 }
 
@@ -47,7 +47,7 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg1)
+		if ((arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg1)
 			to_exec = false;
 		else
 			arg1 = get_reg_value(proc->regs[arg1 - 1]);
@@ -63,7 +63,7 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	if (type == REG_CODE)
 	{
-		if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
+		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg2)
 			to_exec = false;
 		else
 			arg2 = get_reg_value(proc->regs[arg2 - 1]);

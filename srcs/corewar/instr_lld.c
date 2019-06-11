@@ -44,7 +44,7 @@ void instr_lld(t_cor *cor, t_proc *proc)
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
+	if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)]) > REG_NUMBER || !arg2)
 		to_exec = false;
 	proc->move += byte_offset(type);
 	if (to_exec)
