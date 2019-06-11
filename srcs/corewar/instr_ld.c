@@ -19,7 +19,7 @@
 static void execute_instr(t_proc *proc, int arg1, int arg2)
 {
 	proc->carry= (!arg1);
-	memcpy_big(proc->regs[arg2], (void *)&arg1, REG_SIZE);
+	memcpy_big(proc->regs[arg2 - 1], (void *)&arg1, REG_SIZE);
 }
 
 /*
@@ -44,7 +44,7 @@ void instr_ld(t_cor *cor, t_proc *proc)
 	proc->move += byte_offset(type);
 	type = bits_peer_type(cor, proc, SECOND_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
-	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) >= REG_NUMBER)
+	if ((arg2 = cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE]) > REG_NUMBER || !arg2)
 		to_exec = false;
 	proc->move += byte_offset(type);
 	if (to_exec)

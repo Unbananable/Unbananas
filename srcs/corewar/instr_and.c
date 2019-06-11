@@ -22,7 +22,6 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 	
 	if (cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] && cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
-printf("arg1: %x, arg2: %x\n", arg1, arg2);
 		tmp = arg1 & arg2;
 		proc->carry = (!tmp);
 		memcpy_big(proc->regs[cor->arena[(proc->idx + proc->move + 1) % MEM_SIZE] - 1], (void *)&tmp, REG_SIZE);
