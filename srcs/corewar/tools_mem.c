@@ -6,13 +6,11 @@
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 20:44:14 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 14:54:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:07:01 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/* Ici repose memcpy_big ~ 2019 - 2019 */
 
 void	mapcpy(t_cor *cor, unsigned int idx, void *content)
 {
@@ -25,7 +23,7 @@ void	mapcpy(t_cor *cor, unsigned int idx, void *content)
 
 void	regcpy(unsigned char *reg, void *content)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < REG_SIZE)

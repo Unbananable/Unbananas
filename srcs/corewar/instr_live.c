@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/10 12:16:16 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:57:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** S (D4)
 */
 
-void instr_live(t_cor *cor, t_proc *proc)
+void	instr_live(t_cor *cor, t_proc *proc)
 {
 	int		arg1;
 

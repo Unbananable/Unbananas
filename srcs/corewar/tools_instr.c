@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 10:41:29 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:05:29 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 short	get_short_arg_value(t_cor *cor, int idx)
 {
-	return ((short)(cor->arena[idx % MEM_SIZE] * 256 + cor->arena[(idx + 1) % MEM_SIZE]));
+	return ((short)(cor->arena[idx % MEM_SIZE] * 256
+				+ cor->arena[(idx + 1) % MEM_SIZE]));
 }
 
 int		get_int_arg_value(t_cor *cor, int idx, int size)

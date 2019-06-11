@@ -6,25 +6,27 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 15:34:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 10:04:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:08:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int bit_offset(int param_idx)
+static int	bit_offset(int param_idx)
 {
 	return (BYTE_SIZE - param_idx * 2 * BIT);
 }
 
-int bits_peer_type(t_cor *cor, t_proc *proc, int param_idx)
+int			bits_peer_type(t_cor *cor, t_proc *proc, int param_idx)
 {
-	int bit1;
-	int bit2;
-	int res;
+	int	bit1;
+	int	bit2;
+	int	res;
 
-	bit1 = (cor->arena[(proc->idx + ARGC_BYTE) % MEM_SIZE] >> (bit_offset(param_idx) + 1)) & 1;
-	bit2 = (cor->arena[(proc->idx + ARGC_BYTE) % MEM_SIZE] >> bit_offset(param_idx)) & 1;
+	bit1 = (cor->arena[restricted_addr(proc->idx
+				+ ARGC_BYTE)] >> (bit_offset(param_idx) + 1)) & 1;
+	bit2 = (cor->arena[restricted_addr(proc->idx
+				+ ARGC_BYTE)] >> bit_offset(param_idx)) & 1;
 	if (bit1)
 		res = (bit2) ? IND_CODE : DIR_CODE;
 	else
@@ -32,7 +34,7 @@ int bits_peer_type(t_cor *cor, t_proc *proc, int param_idx)
 	return (res);
 }
 
-int byte_offset(int param_type)
+int			byte_offset(int param_type)
 {
 	if (param_type == REG_CODE)
 		return (REG_BYTE);
@@ -44,4 +46,3 @@ int byte_offset(int param_type)
 		return (0);
 	return (0);
 }
-

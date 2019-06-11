@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 14:13:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/11 14:59:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 {
-	if (type == REG_CODE && cor->arena[restricted_addr(proc->idx + proc->move + 1)] && cor->arena[restricted_addr(proc->idx + proc->move + 1)] <= REG_NUMBER)
-		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move + 1)] - 1], (void *)&arg);
+	if (type == REG_CODE && cor->arena[restricted_addr(proc->idx
+				+ proc->move + 1)] && cor->arena[restricted_addr(proc->idx
+					+ proc->move + 1)] <= REG_NUMBER)
+		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx
+					+ proc->move + 1)] - 1], (void *)&arg);
 	else if (type == IND_CODE)
-		mapcpy(cor, proc->idx + (get_short_arg_value(cor, (proc->idx + proc->move + 1)) % IDX_MOD), (void *)&arg);
+		mapcpy(cor, proc->idx + (get_short_arg_value(cor, (proc->idx
+							+ proc->move + 1)) % IDX_MOD), (void *)&arg);
 }
 
 /*
@@ -42,7 +46,8 @@ void		instr_st(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (type == REG_CODE)
 	{
-		if ((arg = cor->arena[restricted_addr((proc->idx + proc->move + 1))]) > REG_NUMBER || !arg)
+		if ((arg = cor->arena[restricted_addr((proc->idx
+							+ proc->move + 1))]) > REG_NUMBER || !arg)
 			to_exec = false;
 		else
 			arg = get_reg_value(proc->regs[arg - 1]);
