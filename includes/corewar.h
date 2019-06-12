@@ -148,7 +148,7 @@ typedef struct		s_cor
 	t_proc			*procs;
 	unsigned int	curr_cycle;
 	unsigned int	curr_cycle_period;
-	unsigned int	cycle_to_die;
+	int				cycle_to_die;
 	unsigned int	nb_live;
 	unsigned int	nb_checks;
 	int				last_alive;

@@ -27,6 +27,8 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 	{
 		if (proc->opcode && proc->opcode <= NB_OPERATIONS)
 			op_tab[proc->opcode - 1].f(cor, proc);
+		else
+			proc->move = 1;
 		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
 	}
 }
@@ -48,13 +50,6 @@ static void	kill_processes(t_cor *cor)
 		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die
 			|| cor->cycle_to_die <= 0)
 		{
-ft_putstr("\nkilled process: ");
-ft_putnbr(current->n);
-ft_putstr(" (idx = ");
-ft_putnbr(current->idx);
-ft_putstr(", last_live = ");
-ft_putnbr(current->last_live_cycle);
-ft_putstr(")\n\n");
 			if (previous)
 				previous->next = current->next;
 			else
@@ -120,8 +115,6 @@ void		battle(t_cor *cor)
 	{
 		cor->curr_cycle++;
 		cor->curr_cycle_period++;
-		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
-			dump(cor);
 		if (cor->cycle_to_die <= 0
 				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
 			end_period(cor);
@@ -131,5 +124,7 @@ void		battle(t_cor *cor)
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
+		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
+			dump(cor);
 	}
 }
