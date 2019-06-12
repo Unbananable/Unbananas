@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 10:15:02 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 09:59:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	kill_processes(t_cor *cor)
 	current = cor->procs;
 	while (current)
 	{
-		if (current->last_live_cycle > cor->cycle_to_die)
+		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die)
 		{
 			if (previous)
 				previous->next = current->next;

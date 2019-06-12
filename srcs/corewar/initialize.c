@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/10 11:32:10 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 08:47:01 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	initialize(t_cor *cor)
 		error(cor, "malloc failed");
 	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
 	cor->procs = NULL;
-	cor->curr_cycle = 1;
+	cor->curr_cycle = 0;
 	cor->cycle_to_die = CYCLE_TO_DIE;
 	cor->nb_live = 0;
 	cor->nb_checks = 0;
