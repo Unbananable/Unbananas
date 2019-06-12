@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 16:12:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:49:06 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ void		instr_ld(t_cor *cor, t_proc *proc)
 	if (to_exec)
 		execute_instr(proc, arg1, arg2);
 	proc->move += OPC_BYTE;
+	if (cor->verbose & V_OPERATIONS)
+	{
+		ft_putstr("P    ");
+		ft_putnbr(proc->n + 1);
+		ft_putstr(" | ld ");
+		ft_putnbr(arg1);
+		ft_putstr(" r");
+		ft_putnbr(arg2);
+		ft_putchar('\n');
+	}
 }

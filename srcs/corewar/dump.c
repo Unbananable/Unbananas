@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 12:00:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 11:04:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:19:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		dump(t_cor *cor)
 	int		j;
 	char	*bytes;
 
-ft_putstr("\n============= DUMP =============\n\n");
+/*ft_putstr("\n============= DUMP =============\n\n");
 ft_putstr("cycle_to_die: ");
 ft_putnbr(cor->cycle_to_die);
 ft_putstr("\nnbr_live: ");
@@ -56,20 +56,19 @@ cache = cor->procs;
 int nb_procs = 0;
 while (cache)
 {
-/*ft_putstr("Proc: idx = ");
+ft_putstr("Proc: idx = ");
 ft_putnbr(cache->idx);
 ft_putstr(", wait = ");
 ft_putnbr(cache->wait);
 ft_putstr(", move = ");
 ft_putnbr(cache->move);
-ft_putstr("\n\n");*/
+ft_putstr("\n\n");
 cache = cache->next;
 nb_procs++;
-
 }
 ft_putstr("nb_procs = ");
 ft_putnbr(nb_procs);
-ft_putstr("\n\n");
+ft_putstr("\n\n");*/
 
 	i = 0;
 	while (i < MEM_SIZE)
@@ -78,12 +77,12 @@ ft_putstr("\n\n");
 		j = 0;
 		while (j < 64) // [TO DO] Repasser à 32 après les tests
 		{
-			cache = cor->procs;
+			/*cache = cor->procs;
 			while (cache){
 				if ((unsigned int)(i + j) == cache->idx)
 					ft_putstr("\033[0;31m");
 				cache = cache->next;
-			}
+			}*/
 			bytes = ft_itoa_base(cor->arena[i + j], 16); // [IMPROVE] Faire une fonction pour ne pas passer par un malloc
 			if (ft_strlen(bytes) == 1)
 				ft_putchar('0');
@@ -91,7 +90,7 @@ ft_putstr("\n\n");
 			free(bytes);
 			ft_putchar(' ');
 			j++;
-			ft_putstr("\033[0;m");
+			//ft_putstr("\033[0;m");
 		}
 		ft_putchar('\n');
 		i += j;

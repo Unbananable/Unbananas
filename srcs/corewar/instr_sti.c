@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 15:01:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:19:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,26 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && (type == REG_CODE || type == DIR_CODE));
 	arg3 = third_arg(cor, proc, &to_exec, type);
 	if (to_exec)
+		execute_instr(cor, proc, arg1, (arg2 + arg3) % IDX_MOD);
+	if (cor->verbose & V_OPERATIONS)
 	{
-		arg2 = (arg2 + arg3) % IDX_MOD;
-		execute_instr(cor, proc, arg1, arg2);
+		ft_putstr("P    ");
+		ft_putnbr(proc->n + 1);
+		ft_putstr(" | sti r");
+		ft_putnbr(arg1 * -1);
+		ft_putchar(' ');
+		ft_putnbr(arg2);
+		ft_putchar(' ');
+		ft_putnbr(arg3);
+		ft_putchar('\n');
+		ft_putstr("       | -> store to ");
+		ft_putnbr(arg2);
+		ft_putstr(" + ");
+		ft_putnbr(arg3);
+		ft_putstr(" = ");
+		ft_putnbr(arg2 + arg3);
+		ft_putstr(" (with pc and mod ");
+		ft_putnbr(restricted_addr(proc->idx + (arg2 + arg3) % IDX_MOD));
+		ft_putstr(")\n");
 	}
 }

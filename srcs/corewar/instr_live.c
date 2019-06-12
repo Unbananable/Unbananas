@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/12 11:25:54 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:37:30 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	instr_live(t_cor *cor, t_proc *proc)
 	proc->last_live_cycle = cor->curr_cycle;
 	cor->nb_live++;
 	arg1 = get_int_arg_value(cor, (proc->idx + 1) % MEM_SIZE, D4_BYTES);
+	if (cor->verbose & V_OPERATIONS)
+	{
+		ft_putstr("P    ");
+		ft_putnbr(proc->n + 1);
+		ft_putstr(" | live ");
+		ft_putnbr(arg1);
+		ft_putchar('\n');
+	}
 	i = -1;
 	while (++i < cor->nb_champs)
 		if (arg1 * -1 == cor->champs[i]->player_no)
@@ -31,6 +39,14 @@ void	instr_live(t_cor *cor, t_proc *proc)
 			cor->last_alive = arg1 * -1;
 			cor->champs[i]->last_live = cor->curr_cycle;
 			cor->champs[i]->lives_in_curr_period++;
+			if (cor->verbose & V_LIVES)
+			{
+				ft_putstr("Player ");
+				ft_putnbr(arg1 * -1);
+				ft_putstr(" (");
+				ft_putstr(cor->champs[i]->head.prog_name);
+				ft_putstr(") is said to be alive\n");
+			}
 			break;
 		}
 	proc->move = OPC_BYTE + byte_offset(DIR_CODE);

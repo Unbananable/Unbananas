@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 11:27:34 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:39:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 static void	execute_process(t_proc *proc, t_cor *cor)
 {
+	char	*tmp;
+	int		i;
+
 	if (!proc->wait)
 	{
 		proc->opcode = cor->arena[proc->idx];
@@ -27,7 +30,35 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 	{
 		if (proc->opcode && proc->opcode <= NB_OPERATIONS)
 			op_tab[proc->opcode - 1].f(cor, proc);
-		proc->idx = (proc->idx + proc->move) % MEM_SIZE;
+		else
+			proc->move = 1;
+		if (cor->verbose & V_PROC && proc->opcode != 9)
+		{
+			ft_putstr("ADV ");
+			ft_putnbr(proc->move);
+			ft_putstr(" (0x");
+			tmp = ft_itoa_base(proc->idx, 16);
+			write(1, "0000", 4 - ft_strlen(tmp));
+			ft_putstr(tmp);
+			free(tmp);
+			ft_putstr(" -> 0x");
+			tmp = ft_itoa_base(restricted_addr(proc->idx + proc->move), 16);
+			write(1, "0000", 4 - ft_strlen(tmp));
+			ft_putstr(tmp);
+			free(tmp);
+			ft_putstr(") ");
+			i = -1;
+			while (++i < proc->move)
+			{
+				tmp = ft_itoa_base(cor->arena[restricted_addr(proc->idx + i)], 16);
+				write(1, "00", 2 - ft_strlen(tmp));
+				ft_putstr(tmp);
+				free(tmp);
+				ft_putchar(' ');
+			}
+			ft_putchar('\n');
+		}
+		proc->idx = restricted_addr(proc->idx + proc->move);
 	}
 }
 
@@ -48,13 +79,16 @@ static void	kill_processes(t_cor *cor)
 		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die
 			|| cor->cycle_to_die <= 0)
 		{
-ft_putstr("\nkilled process: ");
-ft_putnbr(current->n);
-ft_putstr(" (idx = ");
-ft_putnbr(current->idx);
-ft_putstr(", last_live = ");
-ft_putnbr(current->last_live_cycle);
-ft_putstr(")\n\n");
+			if (cor->verbose & V_DEATHS)
+			{
+				ft_putstr("Process ");
+				ft_putnbr(current->n + 1);
+				ft_putstr(" hasn't lived for ");
+				ft_putnbr(cor->curr_cycle - current->last_live_cycle);
+				ft_putstr(" cycles (CTD ");
+				ft_putnbr(cor->cycle_to_die);
+				ft_putstr(")\n");
+			}
 			if (previous)
 				previous->next = current->next;
 			else
@@ -120,8 +154,12 @@ void		battle(t_cor *cor)
 	{
 		cor->curr_cycle++;
 		cor->curr_cycle_period++;
-		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
-			dump(cor);
+		if (cor->verbose & V_CYCLES)
+		{
+			ft_putstr("It is now cycle ");
+			ft_putnbr(cor->curr_cycle);
+			ft_putchar('\n');
+		}
 		if (cor->cycle_to_die <= 0
 				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
 			end_period(cor);
@@ -131,5 +169,7 @@ void		battle(t_cor *cor)
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
+		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
+			dump(cor);
 	}
 }

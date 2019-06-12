@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 10:48:51 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:50:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,57 @@
 # include "op.h"
 # include "libft.h"
 
-#include <stdio.h>
+# include <stdio.h>
 
-#define STDIN 0
-#define STDOUT 1
-#define STDERR 2
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
-#define INT_MAX 214483647
-#define INT_MIN -2147483648
+# define INT_MAX 214483647
+# define INT_MIN -2147483648
 
-#define CYCLE_LIVE 10
-#define CYCLE_LD 5
-#define CYCLE_ST 25
-#define CYCLE_ADD 10
-#define CYCLE_SUB 10
-#define CYCLE_AND 6
-#define CYCLE_OR 6
-#define CYCLE_XOR 6
-#define CYCLE_ZJMP 20
-#define CYCLE_LDI 25
-#define CYCLE_STI 25
-#define CYCLE_FORK 800
-#define CYCLE_LLD 10
-#define CYCLE_LFORK 1000
-#define CYCLE_AFF 2
+# define CYCLE_LIVE 10
+# define CYCLE_LD 5
+# define CYCLE_ST 25
+# define CYCLE_ADD 10
+# define CYCLE_SUB 10
+# define CYCLE_AND 6
+# define CYCLE_OR 6
+# define CYCLE_XOR 6
+# define CYCLE_ZJMP 20
+# define CYCLE_LDI 25
+# define CYCLE_STI 25
+# define CYCLE_FORK 800
+# define CYCLE_LLD 10
+# define CYCLE_LFORK 1000
+# define CYCLE_AFF 2
 
-#define FIRST_PARAM 1
-#define SECOND_PARAM 2
-#define THIRD_PARAM 3
+# define FIRST_PARAM 1
+# define SECOND_PARAM 2
+# define THIRD_PARAM 3
 
-#define NULL_CODE 4
+# define NULL_CODE 4
 
-#define OPC_BYTE 1
-#define ARGC_BYTE 1
-#define REG_BYTE 1
-#define IND_BYTES IND_SIZE
-#define D2_BYTES DIR_SIZE / 2
-#define D4_BYTES DIR_SIZE
+# define OPC_BYTE 1
+# define ARGC_BYTE 1
+# define REG_BYTE 1
+# define IND_BYTES IND_SIZE
+# define D2_BYTES DIR_SIZE / 2
+# define D4_BYTES DIR_SIZE
 
-#define BYTE_SIZE 8
-#define BIT 1
-#define BYTE 1
+# define BYTE_SIZE 8
+# define BIT 1
+# define BYTE 1
 
-#define NB_OPERATIONS 16
+# define NB_OPERATIONS 16
+
+# define ERROR -1
+
+# define V_LIVES 1
+# define V_CYCLES 2
+# define V_OPERATIONS 4
+# define V_DEATHS 8
+# define V_PROC 16
 
 typedef enum		e_bool
 {
@@ -138,6 +146,7 @@ typedef struct		s_proc
 ** - dump: 1 if the dump option was used, 0 otherwise
 ** - dump_cycle: number of the cycle at which the memory (arena) must be dumped
 **               (only when dump is set to 1)
+** - verbose: verbose level. Each bit represents an aspect of the verbosity.
 */
 
 typedef struct		s_cor
@@ -148,12 +157,13 @@ typedef struct		s_cor
 	t_proc			*procs;
 	unsigned int	curr_cycle;
 	unsigned int	curr_cycle_period;
-	unsigned int	cycle_to_die;
+	int				cycle_to_die;
 	unsigned int	nb_live;
 	unsigned int	nb_checks;
 	int				last_alive;
 	int				dump;
 	unsigned int	dump_cycle;
+	char			verbose;
 }					t_cor;
 
 /*
@@ -182,7 +192,7 @@ typedef struct		s_op
 
 void			initialize(t_cor *cor);
 
-void			get_dump_info(t_cor *cor, int *ac, char ***av);
+int				get_options(t_cor *cor, int *ac, char ***av);
 
 void			get_champions(t_cor *cor, int ac, char **av);
 unsigned int	get_magic(int fd);

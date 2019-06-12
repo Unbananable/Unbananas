@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/10 12:28:41 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/12 13:30:27 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC = announce_winner.c \
 	  dump.c \
 	  end.c \
 	  get_champions.c \
-	  get_dump_info.c \
+	  get_options.c \
 	  initialize.c \
 	  instr_add.c \
 	  instr_aff.c \

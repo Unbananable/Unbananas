@@ -23,4 +23,14 @@ void	instr_fork(t_cor *cor, t_proc *proc)
 	new_proc->idx = (proc->idx + (arg1 % IDX_MOD)) % MEM_SIZE;
 	cor->procs = add_proc(new_proc, cor->procs);
 	proc->move = OPC_BYTE + D2_BYTES;
+	if (cor->verbose & V_OPERATIONS)
+	{
+		ft_putstr("P    ");
+		ft_putnbr(proc->n + 1);
+		ft_putstr(" | lfork ");
+		ft_putnbr(arg1);
+		ft_putstr(" (");
+		ft_putnbr(restricted_addr(proc->idx + (arg1 % IDX_MOD)));
+		ft_putstr(")\n");
+	}
 }
