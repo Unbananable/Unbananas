@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 13:50:27 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:01:03 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "op.h"
 # include "libft.h"
+# include "ft_printf.h"
 
 # include <stdio.h>
 

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:57:49 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 17:29:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:03:48 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	announce_winner(t_cor *cor)
 	i = -1;
 	while (cor->champs[++i])
 		if (cor->champs[i]->player_no == winner_no)
-		{
-			ft_putstr("Contestant ");
-			ft_putnbr(winner_no);
-			ft_putstr(", \"");
-			ft_putstr(cor->champs[i]->head.prog_name);
-			ft_putendl("\" has won !");
-			return ;
-		}
+			ft_printf("Contestant %d, \"%s\" has won !", winner_no,
+					cor->champs[i]->head.prog_name);
 }

@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/12 13:30:27 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/12 16:58:06 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,9 +56,9 @@ HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
 HDR_INC = -I./$(HDRSFD)
-LIBFT_HDR = -I./libft/inc
-LIB_BINARY = -L./libft -lft
-LIBFT= libft/libft.a
+LIBFT_HDR = -I./ft_printf/includes -I./ft_printf/libft/inc
+LIB_BINARY = -L./ft_printf -lftprintf
+LIBFT= ft_printf/libftprintf.a
 
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -76,8 +76,8 @@ make_start:
 	@echo "\n\033[1;4;42mBeginning process...$(NONE)"
 
 check_libft:
-	@echo "\n$(BOLD_UNDERLINED)<| Checking libft |>$(NONE)\n"
-	@make -C libft
+	@echo "\n$(BOLD_UNDERLINED)<| Checking libft_printf |>$(NONE)\n"
+	@make -C ft_printf
 
 project:
 	@echo "\n$(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
@@ -97,12 +97,12 @@ visualizer:
 clean:
 	@/bin/rm -rf $(OBJSFD)
 	@echo "[ $(RED)✗$(NONE) ] $(OBJSFD) directory"
-	@make -C ./libft clean
+	@make -C ./ft_printf clean
 
 fclean: clean
 	@/bin/rm -f $(NAME) visualizer
 	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
-	@make -C ./libft fclean
+	@make -C ./ft_printf fclean
 
 re: fclean all
 

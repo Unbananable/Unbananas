@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:01:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 14:51:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:20:55 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ void	instr_fork(t_cor *cor, t_proc *proc)
 	cor->procs = add_proc(new_proc, cor->procs);
 	proc->move = OPC_BYTE + D2_BYTES;
 	if (cor->verbose & V_OPERATIONS)
-	{
-		ft_putstr("P    ");
-		ft_putnbr(proc->n + 1);
-		ft_putstr(" | lfork ");
-		ft_putnbr(arg1);
-		ft_putstr(" (");
-		ft_putnbr(restricted_addr(proc->idx + (arg1 % IDX_MOD)));
-		ft_putstr(")\n");
-	}
+		ft_printf("P %4d | fork %d (%d)\n", proc->n + 1, arg1,
+				restricted_addr(proc->idx + (arg1 % IDX_MOD)));
 }
