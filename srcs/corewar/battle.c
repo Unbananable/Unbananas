@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 17:55:45 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:35:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 			op_tab[proc->opcode - 1].f(cor, proc);
 		else
 			proc->move = 1;
-		if (cor->verbose & V_PROC && proc->opcode != 9)
+		if (cor->verbose & V_PROC && proc->opcode != 9 && proc->opcode
+				&& proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,
 					restricted_addr(proc->idx + proc->move));
@@ -88,11 +89,11 @@ static void	end_period(t_cor *cor)
 	int		i;
 
 	kill_processes(cor);
-	if (cor->nb_live >= NBR_LIVE || cor->nb_checks == MAX_CHECKS)
+	if (cor->nb_live >= NBR_LIVE || cor->nb_checks > MAX_CHECKS)
 	{
 		cor->cycle_to_die -= CYCLE_DELTA;
 		if (cor->verbose & V_CYCLES)
-			printf("Cycle to die is now %d\n", cor->cycle_to_die);
+			ft_printf("Cycle to die is now %d\n", cor->cycle_to_die);
 		cor->nb_checks = 0;
 	}
 	else
@@ -134,15 +135,15 @@ void		battle(t_cor *cor)
 		cor->curr_cycle_period++;
 		if (cor->verbose & V_CYCLES)
 			ft_printf("It is now cycle %d\n", cor->curr_cycle);
-		if (cor->cycle_to_die <= 0
-				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
-			end_period(cor);
 		cache = cor->procs;
 		while (cache)
 		{
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
+		if (cor->cycle_to_die <= 0
+				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
+			end_period(cor);
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
 	}
