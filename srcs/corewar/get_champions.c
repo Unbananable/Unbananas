@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_champions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 13:53:15 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 10:44:02 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static t_champ	*read_champion(char *str, int player_no)
 		return (NULL);
 	if (!(champ = (t_champ *)malloc(sizeof(t_champ))))
 		return (NULL);
+	champ->last_live = 0;
+	champ->lives_in_curr_period = 0;
 	champ->player_no = player_no;
 	champ->redcode = NULL;
 	if ((champ->head.magic = get_magic(fd)) != COREWAR_EXEC_MAGIC

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 09:59:45 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:27:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ static void	kill_processes(t_cor *cor)
 	current = cor->procs;
 	while (current)
 	{
-		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die)
+		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die
+			|| cor->cycle_to_die <= 0)
 		{
+ft_putstr("\nkilled process: ");
+ft_putnbr(current->n);
+ft_putstr(" (idx = ");
+ft_putnbr(current->idx);
+ft_putstr(", last_live = ");
+ft_putnbr(current->last_live_cycle);
+ft_putstr(")\n\n");
 			if (previous)
 				previous->next = current->next;
 			else
@@ -67,6 +75,8 @@ static void	kill_processes(t_cor *cor)
 
 static void	end_period(t_cor *cor)
 {
+	int		i;
+
 	kill_processes(cor);
 	if (cor->nb_live >= NBR_LIVE || cor->nb_checks == MAX_CHECKS)
 	{
@@ -76,6 +86,10 @@ static void	end_period(t_cor *cor)
 	else
 		cor->nb_checks++;
 	cor->curr_cycle_period = 0;
+	cor->nb_live = 0;
+	i = -1;
+	while (++i < cor->nb_champs)
+		cor->champs[i]->lives_in_curr_period = 0;
 }
 
 /*
@@ -104,18 +118,18 @@ void		battle(t_cor *cor)
 
 	while (cor->procs)
 	{
+		cor->curr_cycle++;
+		cor->curr_cycle_period++;
+		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
+			dump(cor);
+		if (cor->cycle_to_die <= 0
+				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
+			end_period(cor);
 		cache = cor->procs;
 		while (cache)
 		{
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
-		if (cor->cycle_to_die <= 0
-				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
-			end_period(cor);
-		cor->curr_cycle++;
-		cor->curr_cycle_period++;
-		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
-			dump(cor);
 	}
 }

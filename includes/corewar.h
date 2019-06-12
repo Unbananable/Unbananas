@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 10:21:21 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/12 10:48:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ typedef enum		e_bool
 **         process size, etc. cf op.h)
 ** - player_no: player number
 ** - redcode: the champion's process code
-** - curr_live: //TO DO
-** - last_live: //TO DO
+** - last_live: cycle in which the last live was performed for the champion
+** - lives_in_curr_period: number of live operations performed for the champion
+**   in the current period
 */
 
 typedef struct		s_champ
@@ -81,8 +82,8 @@ typedef struct		s_champ
 	header_t		head;
 	int				player_no;
 	unsigned char	*redcode;
-	unsigned int	curr_live;
 	unsigned int	last_live;
+	unsigned int	lives_in_curr_period;
 }					t_champ;
 
 /*
