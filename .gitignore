@@ -5,3 +5,7 @@ test/
 *.swp
 libft/obj/
 libft/libft.a
+out
+target
+out2
+target2
