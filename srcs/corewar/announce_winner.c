@@ -21,6 +21,6 @@ void	announce_winner(t_cor *cor)
 	i = -1;
 	while (cor->champs[++i])
 		if (cor->champs[i]->player_no == winner_no)
-			ft_printf("Contestant %d, \"%s\" has won !", winner_no,
+			ft_printf("Contestant %d, \"%s\" has won !\n", winner_no,
 					cor->champs[i]->head.prog_name);
 }
