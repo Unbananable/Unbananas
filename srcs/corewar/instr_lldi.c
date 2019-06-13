@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_lldi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 17:06:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:54:11 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,15 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 }
 
 /*
-** S (RG | ID | D2) S (RG | D2) D (RG)
+** LONG INDIRECT LOAD
+** - opcode: 0x0E
+** - wait: 50
+** - argcode: yes
+** - args: REG/IND/DIR(2) IND/DIR(2) REG
+** - addressing retriction: no
+** - carry: 1 if the sum of the arguments is 0, 1 otherwise
+** - description: Stores the result of the sum of the first two arguments in
+**   the register indicated by the third argument.
 */
 
 void		instr_lldi(t_cor *cor, t_proc *proc)

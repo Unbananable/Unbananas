@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   instr_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:01:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 17:20:55 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:52:55 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** FORK
+** - opcode: 0x0C
+** - wait: 800
+** - argcode: no
+** - args: DIR(2)
+** - addressing retriction: yes
+** - carry: no
+** - description: SCreates a new proc which is a clone of the current proc. It
+**   is placed at the address indicated by the second parameter.
+*/
 
 void	instr_fork(t_cor *cor, t_proc *proc)
 {

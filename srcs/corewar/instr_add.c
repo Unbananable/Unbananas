@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_add.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 16:46:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:51:02 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,15 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 }
 
 /*
-** S (RG), S (RG), D (RG)
+** ADDITION
+** - opcode: 0x04
+** - wait: 10
+** - argcode: yes
+** - args: REG REG REG
+** - addressing retriction: no
+** - carry: 1 of the sum is 0, 0 otherwise
+** - description: Adds the content of the registers indicated by the first and
+**   second arguments, and stores the result in the third register.
 */
 
 void		instr_add(t_cor *cor, t_proc *proc)

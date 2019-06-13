@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_sti.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/12 17:28:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:52:45 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,16 @@ static int	third_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 }
 
 /*
-** S (RG) S (RG | ID | D2) D (RG | D2)
-** if D2, value is short
+** INDIRECT STORE
+** - opcode: 0x0B
+** - wait: 25
+** - argcode: yes
+** - args: REG REG/IND/DIR(2) IND/DIR(2)
+** - addressing retriction: yes
+** - carry: 1 if the value of the first register is 0, 1 otherwise
+** - description: Stores the content of the register indicated by the first
+**   argument at the address indicated by the sum of the second and third
+**   arguments.
 */
 
 void		instr_sti(t_cor *cor, t_proc *proc)

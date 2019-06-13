@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_st.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/12 18:49:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:50:39 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,15 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 }
 
 /*
-** S (RG) D (RG | ID)
-** if ID as 2nd arg, value is short
+** DIRECT STORE
+** - opcode: 0x03
+** - wait: 5
+** - argcode: yes
+** - args: REG REG/IND
+** - addressing retriction: yes
+** - carry: 1 if the first argument is 0, 0 otherwise
+** - description: Loads the content of the register indicated by the first
+**   argument into the second argument (a register or in the VM)
 */
 
 void		instr_st(t_cor *cor, t_proc *proc)

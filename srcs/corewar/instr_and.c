@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_and.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 16:47:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:51:34 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,15 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 }
 
 /*
-** S (RG | ID | D4), S (RG | ID | D4), D (RG)
+** AND
+** - opcode: 0x06
+** - wait: 6
+** - argcode: yes
+** - args: REG/IND/DIR(4) REG/IND/DIR(4) REG
+** - addressing retriction: yes
+** - carry: 1 if the result of the '&' is 0, 0 otherwise
+** - description: Stores the result of the bitwise & operation between the
+**   first and second arguments in the register indicated by the third argument
 */
 
 void		instr_and(t_cor *cor, t_proc *proc)

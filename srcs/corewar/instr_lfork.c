@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   instr_lfork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:39:50 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 17:22:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/13 09:55:59 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** LONG FORK
+** - opcode: 0x0C
+** - wait: 1000
+** - argcode: no
+** - args: DIR(2)
+** - addressing retriction: no
+** - carry: no
+** - description: SCreates a new proc which is a clone of the current proc. It
+**   is placed at the address indicated by the second parameter.
+*/
 
 void	instr_lfork(t_cor *cor, t_proc *proc)
 {

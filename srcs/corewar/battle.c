@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 18:35:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/13 10:10:20 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "op.c"
+
+/*
+** Processes execute the instructions they are placed on. Details about the
+** instructions can be found in the corresponding files. They have the following
+** information:
+** - opcode: code the proc sits on, wich represents the instruction to be
+**   performed
+** - wait: number of cycles the proc has to wait before the instruction is
+**   performed
+** - argcode: wether or not the instruction is followed by a byte representing
+**   the types of arguments that follow (the 2 first bits correspond to the
+**   first argument, and so on. 01 represents a REG, 10 a DIR and 11 an IND)
+** - args: number and type of arguments required by the instruction
+** - addressing restriction: whether or not addresses should be restricted with
+**   % IDX_MOD
+** - carry: whether or not the instruction modifies the carry of the proc, and
+**   if so, how
+** - description: what the instruction actually does
+*/
 
 static void	execute_process(t_proc *proc, t_cor *cor)
 {
@@ -109,6 +128,7 @@ static void	end_period(t_cor *cor)
 ** This is the function that lets the champions fight. The algorithm is as
 ** follows :
 **     As long as there is still a process alive:
+**         -> increment the current cycle
 **         For every process in the list (see execute_process):
 **             -> if it is the begining of the game or the process moved in the
 **                last cycle, set the value of the opcode and wait time of the
@@ -121,8 +141,8 @@ static void	end_period(t_cor *cor)
 **             -> if more than NBR_LIVE live operations where performed in the
 **                last period, or if MAX_CHECKS periods took place without
 **                reducing the period, reduce the period
-**         -> go to the next cycle or dump the memory and exit if the dump
-**            option is set and the current cycle is the dump cycle
+**         -> dump the memory and exit if the dump option is set and the
+**            current cycle is the dump cycle
 */
 
 void		battle(t_cor *cor)
