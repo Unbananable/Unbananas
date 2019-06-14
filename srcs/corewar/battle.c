@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 14:36:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:55:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ static void	end_period(t_cor *cor)
 	int		i;
 
 	kill_processes(cor);
-	if (cor->nb_live >= NBR_LIVE || cor->nb_checks > MAX_CHECKS)
+	if (cor->nb_live >= NBR_LIVE || cor->nb_checks >= MAX_CHECKS)
 	{
 		cor->cycle_to_die -= CYCLE_DELTA;
 		if (cor->verbose & V_CYCLES)
 			ft_printf("Cycle to die is now %d\n", cor->cycle_to_die);
-		cor->nb_checks = 0;
+		cor->nb_checks = 1;
 	}
 	else
 		cor->nb_checks++;
