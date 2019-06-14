@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 13:55:29 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:36:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 				&& proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,
-					restricted_addr(proc->idx + proc->move));
+					proc->idx + proc->move);
 			i = -1;
 			while (++i < proc->move)
 				ft_printf("%.2x ", cor->arena[restricted_addr(proc->idx + i)]);
@@ -78,7 +78,7 @@ static void	kill_processes(t_cor *cor)
 	current = cor->procs;
 	while (current)
 	{
-		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die
+		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die
 			|| cor->cycle_to_die <= 0)
 		{
 			if (cor->verbose & V_DEATHS)

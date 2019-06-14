@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/14 13:51:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 14:35:49 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 	arg3 = third_arg(cor, proc, &to_exec, type);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, (arg2 + arg3) % IDX_MOD);
-	if (cor->verbose & V_OPERATIONS)
+	if (to_exec && cor->verbose & V_OPERATIONS)
 	{
 		ft_printf("P %4d | sti r%d %d %d\n", proc->n, -arg1, arg2, arg3);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
