@@ -19,7 +19,7 @@
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
 	proc->carry = (!arg1);
-	mapcpy(cor, (proc->idx + arg2) % MEM_SIZE, (void *)&arg1);
+	mapcpy(cor, (proc->idx + arg2) % MEM_SIZE, proc->regs[arg1 - 1]);
 }
 
 static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
@@ -32,8 +32,6 @@ static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 		if ((arg1 = cor->arena[restricted_addr(proc->idx
 						+ proc->move + 1)]) > REG_NUMBER || !arg1)
 			*to_exec = false;
-		else
-			arg1 = get_reg_value(proc->regs[arg1 - 1]);
 	}
 	return (arg1);
 }
@@ -125,9 +123,9 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 		execute_instr(cor, proc, arg1, (arg2 + arg3) % IDX_MOD);
 	if (to_exec && cor->verbose & V_OPERATIONS)
 	{
-		ft_printf("P %4d | sti r%d %d %d\n", proc->n, -arg1, arg2, arg3);
+		ft_printf("P %4d | sti r%d %d %d\n", proc->n + 1, arg1, arg2 % MEM_SIZE, arg3 % MEM_SIZE);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-				arg2, arg3, arg2 + arg3, restricted_addr(proc->idx + (arg2
+				arg2 % MEM_SIZE, arg3 % MEM_SIZE, (arg2 + arg3) % MEM_SIZE, restricted_addr(proc->idx + (arg2
 				+ arg3) % IDX_MOD));
 	}
 }
