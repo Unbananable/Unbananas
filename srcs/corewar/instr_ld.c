@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_ld.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:04:29 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:50:20 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 14:21:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void		instr_ld(t_cor *cor, t_proc *proc)
 	if (to_exec)
 		execute_instr(proc, arg1, arg2);
 	proc->move += OPC_BYTE;
-	if (cor->verbose & V_OPERATIONS)
-		ft_printf("P %4d | ld %d r%d\n", proc->n + 1, arg1, arg2);
+	if (to_exec && cor->verbose & V_OPERATIONS)
+		ft_printf("P %4d | ld %d r%d\n", proc->n, arg1, arg2);
 }

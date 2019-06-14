@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 16:02:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:49:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ t_proc	*clone_proc(t_cor *cor, t_proc *original)
 	int		i;
 
 	new = new_proc();
-	new->n = cor->procs->n + 1;
+	cor->nb_procs++;
+	new->n = cor->new_proc_n++;
 	new->carry = original->carry;
 	new->last_live_cycle = original->last_live_cycle;
 	i = -1;

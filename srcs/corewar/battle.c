@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/13 10:10:20 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 14:55:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 				&& proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,
-					restricted_addr(proc->idx + proc->move));
+					proc->idx + proc->move);
 			i = -1;
 			while (++i < proc->move)
 				ft_printf("%.2x ", cor->arena[restricted_addr(proc->idx + i)]);
@@ -78,18 +78,19 @@ static void	kill_processes(t_cor *cor)
 	current = cor->procs;
 	while (current)
 	{
-		if (current->last_live_cycle < cor->curr_cycle - cor->cycle_to_die
+		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die
 			|| cor->cycle_to_die <= 0)
 		{
 			if (cor->verbose & V_DEATHS)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						current->n + 1, cor->curr_cycle
+						current->n, cor->curr_cycle
 						- current->last_live_cycle, cor->cycle_to_die);
 			if (previous)
 				previous->next = current->next;
 			else
 				cor->procs = current->next;
 			delete_proc(&current);
+			cor->nb_procs--;
 			if (previous)
 				current = previous->next;
 			else
@@ -108,12 +109,12 @@ static void	end_period(t_cor *cor)
 	int		i;
 
 	kill_processes(cor);
-	if (cor->nb_live >= NBR_LIVE || cor->nb_checks > MAX_CHECKS)
+	if (cor->nb_live >= NBR_LIVE || cor->nb_checks >= MAX_CHECKS)
 	{
 		cor->cycle_to_die -= CYCLE_DELTA;
 		if (cor->verbose & V_CYCLES)
 			ft_printf("Cycle to die is now %d\n", cor->cycle_to_die);
-		cor->nb_checks = 0;
+		cor->nb_checks = 1;
 	}
 	else
 		cor->nb_checks++;

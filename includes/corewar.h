@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 17:01:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:46:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ typedef struct		s_cor
 	int				dump;
 	unsigned int	dump_cycle;
 	char			verbose;
+	unsigned int	nb_procs;
+	unsigned int	new_proc_n;
 }					t_cor;
 
 /*

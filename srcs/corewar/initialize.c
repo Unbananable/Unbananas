@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 13:46:43 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:46:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@ void	initialize(t_cor *cor)
 	cor->last_alive = 0;
 	cor->dump = 0;
 	cor->verbose = 0;
+	cor->nb_procs = 0;
+	cor->new_proc_n = 1;
 }

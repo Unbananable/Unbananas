@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_and.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:51:34 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 14:51:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,8 @@ void		instr_and(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);
+	if (to_exec && cor->verbose & V_OPERATIONS)
+		ft_printf("P %4d | and %d %d r%d\n", proc->n, arg1, arg2, cor->arena[restricted_addr(proc->idx + proc->move
+					+ 1)]);
 	proc->move += byte_offset(type) + OPC_BYTE;
 }

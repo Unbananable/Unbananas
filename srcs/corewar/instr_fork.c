@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 15:01:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/13 09:52:55 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 13:50:33 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	instr_fork(t_cor *cor, t_proc *proc)
 	cor->procs = add_proc(new_proc, cor->procs);
 	proc->move = OPC_BYTE + D2_BYTES;
 	if (cor->verbose & V_OPERATIONS)
-		ft_printf("P %4d | fork %d (%d)\n", proc->n + 1, arg1,
+		ft_printf("P %4d | fork %d (%d)\n", proc->n, arg1,
 				restricted_addr(proc->idx + (arg1 % IDX_MOD)));
 }
