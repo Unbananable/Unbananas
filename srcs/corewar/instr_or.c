@@ -86,7 +86,7 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 ** - args: REG/IND/DIR(4) REG/IND/DIR(4) REG
 ** - addressing retriction: yes
 ** - carry: 1 if the result of the '|' is 0, 0 otherwise
-** - description: Stores the result of the bitwise | operation between the
+** - description: Stores the result of the bitwise '|' operation between the
 **   first and second arguments in the register indicated by the third argument
 */
 

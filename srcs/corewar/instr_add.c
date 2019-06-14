@@ -73,7 +73,7 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 ** - argcode: yes
 ** - args: REG REG REG
 ** - addressing retriction: no
-** - carry: 1 of the sum is 0, 0 otherwise
+** - carry: 1 if the sum is 0, 0 otherwise
 ** - description: Adds the content of the registers indicated by the first and
 **   second arguments, and stores the result in the third register.
 */

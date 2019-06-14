@@ -20,7 +20,7 @@
 ** - args: DIR(2)
 ** - addressing retriction: yes
 ** - carry: no
-** - description: SCreates a new proc which is a clone of the current proc. It
+** - description: Creates a new proc which is a clone of the current proc. It
 **   is placed at the address indicated by the second parameter.
 */
 
