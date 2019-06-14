@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_zjmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:26:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:52:18 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 13:51:50 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	instr_zjmp(t_cor *cor, t_proc *proc)
 	{
 		proc->move = get_short_arg_value(cor, proc->idx + 1) % IDX_MOD;
 		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | zjmp %d OK\n", proc->n + 1, proc->move);
+			ft_printf("P %4d | zjmp %d OK\n", proc->n, proc->move);
 	}
 	else
 		proc->move = D2_BYTES + OPC_BYTE;

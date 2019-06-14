@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_live.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:49:57 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 13:51:00 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	instr_live(t_cor *cor, t_proc *proc)
 	cor->nb_live++;
 	arg1 = get_int_arg_value(cor, (proc->idx + 1) % MEM_SIZE, D4_BYTES);
 	if (cor->verbose & V_OPERATIONS)
-		ft_printf("P %4d | live %d\n", proc->n + 1, arg1);
+		ft_printf("P %4d | live %d\n", proc->n, arg1);
 	i = -1;
 	while (++i < cor->nb_champs)
 		if (arg1 * -1 == cor->champs[i]->player_no)

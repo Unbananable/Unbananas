@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/13 10:10:20 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 13:55:29 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ static void	kill_processes(t_cor *cor)
 		{
 			if (cor->verbose & V_DEATHS)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						current->n + 1, cor->curr_cycle
+						current->n, cor->curr_cycle
 						- current->last_live_cycle, cor->cycle_to_die);
 			if (previous)
 				previous->next = current->next;
 			else
 				cor->procs = current->next;
 			delete_proc(&current);
+			cor->nb_procs--;
 			if (previous)
 				current = previous->next;
 			else

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/11 14:14:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:47:26 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void		initialize_procs(t_cor *cor)
 	{
 		if (!(new = new_proc()))
 			error(cor, "malloc failed");
-		new->n = i;
+		cor->nb_procs++;
+		new->n = cor->new_proc_n++;
 		new->wait = 0;
 		new->move = 0;
 		new->carry = false;
