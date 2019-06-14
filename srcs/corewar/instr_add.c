@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_add.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:51:02 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 16:30:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	long long	sum;
+	int		sum;
 
 	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			&& cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			<= REG_NUMBER)
 	{
-		sum = arg1 + arg2;
+		if (arg2 >= 0 && INT_MAX - arg2 < arg1)
+			sum = INT_MAX;
+		else if (arg2 < 0 && INT_MIN - arg2 > arg1)
+			sum = INT_MIN;
+		else
+			sum = arg1 + arg2;
 		proc->carry = (!sum);
-		sum = (sum < INT_MIN) ? INT_MIN : sum;
-		sum = (sum > INT_MAX) ? INT_MAX : sum;
 		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx
 					+ proc->move + 1)] - 1], (void *)&sum);
 	}
@@ -40,13 +43,9 @@ static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 	arg1 = 0;
 	if (type == REG_CODE)
-	{
 		if ((arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
 				> REG_NUMBER || !arg1)
 			*to_exec = false;
-		else
-			arg1 = get_reg_value(proc->regs[arg1 - 1]);
-	}
 	return (arg1);
 }
 
@@ -56,13 +55,9 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 	arg2 = 0;
 	if (type == REG_CODE)
-	{
 		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
 				> REG_NUMBER || !arg2)
 			*to_exec = false;
-		else
-			arg2 = get_reg_value(proc->regs[arg2 - 1]);
-	}
 	return (arg2);
 }
 
@@ -98,6 +93,9 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	type = bits_peer_type(cor, proc, THIRD_PARAM);
 	to_exec = (to_exec && type == REG_CODE);
 	if (to_exec)
-		execute_instr(cor, proc, arg1, arg2);
+		execute_instr(cor, proc, get_reg_value(proc->regs[arg1 - 1]), get_reg_value(proc->regs[arg2 - 1]));
+	if (to_exec && cor->verbose & V_OPERATIONS)
+		ft_printf("P %4d | add r%d r%d r%d\n", proc->n, arg1, arg2, cor->arena[restricted_addr(proc->idx + proc->move
+					+ 1)]);
 	proc->move += byte_offset(type) + OPC_BYTE;
 }

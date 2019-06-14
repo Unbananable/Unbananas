@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_xor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:51:56 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 15:56:59 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		tmp = arg1 ^ arg2;
 		proc->carry = (!tmp);
 		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move
-					+ 1)]], (void *)&tmp);
+					+ 1)] - 1], (void *)&tmp);
 	}
 }
 
@@ -113,5 +113,8 @@ void		instr_xor(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);
+	if (to_exec && cor->verbose & V_OPERATIONS)
+		ft_printf("P %4d | xor %d %d r%d\n", proc->n, arg1, arg2, cor->arena[restricted_addr(proc->idx + proc->move
+					+ 1)]);
 	proc->move += byte_offset(type) + OPC_BYTE;
 }

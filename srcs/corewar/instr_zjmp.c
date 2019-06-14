@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:26:47 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/14 13:51:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 15:40:38 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ void	instr_zjmp(t_cor *cor, t_proc *proc)
 	t_bool	to_exec;
 
 	to_exec = proc->carry;
+	proc->move = get_short_arg_value(cor, proc->idx + 1) % IDX_MOD;
+	ft_printf("P %4d | zjmp %d ", proc->n, proc->move);
 	if (to_exec)
 	{
-		proc->move = get_short_arg_value(cor, proc->idx + 1) % IDX_MOD;
 		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | zjmp %d OK\n", proc->n, proc->move);
+			ft_printf("OK\n");
 	}
 	else
+	{
+		ft_printf("FAILED\n");
 		proc->move = D2_BYTES + OPC_BYTE;
+	}
 }

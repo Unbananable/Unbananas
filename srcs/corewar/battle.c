@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 14:55:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:30:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 			op_tab[proc->opcode - 1].f(cor, proc);
 		else
 			proc->move = 1;
-		if (cor->verbose & V_PROC && proc->opcode != 9 && proc->opcode
+		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry) && proc->opcode
 				&& proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_sub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:51:16 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 16:12:44 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	long long	sum;
+	int		sum;
 
 	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			&& cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			<= REG_NUMBER)
 	{
-		sum = arg1 - arg2;
+		if (arg2 < 0 && arg1 > INT_MAX + arg2)
+			sum = INT_MAX;
+		if (arg2 > 0 && arg1 < INT_MIN + arg2)
+			sum = INT_MIN;
+		else
+			sum = arg1 - arg2;
 		proc->carry = (!sum);
-		sum = (sum < INT_MIN) ? INT_MIN : sum;
-		sum = (sum > INT_MAX) ? INT_MAX : sum;
 		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx
 					+ proc->move + 1)] - 1], (void *)&sum);
 	}

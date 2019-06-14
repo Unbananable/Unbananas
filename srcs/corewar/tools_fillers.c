@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 18:21:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/11 15:05:49 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:29:08 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int	get_reg_value(unsigned char *reg)
 	int		i;
 	int		res;
 
-	i = -1;
-	res = 0;
-	while (++i < 3)
-		res = (res + reg[i]) * 256;
-	res += reg[i];
+	i = 3;
+	res = reg[3];
+	while (--i >= 0)
+		res = res * 256 + reg[i];
 	return (res);
 }
 

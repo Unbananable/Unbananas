@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_or.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/13 09:51:44 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/14 15:37:42 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 		tmp = arg1 | arg2;
 		proc->carry = (!tmp);
 		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move
-					+ 1)]], (void *)&tmp);
+					+ 1)] - 1], (void *)&tmp);
 	}
 }
 
