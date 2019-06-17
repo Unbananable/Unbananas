@@ -25,6 +25,7 @@ void	initialize(t_cor *cor)
 	ft_bzero(cor->arena, sizeof(unsigned char) * MEM_SIZE);
 	cor->procs = NULL;
 	cor->curr_cycle = 0;
+	cor->curr_cycle_period = 0;
 	cor->cycle_to_die = CYCLE_TO_DIE;
 	cor->nb_live = 0;
 	cor->nb_checks = 0;

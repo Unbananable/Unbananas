@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/14 14:35:49 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/14 16:38:10 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 		execute_instr(cor, proc, arg1, (arg2 + arg3) % IDX_MOD);
 	if (to_exec && cor->verbose & V_OPERATIONS)
 	{
-		ft_printf("P %4d | sti r%d %d %d\n", proc->n + 1, arg1, arg2 % MEM_SIZE, arg3 % MEM_SIZE);
+		ft_printf("P %4d | sti r%d %d %d\n", proc->n, arg1, arg2 % MEM_SIZE, arg3 % MEM_SIZE);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 				arg2 % MEM_SIZE, arg3 % MEM_SIZE, (arg2 + arg3) % MEM_SIZE, restricted_addr(proc->idx + (arg2
 				+ arg3) % IDX_MOD));

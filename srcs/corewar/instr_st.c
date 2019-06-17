@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/14 13:51:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/17 10:22:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		instr_st(t_cor *cor, t_proc *proc)
 		else
 		{
 			if (cor->verbose & V_OPERATIONS)
-				ft_printf("P %4d | st r%d ", proc->n, arg);
+				ft_printf("P %4d | st r%d ", proc->n, arg); // [FIX ME] S'assurer que les arguments sont bons avant de balancer le verbose
 			arg = get_reg_value(proc->regs[arg - 1]);
 		}
 	}

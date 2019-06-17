@@ -20,16 +20,15 @@
 unsigned int	get_magic(int fd)
 {
 	unsigned int	magic;
-	int				rval;
-	int				c;
+	unsigned char	c;
 	int				i;
 
 	magic = 0;
 	i = -1;
 	while (++i < 4)
 	{
-		if ((rval = read(fd, &c, 1)) != 1)
-			return (0);
+		if (read(fd, &c, 1) != 1)
+			return (0); // [IMPROVE] Valable seulement si CODE_EXEC_MAGIC != 0
 		magic = magic * 16 * 16 + c;
 	}
 	return (magic);
