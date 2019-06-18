@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:27:11 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 13:53:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/18 09:57:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ int         get_options(t_cor *cor, int *ac, char ***av)
 			if (get_verbose_info(cor, ac, av) == ERROR)
 				return (ERROR);
 		}
+		else if (ft_strequ((*av)[0], "-n"))
+			break ;
+		else
+			return (ERROR);
 	}
 	return (0);
 }
