@@ -29,12 +29,12 @@ void	instr_fork(t_cor *cor, t_proc *proc)
 	int		arg1;
 	t_proc	*new_proc;
 
-	arg1 = get_short_arg_value(cor, (proc->idx + 1) % MEM_SIZE);
+	arg1 = get_short_arg_value(cor, proc->idx + 1);
 	new_proc = clone_proc(cor, proc);
 	new_proc->wait = 0;
-	new_proc->idx = (proc->idx + (arg1 % IDX_MOD)) % MEM_SIZE;
+	new_proc->idx = restricted_addr(proc->idx + (arg1 % IDX_MOD));
 	cor->procs = add_proc(new_proc, cor->procs);
-	proc->move = OPC_BYTE + D2_BYTES;
+	proc->move = 3;
 	if (cor->verbose & V_OPERATIONS)
 		ft_printf("P %4d | fork %d (%d)\n", proc->n, arg1,
 				restricted_addr(proc->idx + (arg1 % IDX_MOD)));

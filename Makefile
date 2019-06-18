@@ -41,11 +41,8 @@ SRC = announce_winner.c \
 	  introduce_champions.c \
 	  main.c \
 	  order_champions.c \
-	  tools_fillers.c \
 	  tools_get_champions.c \
 	  tools_instr.c \
-	  tools_mem.c \
-	  tools_params_type.c \
 	  tools_procs.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/

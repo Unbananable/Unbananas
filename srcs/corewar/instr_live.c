@@ -31,7 +31,7 @@ void	instr_live(t_cor *cor, t_proc *proc)
 
 	proc->last_live_cycle = cor->curr_cycle;
 	cor->nb_live++;
-	arg1 = get_int_arg_value(cor, (proc->idx + 1) % MEM_SIZE, D4_BYTES);
+	arg1 = get_int_arg_value(cor, proc->idx + 1, 4);
 	if (cor->verbose & V_OPERATIONS)
 		ft_printf("P %4d | live %d\n", proc->n, arg1);
 	i = -1;
@@ -46,5 +46,5 @@ void	instr_live(t_cor *cor, t_proc *proc)
 						cor->champs[i]->head.prog_name);
 			break;
 		}
-	proc->move = OPC_BYTE + byte_offset(DIR_CODE);
+	proc->move = 5;
 }

@@ -13,33 +13,6 @@
 #include "corewar.h"
 
 /*
-** arg is the int VALUE registered into the 1st argument (register)
-** type is the kind of the destination (register or indirect)
-*/
-
-static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
-{
-	if (type == REG_CODE && cor->arena[restricted_addr(proc->idx
-				+ proc->move + 1)] && cor->arena[restricted_addr(proc->idx
-					+ proc->move + 1)] <= REG_NUMBER)
-	{
-		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx
-					+ proc->move + 1)] - 1], (void *)&arg);
-		if (cor->verbose & V_OPERATIONS)
-			ft_printf("r%d\n", cor->arena[restricted_addr(proc->idx
-					+ proc->move + 1)]);
-	}
-	else if (type == IND_CODE)
-	{
-		if (cor->verbose & V_OPERATIONS)
-			ft_printf("%d\n", get_short_arg_value(cor, proc->idx
-					+ proc->move + 1));
-		mapcpy(cor, proc->idx + (get_short_arg_value(cor, (proc->idx
-							+ proc->move + 1)) % IDX_MOD), (void *)&arg);
-	}
-}
-
-/*
 ** DIRECT STORE
 ** - opcode: 0x03
 ** - wait: 5
@@ -53,30 +26,24 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg, int type)
 
 void		instr_st(t_cor *cor, t_proc *proc)
 {
-	int			type;
-	t_bool		to_exec;
-	int			arg;
+	int		src1;
 
-	to_exec = true;
-	proc->move = ARGC_BYTE;
-	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	if (type == REG_CODE)
+	if (get_args(cor, proc))
 	{
-		if ((arg = cor->arena[restricted_addr((proc->idx
-							+ proc->move + 1))]) > REG_NUMBER || !arg)
-			to_exec = false;
-		else
+		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
+		if (cor->verbose & V_OPERATIONS)
+			ft_printf("P %4d | st r%d ", proc->n, cor->args[0].val);
+		if (cor->args[1].type == T_REG)
 		{
+			regcpy(proc->regs[cor->args[1].val - 1], (void *)&src1);
 			if (cor->verbose & V_OPERATIONS)
-				ft_printf("P %4d | st r%d ", proc->n, arg); // [FIX ME] S'assurer que les arguments sont bons avant de balancer le verbose
-			arg = get_reg_value(proc->regs[arg - 1]);
+				ft_printf("r%d\n", cor->args[1].val);
+		}
+		else if (cor->args[1].type == T_IND)
+		{
+			mapcpy(cor, proc->idx + cor->args[1].val % IDX_MOD, (void *)&src1);
+			if (cor->verbose & V_OPERATIONS)
+				ft_printf("%d\n", cor->args[1].val);
 		}
 	}
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, SECOND_PARAM);
-	to_exec = (to_exec && (type == REG_CODE || type == IND_CODE));
-	if (to_exec)
-		execute_instr(cor, proc, arg, type);
-	proc->move += byte_offset(type) + OPC_BYTE;
 }

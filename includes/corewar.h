@@ -42,27 +42,13 @@
 # define CYCLE_LFORK 1000
 # define CYCLE_AFF 2
 
-# define FIRST_PARAM 1
-# define SECOND_PARAM 2
-# define THIRD_PARAM 3
-
-# define NULL_CODE 4
-
-# define OPC_BYTE 1
-# define ARGC_BYTE 1
-# define REG_BYTE 1
-# define IND_BYTES IND_SIZE
-# define D2_BYTES DIR_SIZE / 2
-# define D4_BYTES DIR_SIZE
-
-# define BYTE_SIZE 8
-# define BIT 1
-# define BYTE 1
-
 # define NB_OPERATIONS 16
 
 # define ERROR -1
 
+/*
+** Byte representation of the verbose options
+*/
 # define V_LIVES 1
 # define V_CYCLES 2
 # define V_OPERATIONS 4
@@ -128,6 +114,48 @@ typedef struct		s_proc
 }					t_proc;
 
 /*
+** OPERATION STRUCTURE:
+** - name: nom de l'operation
+** - nb_args: nombre d'arguments que prend l'operation
+** - args : liste contenant les types d'arguments acceptable pour chaque
+**          argument
+** - opcode: code de l'operation
+** - wait: nombre de cycles d'attente avant execution de l'operation
+** - full_name: nom etendu de l'operation
+** - ?? //TO DO: identifier
+** - ?? //TO DO: identifier
+*/
+
+struct				s_cor;
+
+typedef struct		s_op
+{
+	char			*name;
+	int				nb_args;
+	int				args[3];
+	unsigned char	opcode;
+	unsigned int	wait;
+	char			*full_name;
+	void			(*f)(struct s_cor *, t_proc *);
+	int				dir_size;
+	int				ind_size;
+}					t_op;
+
+/*
+** ARGUMENT STRUCTURE:
+** - type: type of the argument. One of T_REG, T_DIR, T_IND or 0
+** - val: value of the argumen. It corresponds to the value of the DIR, the
+**   position relative to the proc index of a IND, or the register number
+**   depending on the type of argument
+*/
+
+typedef struct		s_arg
+{
+	t_arg_type	type;
+	int			val;
+}					t_arg;
+
+/*
 ** PROGRAM STRUCTURE:
 ** - nb_champs: number of champions
 ** - champs: list of champions (see champion structure)
@@ -156,6 +184,8 @@ typedef struct		s_cor
 	t_champ			**champs;
 	unsigned char	*arena;
 	t_proc			*procs;
+	t_op			*op_tab;
+	t_arg			args[3];
 	unsigned int	curr_cycle;
 	unsigned int	curr_cycle_period;
 	int				cycle_to_die;
@@ -168,30 +198,6 @@ typedef struct		s_cor
 	unsigned int	nb_procs;
 	unsigned int	new_proc_n;
 }					t_cor;
-
-/*
-** OPERATION STRUCTURE:
-** - name: nom de l'operation
-** - nb_args: nombre d'arguments que prend l'operation
-** - args : liste contenant les types d'arguments acceptable pour chaque
-**          argument
-** - opcode: code de l'operation
-** - wait: nombre de cycles d'attente avant execution de l'operation
-** - full_name: nom etendu de l'operation
-** - ?? //TO DO: identifier
-** - ?? //TO DO: identifier
-*/
-
-typedef struct		s_op
-{
-	char			*name;
-	int				nb_args;
-	int				args[3];
-	unsigned char	opcode;
-	unsigned int	wait;
-	char			*full_name;
-	void			(*f)(t_cor *, t_proc *);
-}					t_op;
 
 void			initialize(t_cor *cor);
 
@@ -214,10 +220,6 @@ void			battle(t_cor *cor);
 
 void			announce_winner(t_cor *cor);
 
-void			fill_register(t_cor *cor, char reg_id, char *content);
-int				bits_peer_type(t_cor *cor, t_proc *proc, int param_idx);
-int				byte_offset(int param_type);
-
 void			instr_live(t_cor *cor, t_proc *proc);
 void			instr_ld(t_cor *cor, t_proc *proc);
 void			instr_st(t_cor *cor, t_proc *proc);
@@ -235,20 +237,21 @@ void			instr_aff(t_cor *cor, t_proc *proc);
 void			instr_fork(t_cor *cor, t_proc *proc);
 void			instr_lfork(t_cor *cor, t_proc *proc);
 
+int				get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
+		t_bool addr_restriction);
+int				get_args(t_cor *cor, t_proc *proc);
 short			get_short_arg_value(t_cor *cor, int idx);
 int				get_int_arg_value(t_cor *cor, int idx, int size);
 int 			get_reg_value(unsigned char *reg);
 int				restricted_addr(int new_idx);
+void			mapcpy(t_cor *cor, unsigned int idx, void *content);
+void			regcpy(unsigned char *reg, void *content);
 
 t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
 void			delete_procs(t_proc **procs);
 void			delete_proc(t_proc **proc);
 t_proc 			*clone_proc(t_cor *cor, t_proc *original);
-
-void			mapcpy(t_cor *cor, unsigned int idx, void *content);
-void			regcpy(unsigned char *reg, void *content);
-
 
 void    		dump(t_cor *cor);
 

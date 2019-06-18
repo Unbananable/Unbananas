@@ -37,5 +37,5 @@ void	instr_zjmp(t_cor *cor, t_proc *proc)
 	}
 	proc->move %= IDX_MOD;
 	if (!proc->carry)
-		proc->move = D2_BYTES + OPC_BYTE;
+		proc->move = 3;
 }

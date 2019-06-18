@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "op.c"
 
 /*
 ** Processes execute the instructions they are placed on. Details about the
@@ -42,12 +41,12 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 		if (proc->opcode == 0 || proc->opcode > NB_OPERATIONS)
 			proc->wait = 1;
 		else
-			proc->wait = op_tab[proc->opcode - 1].wait;
+			proc->wait = cor->op_tab[proc->opcode - 1].wait;
 	}
 	if (!(--(proc->wait)))
 	{
 		if (proc->opcode && proc->opcode <= NB_OPERATIONS)
-			op_tab[proc->opcode - 1].f(cor, proc);
+			cor->op_tab[proc->opcode - 1].f(cor, proc);
 		else
 			proc->move = 1;
 		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry) && proc->opcode

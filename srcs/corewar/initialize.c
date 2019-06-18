@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "op.c"
 
 /*
 ** Initializes the t_cor structure.
@@ -34,4 +35,5 @@ void	initialize(t_cor *cor)
 	cor->verbose = 0;
 	cor->nb_procs = 0;
 	cor->new_proc_n = 1;
+	cor->op_tab = op_tab;
 }

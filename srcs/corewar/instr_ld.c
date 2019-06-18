@@ -13,16 +13,6 @@
 #include "corewar.h"
 
 /*
-** arg1 is the int VALUE to store into arg2 (the targeted register number)
-*/
-
-static void	execute_instr(t_proc *proc, int arg1, int arg2)
-{
-	proc->carry = (!arg1);
-	regcpy(proc->regs[arg2 - 1], (void *)&arg1);
-}
-
-/*
 ** DIRECT LOAD
 ** - opcode: 0x02
 ** - wait: 5
@@ -36,31 +26,14 @@ static void	execute_instr(t_proc *proc, int arg1, int arg2)
 
 void		instr_ld(t_cor *cor, t_proc *proc)
 {
-	t_bool	to_exec;
-	int		type;
-	int		arg1;
-	int		arg2;
+	int		src1;
 
-	proc->move = ARGC_BYTE;
-	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	to_exec = (type == IND_CODE || type == DIR_CODE);
-	if (type == IND_CODE)
-		arg1 = get_int_arg_value(cor, (proc->idx
-					+ (get_int_arg_value(cor, (proc->idx + proc->move + 1)
-					% MEM_SIZE, IND_BYTES) % IDX_MOD)) % MEM_SIZE, REG_SIZE);
-	else if (type == DIR_CODE)
-		arg1 = get_int_arg_value(cor, (proc->idx + proc->move + 1)
-				% MEM_SIZE, D4_BYTES);
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, SECOND_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
-			> REG_NUMBER || !arg2)
-		to_exec = false;
-	proc->move += byte_offset(type);
-	if (to_exec)
-		execute_instr(proc, arg1, arg2);
-	proc->move += OPC_BYTE;
-	if (to_exec && cor->verbose & V_OPERATIONS)
-		ft_printf("P %4d | ld %d r%d\n", proc->n, arg1, arg2);
+	if (get_args(cor, proc))
+	{
+		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
+		proc->carry = (!src1);
+		regcpy(proc->regs[cor->args[1].val - 1], (void *)&src1);
+		if (cor->verbose & V_OPERATIONS)
+			ft_printf("P %4d | ld %d r%d\n", proc->n, src1, cor->args[1].val);
+	}
 }

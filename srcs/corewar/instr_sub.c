@@ -13,59 +13,6 @@
 #include "corewar.h"
 
 /*
-** arg1 and arg2 represente to VALUES (taken from their respective register)
-** we process the calculus with
-*/
-
-static void	execute_instr(t_cor *cor, t_proc *proc, int reg1, int reg2)
-{
-	int		sum;
-	int		arg1;
-	int		arg2;
-
-	arg1 = get_reg_value(proc->regs[reg1 - 1]);
-	arg2 = get_reg_value(proc->regs[reg2 - 1]);
-	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)]
-			&& cor->arena[restricted_addr(proc->idx + proc->move + 1)]
-			<= REG_NUMBER)
-	{
-		if (arg2 < 0 && arg1 > INT_MAX + arg2)
-			sum = INT_MAX;
-		if (arg2 > 0 && arg1 < INT_MIN + arg2)
-			sum = INT_MIN;
-		else
-			sum = arg1 - arg2;
-		proc->carry = (!sum);
-		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx
-					+ proc->move + 1)] - 1], (void *)&sum);
-	}
-}
-
-static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
-{
-	int		arg1;
-
-	arg1 = 0;
-	if (type == REG_CODE)
-		if ((arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
-				> REG_NUMBER || !arg1)
-			*to_exec = false;
-	return (arg1);
-}
-
-static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
-{
-	int		arg2;
-
-	arg2 = 0;
-	if (type == REG_CODE)
-		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
-				> REG_NUMBER || !arg2)
-			*to_exec = false;
-	return (arg2);
-}
-
-/*
 ** SUBSTRACTION
 ** - opcode: 0x05
 ** - wait: 10
@@ -79,27 +26,24 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 void		instr_sub(t_cor *cor, t_proc *proc)
 {
-	int		type;
-	t_bool	to_exec;
-	int		arg1;
-	int		arg2;
+	int		sub;
+	int		src1;
+	int		src2;
 
-	to_exec = true;
-	proc->move = ARGC_BYTE;
-	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	arg1 = first_arg(cor, proc, &to_exec, type);
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, SECOND_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	arg2 = second_arg(cor, proc, &to_exec, type);
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, THIRD_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	if (to_exec)
-		execute_instr(cor, proc, arg1, arg2);
-	if (to_exec && cor->verbose & V_OPERATIONS)
-		ft_printf("P %4d | sub r%d r%d r%d\n", proc->n, arg1, arg2,
-				cor->arena[restricted_addr(proc->idx + proc->move + 1)]);
-	proc->move += byte_offset(type) + OPC_BYTE;
+	if (get_args(cor, proc))
+	{
+		src1 = get_reg_value(proc->regs[cor->args[0].val]);
+		src2 = get_reg_value(proc->regs[cor->args[1].val]);
+		if (src2 < 0 && src1 > INT_MAX + src2)
+			sub = INT_MAX;
+		else if (src2 > 0 && src1 < INT_MAX + src2)
+			sub = INT_MIN;
+		else
+			sub = src1 + src2;
+		proc->carry = (!sub);
+		regcpy(proc->regs[cor->args[2].val - 1], (void *)&sub);
+		if (cor->verbose & V_OPERATIONS)
+			ft_printf("P %4d | sub r%d r%d r%d\n", proc->n, cor->args[0].val,
+					cor->args[1].val, cor->args[2].val);
+	}
 }

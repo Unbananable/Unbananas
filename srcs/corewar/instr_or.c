@@ -13,72 +13,6 @@
 #include "corewar.h"
 
 /*
-** arg1 and arg2 are the VALUES registered in the registers (1st and 2nd arg)
-*/
-
-static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
-{
-	int		tmp;
-
-	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)]
-			&& cor->arena[restricted_addr(proc->idx + proc->move + 1)]
-			<= REG_NUMBER)
-	{
-		tmp = arg1 | arg2;
-		proc->carry = (!tmp);
-		regcpy(proc->regs[cor->arena[restricted_addr(proc->idx + proc->move
-					+ 1)] - 1], (void *)&tmp);
-	}
-}
-
-static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
-{
-	int		arg1;
-
-	arg1 = 0;
-	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	if (type == REG_CODE)
-	{
-		if ((arg1 = cor->arena[(proc->idx + proc->move + 1)
-					% MEM_SIZE]) > REG_NUMBER || !arg1)
-			*to_exec = false;
-		else
-			arg1 = get_reg_value(proc->regs[arg1 - 1]);
-	}
-	else if (type == IND_CODE)
-		arg1 = get_int_arg_value(cor, (proc->idx
-					+ (get_int_arg_value(cor, (proc->idx + proc->move + 1)
-					% MEM_SIZE, IND_BYTES)) % IDX_MOD) % MEM_SIZE, REG_SIZE);
-	else if (type == DIR_CODE)
-		arg1 = get_int_arg_value(cor, (proc->idx + proc->move + 1)
-				% MEM_SIZE, D4_BYTES);
-	return (arg1);
-}
-
-static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
-{
-	int arg2;
-
-	arg2 = 0;
-	if (type == REG_CODE)
-	{
-		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
-				> REG_NUMBER || !arg2)
-			*to_exec = false;
-		else
-			arg2 = get_reg_value(proc->regs[arg2 - 1]);
-	}
-	else if (type == IND_CODE)
-		arg2 = get_int_arg_value(cor, (proc->idx
-					+ (get_int_arg_value(cor, (proc->idx + proc->move + 1)
-					% MEM_SIZE, IND_BYTES)) % IDX_MOD) % MEM_SIZE, REG_SIZE);
-	else if (type == DIR_CODE)
-		arg2 = get_int_arg_value(cor, (proc->idx + proc->move + 1)
-				% MEM_SIZE, D4_BYTES);
-	return (arg2);
-}
-
-/*
 ** OR
 ** - opcode: 0x07
 ** - wait: 6
@@ -92,26 +26,18 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 void		instr_or(t_cor *cor, t_proc *proc)
 {
-	int		type;
-	t_bool	to_exec;
-	int		arg1;
-	int		arg2;
+	int		src1;
+	int		src2;
+	int		tmp;
 
-	to_exec = true;
-	proc->move = ARGC_BYTE;
-	type = bits_peer_type(cor, proc, FIRST_PARAM);
-	to_exec = (to_exec
-			&& (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
-	arg1 = first_arg(cor, proc, &to_exec, type);
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, SECOND_PARAM);
-	to_exec = (to_exec
-			&& (type == REG_CODE || type == IND_CODE || type == DIR_CODE));
-	arg2 = second_arg(cor, proc, &to_exec, type);
-	proc->move += byte_offset(type);
-	type = bits_peer_type(cor, proc, THIRD_PARAM);
-	to_exec = (to_exec && type == REG_CODE);
-	if (to_exec)
-		execute_instr(cor, proc, arg1, arg2);
-	proc->move += byte_offset(type) + OPC_BYTE;
+	if (get_args(cor, proc))
+	{
+		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
+		src2 = get_arg_true_val(cor, proc, cor->args[1], true);
+		tmp = src1 | src2;
+		proc->carry = (!tmp);
+		regcpy(proc->regs[cor->args[2].val - 1], (void *)&tmp);
+		if (cor->verbose & V_OPERATIONS)
+			ft_printf("P %4d | or %d %d r%d\n", proc->n, src1, src2, cor->args[2].val);
+	}
 }
