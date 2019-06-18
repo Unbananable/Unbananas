@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 13:31:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/18 12:48:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,25 @@ int		main(int ac, char **av)
 	introduce_champions(&cor);
 	battle(&cor);
 	announce_winner(&cor);
+	
+/* VISUUUUU */
+
+	initscr();
+	noecho();
+	curs_set(0);
+	cbreak();
+
+	if (!(cor.visu = malloc(sizeof(t_visu))))
+		error(&cor, "Malloc of the visu has failed");
+	cor.visu->arena = newwin(HEIGHT, WIDTH, 1, 1);
+	box(cor.visu->arena, 0, 0);
+  
+  wrefresh(cor.visu->arena);
+
+  wgetch(cor.visu->arena);
+  endwin();
+
+/* ******** */
+	
 	end(&cor);
 }

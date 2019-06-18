@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 13:46:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/18 12:39:43 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@
 # define NB_OPERATIONS 16
 
 # define ERROR -1
+
+# define VISU_ON 1
 
 # define V_LIVES 1
 # define V_CYCLES 2
@@ -167,6 +169,8 @@ typedef struct		s_cor
 	char			verbose;
 	unsigned int	nb_procs;
 	unsigned int	new_proc_n;
+	struct s_visu	*visu;
+	t_bool			visu_status;
 }					t_cor;
 
 /*
@@ -260,5 +264,41 @@ void			delete_champion(t_champ **champ);
 
 /* DEV */
 void		print_cor(t_cor *cor);
+
+
+
+
+
+
+
+
+/* VISU */
+# include <ncurses.h>
+
+# define HEIGHT (MEM_SIZE / 64 + 4)
+# define WIDTH ((MEM_SIZE / 64) * 3 + 3)
+
+# define START_SPEED 50
+
+# define GREEN			8
+# define GREEN_CURSOR	9
+# define GREEN_LIVE		10
+# define CYAN			11
+# define CYAN_CURSOR	12
+# define CYAN_LIVE		13
+# define RED			14
+# define RED_CURSOR		15
+# define RED_LIVE		16
+# define MAGENTA		17
+# define MAGENTA_CURSOR	18
+# define MAGENTA_LIVE	19
+# define COLOR_GRAY		20
+# define GRAY			21
+# define GRAY_CURSOR	22
+
+typedef struct	s_visu
+{
+	WINDOW	*arena;
+}				t_visu;
 
 #endif
