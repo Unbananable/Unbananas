@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/18 11:37:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:38:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 
 static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 {
-	proc->carry = (!arg1);
-	mapcpy(cor, (proc->idx + arg2) % MEM_SIZE, proc->regs[arg1 - 1]);
+	mapcpy(cor, proc->idx + arg2, proc->regs[arg1 - 1]);
 }
 
 static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
@@ -82,6 +81,8 @@ static int	third_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 				% MEM_SIZE);
 		proc->move += D2_BYTES + OPC_BYTE;
 	}
+	else
+		proc->move += IND_BYTES + OPC_BYTE;
 	return (arg3);
 }
 
@@ -92,7 +93,7 @@ static int	third_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 ** - argcode: yes
 ** - args: REG REG/IND/DIR(2) IND/DIR(2)
 ** - addressing retriction: yes
-** - carry: 1 if the value of the first register is 0, 1 otherwise
+** - carry: no
 ** - description: Stores the content of the register indicated by the first
 **   argument at the address indicated by the sum of the second and third
 **   arguments.
@@ -125,7 +126,7 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 	{
 		ft_printf("P %4d | sti r%d %d %d\n", proc->n, arg1, arg2 % MEM_SIZE, arg3 % MEM_SIZE);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-				arg2 % MEM_SIZE, arg3 % MEM_SIZE, (arg2 + arg3) % MEM_SIZE, proc->idx + (arg2
+				arg2, arg3, (arg2 + arg3), proc->idx + (arg2
 				+ arg3) % IDX_MOD);
 	}
 }

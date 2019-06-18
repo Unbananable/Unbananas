@@ -17,10 +17,14 @@
 ** we process the calculus with
 */
 
-static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
+static void	execute_instr(t_cor *cor, t_proc *proc, int reg1, int reg2)
 {
 	int		sum;
+	int		arg1;
+	int		arg2;
 
+	arg1 = get_reg_value(proc->regs[reg1 - 1]);
+	arg2 = get_reg_value(proc->regs[reg2 - 1]);
 	if (cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			&& cor->arena[restricted_addr(proc->idx + proc->move + 1)]
 			<= REG_NUMBER)
@@ -43,13 +47,9 @@ static int	first_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 	arg1 = 0;
 	if (type == REG_CODE)
-	{
 		if ((arg1 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
 				> REG_NUMBER || !arg1)
 			*to_exec = false;
-		else
-			arg1 = get_reg_value(proc->regs[arg1 - 1]);
-	}
 	return (arg1);
 }
 
@@ -59,13 +59,9 @@ static int	second_arg(t_cor *cor, t_proc *proc, t_bool *to_exec, int type)
 
 	arg2 = 0;
 	if (type == REG_CODE)
-	{
 		if ((arg2 = cor->arena[restricted_addr(proc->idx + proc->move + 1)])
 				> REG_NUMBER || !arg2)
 			*to_exec = false;
-		else
-			arg2 = get_reg_value(proc->regs[arg2 - 1]);
-	}
 	return (arg2);
 }
 
@@ -102,5 +98,8 @@ void		instr_sub(t_cor *cor, t_proc *proc)
 	to_exec = (to_exec && type == REG_CODE);
 	if (to_exec)
 		execute_instr(cor, proc, arg1, arg2);
+	if (to_exec && cor->verbose & V_OPERATIONS)
+		ft_printf("P %4d | sub r%d r%d r%d\n", proc->n, arg1, arg2,
+				cor->arena[restricted_addr(proc->idx + proc->move + 1)]);
 	proc->move += byte_offset(type) + OPC_BYTE;
 }

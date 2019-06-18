@@ -26,19 +26,16 @@
 
 void	instr_zjmp(t_cor *cor, t_proc *proc)
 {
-	t_bool	to_exec;
-
-	to_exec = proc->carry;
 	proc->move = get_short_arg_value(cor, proc->idx + 1);
 	if (cor->verbose & V_OPERATIONS)
 	{
 		ft_printf("P %4d | zjmp %d ", proc->n, proc->move);
-		if (to_exec)
+		if (proc->carry)
 			ft_printf("OK\n");
 		else
 			ft_printf("FAILED\n");
 	}
 	proc->move %= IDX_MOD;
-	if (!to_exec)
+	if (!proc->carry)
 		proc->move = D2_BYTES + OPC_BYTE;
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:27:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/18 11:58:48 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:46:00 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	execute_instr(t_cor *cor, t_proc *proc, int arg1, int arg2)
 			tmp = INT_MIN;
 		else
 			tmp = arg1 + arg2;
-		addr = get_int_arg_value(cor, proc->idx + tmp, D4_BYTES);
-		proc->carry = (!tmp);
+		addr = get_int_arg_value(cor, proc->idx + tmp % IDX_MOD, D4_BYTES);
+		proc->carry = (!addr);
 		if (cor->verbose & V_OPERATIONS)
 		{
 			ft_printf("P %4d | ldi %d %d r%d\n", proc->n, arg1, arg2,
