@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/18 11:19:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:38:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ typedef struct		s_cor
 	char			verbose;
 	unsigned int	nb_procs;
 	unsigned int	new_proc_n;
+	struct s_visu	*visu;
+	t_bool			visual_on;
 }					t_cor;
 
 void			initialize(t_cor *cor);
@@ -263,5 +265,54 @@ void			delete_champion(t_champ **champ);
 
 /* DEV */
 void		print_cor(t_cor *cor);
+
+/* *** VISU *** */
+
+# include <ncurses.h>
+
+# define HEIGHT (MEM_SIZE / 64 + 1)
+# define WIDTH ((MEM_SIZE / 64) * 3 + 3)
+
+# define START_SPEED	50
+
+# define VISUAL_ON		true
+
+# define RED			8
+# define RED_CURSOR		9
+# define RED_LIVE		10
+# define GREEN			11
+# define GREEN_CURSOR	12
+# define GREEN_LIVE		13
+# define YELLOW			14
+# define YELLOW_CURSOR	15
+# define YELLOW_LIVE	16
+# define BLUE			17
+# define BLUE_CURSOR	18
+# define BLUE_LIVE		19
+# define MAGENTA		20
+# define MAGENTA_CURSOR	21
+# define MAGENTA_LIVE	22
+# define COLOR_GRAY		23
+# define GRAY			24
+# define GRAY_CURSOR	25
+# define BLACK_B		26
+
+typedef struct	s_attr
+{
+	int		owner;
+}				t_attr;
+
+typedef struct	s_visu
+{
+	WINDOW	*arena;
+	WINDOW	*arena_info;
+	t_attr	attr_arena[MEM_SIZE];
+}				t_visu;
+
+int get_attribute(t_cor *cor, int idx);
+void draw_arena(t_cor *cor);
+void draw_starting_arena(t_cor *cor);
+void create_color_panel(void);
+void init_visu(t_cor *cor);
 
 #endif

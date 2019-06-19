@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/12 13:31:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:39:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,28 @@ int		main(int ac, char **av)
 	introduce_champions(&cor);
 	battle(&cor);
 	announce_winner(&cor);
+
+
+
+
+/* VISUUUUU */
+
+init_visu(&cor);
+
+use_default_colors();
+start_color();
+
+create_color_panel();
+
+draw_starting_arena(&cor);
+
+draw_arena(&cor);
+
+wgetch(cor.visu->arena);
+wgetch(cor.visu->arena_info);
+endwin();
+
+/* ******** */
+	
 	end(&cor);
 }
