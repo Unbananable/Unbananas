@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 14:44:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:08:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,12 +271,13 @@ void		print_cor(t_cor *cor);
 
 # include <ncurses.h>
 
-# define HEIGHT (MEM_SIZE / 64 + 1)
-# define WIDTH ((MEM_SIZE / 64) * 3 + 3)
+# define HEIGHT (MEM_SIZE / 64 + 4)
+# define WIDTH ((MEM_SIZE / 64) * 3 + 5)
 
 # define START_SPEED	50
 
 # define LIVE_BRIGHT_TIME 500
+# define STORE_BRIGHT_TIME 500
 
 # define VISUAL_ON		true
 
@@ -306,12 +307,14 @@ typedef struct	s_attr
 	t_bool	cursor;
 	int		owner;
 	int		live_bright;
+	int		store_bright;
 }				t_attr;
 
 typedef struct	s_visu
 {
 	WINDOW	*arena;
 	WINDOW	*arena_info;
+	WINDOW	*arena_announce;
 	t_attr	attr_arena[MEM_SIZE];
 }				t_visu;
 

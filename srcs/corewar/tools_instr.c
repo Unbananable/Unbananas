@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 13:44:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:24:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,10 @@ void	mapcpy(t_cor *cor, t_proc *proc, unsigned int idx, void *content)
 	{
 		cor->arena[restricted_addr(idx + i)] = ((unsigned char *)content)[REG_SIZE - i - 1];
 		if (cor->visual_on == VISUAL_ON)
+		{
 			cor->visu->attr_arena[restricted_addr(idx + i)].owner = proc->parent_id;
+			cor->visu->attr_arena[restricted_addr(idx + i)].store_bright = STORE_BRIGHT_TIME;
+		}
 	}
 }
 

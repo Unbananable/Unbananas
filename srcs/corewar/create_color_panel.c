@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:35:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 14:44:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:56:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void create_color_panel(void)
 	init_color(BLACK, 0, 0, 0);
 	init_color(WHITE, 1000, 1000, 1000);
 	init_pair(GRAY, COLOR_GRAY, BLACK);
+	init_pair(GRAY_CURSOR, COLOR_GRAY, COLOR_GRAY);
 	init_pair(RED, COLOR_RED, BLACK);
 	init_pair(RED_CURSOR, BLACK, COLOR_RED);
 	init_pair(RED_LIVE, WHITE, COLOR_RED);

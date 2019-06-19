@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 15:37:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:19:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void draw_arena(t_cor *cor)
     int attribute;
 
     werase(cor->visu->arena);
-    werase(cor->visu->arena_info);
+    wprintw(cor->visu->arena, "\n\n");
     i = -1;
     while (++i < MEM_SIZE / 64)
     {
         j = -1;
-        waddch(cor->visu->arena, ' ');
+        wprintw(cor->visu->arena, "  ");
         while (++j < MEM_SIZE / 64)
         {
             attribute = get_attribute(cor, i * 64 + j);
@@ -53,11 +53,28 @@ void draw_arena(t_cor *cor)
             wprintw(cor->visu->arena, "%.2x", cor->arena[i * 64 + j]);
             wattroff(cor->visu->arena, attribute);
         }
-        waddch(cor->visu->arena, ' ');
-        waddch(cor->visu->arena, '\n');
+        wprintw(cor->visu->arena, " \n");
     }
-    box(cor->visu->arena_info, ACS_VLINE, ACS_HLINE);
-    box(cor->visu->arena, ACS_VLINE, ACS_HLINE);
-    wrefresh(cor->visu->arena_info);
+    wattron(cor->visu->arena, COLOR_PAIR(GRAY_CURSOR));
+    box(cor->visu->arena, '*', '*');
+    wattroff(cor->visu->arena, COLOR_PAIR(GRAY_CURSOR));
     wrefresh(cor->visu->arena);
+    
+/* MANAGE ARENA INFO */
+    werase(cor->visu->arena_info);
+    wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
+    box(cor->visu->arena_info, '*', '*');
+    wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
+    wrefresh(cor->visu->arena_info);
+/* ***************** */
+
+/* *BEST BONUS* */
+werase(cor->visu->arena_announce);
+wmove(cor->visu->arena_announce, 2, 5);
+wprintw(cor->visu->arena_announce, "ANLECLAB IS PURRRRFECT !! Miaou ~");
+wattron(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
+box(cor->visu->arena_announce, '*', '*');
+wattroff(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
+wrefresh(cor->visu->arena_announce);
+/* ************ */
 }
