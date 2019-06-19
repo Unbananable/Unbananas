@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 16:30:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:47:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 			ft_putchar('\n');
 		}
 		proc->idx = restricted_addr(proc->idx + proc->move);
+	}
+	if (cor->visual_on == VISUAL_ON)
+	{
+		cor->visu->attr_arena[proc->idx].cursor = true;
+		draw_arena(cor);
+		cor->visu->attr_arena[proc->idx].cursor = false;
 	}
 }
 

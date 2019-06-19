@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 11:38:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:44:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct		s_champ
 typedef struct		s_proc
 {
 	int				n;
+	int				parent_id;
 	t_bool			carry;
 	unsigned char	opcode;
 	unsigned int	last_live_cycle;
@@ -246,7 +247,7 @@ short			get_short_arg_value(t_cor *cor, int idx);
 int				get_int_arg_value(t_cor *cor, int idx, int size);
 int 			get_reg_value(unsigned char *reg);
 int				restricted_addr(int new_idx);
-void			mapcpy(t_cor *cor, unsigned int idx, void *content);
+void			mapcpy(t_cor *cor, t_proc *proc, unsigned int idx, void *content);
 void			regcpy(unsigned char *reg, void *content);
 
 t_proc			*new_proc(void);
@@ -275,6 +276,8 @@ void		print_cor(t_cor *cor);
 
 # define START_SPEED	50
 
+# define LIVE_BRIGHT_TIME 500
+
 # define VISUAL_ON		true
 
 # define RED			8
@@ -295,11 +298,14 @@ void		print_cor(t_cor *cor);
 # define COLOR_GRAY		23
 # define GRAY			24
 # define GRAY_CURSOR	25
-# define BLACK_B		26
+# define BLACK			26
+# define WHITE			27
 
 typedef struct	s_attr
 {
+	t_bool	cursor;
 	int		owner;
+	int		live_bright;
 }				t_attr;
 
 typedef struct	s_visu

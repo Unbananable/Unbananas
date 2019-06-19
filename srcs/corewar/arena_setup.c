@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arena_setup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:28:36 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/14 13:47:26 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:14:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		initialize_procs(t_cor *cor)
 			error(cor, "malloc failed");
 		cor->nb_procs++;
 		new->n = cor->new_proc_n++;
+		new->parent_id = i + 1;
 		new->wait = 0;
 		new->move = 0;
 		new->carry = false;

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 11:39:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:34:21 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,31 @@ int		main(int ac, char **av)
 //print_cor(&cor);
 	
 	introduce_champions(&cor);
+	
+/* TEST */
+if (cor.visual_on == VISUAL_ON)
+{
+init_visu(&cor);
+
+create_color_panel();
+
+draw_starting_arena(&cor);
+}
+/* **** */
 	battle(&cor);
+
 	announce_winner(&cor);
 
 
 
 
 /* VISUUUUU */
-
-init_visu(&cor);
-
-use_default_colors();
-start_color();
-
-create_color_panel();
-
-draw_starting_arena(&cor);
-
-draw_arena(&cor);
-
+if (cor.visual_on == VISUAL_ON)
+{
 wgetch(cor.visu->arena);
 wgetch(cor.visu->arena_info);
 endwin();
+}
 
 /* ******** */
 	

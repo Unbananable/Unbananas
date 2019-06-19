@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_instr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/18 11:56:56 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:44:11 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,17 @@ int		get_int_arg_value(t_cor *cor, int idx, int size)
 ** Stores the content of a register on the map.
 */
 
-void	mapcpy(t_cor *cor, unsigned int idx, void *content)
+void	mapcpy(t_cor *cor, t_proc *proc, unsigned int idx, void *content)
 {
 	int	i;
 
 	i = -1;
 	while (++i < REG_SIZE)
+	{
 		cor->arena[restricted_addr(idx + i)] = ((unsigned char *)content)[REG_SIZE - i - 1];
+		if (cor->visual_on == VISUAL_ON)
+			cor->visu->attr_arena[restricted_addr(idx + i)].owner = proc->parent_id;
+	}
 }
 
 /*

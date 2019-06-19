@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 11:33:27 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:37:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void draw_arena(t_cor *cor)
         waddch(cor->visu->arena, ' ');
         waddch(cor->visu->arena, '\n');
     }
-    box(cor->visu->arena_info, 0, 0);
-    box(cor->visu->arena, 0, 0);
+    box(cor->visu->arena_info, ACS_VLINE, ACS_HLINE);
+    box(cor->visu->arena, ACS_VLINE, ACS_HLINE);
     wrefresh(cor->visu->arena_info);
     wrefresh(cor->visu->arena);
 }
