@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:27:40 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/18 13:46:00 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 09:08:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 
 	if (get_args(cor, proc))
 	{
-		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
-		src2 = get_arg_true_val(cor, proc, cor->args[1], true);
+		src1 = get_arg_true_val(cor, proc, cor->args[0], true) % MEM_SIZE;
+		src2 = get_arg_true_val(cor, proc, cor->args[1], true) % MEM_SIZE;
 		if (src2 > 0 && src1 > INT_MAX - src2)
 			tmp = INT_MAX;
 		if (src2 < 0 && src1 < INT_MIN - src2)
@@ -47,7 +47,7 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 		if (cor->verbose & V_OPERATIONS)
 		{
 			ft_printf("P %4d | ldi %d %d r%d\n", proc->n, src1, src2,
-					cor->args[2]);
+					cor->args[2].val);
 			ft_printf("       | -> load from %d + %d = %d ", src1, src2, tmp);
 			ft_printf("(with pc and mod %d)\n",
 					restricted_addr(proc->idx + tmp % IDX_MOD));
