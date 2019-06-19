@@ -31,19 +31,12 @@ void		instr_st(t_cor *cor, t_proc *proc)
 	if (get_args(cor, proc))
 	{
 		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
-		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | st r%d ", proc->n, cor->args[0].val);
+
 		if (cor->args[1].type == T_REG)
-		{
 			regcpy(proc->regs[cor->args[1].val - 1], (void *)&src1);
-			if (cor->verbose & V_OPERATIONS)
-				ft_printf("r%d\n", cor->args[1].val);
-		}
 		else if (cor->args[1].type == T_IND)
-		{
 			mapcpy(cor, proc->idx + cor->args[1].val % IDX_MOD, (void *)&src1);
-			if (cor->verbose & V_OPERATIONS)
-				ft_printf("%d\n", cor->args[1].val);
-		}
+		if (cor->verbose & V_OPERATIONS)
+			ft_printf("P %4d | st r%d %d\n", proc->n, cor->args[0].val, cor->args[1].val);
 	}
 }

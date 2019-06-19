@@ -37,5 +37,5 @@ void	instr_fork(t_cor *cor, t_proc *proc)
 	proc->move = 3;
 	if (cor->verbose & V_OPERATIONS)
 		ft_printf("P %4d | fork %d (%d)\n", proc->n, arg1,
-				restricted_addr(proc->idx + (arg1 % IDX_MOD)));
+				proc->idx + (arg1 % IDX_MOD));
 }
