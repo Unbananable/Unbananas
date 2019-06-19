@@ -70,13 +70,12 @@ static void			get_arg(t_cor *cor, t_proc *proc, int *arg_idx, int i)
 		cor->args[i].val = (cor->op_tab[proc->opcode - 1].dir_size == 4) ?
 				get_int_arg_value(cor, proc->idx + *arg_idx, DIR_SIZE)
 				: get_short_arg_value(cor, proc->idx + *arg_idx);
-		*arg_idx += cor->op_tab[proc->opcode - 1].dir_size;
+		*arg_idx += (cor->op_tab[proc->opcode - 1].dir_size == 0) ? 4
+				: cor->op_tab[proc->opcode - 1].dir_size;
 	}
 	else if (cor->args[i].type == T_IND)
 	{
-		cor->args[i].val = (cor->op_tab[proc->opcode - 1].ind_size == 4) ?
-				get_int_arg_value(cor, proc->idx + *arg_idx, IND_SIZE)
-				: get_short_arg_value(cor, proc->idx + *arg_idx);
+		cor->args[i].val = get_short_arg_value(cor, proc->idx + *arg_idx);
 		*arg_idx += 2;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 13:19:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:17:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,9 @@ void		instr_st(t_cor *cor, t_proc *proc)
 	if (get_args(cor, proc))
 	{
 		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
-		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | st r%d ", proc->n, cor->args[0].val);
+
 		if (cor->args[1].type == T_REG)
-		{
 			regcpy(proc->regs[cor->args[1].val - 1], (void *)&src1);
-			if (cor->verbose & V_OPERATIONS)
-				ft_printf("r%d\n", cor->args[1].val);
-		}
 		else if (cor->args[1].type == T_IND)
 		{
 			mapcpy(cor, proc, proc->idx + cor->args[1].val % IDX_MOD, (void *)&src1);
