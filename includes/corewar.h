@@ -23,7 +23,7 @@
 # define STDOUT 1
 # define STDERR 2
 
-# define INT_MAX 214483647
+# define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
 # define CYCLE_LIVE 10

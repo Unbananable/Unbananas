@@ -19,7 +19,7 @@
 ** - argcode: yes
 ** - args: REG/IND/DIR(2) REG/DIR(2) REG
 ** - addressing retriction: yes
-** - carry: 1 if the sum of the arguments is 0, 1 otherwise
+** - carry: no
 ** - description: Stores the value of the address resulting from the sum of the
 **   first two arguments in the register indicated by the third argument.
 */
@@ -33,8 +33,8 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 
 	if (get_args(cor, proc))
 	{
-		src1 = get_arg_true_val(cor, proc, cor->args[0], true) % MEM_SIZE;
-		src2 = get_arg_true_val(cor, proc, cor->args[1], true) % MEM_SIZE;
+		src1 = get_arg_true_val(cor, proc, cor->args[0], true);
+		src2 = get_arg_true_val(cor, proc, cor->args[1], true);
 		if (src2 > 0 && src1 > INT_MAX - src2)
 			tmp = INT_MAX;
 		if (src2 < 0 && src1 < INT_MIN - src2)
@@ -42,15 +42,13 @@ void		instr_ldi(t_cor *cor, t_proc *proc)
 		else
 			tmp = src1 + src2;
 		addr = get_int_arg_value(cor, proc->idx + tmp % IDX_MOD, 4);
-		proc->carry = (!addr);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&addr);
 		if (cor->verbose & V_OPERATIONS)
 		{
 			ft_printf("P %4d | ldi %d %d r%d\n", proc->n, src1, src2,
 					cor->args[2].val);
 			ft_printf("       | -> load from %d + %d = %d ", src1, src2, tmp);
-			ft_printf("(with pc and mod %d)\n",
-					restricted_addr(proc->idx + tmp % IDX_MOD));
+			ft_printf("(with pc and mod %d)\n", proc->idx + tmp % IDX_MOD);
 		}
 	}
 }

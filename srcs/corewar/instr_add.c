@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 10:11:29 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:00:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	{
 		src1 = get_reg_value(proc->regs[cor->args[0].val - 1]);
 		src2 = get_reg_value(proc->regs[cor->args[1].val - 1]);
-		if (src2 > 0 && INT_MAX - src2 < src1)
+		/*if (src2 > 0 && INT_MAX - src2 < src1)
 			sum = INT_MAX;
 		else if (src2 < 0 && INT_MIN - src2 > src1)
 			sum = INT_MIN;
-		else
+		else*/
 			sum = src1 + src2;
 		proc->carry = (!sum);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&sum);

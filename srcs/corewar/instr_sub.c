@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 10:22:53 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/20 09:59:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,7 @@ void		instr_sub(t_cor *cor, t_proc *proc)
 	{
 		src1 = get_reg_value(proc->regs[cor->args[0].val - 1]);
 		src2 = get_reg_value(proc->regs[cor->args[1].val - 1]);
-		if (src2 < 0 && src1 > INT_MAX + src2)
-			sub = INT_MAX;
-		else if (src2 > 0 && src1 < INT_MAX + src2)
-			sub = INT_MIN;
-		else
-			sub = src1 + src2;
+		sub = src1 - src2;
 		proc->carry = (!sub);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&sub);
 		if (cor->verbose & V_OPERATIONS)
