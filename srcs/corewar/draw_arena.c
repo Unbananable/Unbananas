@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 11:23:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 13:55:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void draw_arena(t_cor *cor)
             wattron(cor->visu->arena, attribute);
             wprintw(cor->visu->arena, "%.2x", cor->arena[i * 64 + j]);
             wattroff(cor->visu->arena, attribute);
+		    cor->visu->attr_arena[i * 64 + j].cursor = false;
         }
         wprintw(cor->visu->arena, " \n");
     }
@@ -73,7 +74,7 @@ manage_arena_info(cor);
 /* *BEST BONUS* */
 werase(cor->visu->arena_announce);
 wmove(cor->visu->arena_announce, 2, 5);
-wprintw(cor->visu->arena_announce, " [WIP] ANLECLAB IS PURRRRFECT !! Miaou ~");
+wprintw(cor->visu->arena_announce, " [WIP] ANLECLAB IS PURRRRFECT !! Miaou ~ Please make sure you saved your game before leaving :-) ");
 wattron(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
 box(cor->visu->arena_announce, '*', '*');
 wattroff(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
@@ -81,13 +82,3 @@ wrefresh(cor->visu->arena_announce);
 /* ************ */
 
 }
-
-/* WORK FOR TOMORROW
-
-_Fonction while affichage du numero + nom champions
-    _Fonctions last live + lives in current period (actualisation des cor->visu->var dans instr_live)
-
-_Mise en place des actions / vitesse cycles
-
-*/
-

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 11:20:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:10:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,8 +276,8 @@ void		print_cor(t_cor *cor);
 
 # define START_SPEED	50
 
-# define LIVE_BRIGHT_TIME 500
-# define STORE_BRIGHT_TIME 500
+# define LIVE_BRIGHT_TIME 50
+# define STORE_BRIGHT_TIME 50
 
 # define VISUAL_ON		true
 
