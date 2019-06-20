@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 17:08:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:20:20 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,7 @@ typedef struct	s_visu
 	WINDOW	*arena_info;
 	WINDOW	*arena_announce;
 	t_attr	attr_arena[MEM_SIZE];
+	int		is_running;
 }				t_visu;
 
 int get_attribute(t_cor *cor, int idx);
@@ -323,5 +324,6 @@ void draw_arena(t_cor *cor);
 void draw_starting_arena(t_cor *cor);
 void create_color_panel(void);
 void init_visu(t_cor *cor);
+void manage_arena_info(t_cor *cor);
 
 #endif

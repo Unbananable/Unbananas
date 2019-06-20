@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:37:00 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 17:14:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:21:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void init_visu(t_cor *cor)
         cor->visu->attr_arena[i].store_bright = 0;
         cor->visu->attr_arena[i].cursor = false;
     }
+    cor->visu->is_running = false;
 }
