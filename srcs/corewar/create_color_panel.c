@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:35:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 16:56:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:25:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void create_color_panel(void)
 {
-    use_default_colors();
-    start_color();
+	use_default_colors();
+	start_color();
 	init_color(COLOR_GRAY, 300, 300, 300);
 	init_color(BLACK, 0, 0, 0);
 	init_color(WHITE, 1000, 1000, 1000);

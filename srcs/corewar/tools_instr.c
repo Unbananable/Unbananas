@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 16:24:34 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:31:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int					get_args(t_cor *cor, t_proc *proc)
 	i = -1;
 	while (++i < cor->op_tab[proc->opcode - 1].nb_args)
 	{
-		cor->args[i].type = get_arg_type(cor->arena[restricted_addr(proc->idx + 1)], i);
+		cor->args[i].type = get_arg_type(cor->arena[restricted_addr(proc->idx
+					+ 1)], i);
 		get_arg(cor, proc, &arg_idx, i);
 		if (!(cor->args[i].type & cor->op_tab[proc->opcode - 1].args[i])
 				|| (cor->args[i].type == T_REG && (cor->args[i].val <= 0
@@ -175,11 +176,14 @@ void	mapcpy(t_cor *cor, t_proc *proc, unsigned int idx, void *content)
 	i = -1;
 	while (++i < REG_SIZE)
 	{
-		cor->arena[restricted_addr(idx + i)] = ((unsigned char *)content)[REG_SIZE - i - 1];
+		cor->arena[restricted_addr(idx
+				+ i)] = ((unsigned char *)content)[REG_SIZE - i - 1];
 		if (cor->visual_on == VISUAL_ON)
 		{
-			cor->visu->attr_arena[restricted_addr(idx + i)].owner = proc->parent_id;
-			cor->visu->attr_arena[restricted_addr(idx + i)].store_bright = STORE_BRIGHT_TIME;
+			cor->visu->attr_arena[restricted_addr(idx
+					+ i)].owner = proc->parent_id;
+			cor->visu->attr_arena[restricted_addr(idx
+					+ i)].store_bright = STORE_BRIGHT_TIME;
 		}
 	}
 }

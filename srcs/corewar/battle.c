@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 15:19:14 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:35:25 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 
 static void	kill_processes(t_cor *cor)
 {
-	t_proc *current;
-	t_proc *previous;
+	t_proc	*current;
+	t_proc	*previous;
 
 	previous = NULL;
 	current = cor->procs;
@@ -150,7 +150,7 @@ static void	end_period(t_cor *cor)
 void		battle(t_cor *cor)
 {
 	t_proc	*cache;
-	
+
 	while (cor->procs)
 	{
 		cor->curr_cycle++;

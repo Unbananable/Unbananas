@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 14:20:01 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:29:03 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	instr_live(t_cor *cor, t_proc *proc)
 			if (cor->verbose & V_LIVES)
 				ft_printf("Player %d (%s) is said to be alive\n", arg1 * -1,
 						cor->champs[i]->head.prog_name);
-			break;
+			break ;
 		}
 	proc->move = 5;
 	if (cor->visual_on == VISUAL_ON)
