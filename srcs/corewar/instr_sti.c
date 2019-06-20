@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/19 09:08:41 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/20 11:50:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void		instr_sti(t_cor *cor, t_proc *proc)
 
 	if (get_args(cor, proc))
 	{
-		dest1 = get_arg_true_val(cor, proc, cor->args[1], true);
-		dest2 = get_arg_true_val(cor, proc, cor->args[2], true);
-		mapcpy(cor, proc->idx + ((dest1 + dest2) % IDX_MOD), proc->regs[cor->args[0].val - 1]);
+		dest1 = get_arg_true_val(cor, proc, cor->args[1], true) % MEM_SIZE;
+		dest2 = get_arg_true_val(cor, proc, cor->args[2], true) % MEM_SIZE;
+		mapcpy(cor, proc, proc->idx + ((dest1 + dest2) % IDX_MOD), proc->regs[cor->args[0].val - 1]);
 		if (cor->verbose & V_OPERATIONS)
 		{
 			ft_printf("P %4d | sti r%d %d %d\n", proc->n, cor->args[0].val, dest1, dest2);

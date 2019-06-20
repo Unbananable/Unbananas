@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
+#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/12 16:58:06 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/19 11:38:36 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,11 @@ SRC = announce_winner.c \
 	  order_champions.c \
 	  tools_get_champions.c \
 	  tools_instr.c \
-	  tools_procs.c
+	  tools_procs.c \
+	  get_attribute.c \
+	  draw_arena.c \
+	  create_color_panel.c \
+	  init_visu.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
@@ -54,7 +58,7 @@ HDRS = $(addprefix $(HDRSFD),$(HDR))
 
 HDR_INC = -I./$(HDRSFD)
 LIBFT_HDR = -I./ft_printf/includes -I./ft_printf/libft/inc
-LIB_BINARY = -L./ft_printf -lftprintf
+LIB_BINARY = -L./ft_printf -lftprintf -lncurses
 LIBFT= ft_printf/libftprintf.a
 
 RED = \033[0;31m

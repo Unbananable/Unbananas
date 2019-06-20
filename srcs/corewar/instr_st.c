@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_st.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 12:09:22 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/17 10:22:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:17:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void		instr_st(t_cor *cor, t_proc *proc)
 		if (cor->args[1].type == T_REG)
 			regcpy(proc->regs[cor->args[1].val - 1], (void *)&src1);
 		else if (cor->args[1].type == T_IND)
-			mapcpy(cor, proc->idx + cor->args[1].val % IDX_MOD, (void *)&src1);
-		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | st r%d %d\n", proc->n, cor->args[0].val, cor->args[1].val);
+		{
+			mapcpy(cor, proc, proc->idx + cor->args[1].val % IDX_MOD, (void *)&src1);
+			if (cor->verbose & V_OPERATIONS)
+				ft_printf("%d\n", cor->args[1].val);
+		}
 	}
 }
