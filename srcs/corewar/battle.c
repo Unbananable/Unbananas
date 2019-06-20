@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 14:47:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:19:14 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 {
 	int		i;
 
+	if (cor->visual_on == VISUAL_ON)
+		cor->visu->attr_arena[proc->idx].cursor = true;
 	if (!proc->wait)
 	{
 		proc->opcode = cor->arena[proc->idx];
@@ -60,12 +62,6 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 			ft_putchar('\n');
 		}
 		proc->idx = restricted_addr(proc->idx + proc->move);
-	}
-	if (cor->visual_on == VISUAL_ON)
-	{
-		cor->visu->attr_arena[proc->idx].cursor = true;
-		draw_arena(cor);
-		cor->visu->attr_arena[proc->idx].cursor = false;
 	}
 }
 
@@ -154,7 +150,7 @@ static void	end_period(t_cor *cor)
 void		battle(t_cor *cor)
 {
 	t_proc	*cache;
-
+	
 	while (cor->procs)
 	{
 		cor->curr_cycle++;
@@ -172,5 +168,17 @@ void		battle(t_cor *cor)
 			end_period(cor);
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
+		if (cor->visual_on == VISUAL_ON)
+		{
+			while (cor->visu->is_running == false)
+			{
+				while (wgetch(stdscr) != ' ')
+						draw_arena(cor);
+				cor->visu->is_running = true;
+			}
+			if (wgetch(stdscr) == ' ')
+				cor->visu->is_running = false;
+			draw_arena(cor);
+		}
 	}
 }
