@@ -6,13 +6,13 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 15:30:20 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 17:09:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		draw_constants_arena_info(t_cor *cor, int y)
+static void draw_constants_arena_info(t_cor *cor, int y)
 {
 	y += 3;
 	wmove(cor->visu->arena_info, y, 3);
@@ -28,7 +28,7 @@ static void		draw_constants_arena_info(t_cor *cor, int y)
 	wprintw(cor->visu->arena_info, "MAX_CHECKS : %d", MAX_CHECKS);
 }
 
-static void		draw_cycle_proc_arena_info(t_cor *cor, int *y)
+static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 {
 	wmove(cor->visu->arena_info, *y, 3);
 	if (cor->visu->is_running)
@@ -46,7 +46,7 @@ static void		draw_cycle_proc_arena_info(t_cor *cor, int *y)
 	wprintw(cor->visu->arena_info, "Processes : %d", cor->nb_procs);
 }
 
-static int		get_champ_color(int i)
+static int get_champ_color(int i)
 {
 	if (!i)
 		return (COLOR_PAIR(RED) | A_BOLD);
@@ -59,11 +59,57 @@ static int		get_champ_color(int i)
 	return (COLOR_PAIR(MAGENTA) | A_BOLD);
 }
 
-void			manage_arena_info(t_cor *cor)
+static void draw_live_breakdowns(t_cor *cor, int *y)
 {
-	int		i;
-	int		y;
-	int		attribute;
+	*y += 2;
+	wmove(cor->visu->arena_info, *y, 3);
+	wprintw(cor->visu->arena_info, "Live breakdown for current period :");
+	wmove(cor->visu->arena_info, ++(*y), 3);
+	waddch(cor->visu->arena_info, '[');
+
+	//BREAKDOWN CURRENT PERIOD
+
+	int i;
+	int j;
+	int max;
+	int attribute;
+
+	i = -1;
+	max = 0;
+	if (cor->nb_live == 0)
+		wprintw(cor->visu->arena_info, "--------------------------------------------------");
+	else
+	{
+		while (++i < cor->nb_champs)
+		{
+			j = -1;
+			attribute = get_champ_color(i);
+			wattron(cor->visu->arena_info, attribute);
+			while (++j < ((double)cor->champs[i]->lives_in_curr_period / cor->nb_live) * 51 && max < 50)
+			{
+				waddch(cor->visu->arena_info, '-');
+				max++;
+			}
+			wattroff(cor->visu->arena_info, attribute);
+		}
+		while (max++ < 50)
+			waddch(cor->visu->arena_info, '-');
+	}
+	waddch(cor->visu->arena_info, ']');
+
+	// -----------------------
+
+	*y += 2;
+	wmove(cor->visu->arena_info, *y, 3);
+	wprintw(cor->visu->arena_info, "Live breakdown for last period :");
+	//BREAKDOWN LAST PERIOD
+}
+
+void manage_arena_info(t_cor *cor)
+{
+	int i;
+	int y;
+	int attribute;
 
 	y = 2;
 	werase(cor->visu->arena_info);
@@ -88,5 +134,6 @@ void			manage_arena_info(t_cor *cor)
 		wprintw(cor->visu->arena_info, "Lives in current period :  %d",
 				cor->champs[i]->lives_in_curr_period);
 	}
+	draw_live_breakdowns(cor, &y);
 	draw_constants_arena_info(cor, y);
 }

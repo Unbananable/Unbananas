@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 12:10:37 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:16:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_champ
 	unsigned char	*redcode;
 	unsigned int	last_live;
 	unsigned int	lives_in_curr_period;
+	unsigned int	lives_in_last_period;
 }					t_champ;
 
 /*

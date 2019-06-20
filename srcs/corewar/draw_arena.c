@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 15:26:23 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 16:02:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ void	draw_arena(t_cor *cor)
 		wattroff(cor->visu->arena, COLOR_PAIR(GRAY_CURSOR));
 		wrefresh(cor->visu->arena);
 
-		/* MANAGE ARENA INFO */
-
 		manage_arena_info(cor);
 
 		wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
 		box(cor->visu->arena_info, '*', '*');
 		wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
 		wrefresh(cor->visu->arena_info);
-		/* ***************** */
 
 		/* *BEST BONUS* */
 		werase(cor->visu->arena_announce);
