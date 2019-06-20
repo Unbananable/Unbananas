@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 13:55:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:11:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void draw_arena(t_cor *cor)
     int j;
     int attribute;
 
+    if (cor->curr_cycle != 1 && cor->visu->is_running == false)
+        wrefresh(cor->visu->arena);
+    else
+    {
     werase(cor->visu->arena);
     wprintw(cor->visu->arena, "\n\n");
     i = -1;
@@ -80,5 +84,5 @@ box(cor->visu->arena_announce, '*', '*');
 wattroff(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
 wrefresh(cor->visu->arena_announce);
 /* ************ */
-
+    }
 }

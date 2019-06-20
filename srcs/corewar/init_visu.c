@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:37:00 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 11:21:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 14:38:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void init_visu(t_cor *cor)
 	noecho();
 	curs_set(0);
 	cbreak();
+    keypad(stdscr, true);
+    nodelay(stdscr, true);
 	if (!(cor->visu = malloc(sizeof(t_visu))))
 		error(cor, "Malloc of the visu has failed");
 	if (!(cor->visu->arena = newwin(HEIGHT, WIDTH, 1, 1)))

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 13:52:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:07:54 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static void	end_period(t_cor *cor)
 void		battle(t_cor *cor)
 {
 	t_proc	*cache;
-
+	
 	while (cor->procs)
 	{
 		cor->curr_cycle++;
@@ -168,6 +168,16 @@ void		battle(t_cor *cor)
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
 		if (cor->visual_on == VISUAL_ON)
+		{
+			while (cor->visu->is_running == false)
+			{
+				while (wgetch(stdscr) != ' ')
+						draw_arena(cor);
+				cor->visu->is_running = true;
+			}
+			if (wgetch(stdscr) == ' ')
+				cor->visu->is_running = false;
 			draw_arena(cor);
+		}
 	}
 }
