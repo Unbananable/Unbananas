@@ -35,12 +35,7 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 	{
 		src1 = get_arg_true_val(cor, proc, cor->args[0], false);
 		src2 = get_arg_true_val(cor, proc, cor->args[1], false);
-		if (src2 > 0 && src1 > INT_MAX - src2)
-			tmp = INT_MAX;
-		if (src2 < 0 && src1 < INT_MIN - src2)
-			tmp = INT_MIN;
-		else
-			tmp = src1 + src2;
+		tmp = src1 + src2;
 		addr = get_int_arg_value(cor, proc->idx + tmp, 4);
 		proc->carry = (!addr);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&addr);

@@ -34,12 +34,7 @@ void		instr_add(t_cor *cor, t_proc *proc)
 	{
 		src1 = get_reg_value(proc->regs[cor->args[0].val - 1]);
 		src2 = get_reg_value(proc->regs[cor->args[1].val - 1]);
-		/*if (src2 > 0 && INT_MAX - src2 < src1)
-			sum = INT_MAX;
-		else if (src2 < 0 && INT_MIN - src2 > src1)
-			sum = INT_MIN;
-		else*/
-			sum = src1 + src2;
+		sum = src1 + src2;
 		proc->carry = (!sum);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&sum);
 		if (cor->verbose & V_OPERATIONS)
