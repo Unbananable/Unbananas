@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 16:10:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:25:50 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,25 @@ void	draw_starting_arena(t_cor *cor)
 	}
 }
 
-/*manager(t_cor *cor, int key)
+/*
+manager(t_cor *cor, int key)
 {
 	if (key == ' ')
 		pause(cor);
 		
-}*/
+}
+*/
 
 void	draw_arena(t_cor *cor, int key)
 {
 	int		i;
 	int		j;
 	int		attribute;
+/*
+	int key;
 
-	if (key == ' ')
+	key = wgetch(stdscr);
+*/	if (key == ' ')
 		cor->visu->is_running = !cor->visu->is_running;
 	else 
 		modify_speed_factor(cor, key);

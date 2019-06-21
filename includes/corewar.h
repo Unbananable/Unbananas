@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 16:01:07 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:22:35 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,11 @@ void		print_cor(t_cor *cor);
 
 # define LIVE_BRIGHT_TIME 50
 # define STORE_BRIGHT_TIME 50
+
+# define VERY_SLOW 1000000
+# define SLOW 500000
+# define NORMAL 200000
+# define FAST 50000
 
 # define RED			8
 # define RED_CURSOR		9
