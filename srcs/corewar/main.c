@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:21:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:27:13 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int		main(int ac, char **av)
 	announce_winner(&cor);
 	if (cor.visual_on)
 	{
-		wgetch(cor.visu->arena);
-		wgetch(cor.visu->arena_info);
 		endwin();
 	}
 	end(&cor);

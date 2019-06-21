@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:04:29 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:26:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,9 @@ typedef struct		s_proc
 ** - opcode: code de l'operation
 ** - wait: nombre de cycles d'attente avant execution de l'operation
 ** - full_name: nom etendu de l'operation
-** - ?? //TO DO: identifier
-** - ?? //TO DO: identifier
+** - f: pointer to the associated function
+** - dir_size: size (in byte) of the direct reference (2 or 4)
+** - ind_size: type of indirect reference (2 for short, 4 for int)
 */
 
 struct				s_cor;
@@ -306,6 +307,7 @@ void		print_cor(t_cor *cor);
 # define GRAY_CURSOR	25
 # define BLACK			26
 # define WHITE			27
+# define SPEED_HIGHLIGHT 28
 
 typedef struct	s_attr
 {
@@ -322,6 +324,7 @@ typedef struct	s_visu
 	WINDOW	*arena_announce;
 	t_attr	attr_arena[MEM_SIZE];
 	int		is_running;
+	int		speed;
 }				t_visu;
 
 int get_attribute(t_cor *cor, int idx);
@@ -330,5 +333,7 @@ void draw_starting_arena(t_cor *cor);
 void create_color_panel(void);
 void init_visu(t_cor *cor);
 void manage_arena_info(t_cor *cor);
+void modify_speed_factor(t_cor *cor);
+void highlight_speed_button(t_cor *cor);
 
 #endif

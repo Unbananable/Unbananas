@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
+#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/21 11:22:46 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/21 13:24:48 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC = announce_winner.c \
 	  draw_arena.c \
 	  create_color_panel.c \
 	  init_visu.c \
-	  manage_arena_info.c
+	  manage_arena_info.c \
+	  manage_speed.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

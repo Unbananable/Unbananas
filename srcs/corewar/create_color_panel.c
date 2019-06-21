@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:35:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 15:25:42 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:46:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void create_color_panel(void)
 	init_pair(MAGENTA, COLOR_MAGENTA, BLACK);
 	init_pair(MAGENTA_CURSOR, BLACK, COLOR_MAGENTA);
 	init_pair(MAGENTA_LIVE, WHITE, COLOR_MAGENTA);
+	init_pair(SPEED_HIGHLIGHT, BLACK, WHITE);
 }

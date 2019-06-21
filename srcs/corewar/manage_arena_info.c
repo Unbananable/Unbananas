@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 11:05:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 13:18:54 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 	else
 		wprintw(cor->visu->arena_info, "** PAUSED **");
 	
-	*y += 2;
+	//SPEED
+
+	*y += 4;
 	wmove(cor->visu->arena_info, *y, 3);
 	wprintw(cor->visu->arena_info, "Cycle : %d", cor->curr_cycle);
 	*y += 2;
