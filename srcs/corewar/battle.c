@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 11:18:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 13:54:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void		battle(t_cor *cor)
 			while (cor->visu->is_running == false)
 			{
 				while (wgetch(stdscr) != ' ')
-						draw_arena(cor);
+					draw_arena(cor);
 				cor->visu->is_running = true;
 			}
 			if (wgetch(stdscr) == ' ')

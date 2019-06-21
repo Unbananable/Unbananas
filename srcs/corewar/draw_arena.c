@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 11:37:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:21:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	draw_arena(t_cor *cor)
 	int		j;
 	int		attribute;
 
+//	modify_speed_factor(cor);
 	if (cor->curr_cycle != 1 && cor->visu->is_running == false)
 	{
 		wmove(cor->visu->arena_info, 2, 3);
 		wprintw(cor->visu->arena_info, "** PAUSED ** ");
 		wmove(cor->visu->arena_info, 6, 3);
 		wprintw(cor->visu->arena_info, "Cycle : %d  ", cor->curr_cycle);
-		wrefresh(cor->visu->arena_info);
 	}
 	else
 	{
@@ -76,16 +76,17 @@ void	draw_arena(t_cor *cor)
 		wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
 		box(cor->visu->arena_info, '*', '*');
 		wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
-		wrefresh(cor->visu->arena_info);
 
 		/* *BEST BONUS* */
-		werase(cor->visu->arena_announce);
+//		werase(cor->visu->arena_announce);
 		wmove(cor->visu->arena_announce, 2, 5);
-		wprintw(cor->visu->arena_announce, " [WIP] ANLECLAB IS PURRRRFECT !! Miaou ~ Please make sure you saved your game before leaving :-) ");
+		wprintw(cor->visu->arena_announce, "SPEED: %d", cor->visu->speed);
 		wattron(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
 		box(cor->visu->arena_announce, '*', '*');
 		wattroff(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));
 		wrefresh(cor->visu->arena_announce);
 		/* ************ */
 	}
+	highlight_speed_button(cor);
+	wrefresh(cor->visu->arena_info);
 }

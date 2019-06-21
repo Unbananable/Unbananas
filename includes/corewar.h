@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 11:45:57 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 13:24:35 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,5 +328,7 @@ void draw_starting_arena(t_cor *cor);
 void create_color_panel(void);
 void init_visu(t_cor *cor);
 void manage_arena_info(t_cor *cor);
+void modify_speed_factor(t_cor *cor);
+void highlight_speed_button(t_cor *cor);
 
 #endif
