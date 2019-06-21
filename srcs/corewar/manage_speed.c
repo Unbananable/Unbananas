@@ -6,11 +6,55 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 15:40:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:34:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void    apply_speed(t_cor *cor)
+{
+	int i;
+	int key;
+	
+	i = 0;
+	if (cor->visu->speed == -2)
+	{
+		while (++i < VERY_SLOW)
+		{
+			key = wgetch(stdscr);
+			if (key != -1)
+				draw_arena(cor, key);
+		}
+	}
+	else if (cor->visu->speed == -1)
+	{
+		while (++i < SLOW)
+		{
+			key = wgetch(stdscr);
+			if (key != -1)
+				draw_arena(cor, key);
+		}
+	}
+	else if (cor->visu->speed == 0)
+	{
+		while (++i < NORMAL)
+		{
+			key = wgetch(stdscr);
+			if (key != -1)
+				draw_arena(cor, key);
+		}
+	}
+	else if (cor->visu->speed == 1)
+	{
+		while (++i < FAST)
+		{
+			key = wgetch(stdscr);
+			if (key != -1)
+				draw_arena(cor, key);
+		}
+	}
+}
 
 void	modify_speed_factor(t_cor *cor, int key)
 {

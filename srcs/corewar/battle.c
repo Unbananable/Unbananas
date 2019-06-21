@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 16:29:23 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:34:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,50 +147,6 @@ static void end_period(t_cor *cor)
 **            current cycle is the dump cycle
 */
 
-static void speed(t_cor *cor)
-{
-	int i;
-	int key;
-	
-	i = 0;
-	if (cor->visu->speed == -2)
-	{
-		while (++i < VERY_SLOW)
-		{
-			key = wgetch(stdscr);
-			if (key != -1)
-				draw_arena(cor, key);
-		}
-	}
-	else if (cor->visu->speed == -1)
-	{
-		while (++i < SLOW)
-		{
-			key = wgetch(stdscr);
-			if (key != -1)
-				draw_arena(cor, key);
-		}
-	}
-	else if (cor->visu->speed == 0)
-	{
-		while (++i < NORMAL)
-		{
-			key = wgetch(stdscr);
-			if (key != -1)
-				draw_arena(cor, key);
-		}
-	}
-	else if (cor->visu->speed == 1)
-	{
-		while (++i < FAST)
-		{
-			key = wgetch(stdscr);
-			if (key != -1)
-				draw_arena(cor, key);
-		}
-	}
-}
-
 void battle(t_cor *cor)
 {
 	t_proc *cache;
@@ -218,7 +174,7 @@ void battle(t_cor *cor)
 				draw_arena(cor, wgetch(stdscr));
 			}
 			draw_arena(cor, wgetch(stdscr));
-			speed(cor);
+			apply_speed(cor);
 		}
 	}
 }
