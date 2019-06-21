@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:22:34 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/14 15:56:59 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:32:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		instr_xor(t_cor *cor, t_proc *proc)
 		proc->carry = (!tmp);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&tmp);
 		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | xor %d %d r%d\n", proc->n, src1, src2, cor->args[2].val);
+			ft_printf("P %4d | xor %d %d r%d\n", proc->n, src1, src2,
+					cor->args[2].val);
 	}
 }

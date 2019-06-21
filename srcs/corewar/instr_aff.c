@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_aff.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:08:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/13 09:57:54 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/21 11:36:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 void		instr_aff(t_cor *cor, t_proc *proc)
 {
 	char	tmp;
+
 	if (get_args(cor, proc))
 	{
 		proc->carry = !cor->args[0].val;

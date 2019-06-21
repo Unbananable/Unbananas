@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 17:51:11 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/18 10:12:20 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:32:51 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void		instr_lldi(t_cor *cor, t_proc *proc)
 			ft_printf("P %4d | lldi %d %d r%d\n", proc->n, src1, src2,
 					cor->args[2]);
 			ft_printf("       | -> load from %d + %d = %d ", src1, src2, tmp);
-			ft_printf("(with pc and mod %d)\n", restricted_addr(proc->idx + tmp));
+			ft_printf("(with pc and mod %d)\n",
+					restricted_addr(proc->idx + tmp));
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 17:18:49 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 10:00:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:33:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		instr_add(t_cor *cor, t_proc *proc)
 		proc->carry = (!sum);
 		regcpy(proc->regs[cor->args[2].val - 1], (void *)&sum);
 		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | add r%d r%d r%d\n", proc->n, cor->args[0].val, cor->args[1].val, cor->args[2].val);
+			ft_printf("P %4d | add r%d r%d r%d\n", proc->n, cor->args[0].val,
+					cor->args[1].val, cor->args[2].val);
 	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
+#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/20 10:07:22 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/06/21 11:22:46 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC = announce_winner.c \
 	  order_champions.c \
 	  tools_get_champions.c \
 	  tools_instr.c \
+	  tools_instr2.c \
 	  tools_procs.c \
 	  get_attribute.c \
 	  draw_arena.c \
