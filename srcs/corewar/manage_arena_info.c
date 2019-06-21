@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 11:05:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 12:02:07 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,54 @@ static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 		wprintw(cor->visu->arena_info, "** RUNNING **");
 	else
 		wprintw(cor->visu->arena_info, "** PAUSED **");
+		
+	// SPEED MANAGMENT
+		//Manage_speed
+			if (wgetch(stdscr) == 'q')
+				cor->visu->speed = -2;
+			else if (wgetch(stdscr) == 'w' && cor->visu->speed != -2)
+				cor->visu->speed -= 1;
+			else if (wgetch(stdscr) == 'e'&& cor->visu->speed != 2)
+				cor->visu->speed += 1;
+			else if (wgetch(stdscr) == 'r')
+				cor->visu->speed = 2;
+		//------------
+	*y += 2;
+	wmove(cor->visu->arena_info, *y, 3);
+	wprintw(cor->visu->arena_info, "Speed : << | < | o | > | >>");
+	wattron(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
+	if (cor->visu->speed == -2)
+	{
+		wmove(cor->visu->arena_info, *y, 11);
+		wprintw(cor->visu->arena_info, "<<");
+		usleep(500000);
+	}
+	else if (cor->visu->speed == -1)
+	{
+		wmove(cor->visu->arena_info, *y, 16);
+		wprintw(cor->visu->arena_info, "<");
+		usleep(200000);
+	}
+	else if (cor->visu->speed == 0)
+	{
+		wmove(cor->visu->arena_info, *y, 20);
+		wprintw(cor->visu->arena_info, "o");
+		usleep(100000);
+	}
+	else if (cor->visu->speed == 1)
+	{
+		wmove(cor->visu->arena_info, *y, 24);
+		wprintw(cor->visu->arena_info, ">");
+		usleep(50000);
+	}
+	else if (cor->visu->speed == 2)
+	{
+		wmove(cor->visu->arena_info, *y, 28);
+		wprintw(cor->visu->arena_info, ">>");
+	}
+	wrefresh(cor->visu->arena_info);
+	wattroff(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
+	// ----------------------------------------------
 	
 	*y += 2;
 	wmove(cor->visu->arena_info, *y, 3);

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 16:02:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:37:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ void	draw_arena(t_cor *cor)
 	int		attribute;
 
 	if (cor->curr_cycle != 1 && cor->visu->is_running == false)
-		wrefresh(cor->visu->arena);
+	{
+		wmove(cor->visu->arena_info, 2, 3);
+		wprintw(cor->visu->arena_info, "** PAUSED ** ");
+		wmove(cor->visu->arena_info, 6, 3);
+		wprintw(cor->visu->arena_info, "Cycle : %d  ", cor->curr_cycle);
+		wrefresh(cor->visu->arena_info);
+	}
 	else
 	{
 		werase(cor->visu->arena);

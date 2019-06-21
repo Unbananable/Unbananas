@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 10:43:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:45:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ void		print_cor(t_cor *cor);
 # define GRAY_CURSOR	25
 # define BLACK			26
 # define WHITE			27
+# define SPEED_HIGHLIGHT 28
 
 typedef struct	s_attr
 {
@@ -318,6 +319,7 @@ typedef struct	s_visu
 	WINDOW	*arena_announce;
 	t_attr	attr_arena[MEM_SIZE];
 	int		is_running;
+	int		speed;
 }				t_visu;
 
 int get_attribute(t_cor *cor, int idx);
