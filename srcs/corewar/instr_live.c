@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_live.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 15:29:03 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:01:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	instr_live(t_cor *cor, t_proc *proc)
 			break ;
 		}
 	proc->move = 5;
-	if (cor->visual_on == VISUAL_ON)
+	if (cor->visual_on)
 		cor->visu->attr_arena[proc->idx].live_bright = LIVE_BRIGHT_TIME;
 }

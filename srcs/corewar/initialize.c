@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 10:54:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:05:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	initialize(t_cor *cor)
 	cor->nb_live = 0;
 	cor->nb_checks = 0;
 	cor->last_alive = 0;
-	cor->dump = 0;
+	cor->dump = false;
 	cor->verbose = 0;
 	cor->nb_procs = 0;
 	cor->new_proc_n = 1;

@@ -6,24 +6,40 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:27:11 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 10:48:45 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:20:59 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	get_dump_info(t_cor *cor, int *ac, char ***av)
+static int	is_uint(char *str)
 {
 	int		i;
+	char	last_digit;
 
+	i = -1;
+	while (str[++i])
+		if (!ft_isdigit(str[i]))
+			return (0);
+	if (ft_strlen(str) > 10)
+		return (0);
+	if (ft_strlen(str) < 10)
+		return (1);
+	last_digit = str[ft_strlen(str) - 1];
+	str[ft_strlen(str) - 1] = 0;
+	if (ft_atoi(str) > UINT_MAX / 10 || (ft_atoi(str) == UINT_MAX / 10 && last_digit > 5))
+		return (0);
+	return (1);
+}
+
+static int	get_dump_info(t_cor *cor, int *ac, char ***av)
+{
 	if (*ac >= 2)
 	{
-		i = -1;
-		while ((*av)[1][++i])
-			if ((*av)[1][i] > '9' || (*av)[1][i] < '0') // [IMPROVE] Verifier aussi que le nombre est un unsigned int
-				return (ERROR);
-		cor->dump = 1;
-		cor->dump_cycle = ft_atoi((*av)[1]); // [IMPROVE] atoi d'un unsigned int
+		if (!is_uint((*av)[1]))
+			return (ERROR);
+		cor->dump = true;
+		cor->dump_cycle = ft_atoui((*av)[1]);
 		(*av) += 2;
 		(*ac) -= 2;
 		return (0);
@@ -34,15 +50,11 @@ static int	get_dump_info(t_cor *cor, int *ac, char ***av)
 
 static int  get_verbose_info(t_cor *cor, int *ac, char ***av)
 {
-	int		i;
-
 	if (*ac >= 2)
 	{
-		i = -1;
-		while ((*av)[1][++i])
-			if ((*av)[1][i] > '9' || (*av)[1][i] < '0') // [IMPROVE] Verifier aussi que le nombre est un char (meme inferieur a 0b00111111)
-				return (ERROR);
-		cor->verbose = (char)ft_atoi((*av)[1]);
+		if (!is_uint((*av)[1]) || ft_atoui((*av)[1]) > 31)
+			return (ERROR);
+		cor->verbose = (char)ft_atoui((*av)[1]);
 		(*av) += 2;
 		(*ac) -= 2;
 		return (0);
@@ -69,7 +81,9 @@ int         get_options(t_cor *cor, int *ac, char ***av)
 			break ;
 		else if (ft_strequ((*av)[0], "-visual"))
 		{
-			cor->visual_on = VISUAL_ON;
+			cor->visual_on = true;
+			cor->dump = false;
+			cor->verbose = 0;
 			(*av)++;
 			(*ac)--;
 		}

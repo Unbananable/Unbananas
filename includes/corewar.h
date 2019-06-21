@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 10:43:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:04:29 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define UINT_MAX 4294967295
 
 # define CYCLE_LIVE 10
 # define CYCLE_LD 5
@@ -49,6 +50,7 @@
 /*
 ** Byte representation of the verbose options
 */
+
 # define V_LIVES 1
 # define V_CYCLES 2
 # define V_OPERATIONS 4
@@ -162,10 +164,10 @@ typedef struct		s_arg
 ** - nb_champs: number of champions
 ** - champs: list of champions (see champion structure)
 ** - arena: VM memory area
-** - hex: //TO DO (string de taille REG_SIZE + 1 qui permettra de stocker les
-**        infos a deplacer via les instructions, plus simple a utiliser que
-**        char[5] a mon gout) TODO initialize char * (REG_SIZE + 1), puis bzero
 ** - procs: chained list of processes/cursors
+** - op_tab: array of s_op corresponding to the instructions
+** - args: array which will contain the value of the arguments of each
+**         instruction
 ** - curr_cycle: number of cycles since the beginning
 ** - curr_cycle_period: number of cycles since the beginning of the new period
 ** - cycle_to_die: number of cycles in a period
@@ -178,6 +180,10 @@ typedef struct		s_arg
 ** - dump_cycle: number of the cycle at which the memory (arena) must be dumped
 **               (only when dump is set to 1)
 ** - verbose: verbose level. Each bit represents an aspect of the verbosity.
+** - nb_procs: current number of live processes [IMPROVE] What if il y en a plus que UINT_MAX ?
+** - new_proc_n: identifier for the next process created by fork/lfork [IMPROVE] Si > UINT_MAX ?
+** - visu: [TO DO]
+** - visual_on: [TO DO]
 */
 
 typedef struct		s_cor
@@ -194,7 +200,7 @@ typedef struct		s_cor
 	unsigned int	nb_live;
 	unsigned int	nb_checks;
 	int				last_alive;
-	int				dump;
+	t_bool			dump;
 	unsigned int	dump_cycle;
 	char			verbose;
 	unsigned int	nb_procs;
@@ -279,8 +285,6 @@ void		print_cor(t_cor *cor);
 
 # define LIVE_BRIGHT_TIME 50
 # define STORE_BRIGHT_TIME 50
-
-# define VISUAL_ON		true
 
 # define RED			8
 # define RED_CURSOR		9

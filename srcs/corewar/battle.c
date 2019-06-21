@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 10:44:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:00:41 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 {
 	int		i;
 
-	if (cor->visual_on == VISUAL_ON)
+	if (cor->visual_on)
 		cor->visu->attr_arena[proc->idx].cursor = true;
 	if (!proc->wait)
 	{
@@ -171,7 +171,7 @@ void		battle(t_cor *cor)
 			end_period(cor);
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
-		if (cor->visual_on == VISUAL_ON)
+		if (cor->visual_on)
 		{
 			while (cor->visu->is_running == false)
 			{
