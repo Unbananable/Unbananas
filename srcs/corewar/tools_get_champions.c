@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_get_champions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 12:20:12 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/02 13:57:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:27:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ unsigned int	get_magic(int fd)
 	while (++i < 4)
 	{
 		if (read(fd, &c, 1) != 1)
-			return (0); // [IMPROVE] Valable seulement si CODE_EXEC_MAGIC != 0
-		magic = magic * 16 * 16 + c;
+			return ((COREWAR_EXEC_MAGIC == 0) ? 1 : 0);
+		magic = magic * 256 + c;
 	}
 	return (magic);
 }

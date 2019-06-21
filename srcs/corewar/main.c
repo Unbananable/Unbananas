@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 15:29:45 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 11:28:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int		main(int ac, char **av)
 	get_champions(&cor, ac, av);
 	order_champions(&cor);
 	arena_setup(&cor);
-	//print_cor(&cor);
-
 	introduce_champions(&cor);
 	if (cor.visual_on == VISUAL_ON)
 	{
@@ -46,13 +44,11 @@ int		main(int ac, char **av)
 	}
 	battle(&cor);
 	announce_winner(&cor);
-
 	if (cor.visual_on == VISUAL_ON)
 	{
 		wgetch(cor.visu->arena);
 		wgetch(cor.visu->arena_info);
 		endwin();
 	}
-
 	end(&cor);
 }
