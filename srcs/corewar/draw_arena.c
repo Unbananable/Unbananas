@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 14:21:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:10:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,23 @@ void	draw_starting_arena(t_cor *cor)
 	}
 }
 
-void	draw_arena(t_cor *cor)
+/*manager(t_cor *cor, int key)
+{
+	if (key == ' ')
+		pause(cor);
+		
+}*/
+
+void	draw_arena(t_cor *cor, int key)
 {
 	int		i;
 	int		j;
 	int		attribute;
 
-//	modify_speed_factor(cor);
+	if (key == ' ')
+		cor->visu->is_running = !cor->visu->is_running;
+	else 
+		modify_speed_factor(cor, key);
 	if (cor->curr_cycle != 1 && cor->visu->is_running == false)
 	{
 		wmove(cor->visu->arena_info, 2, 3);
@@ -78,7 +88,7 @@ void	draw_arena(t_cor *cor)
 		wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
 
 		/* *BEST BONUS* */
-//		werase(cor->visu->arena_announce);
+		werase(cor->visu->arena_announce);
 		wmove(cor->visu->arena_announce, 2, 5);
 		wprintw(cor->visu->arena_announce, "SPEED: %d", cor->visu->speed);
 		wattron(cor->visu->arena_announce, COLOR_PAIR(GRAY_CURSOR));

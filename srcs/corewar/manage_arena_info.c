@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 13:18:54 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:06:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 		wprintw(cor->visu->arena_info, "** RUNNING **");
 	else
 		wprintw(cor->visu->arena_info, "** PAUSED **");
-	
+
 	//SPEED
 
 	*y += 4;
@@ -77,14 +77,13 @@ static void draw_live_breakdowns(t_cor *cor, int *y)
 
 	i = -1;
 	max = 0;
-	if (cor->nb_live == 0)
+	total = 0;
+	while (++i < cor->nb_champs)
+		total += cor->champs[i]->lives_in_curr_period;
+	if (total == 0)
 		wprintw(cor->visu->arena_info, "--------------------------------------------------");
 	else
 	{
-		i = -1;
-		total = 0;
-		while (++i < cor->nb_champs)
-			total += cor->champs[i]->lives_in_curr_period;
 		i = -1;
 		while (++i < cor->nb_champs)
 		{
@@ -112,18 +111,17 @@ static void draw_live_breakdowns(t_cor *cor, int *y)
 	waddch(cor->visu->arena_info, '[');
 
 	//BREAKDOWN LAST PERIOD
-	
-	i = -1;
+
 	max = 0;
-	if (cor->nb_live == 0)
+	i = -1;
+	total = 0;
+	while (++i < cor->nb_champs)
+		total += cor->champs[i]->lives_in_last_period;
+	if (total == 0)
 		wprintw(cor->visu->arena_info, "--------------------------------------------------");
 	else
 	{
 		i = -1;
-		total = 0;
-		while (++i < cor->nb_champs)
-			total += cor->champs[i]->lives_in_last_period;
-		i =-1;
 		while (++i < cor->nb_champs)
 		{
 			j = -1;
@@ -140,7 +138,7 @@ static void draw_live_breakdowns(t_cor *cor, int *y)
 			waddch(cor->visu->arena_info, '-');
 	}
 	waddch(cor->visu->arena_info, ']');
-	
+
 	// --------------------
 }
 

@@ -6,15 +6,15 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:06:52 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/20 15:28:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 14:39:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int get_attribute(t_cor *cor, int idx)
+int			get_attribute(t_cor *cor, int idx)
 {
-	int color;
+	int		color;
 
 	if (cor->visu->attr_arena[idx].owner == 1)
 	{
@@ -72,6 +72,5 @@ int get_attribute(t_cor *cor, int idx)
 		if (cor->visu->attr_arena[idx].cursor)
 			color = COLOR_PAIR(MAGENTA_CURSOR);
 	}
-
 	return (color);
 }

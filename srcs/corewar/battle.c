@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:27:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:03:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,32 @@ static void	end_period(t_cor *cor)
 **            current cycle is the dump cycle
 */
 
+static void speed(t_cor *cor)
+{
+	int i = 0;
+	int j;
+	int key;
+	(void)cor;
+	while (++i < 1000000)
+	{
+		key = wgetch(stdscr);
+		if (key != -1)
+			draw_arena(cor, key);
+		
+		j = i * i;
+	}
+	/*
+	if (cor->visu->speed == -2)
+		usleep(110000);
+	else if (cor->visu->speed == -1)
+		usleep(90000);
+	else if (cor->visu->speed == 0)
+		usleep(60000);
+	else if (cor->visu->speed == 1)
+		usleep(30000);
+	*/
+}
+
 void		battle(t_cor *cor)
 {
 	t_proc	*cache;
@@ -175,13 +201,10 @@ void		battle(t_cor *cor)
 		{
 			while (cor->visu->is_running == false)
 			{
-				while (wgetch(stdscr) != ' ')
-					draw_arena(cor);
-				cor->visu->is_running = true;
+				draw_arena(cor, wgetch(stdscr));
 			}
-			if (wgetch(stdscr) == ' ')
-				cor->visu->is_running = false;
-			draw_arena(cor);
+			draw_arena(cor, wgetch(stdscr));
+			speed(cor);
 		}
 	}
 }
