@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:27:03 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:34:18 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 ** - description: what the instruction actually does
 */
 
-static void	execute_process(t_proc *proc, t_cor *cor)
+static void execute_process(t_proc *proc, t_cor *cor)
 {
-	int		i;
+	int i;
 
 	if (cor->visual_on)
 		cor->visu->attr_arena[proc->idx].cursor = true;
@@ -51,11 +51,10 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 			cor->op_tab[proc->opcode - 1].f(cor, proc);
 		else
 			proc->move = 1;
-		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry) && proc->opcode
-				&& proc->opcode <= NB_OPERATIONS)
+		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry) && proc->opcode && proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,
-					proc->idx + proc->move);
+					  proc->idx + proc->move);
 			i = -1;
 			while (++i < proc->move)
 				ft_printf("%.2x ", cor->arena[restricted_addr(proc->idx + i)]);
@@ -70,22 +69,20 @@ static void	execute_process(t_proc *proc, t_cor *cor)
 ** live operation in the last period.
 */
 
-static void	kill_processes(t_cor *cor)
+static void kill_processes(t_cor *cor)
 {
-	t_proc	*current;
-	t_proc	*previous;
+	t_proc *current;
+	t_proc *previous;
 
 	previous = NULL;
 	current = cor->procs;
 	while (current)
 	{
-		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die
-			|| cor->cycle_to_die <= 0)
+		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die || cor->cycle_to_die <= 0)
 		{
 			if (cor->verbose & V_DEATHS)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						current->n, cor->curr_cycle
-						- current->last_live_cycle, cor->cycle_to_die);
+						  current->n, cor->curr_cycle - current->last_live_cycle, cor->cycle_to_die);
 			if (previous)
 				previous->next = current->next;
 			else
@@ -105,9 +102,9 @@ static void	kill_processes(t_cor *cor)
 	}
 }
 
-static void	end_period(t_cor *cor)
+static void end_period(t_cor *cor)
 {
-	int		i;
+	int i;
 
 	kill_processes(cor);
 	if (cor->nb_live >= NBR_LIVE || cor->nb_checks >= MAX_CHECKS)
@@ -150,9 +147,9 @@ static void	end_period(t_cor *cor)
 **            current cycle is the dump cycle
 */
 
-void		battle(t_cor *cor)
+void battle(t_cor *cor)
 {
-	t_proc	*cache;
+	t_proc *cache;
 
 	while (cor->procs)
 	{
@@ -166,8 +163,7 @@ void		battle(t_cor *cor)
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
-		if (cor->cycle_to_die <= 0
-				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
+		if (cor->cycle_to_die <= 0 || cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
 			end_period(cor);
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
@@ -175,13 +171,10 @@ void		battle(t_cor *cor)
 		{
 			while (cor->visu->is_running == false)
 			{
-				while (wgetch(stdscr) != ' ')
-					draw_arena(cor);
-				cor->visu->is_running = true;
+				draw_arena(cor, wgetch(stdscr));
 			}
-			if (wgetch(stdscr) == ' ')
-				cor->visu->is_running = false;
-			draw_arena(cor);
+			draw_arena(cor, wgetch(stdscr));
+			apply_speed(cor);
 		}
 	}
 }

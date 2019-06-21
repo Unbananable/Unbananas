@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:26:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:34:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,10 +282,13 @@ void		print_cor(t_cor *cor);
 # define HEIGHT (MEM_SIZE / 64 + 4)
 # define WIDTH ((MEM_SIZE / 64) * 3 + 5)
 
-# define START_SPEED	50
-
 # define LIVE_BRIGHT_TIME 50
 # define STORE_BRIGHT_TIME 50
+
+# define VERY_SLOW 1000000
+# define SLOW 500000
+# define NORMAL 200000
+# define FAST 50000
 
 # define RED			8
 # define RED_CURSOR		9
@@ -328,12 +331,13 @@ typedef struct	s_visu
 }				t_visu;
 
 int get_attribute(t_cor *cor, int idx);
-void draw_arena(t_cor *cor);
+void draw_arena(t_cor *cor, int key);
 void draw_starting_arena(t_cor *cor);
 void create_color_panel(void);
 void init_visu(t_cor *cor);
 void manage_arena_info(t_cor *cor);
-void modify_speed_factor(t_cor *cor);
+void modify_speed_factor(t_cor *cor, int key);
 void highlight_speed_button(t_cor *cor);
+void apply_speed(t_cor *cor);
 
 #endif
