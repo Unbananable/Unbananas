@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 16:18:21 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/20 17:10:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static t_champ	*read_champion(char *str, int player_no)
 		return (NULL);
 	champ->last_live = 0;
 	champ->lives_in_curr_period = 0;
-	champ->lives_in_last_period = 0;
 	champ->player_no = player_no;
 	champ->redcode = NULL;
 	if ((champ->head.magic = get_magic(fd)) != COREWAR_EXEC_MAGIC

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/20 15:35:25 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/21 10:44:56 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ static void	end_period(t_cor *cor)
 	cor->nb_live = 0;
 	i = -1;
 	while (++i < cor->nb_champs)
+	{
+		cor->champs[i]->lives_in_last_period = cor->champs[i]->lives_in_curr_period;
 		cor->champs[i]->lives_in_curr_period = 0;
+	}
 }
 
 /*
