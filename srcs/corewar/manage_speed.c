@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 16:34:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:15:22 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void    apply_speed(t_cor *cor)
 {
+	(void)cor;
+/*
 	int i;
 	int key;
 	
@@ -24,7 +26,9 @@ void    apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1)
-				draw_arena(cor, key);
+			{
+				draw_arenas(cor);
+			}
 		}
 	}
 	else if (cor->visu->speed == -1)
@@ -33,7 +37,9 @@ void    apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1)
-				draw_arena(cor, key);
+			{
+				draw_arenas(cor);
+			}
 		}
 	}
 	else if (cor->visu->speed == 0)
@@ -42,7 +48,9 @@ void    apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1)
-				draw_arena(cor, key);
+			{
+				draw_arenas(cor);
+			}
 		}
 	}
 	else if (cor->visu->speed == 1)
@@ -51,9 +59,14 @@ void    apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1)
-				draw_arena(cor, key);
+			{
+				draw_arenas(cor);
+			}
 		}
 	}
+	else
+		draw_arenas(cor);
+*/
 }
 
 void	modify_speed_factor(t_cor *cor, int key)
@@ -61,13 +74,13 @@ void	modify_speed_factor(t_cor *cor, int key)
 	if (key == 'q')
 		cor->visu->speed = -2;
 	else if (key == 'w' && cor->visu->speed != -2)
-		cor->visu->speed = -1;
-	else if (key == 'e')
-		cor->visu->speed = 0;
+		cor->visu->speed -= 1;
+	else if (key == 'e' && cor->visu->speed != 2)
+		cor->visu->speed += 1;
 	else if (key == 'r')
-		cor->visu->speed = 1;
-	else if (key == 't')
 		cor->visu->speed = 2;
+	highlight_speed_button(cor);
+	wrefresh(cor->visu->arena_info);
 }
 
 void	highlight_speed_button(t_cor *cor)

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 11:27:33 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:12:39 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,9 +285,9 @@ void		print_cor(t_cor *cor);
 # define LIVE_BRIGHT_TIME 50
 # define STORE_BRIGHT_TIME 50
 
-# define VERY_SLOW 1000000
-# define SLOW 500000
-# define NORMAL 200000
+# define VERY_SLOW 600000
+# define SLOW 300000
+# define NORMAL 150000
 # define FAST 50000
 
 # define RED			8
@@ -330,14 +330,17 @@ typedef struct	s_visu
 	int		speed;
 }				t_visu;
 
-int get_attribute(t_cor *cor, int idx);
-void draw_arena(t_cor *cor, int key);
-void draw_starting_arena(t_cor *cor);
-void create_color_panel(void);
 void init_visu(t_cor *cor);
-void manage_arena_info(t_cor *cor);
-void modify_speed_factor(t_cor *cor, int key);
+int get_attribute(t_cor *cor, int idx);
+void draw_starting_arena(t_cor *cor);
+void draw_arenas(t_cor *cor);
+void create_color_panel(void);
 void highlight_speed_button(t_cor *cor);
+void modify_speed_factor(t_cor *cor, int key);
 void apply_speed(t_cor *cor);
+void manage_arena(t_cor *cor);
+void manage_arena_info(t_cor *cor);
+void manage_arena_period_bar(t_cor *cor);
+void manager(t_cor *cor, int key);
 
 #endif

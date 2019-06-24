@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 16:34:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:38:28 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,10 +171,9 @@ void battle(t_cor *cor)
 		{
 			while (cor->visu->is_running == false)
 			{
-				draw_arena(cor, wgetch(stdscr));
+				manager(cor, wgetch(stdscr));
 			}
-			draw_arena(cor, wgetch(stdscr));
-			apply_speed(cor);
+			manager(cor, wgetch(stdscr));
 		}
 	}
 }

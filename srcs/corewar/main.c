@@ -6,19 +6,19 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 12:04:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:10:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	launch_visual(t_cor cor)
+static void	launch_visual(t_cor *cor)
 {
-	init_visu(&cor);
+	init_visu(cor);
 	create_color_panel();
-	draw_starting_arena(&cor);
-	battle(&cor);
-	announce_winner(&cor);
+	draw_starting_arena(cor);
+	battle(cor);
+	announce_winner(cor);
 	nodelay(stdscr, false);
 	wgetch(stdscr);
 	endwin();
@@ -58,7 +58,7 @@ int			main(int ac, char **av)
 	arena_setup(&cor);
 	introduce_champions(&cor);
 	if (cor.visual_on)
-		launch_visual(cor);
+		launch_visual(&cor);
 	else
 	{
 		battle(&cor);

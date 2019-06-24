@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/21 13:24:48 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/06/24 13:45:40 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,9 @@ SRC = announce_winner.c \
 	  create_color_panel.c \
 	  init_visu.c \
 	  manage_arena_info.c \
-	  manage_speed.c
+	  manage_speed.c \
+	  manage_arena_period_bar.c \
+	  manage_arena.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 15:06:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:55:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 		wprintw(cor->visu->arena_info, "** RUNNING **");
 	else
 		wprintw(cor->visu->arena_info, "** PAUSED **");
-
-	//SPEED
-
 	*y += 4;
 	wmove(cor->visu->arena_info, *y, 3);
 	wprintw(cor->visu->arena_info, "Cycle : %d", cor->curr_cycle);
@@ -173,4 +170,9 @@ void manage_arena_info(t_cor *cor)
 	}
 	draw_live_breakdowns(cor, &y);
 	draw_constants_arena_info(cor, y);
+	wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
+	box(cor->visu->arena_info, '*', '*');
+	wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
+	highlight_speed_button(cor);
+	wrefresh(cor->visu->arena_info);
 }
