@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_procs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/19 12:14:40 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 12:17:29 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	delete_procs(t_proc **procs)
 		delete_proc(procs);
 		*procs = cache;
 	}
+	*procs = NULL;
 }
 
 t_proc	*clone_proc(t_cor *cor, t_proc *original)
