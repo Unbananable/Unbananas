@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:27:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/24 12:04:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	usage(void)
+static void	launch_visual(t_cor cor)
+{
+	init_visu(&cor);
+	create_color_panel();
+	draw_starting_arena(&cor);
+	battle(&cor);
+	announce_winner(&cor);
+	nodelay(stdscr, false);
+	wgetch(stdscr);
+	endwin();
+}
+
+void		usage(void)
 {
 	ft_putstr_fd("usage: ./corewar [-visual | [-v verbosity_level] ", 2);
 	ft_putstr_fd("[-dump nbr_cycles]] [-n player_number] champion1.cor", 2);
@@ -24,7 +36,7 @@ void	usage(void)
 	ft_putstr_fd("combination of verbosity levels\n", 2);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_cor	cor;
 
@@ -46,16 +58,11 @@ int		main(int ac, char **av)
 	arena_setup(&cor);
 	introduce_champions(&cor);
 	if (cor.visual_on)
+		launch_visual(cor);
+	else
 	{
-		init_visu(&cor);
-		create_color_panel();
-		draw_starting_arena(&cor);
-	}
-	battle(&cor);
-	announce_winner(&cor);
-	if (cor.visual_on)
-	{
-		endwin();
+		battle(&cor);
+		announce_winner(&cor);
 	}
 	end(&cor);
 }

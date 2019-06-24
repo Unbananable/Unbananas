@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 16:34:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:27:33 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,7 @@ typedef struct	s_visu
 {
 	WINDOW	*arena;
 	WINDOW	*arena_info;
-	WINDOW	*arena_announce;
+	WINDOW	*arena_period_bar;
 	t_attr	attr_arena[MEM_SIZE];
 	int		is_running;
 	int		speed;
