@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_color_panel.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:35:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 11:46:00 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:51:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void create_color_panel(void)
+void	create_color_panel(void)
 {
 	use_default_colors();
 	start_color();

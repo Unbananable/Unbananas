@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_arena.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/24 16:16:15 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:52:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void draw_starting_arena(t_cor *cor)
+void	draw_starting_arena(t_cor *cor)
 {
 	int i;
 	int j;
@@ -32,7 +32,7 @@ void draw_starting_arena(t_cor *cor)
 	}
 }
 
-void manager(t_cor *cor, int key)
+void	manager(t_cor *cor, int key)
 {
 	if (key == ' ')
 		cor->visu->is_running = !cor->visu->is_running;
@@ -42,7 +42,7 @@ void manager(t_cor *cor, int key)
 	draw_arenas(cor);
 }
 
-void draw_arenas(t_cor *cor)
+void	draw_arenas(t_cor *cor)
 {
 	if (cor->curr_cycle != 1 && cor->visu->is_running == false)
 	{

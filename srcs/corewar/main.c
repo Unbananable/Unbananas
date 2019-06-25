@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:50:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 16:24:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:09:46 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,8 @@ int			main(int ac, char **av)
 
 	ac--;
 	av++;
-	if (!ac)
-	{
-		usage();
-		return (0);
-	}
 	initialize(&cor);
-	if (get_options(&cor, &ac, &av) == ERROR)
+	if (!ac || get_options(&cor, &ac, &av) == ERROR)
 	{
 		usage();
 		end(&cor);

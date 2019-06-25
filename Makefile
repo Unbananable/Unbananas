@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
+#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/24 13:45:40 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/06/25 13:53:01 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = announce_winner.c \
 	  arena_setup.c \
 	  battle.c \
-	  dev.c \
 	  dump.c \
 	  end.c \
 	  get_champions.c \

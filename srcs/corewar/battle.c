@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 15:38:28 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:58:23 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+** Initializes the opcode and wait time of the new operation after a proc has
+** moved.
+*/
+
+static void	init_instr(t_cor *cor, t_proc *proc)
+{
+	proc->opcode = cor->arena[proc->idx];
+	if (proc->opcode == 0 || proc->opcode > NB_OPERATIONS)
+		proc->wait = 1;
+	else
+		proc->wait = cor->op_tab[proc->opcode - 1].wait;
+}
 
 /*
 ** Processes execute the instructions they are placed on. Details about the
@@ -31,30 +45,25 @@
 ** - description: what the instruction actually does
 */
 
-static void execute_process(t_proc *proc, t_cor *cor)
+static void	execute_process(t_proc *proc, t_cor *cor)
 {
 	int i;
 
 	if (cor->visual_on)
 		cor->visu->attr_arena[proc->idx].cursor = true;
 	if (!proc->wait)
-	{
-		proc->opcode = cor->arena[proc->idx];
-		if (proc->opcode == 0 || proc->opcode > NB_OPERATIONS)
-			proc->wait = 1;
-		else
-			proc->wait = cor->op_tab[proc->opcode - 1].wait;
-	}
+		init_instr(cor, proc);
 	if (!(--(proc->wait)))
 	{
 		if (proc->opcode && proc->opcode <= NB_OPERATIONS)
 			cor->op_tab[proc->opcode - 1].f(cor, proc);
 		else
 			proc->move = 1;
-		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry) && proc->opcode && proc->opcode <= NB_OPERATIONS)
+		if (cor->verbose & V_PROC && (proc->opcode != 9 || !proc->carry)
+				&& proc->opcode && proc->opcode <= NB_OPERATIONS)
 		{
 			ft_printf("ADV %d (0x%0.4x -> 0x%0.4x) ", proc->move, proc->idx,
-					  proc->idx + proc->move);
+					proc->idx + proc->move);
 			i = -1;
 			while (++i < proc->move)
 				ft_printf("%.2x ", cor->arena[restricted_addr(proc->idx + i)]);
@@ -69,7 +78,7 @@ static void execute_process(t_proc *proc, t_cor *cor)
 ** live operation in the last period.
 */
 
-static void kill_processes(t_cor *cor)
+static void	kill_processes(t_cor *cor)
 {
 	t_proc *current;
 	t_proc *previous;
@@ -77,32 +86,29 @@ static void kill_processes(t_cor *cor)
 	previous = NULL;
 	current = cor->procs;
 	while (current)
-	{
-		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die || cor->cycle_to_die <= 0)
+		if (current->last_live_cycle <= cor->curr_cycle - cor->cycle_to_die
+				|| cor->cycle_to_die <= 0)
 		{
 			if (cor->verbose & V_DEATHS)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						  current->n, cor->curr_cycle - current->last_live_cycle, cor->cycle_to_die);
+						current->n, cor->curr_cycle - current->last_live_cycle,
+						cor->cycle_to_die);
 			if (previous)
 				previous->next = current->next;
 			else
 				cor->procs = current->next;
 			delete_proc(&current);
 			cor->nb_procs--;
-			if (previous)
-				current = previous->next;
-			else
-				current = cor->procs;
+			current = (previous) ? previous->next : cor->procs;
 		}
 		else
 		{
 			previous = current;
 			current = current->next;
 		}
-	}
 }
 
-static void end_period(t_cor *cor)
+static void	end_period(t_cor *cor)
 {
 	int i;
 
@@ -121,7 +127,8 @@ static void end_period(t_cor *cor)
 	i = -1;
 	while (++i < cor->nb_champs)
 	{
-		cor->champs[i]->lives_in_last_period = cor->champs[i]->lives_in_curr_period;
+		cor->champs[i]->lives_in_last_period = cor->champs[i]
+				->lives_in_curr_period;
 		cor->champs[i]->lives_in_curr_period = 0;
 	}
 }
@@ -147,32 +154,30 @@ static void end_period(t_cor *cor)
 **            current cycle is the dump cycle
 */
 
-void battle(t_cor *cor)
+void		battle(t_cor *cor)
 {
 	t_proc *cache;
 
-	while (cor->procs)
+	while ((cache = cor->procs))
 	{
 		cor->curr_cycle++;
 		cor->curr_cycle_period++;
 		if (cor->verbose & V_CYCLES)
 			ft_printf("It is now cycle %d\n", cor->curr_cycle);
-		cache = cor->procs;
 		while (cache)
 		{
 			execute_process(cache, cor);
 			cache = cache->next;
 		}
-		if (cor->cycle_to_die <= 0 || cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
+		if (cor->cycle_to_die <= 0
+				|| cor->curr_cycle_period == (unsigned int)cor->cycle_to_die)
 			end_period(cor);
 		if (cor->dump && cor->curr_cycle == cor->dump_cycle)
 			dump(cor);
 		if (cor->visual_on)
 		{
 			while (cor->visu->is_running == false)
-			{
 				manager(cor, wgetch(stdscr));
-			}
 			manager(cor, wgetch(stdscr));
 		}
 	}

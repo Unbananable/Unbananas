@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   manage_speed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/24 16:15:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:10:26 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void    apply_speed(t_cor *cor)
+void	apply_speed(t_cor *cor)
 {
 	(void)cor;
 /*
