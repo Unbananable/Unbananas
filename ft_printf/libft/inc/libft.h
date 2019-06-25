@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:19:44 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:30:36 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 4096
+# define BUFF_SIZE 2048
+# define UINT_MAX 4294967295
 
 typedef struct		s_list
 {
@@ -117,5 +118,6 @@ char				*ft_char_realloc(char *ptr, size_t size);
 int					ft_intlen(int nb);
 int					ft_round_double(double n);
 int					ft_atoui(const char *s);
+int					ft_isuint(char *str);
 
 #endif

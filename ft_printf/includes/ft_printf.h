@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:15:45 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/05/06 16:28:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:05:27 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <unistd.h>
 # include <stdint.h>
 # include "libft.h"
+
+# define FLAG_SPACE 1
+# define FLAG_OCTO 2
+# define FLAG_MIN 4
+# define FLAG_PLUS 8
+# define FLAG_ZERO 16
+# define ACCURACY 32
+# define FIELD_WIDTH 64
 
 typedef va_list	t_va;
 
@@ -35,11 +43,26 @@ typedef struct	s_flag
 	char	*(*f)(char *, char);
 }				t_flag;
 
+typedef struct	s_arg
+{
+	int		flags;
+	int		field_width;
+	int		accuracy;
+	char	conv;
+}				t_arg;
+
+/*
+** FORMAT STRUCTURE
+** - fmt: format to print;
+** - cnt: total length of the format
+** - i: current read character
+*/
+
 typedef struct	s_form
 {
 	int			i;
 	int			cnt;
-	const char	*fmt;
+	const char	*str;
 }				t_form;
 
 int				ft_printf(const char *format, ...);
@@ -74,5 +97,7 @@ char			*parse_color(const char *format);
 int				param_len(const char *format);
 unsigned char	*concatenate(unsigned char *s1, unsigned char *s2);
 char			*conv_longf(va_list ap, char *specs);
+void			print_current(t_form *fmt);
+void			write_arg(t_form *fmt, va_list ap);
 
 #endif
