@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_arg.c                                        :+:      :+:    :+:   */
+/*   write_specs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,67 +12,94 @@
 
 #include "ft_printf.h"
 
-static void add_flag(t_form *fmt, t_arg *arg) // [TO DO] Cas ou les flags sont répétés
+static void	flag_sanitize (t_specs *specs)
 {
-    if (fmt->str[fmt->i] == ' ')
-        arg->flags = arg->flags | FLAG_SPACE;
-    else if (fmt->str[fmt->i] == '#')
-        arg->flags = arg->flags | FLAG_OCTO;
-    else if (fmt->str[fmt->i] == '+')
-        arg->flags = arg->flags | FLAG_PLUS;
-    else if (fmt->str[fmt->i] == '-')
-        arg->flags = arg->flags | FLAG_MIN;
-    else if (fmt->str[fmt->i] == '0')
-        arg->flags = arg->flags | FLAG_ZERO;
-    else if (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
-    {
-        arg->flags = arg->flags | FIELD_WIDTH;
-        arg->field_width = fmt->str[fmt->i] - '0';
-        while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
-            arg->field_width = arg->field_width * 10 + fmt->str[fmt->i] - '0';
-        fmt->i--;
-    }
-    else if (fmt->str[fmt->i] == '.')
-    {
-        arg->flags = arg->flags | ACCURACY;
-        arg->accuracy = 0;
-        while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
-            arg->field_width = arg->field_width * 10 + fmt->str[fmt->i] - '0';
-        fmt->i--;
-    }
-    else
-        fmt->i--;
-    fmt->i++;
-    
+	if ((ft_strchr("diouxX", specs->conv) && specs->flags & ACCURACY)
+			|| specs->flags & FLAG_MIN)
+		if (specs->flags & FLAG_ZERO)
+			specs->flags = specs->flags ^ FLAG_ZERO;
+	if (specs->flags & FLAG_PLUS)
+		if (specs->flags & FLAG_SPACE)
+			specs->flags = specs->flags ^ FLAG_SPACE;
+}
+
+static void add_flag(t_form *fmt, t_specs *specs) // [TO DO] Cas ou les flags sont répétés [TO DO] Cas d'un flag invalide [TO DO] Cas de plusieurs modifiers
+{
+	if (fmt->str[fmt->i] == ' ')
+		specs->flags = specs->flags | FLAG_SPACE;
+	else if (fmt->str[fmt->i] == '#')
+		specs->flags = specs->flags | FLAG_OCTO;
+	else if (fmt->str[fmt->i] == '+')
+		specs->flags = specs->flags | FLAG_PLUS;
+	else if (fmt->str[fmt->i] == '-')
+		specs->flags = specs->flags | FLAG_MIN;
+	else if (fmt->str[fmt->i] == '0')
+		specs->flags = specs->flags | FLAG_ZERO;
+	else if (fmt->str[fmt->i] == 'l')
+		specs->mod = specs->mod | MOD_L;
+	else if (fmt->str[fmt->i] == 'j')
+		specs->mod = specs->mod | MOD_J;
+	else if (fmt->str[fmt->i] == 'z')
+		specs->mod = specs->mod | MOD_Z;
+	else if (fmt->str[fmt->i] == 'h')
+	{
+		if (fmt->str[fmt->i + 1] == 'h')
+		{
+			specs->mod = specs->mod | MOD_HH;
+			fmt->i++;
+		}
+		else
+			specs->mod = specs->mod | MOD_H;
+	}
+	else if (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
+	{
+		specs->flags = specs->flags | FIELD_WIDTH;
+		specs->field_width = fmt->str[fmt->i] - '0';
+		while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
+			specs->field_width = specs->field_width * 10 + fmt->str[fmt->i] - '0';
+		fmt->i--;
+	}
+	else if (fmt->str[fmt->i] == '.')
+	{
+		specs->flags = specs->flags | ACCURACY;
+		specs->accuracy = 0;
+		while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
+			specs->field_width = specs->field_width * 10 + fmt->str[fmt->i] - '0';
+		fmt->i--;
+	}
+	else
+		fmt->i--;
+	fmt->i++;
 }
 
 static int  is_conv(char c)
 {
-    if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
-            || c == 'u' || c == 'x' || c == '%')
-        return (1);
-    return (0);
+	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
+			|| c == 'u' || c == 'x' || c == '%' || c == 'f')
+		return (1);
+	return (0);
 }
 
-static int  set_conv_characteristics(t_form *fmt, t_arg *arg)
+static int  set_conv_specs(t_form *fmt, t_specs *specs)
 {
-    arg->flags = 0;
-    while (fmt->str[fmt->i] && !is_conv(fmt->str[fmt->i]))
-        add_flag(fmt, arg);
-    arg->conv = fmt->str[fmt->i];
-    //[TO DO] Gérer le cas ou il n'y a pas de conversion
-    fmt->str += fmt->i;
-    fmt->i = 0;
+	specs->flags = 0;
+	while (fmt->str[fmt->i] && !is_conv(fmt->str[fmt->i]))
+		add_flag(fmt, specs);
+	specs->conv = (fmt->str[fmt->i] == 'i') ? 'd' : fmt->str[fmt->i];
+	flag_sanitize(specs);
+	//[TO DO] Gérer le cas ou il n'y a pas de conversion
+	fmt->str += fmt->i;
+	fmt->i = 0;
 }
 
-void	write_arg(t_form *fmt, va_list ap)
+void	write_specs(t_form *fmt, va_list ap)
 {
 	char	*res;
-    t_arg   arg;
+	t_specs	specs;
 
-    fmt->i++;
-	set_conv_characteristics(fmt, &arg);
-	res = converter(arg, ap);
+	fmt->i++;
+	set_conv_specs(fmt, &specs);
+	res = converter(specs, ap);
 	write(1, res, ft_strlen(res));
 	fmt->cnt += ft_strlen(res);
 	free(res);

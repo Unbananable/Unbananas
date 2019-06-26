@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:56:09 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:25:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:53:27 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static unsigned char	*conv_s_wchar(va_list ap)
 
 	arg = va_arg(ap, wchar_t *);
 	i = 0;
-	if (!(res = (unsigned char *)ft_strnew(1)))
-		exit_error("error: malloc failed\n", 0);
+	res = NULL;
 	while (arg[i])
 	{
 		res = concatenate(res, ft_wchar_to_bytes(arg[i]));
@@ -40,33 +39,34 @@ static unsigned char	*conv_s_wchar(va_list ap)
 	return (res);
 }
 
-char					*conv_p(va_list ap, char *mod)
+char					*conv_p(va_list ap, t_specs specs)
 {
 	void	*str;
 	char	*res;
 	char	*conv;
 
-	mod += 0;
+	(void)specs;
 	str = va_arg(ap, void *);
-	if (!(res = ft_strnew(19)))
+	if (!(res = ft_strnew(sizeof(short) + 3)))
 		exit_error("error: malloc failed\n", 1, str);
+	ft_bzero(res, sizeof(short) + 3);
 	ft_strncpy(res, "0x", 2);
-	conv = ft_itoa_base((unsigned long int)str, 16);
-	ft_strncat(res, conv, 16);
+	conv = ft_itoa_base((unsigned int)str, 16);
+	ft_strncat(res, conv, sizeof(short));
 	free(conv);
 	return (res);
 }
 
-char					*conv_c(va_list ap, char *mod)
+char					*conv_c(va_list ap, t_specs specs)
 {
 	char			*res;
 	unsigned char	arg;
 
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		res = (char *)conv_c_wchar(ap);
 	else
 	{
-		arg = (unsigned char)va_arg(ap, int);
+		arg = (unsigned char)va_arg(ap, int); // [TO DO] Cas ou le caractere est le caractere nul
 		if (!(res = ft_strnew(1)))
 			exit_error("error: malloc_failed\n", 0);
 		res[0] = arg;
@@ -74,11 +74,11 @@ char					*conv_c(va_list ap, char *mod)
 	return (res);
 }
 
-char					*conv_s(va_list ap, char *mod)
+char					*conv_s(va_list ap, t_specs specs)
 {
 	char	*res;
 
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		res = (char *)conv_s_wchar(ap);
 	else
 	{
@@ -87,9 +87,8 @@ char					*conv_s(va_list ap, char *mod)
 		{
 			if (!(res = ft_strdup("(null)")))
 				exit_error("error: malloc failed\n", 0);
-			return (res);
 		}
-		if (!(res = ft_strdup(res)))
+		else if (!(res = ft_strdup(res)))
 			exit_error("error: malloc failed\n", 0);
 	}
 	return (res);

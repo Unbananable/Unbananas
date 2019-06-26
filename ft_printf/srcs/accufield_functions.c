@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   accufield_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:41:20 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:23:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:22:58 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char		*accuracy_reg(char *str, size_t len)
 	return (ret);
 }
 
-char		*accuracy(char *str, size_t len, char *specs)
+char		*accuracy(char *str, t_specs specs)
 {
 	char	*ret;
 	int		iszero;
@@ -81,40 +81,38 @@ char		*accuracy(char *str, size_t len, char *specs)
 	while (str[++i] && iszero)
 		if (str[i] != '0' && str[i] != ' ')
 			iszero = 0;
-	if (ft_strchr("duoxX", specs[ft_strlen(specs) - 1]) && iszero && !len)
+	if (ft_strchr("duoxX", specs.conv) && iszero && !specs.accuracy)
 		ret = ft_strdup("");
-	else if (specs[ft_strlen(specs) - 1] == 'p' && ft_strequ(str, "0x0")
-			&& !len)
+	else if (specs.conv == 'p' && ft_strequ(str, "0x0") && !specs.accuracy)
 		ret = ft_strdup("0x");
-	else if (specs[ft_strlen(specs) - 1] == 'p' && len + 2 >= ft_strlen(str))
-		ret = accuracy_p(str, len);
-	else if (specs[ft_strlen(specs) - 1] == 's')
-		ret = accuracy_s(str, len);
-	else if (!ft_strchr("cpf%", specs[ft_strlen(specs) - 1])
-			&& ft_strlen(str) <= len)
-		ret = accuracy_reg(str, len);
+	else if (specs.conv == 'p' && specs.accuracy + 2 >= ft_strlen(str))
+		ret = accuracy_p(str, specs.accuracy);
+	else if (specs.conv == 's')
+		ret = accuracy_s(str, specs.accuracy);
+	else if (!ft_strchr("cpf%", specs.conv) && ft_strlen(str) <= specs.accuracy)
+		ret = accuracy_reg(str, specs.accuracy);
 	else
 		ret = ft_strdup(str);
 	free(str);
 	return (ret);
 }
 
-char		*field_width(char *str, size_t len, char conv)
+char		*field_width(char *str, t_specs specs)
 {
 	char	*ret;
 	int		i;
 
-	if (ft_strlen(str) < len)
+	if (ft_strlen(str) < specs.field_width)
 	{
-		if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+		if (!(ret = (char *)malloc(sizeof(char) * (specs.field_width + 1))))
 			return (NULL);
-		ret[len] = 0;
-		ft_memset(ret, ' ', len);
+		ret[specs.field_width] = 0;
+		ft_memset(ret, ' ', specs.field_width);
 		i = ft_strlen(str);
-		if (!i && conv == 'c')
-			ret[len - 1] = 0;
+		if (!i && specs.conv == 'c')
+			ret[specs.field_width - 1] = 0;
 		while (--i >= 0)
-			ret[len-- - 1] = str[i];
+			ret[specs.field_width-- - 1] = str[i];
 		free(str);
 		return (ret);
 	}

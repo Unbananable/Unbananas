@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_flag.c                                       :+:      :+:    :+:   */
+/*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 16:28:38 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/26 12:39:43 by anaiel           ###   ########.fr       */
+/*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/06/26 12:24:14 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*parse_flag(char *str, t_specs specs)
+char		*converter(t_specs specs, va_list ap)
 {
-	if (specs.flags & FLAG_SPACE)
-		str = flag_space(str, specs.conv);
-	if (specs.flags & FLAG_OCTO)
-		str = flag_hash(str, specs.conv);
-	if (specs.flags & FLAG_PLUS)
-		str = flag_plus(str, specs.conv);
-	if (specs.flags & FLAG_ZERO)
-		str = flag_zero(str, specs.conv);
-	if (specs.flags & FLAG_MIN)
-		str = flag_minus(str, specs.conv);
-	return (str);
+	char	*res;
+	char	*res_nullchar;
+	int		i;
+
+	res = parse_conv(ap, specs);
+	res = parse_accufield(res, specs);
+	res = parse_flag(res, specs);
+	return (res);
 }

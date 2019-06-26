@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 15:26:09 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/26 10:36:27 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static char		*converter(char *specs, va_list ap)
-{
-	char	*res;
-	char	*res_nullchar;
-	int		i;
-
-	if (specs[ft_strlen(specs) - 1] == 'i')
-		specs[ft_strlen(specs) - 1] = 'd';
-	if (!specs[0]
-			|| ft_strchr(" .lhzj+-0123456789#L", specs[ft_strlen(specs) - 1]))
-		return (ft_strdup(""));
-	res = parse_conv(ap, specs);
-	res = parse_accufield(res, specs);
-	res = parse_flag(res, specs);
-	if (specs[ft_strlen(specs) - 1] == 'c' && ft_strstr(res, "^@"))
-	{
-		write(1, res, 1);
-		if (!(res_nullchar = ft_strdup(res + 1)))
-			exit_error("error: malloc failed\n", 2, res, specs);
-		free(res);
-		return (res_nullchar);
-	}
-	if (ft_strchr("dfi", specs[ft_strlen(specs) - 1]) && (i = -1))
-		while (res[++i])
-			if (res[i] == '\t')
-				res[i] = ' ';
-	return (res);
-}
 
 static t_form	init_struct(const char *format)
 {
@@ -65,31 +36,6 @@ static t_form	write_color(t_form *fmt)
 		fmt->str += param_len(fmt->str + fmt->i) + fmt->i;
 		fmt->i = 0;
 	}
-}
-
-static void	write_arg(t_form *fmt, va_list ap)
-{
-	char	*specs;
-	char	*arg;
-
-	fmt->cnt += fmt->i;
-	fmt->str += fmt->i + 1;
-	fmt->i = 0;
-	while (fmt->str[fmt->i] && (ft_strchr(" #+-.jhlzL", fmt->str[fmt->i])
-			|| (fmt->str[fmt->i] >= '0' && fmt->str[fmt->i] <= '9')))
-		fmt->i++;
-	specs = ft_strsub(fmt->str, 0, fmt->i + 1);
-	arg = converter(specs, ap);
-	write(1, arg, ft_strlen(arg));
-	if (fmt->str[0] &&
-			ft_strchr(" .0123456789#+-jzhlL", *(fmt->str + fmt->i)))
-		fmt->str += fmt->i;
-	else if (fmt->str[0])
-		fmt->str += fmt->i + 1;
-	fmt->cnt += ft_strlen(arg);
-	free(specs);
-	free(arg);
-	fmt->i = 0;
 }
 
 /*
