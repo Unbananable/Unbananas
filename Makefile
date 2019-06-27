@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
+#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/25 13:53:01 by anleclab         ###   ########.fr        #
+#    Updated: 2019/06/27 18:26:57 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC = announce_winner.c \
 	  manage_arena_info.c \
 	  manage_speed.c \
 	  manage_arena_period_bar.c \
-	  manage_arena.c
+	  manage_arena.c \
+	  tools_breakdowns.c
 SRCSFD = srcs/corewar/
 OBJSFD = objs_cor/
 OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))

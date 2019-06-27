@@ -6,13 +6,20 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:21:05 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 14:08:30 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 12:47:45 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void manage_arena(t_cor *cor)
+void	boxing(WINDOW *window)
+{
+	wattron(window, COLOR_PAIR(GRAY_CURSOR));
+	box(window, '*', '*');
+	wattroff(window, COLOR_PAIR(GRAY_CURSOR));
+}
+
+void	manage_arena(t_cor *cor)
 {
 	int i;
 	int j;
@@ -36,8 +43,6 @@ void manage_arena(t_cor *cor)
 		}
 		wprintw(cor->visu->arena, " \n");
 	}
-	wattron(cor->visu->arena, COLOR_PAIR(GRAY_CURSOR));
-	box(cor->visu->arena, '*', '*');
-	wattroff(cor->visu->arena, COLOR_PAIR(GRAY_CURSOR));
+	boxing(cor->visu->arena);
 	wrefresh(cor->visu->arena);
 }

@@ -6,22 +6,27 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:37:00 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 11:36:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:59:30 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void init_visu(t_cor *cor)
+static void	start_set_windows(void)
 {
-	int i;
-
 	initscr();
 	noecho();
 	curs_set(0);
 	cbreak();
 	keypad(stdscr, true);
 	nodelay(stdscr, true);
+}
+
+void		init_visu(t_cor *cor)
+{
+	int i;
+
+	start_set_windows();
 	if (!(cor->visu = malloc(sizeof(t_visu))))
 		error(cor, "Malloc of the visu has failed");
 	if (!(cor->visu->arena = newwin(HEIGHT, WIDTH, 1, 1)))

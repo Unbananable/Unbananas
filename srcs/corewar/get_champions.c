@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/25 14:17:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 12:42:37 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void			get_champions(t_cor *cor, int ac, char **av)
 	{
 		if (ft_strequ(av[i], "-n"))
 		{
-			if (++i >= ac - 1 || !ft_isuint(av[i]) || (player_no
-					= ft_atoi(av[i])) > cor->nb_champs || player_no < 1)
+			if (++i >= ac - 1 || !ft_isuint(av[i])
+					|| (player_no = ft_atoi(av[i])) > cor->nb_champs
+					|| player_no < 1)
 				error(cor, "invalid option");
 			i++;
 		}

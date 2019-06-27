@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 16:12:39 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:28:26 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,10 +285,10 @@ void		print_cor(t_cor *cor);
 # define LIVE_BRIGHT_TIME 50
 # define STORE_BRIGHT_TIME 50
 
-# define VERY_SLOW 600000
+# define VERY_SLOW 900000
 # define SLOW 300000
-# define NORMAL 150000
-# define FAST 50000
+# define NORMAL 100000
+# define FAST 40000
 
 # define RED			8
 # define RED_CURSOR		9
@@ -342,5 +342,10 @@ void manage_arena(t_cor *cor);
 void manage_arena_info(t_cor *cor);
 void manage_arena_period_bar(t_cor *cor);
 void manager(t_cor *cor, int key);
+void boxing(WINDOW *window);
+void draw_current_live(t_cor *cor);
+void draw_last_live(t_cor *cor);
+int get_champ_color(int i);
+
 
 #endif

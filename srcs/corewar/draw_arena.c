@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_arena.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 13:52:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:01:44 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ void	manager(t_cor *cor, int key)
 	if (key == ' ')
 		cor->visu->is_running = !cor->visu->is_running;
 	else if (key == 'q' || key == 'w' || key == 'e' || key == 'r')
+	{
 		modify_speed_factor(cor, key);
-	// apply_speed(cor);
+		apply_speed(cor);
+	}	
 	draw_arenas(cor);
+	
 }
 
 void	draw_arenas(t_cor *cor)

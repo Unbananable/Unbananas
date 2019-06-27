@@ -6,13 +6,13 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:15:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 11:42:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:51:53 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void manage_arena_period_bar(t_cor *cor)
+void	manage_arena_period_bar(t_cor *cor)
 {
 	static int k = 0;
 
@@ -33,8 +33,6 @@ void manage_arena_period_bar(t_cor *cor)
 			waddch(cor->visu->arena_period_bar, ' ');
 		k = 0;
 	}
-	wattron(cor->visu->arena_period_bar, COLOR_PAIR(GRAY_CURSOR));
-	box(cor->visu->arena_period_bar, '*', '*');
-	wattroff(cor->visu->arena_period_bar, COLOR_PAIR(GRAY_CURSOR));
+	boxing(cor->visu->arena_period_bar);
 	wrefresh(cor->visu->arena_period_bar);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   battle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/25 14:58:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:44:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void		battle(t_cor *cor)
 		{
 			while (cor->visu->is_running == false)
 				manager(cor, wgetch(stdscr));
-			manager(cor, wgetch(stdscr));
+			apply_speed(cor);
 		}
 	}
 }

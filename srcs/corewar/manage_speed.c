@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_speed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 14:10:26 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:18:13 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,63 @@
 
 void	apply_speed(t_cor *cor)
 {
-	(void)cor;
-/*
 	int i;
 	int key;
+	int t;
 	
 	i = 0;
+	t = clock();
 	if (cor->visu->speed == -2)
 	{
-		while (++i < VERY_SLOW)
+		while (clock() - t < VERY_SLOW)
 		{
 			key = wgetch(stdscr);
-			if (key != -1)
-			{
-				draw_arenas(cor);
-			}
+			if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
+				break;
 		}
+		if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
+			manager(cor, key);
 	}
 	else if (cor->visu->speed == -1)
 	{
-		while (++i < SLOW)
+		while (clock() - t < SLOW)
 		{
 			key = wgetch(stdscr);
-			if (key != -1)
-			{
-				draw_arenas(cor);
-			}
+			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+				break;
 		}
+		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+			manager(cor, key);
 	}
 	else if (cor->visu->speed == 0)
 	{
-		while (++i < NORMAL)
+		while (clock() - t < NORMAL)
 		{
 			key = wgetch(stdscr);
-			if (key != -1)
-			{
-				draw_arenas(cor);
-			}
+			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+				break;
 		}
+		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+			manager(cor, key);
 	}
 	else if (cor->visu->speed == 1)
 	{
-		while (++i < FAST)
+		while (clock() - t < FAST)
 		{
 			key = wgetch(stdscr);
-			if (key != -1)
-			{
-				draw_arenas(cor);
-			}
+			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+				break;
 		}
+		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
+			manager(cor, key);
 	}
-	else
-		draw_arenas(cor);
-*/
+	else if (cor->visu->speed == 2)
+	{
+		key = wgetch(stdscr);
+		if (key != -1 && (key == 'q' || key == 'w' || key == ' '))
+			manager(cor, key);
+	}
+	draw_arenas(cor);
 }
 
 void	modify_speed_factor(t_cor *cor, int key)
