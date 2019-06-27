@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_double.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 10:46:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:26:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:09:07 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,7 @@ static char	*integ_part(double *dbl)
 	return (res);
 }
 
-static int	get_accuracy(char *specs)
-{
-	int		res;
-	int		i;
-
-	i = 0;
-	while (specs[i] && specs[i] != '.')
-		i++;
-	res = (specs[i] == '.' ? ft_atoi(specs + i + 1) : 6);
-	res = (res < 0 ? 0 : res);
-	return (res);
-}
-
-char		*conv_f(va_list ap, char *specs)
+char		*conv_f(va_list ap, t_specs specs)
 {
 	int		accu;
 	char	*res;
@@ -99,14 +86,13 @@ char		*conv_f(va_list ap, char *specs)
 	char	*tmp;
 	int		isneg;
 
-	if (ft_strchr(specs, 'L'))
+	if (specs.mod & MOD_BIG_L)
 		return (conv_longf(ap, specs));
-	accu = get_accuracy(specs);
 	dbl = va_arg(ap, double);
 	isneg = (dbl < 0 ? 1 : 0);
 	res = integ_part(&dbl);
-	if (accu)
-		res = concat(concat(res, ft_strdup(".")), deci_part(dbl, accu));
+	if (specs.flags & ACCURACY)
+		res = concat(concat(res, ft_strdup(".")), deci_part(dbl, specs.accuracy));
 	if (isneg)
 	{
 		if (!(tmp = ft_strnew(ft_strlen(res) + 2)))

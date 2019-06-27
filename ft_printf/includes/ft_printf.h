@@ -6,7 +6,7 @@
 /*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:15:45 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/26 12:20:27 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/27 13:52:27 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,19 @@
 # define MOD_J 4
 # define MOD_Z 8
 # define MOD_L 16
+# define MOD_BIG_L 32
+# define MOD_LL 64
 
 typedef va_list	t_va;
+
+typedef struct	s_specs
+{
+	int				flags;
+	int				mod;
+	unsigned int	field_width;
+	unsigned int	accuracy;
+	char			conv;
+}				t_specs;
 
 typedef struct	s_conv
 {
@@ -50,15 +61,6 @@ typedef struct	s_flag
 	char	c;
 	char	*(*f)(char *, char);
 }				t_flag;
-
-typedef struct	s_specs
-{
-	int				flags;
-	int				mod;
-	unsigned int	field_width;
-	unsigned int	accuracy;
-	char			conv;
-}				t_specs;
 
 /*
 ** FORMAT STRUCTURE
@@ -105,7 +107,7 @@ char			*suffix(char *suf, char *str);
 char			*parse_color(const char *format);
 int				param_len(const char *format);
 unsigned char	*concatenate(unsigned char *s1, unsigned char *s2);
-char			*conv_longf(va_list ap, char *specs);
+char			*conv_longf(va_list ap, t_specs specs);
 void			print_current(t_form *fmt);
 void			write_arg(t_form *fmt, va_list ap);
 char			*converter(t_specs specs, va_list ap);

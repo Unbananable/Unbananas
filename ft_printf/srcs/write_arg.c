@@ -36,11 +36,21 @@ static void add_flag(t_form *fmt, t_specs *specs) // [TO DO] Cas ou les flags so
 	else if (fmt->str[fmt->i] == '0')
 		specs->flags = specs->flags | FLAG_ZERO;
 	else if (fmt->str[fmt->i] == 'l')
-		specs->mod = specs->mod | MOD_L;
+	{
+		if (fmt->str[fmt->i + 1] == 'l')
+		{
+			specs->mod = specs->mod | MOD_LL;
+			fmt->i++;
+		}
+		else
+			specs->mod = specs->mod | MOD_L;
+	}
 	else if (fmt->str[fmt->i] == 'j')
 		specs->mod = specs->mod | MOD_J;
 	else if (fmt->str[fmt->i] == 'z')
 		specs->mod = specs->mod | MOD_Z;
+	else if (fmt->str[fmt->i] == 'L')
+		specs->mod = specs->mod | MOD_BIG_L;
 	else if (fmt->str[fmt->i] == 'h')
 	{
 		if (fmt->str[fmt->i + 1] == 'h')

@@ -6,7 +6,7 @@
 /*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:47:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/26 11:55:28 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/27 13:39:19 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void		set_conv_list_char(t_conv *conv_list)
 static t_conv	*initialize_conv_functions(void)
 {
 	t_conv	*conv_list;
-	char	*conv_letters;
-	int		i;
 
 	if (!(conv_list = (t_conv *)malloc(sizeof(t_conv) * 12)))
 		exit_error("error: malloc failed\n", 0);
@@ -57,7 +55,6 @@ char			*parse_conv(va_list ap, t_specs specs)
 	char	*str;
 	int		i;
 	t_conv	*conv_list;
-	char	*mod;
 
 	conv_list = initialize_conv_functions();
 	i = -1;

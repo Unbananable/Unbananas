@@ -6,7 +6,7 @@
 /*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:56:09 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/26 11:53:27 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/27 13:42:13 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char					*conv_p(va_list ap, t_specs specs)
 		exit_error("error: malloc failed\n", 1, str);
 	ft_bzero(res, sizeof(short) + 3);
 	ft_strncpy(res, "0x", 2);
-	conv = ft_itoa_base((unsigned int)str, 16);
+	conv = ft_itoa_base((unsigned long)str, 16);
 	ft_strncat(res, conv, sizeof(short));
 	free(conv);
 	return (res);

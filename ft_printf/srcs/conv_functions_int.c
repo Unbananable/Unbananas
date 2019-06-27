@@ -3,112 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_int.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:57:10 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:26:37 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:07:48 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*conv_d(va_list ap, char *mod)
+char	*conv_d(va_list ap, t_specs specs)
 {
 	long long int	res;
 
 	res = 0;
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		return (ft_litoa(va_arg(ap, long)));
-	else if (ft_strequ(mod, "ll"))
+	else if (specs.mod & MOD_LL)
 		return (ft_llitoa(va_arg(ap, long long)));
-	else if (ft_strequ(mod, "h"))
+	else if (specs.mod & MOD_H)
 		res = (short int)va_arg(ap, int);
-	else if (ft_strequ(mod, "hh"))
+	else if (specs.mod & MOD_HH)
 		res = (char)va_arg(ap, int);
-	else if (ft_strequ(mod, "j"))
+	else if (specs.mod & MOD_J)
 		return (ft_llitoa(va_arg(ap, intmax_t)));
-	else if (ft_strequ(mod, "z"))
+	else if (specs.mod & MOD_Z)
 		return (ft_llitoa(va_arg(ap, ssize_t)));
-	else if (*mod == 0)
+	else
 		res = va_arg(ap, int);
 	return (ft_itoa(res));
 }
 
-char	*conv_o(va_list ap, char *mod)
+char	*conv_o(va_list ap, t_specs specs)
 {
 	unsigned long long int	res;
 
 	res = 0;
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		res = va_arg(ap, unsigned long);
-	else if (ft_strequ(mod, "ll"))
+	else if (specs.mod & MOD_LL)
 		res = va_arg(ap, unsigned long long);
-	else if (ft_strequ(mod, "h"))
+	else if (specs.mod & MOD_H)
 		res = va_arg(ap, unsigned int) & 0xFFFF;
-	else if (ft_strequ(mod, "hh"))
+	else if (specs.mod & MOD_HH)
 		res = va_arg(ap, unsigned int) & 0xFF;
-	else if (ft_strequ(mod, "j"))
+	else if (specs.mod & MOD_J)
 		res = va_arg(ap, uintmax_t);
-	else if (ft_strequ(mod, "z"))
+	else if (specs.mod & MOD_Z)
 		res = va_arg(ap, size_t);
-	else if (*mod == 0)
+	else
 		res = va_arg(ap, unsigned int);
 	if (res == 0)
 		return (ft_strdup("0"));
 	return (ft_itoa_base(res, 8));
 }
 
-char	*conv_u(va_list ap, char *mod)
+char	*conv_u(va_list ap, t_specs specs)
 {
 	long long int	res;
 
 	res = 0;
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		res = va_arg(ap, unsigned long);
-	else if (ft_strequ(mod, "ll"))
+	else if (specs.mod & MOD_LL)
 		res = va_arg(ap, unsigned long long);
-	else if (ft_strequ(mod, "h"))
+	else if (specs.mod & MOD_H)
 		res = va_arg(ap, unsigned int) & 0xFFFF;
-	else if (ft_strequ(mod, "hh"))
+	else if (specs.mod & MOD_HH)
 		res = va_arg(ap, unsigned int) & 0xFF;
-	else if (ft_strequ(mod, "j"))
+	else if (specs.mod & MOD_J)
 		res = va_arg(ap, uintmax_t);
-	else if (ft_strequ(mod, "z"))
+	else if (specs.mod & MOD_Z)
 		res = va_arg(ap, size_t);
-	else if (*mod == 0)
+	else
 		res = va_arg(ap, unsigned int);
 	return (ft_itoa_base(res, 10));
 }
 
-char	*conv_x(va_list ap, char *mod)
+char	*conv_x(va_list ap, t_specs specs)
 {
 	long long int	res;
 
 	res = 0;
-	if (ft_strequ(mod, "l"))
+	if (specs.mod & MOD_L)
 		res = va_arg(ap, unsigned long);
-	else if (ft_strequ(mod, "ll"))
+	else if (specs.mod & MOD_LL)
 		res = va_arg(ap, unsigned long long);
-	else if (ft_strequ(mod, "h"))
+	else if (specs.mod & MOD_H)
 		res = va_arg(ap, unsigned int) & 0xFFFF;
-	else if (ft_strequ(mod, "hh"))
+	else if (specs.mod & MOD_HH)
 		res = va_arg(ap, unsigned int) & 0xFF;
-	else if (ft_strequ(mod, "j"))
+	else if (specs.mod & MOD_J)
 		res = va_arg(ap, uintmax_t);
-	else if (ft_strequ(mod, "z"))
+	else if (specs.mod & MOD_Z)
 		res = va_arg(ap, size_t);
-	else if (*mod == 0)
+	else
 		res = va_arg(ap, unsigned int);
 	return (ft_itoa_base(res, 16));
 }
 
-char	*conv_big_x(va_list ap, char *mod)
+char	*conv_big_x(va_list ap, t_specs specs)
 {
 	int		i;
 	char	*res;
 
 	i = -1;
-	res = conv_x(ap, mod);
+	res = conv_x(ap, specs);
 	while (res[++i])
 		res[i] = ft_toupper(res[i]);
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/26 10:36:27 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/06/27 13:37:49 by anaiel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_form	init_struct(const char *format)
 	return (fmt);
 }
 
-static t_form	write_color(t_form *fmt)
+static void	write_color(t_form *fmt)
 {
 	char *color;
 
