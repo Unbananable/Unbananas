@@ -1,0 +1,1 @@
+gcc *.c libftprintf.a -I ../ft_printf/includes -I ../ft_printf/libft/inc/

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 10:24:28 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:46:53 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # define BUFF_SIZE 4096
-# define UINT_MAX 4294967295
+//# define UINT_MAX 4294967295
 
 typedef struct		s_list
 {
@@ -36,6 +37,7 @@ typedef struct		s_file
 	int				i;
 }					t_file;
 
+int					ft_isspace(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -74,6 +76,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 int					ft_atoi(const char *str);
+long long			ft_atoll(const char *str);
 unsigned int		ft_atoi_base(unsigned char *str, int base);
 char				*ft_itoa(int n);
 void				ft_putnbr(int n);
@@ -89,6 +92,7 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
+void				*ft_realloc(char *str, int size);
 void				ft_memdel(void **ap);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
@@ -119,6 +123,5 @@ int					ft_intlen(int nb);
 int					ft_round_double(double n);
 int					ft_atoui(const char *s);
 int					ft_isuint(char *str);
-
 
 #endif
