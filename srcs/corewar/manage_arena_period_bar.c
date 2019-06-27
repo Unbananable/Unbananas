@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_arena_period_bar.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:15:41 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 14:10:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:42:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void manage_arena_period_bar(t_cor *cor)
 
 	wattron(cor->visu->arena_period_bar, COLOR_PAIR(SPEED_HIGHLIGHT));
 	while (k < ((double)cor->curr_cycle_period / cor->cycle_to_die) * (WIDTH
-	 + WIDTH / 3) && k < (WIDTH + WIDTH / 3) - 2)
+	 + WIDTH / 3 - 1) && k < (WIDTH + WIDTH / 3) - 3)
 	{
 		k++;
 		wmove(cor->visu->arena_period_bar, 2, k + 1);
@@ -29,7 +29,7 @@ void manage_arena_period_bar(t_cor *cor)
 	{
 		wmove(cor->visu->arena_period_bar, 2, 3);
 		k = -1;
-		while (++k < (WIDTH + WIDTH / 3) - 2)
+		while (++k < (WIDTH + WIDTH / 3) - 3)
 			waddch(cor->visu->arena_period_bar, ' ');
 		k = 0;
 	}

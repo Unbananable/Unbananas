@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_visu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:37:00 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 14:00:02 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/06/27 11:36:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void init_visu(t_cor *cor)
 		error(cor, "Visu arena newwin had failed");
 	if (!(cor->visu->arena_info = newwin(HEIGHT, WIDTH / 3, 1, WIDTH + 2)))
 		error(cor, "Visu arena info newwin has failed");
-	if (!(cor->visu->arena_period_bar = newwin(5, WIDTH + WIDTH / 3 + 2,
+	if (!(cor->visu->arena_period_bar = newwin(5, WIDTH + WIDTH / 3 + 1,
 			HEIGHT + 2, 1)))
 		error(cor, "Visu arena announce newwin has failed");
 	i = -1;
