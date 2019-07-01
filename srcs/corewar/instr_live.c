@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   instr_live.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:20:01 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/21 14:01:23 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:55:54 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void	visual_live(t_cor *cor, t_proc *proc, int i)
+{
+	cor->visu->attr_arena[proc->idx].owner = cor->champs[i]->player_no;
+	cor->visu->attr_arena[proc->idx].live_bright = LIVE_BRIGHT_TIME;
+}
 
 /*
 ** LIVE
@@ -24,7 +30,7 @@
 **   number is contained in the argument as alive, if it exists.
 */
 
-void	instr_live(t_cor *cor, t_proc *proc)
+void		instr_live(t_cor *cor, t_proc *proc)
 {
 	int		arg1;
 	int		i;
@@ -44,9 +50,9 @@ void	instr_live(t_cor *cor, t_proc *proc)
 			if (cor->verbose & V_LIVES)
 				ft_printf("Player %d (%s) is said to be alive\n", arg1 * -1,
 						cor->champs[i]->head.prog_name);
+			if (cor->visual_on)
+				visual_live(cor, proc, i);
 			break ;
 		}
 	proc->move = 5;
-	if (cor->visual_on)
-		cor->visu->attr_arena[proc->idx].live_bright = LIVE_BRIGHT_TIME;
 }

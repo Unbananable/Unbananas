@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 18:28:26 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 13:16:46 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,9 +262,9 @@ t_proc			*new_proc(void);
 t_proc			*add_proc(t_proc *new, t_proc *list);
 void			delete_procs(t_proc **procs);
 void			delete_proc(t_proc **proc);
-t_proc 			*clone_proc(t_cor *cor, t_proc *original);
+t_proc			*clone_proc(t_cor *cor, t_proc *original);
 
-void    		dump(t_cor *cor);
+void			dump(t_cor *cor);
 
 void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);
