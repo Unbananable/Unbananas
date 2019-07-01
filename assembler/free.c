@@ -23,10 +23,10 @@ void		free_token(t_token **token)
 			free_token(&(*token)->param[0]);
 		free_token(&(*token)->param[1]);
 		free_token(&(*token)->param[2]);
-	 if (/*t == DIRECT_LABEL || t == INDIRECT_LABEL ||*/t == STRING)
+	if (/*t == DIRECT_LABEL || t == INDIRECT_LABEL ||*/t == STRING)
 			ft_memdel((void**)&(*token)->value.data);
 		ft_memdel((void**)token);
-//		 *token = 0x0;
+//		*token = 0x0;
 	}
 }
 

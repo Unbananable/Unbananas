@@ -25,7 +25,7 @@ char	*ft_strnjoin(char *s1, char *s2, int size)
 	return (str);
 }
 
-long long		write_bigendian(int fd, long long val, unsigned int size)
+long long		convert_bigendian(long long val, unsigned int size)
 {
 	int		i;
 	int		len;
@@ -47,7 +47,6 @@ long long		write_bigendian(int fd, long long val, unsigned int size)
 			len -= 16;
 		base <<= 8;
 	}
-	write(fd, &res, size);
 	return (res);
 }
 
@@ -56,7 +55,8 @@ int			write_header(header_t *header, int fd)
 	char		buff[SIZEMAX_STRING + 4];
 	int tmp;
 
-	write_bigendian(fd, header->magic, 4);
+	tmp = convert_bigendian( header->magic, 4);
+	write(fd, &tmp, 4);
 	ft_putstr_fd(header->prog_name , fd);
 	ft_bzero(buff, SIZEMAX_STRING + 4);
 	tmp = PROG_NAME_LENGTH - ft_strlen(header->prog_name);
@@ -64,7 +64,8 @@ int			write_header(header_t *header, int fd)
 		write(fd, buff, tmp + 4);
 	else
 		write(fd, buff, 4);
-	write_bigendian(fd, header->prog_size, 4);
+	convert_bigendian(fd, header->prog_size, 4);
+	// changer !!!!!!!!!!!!!!!!
 	ft_printf("taille comment %d\n", ft_strlen(header->comment));
 	ft_putstr_fd(header->comment , fd);
 	tmp = COMMENT_LENGTH - ft_strlen(header->comment);

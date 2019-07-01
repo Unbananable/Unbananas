@@ -70,7 +70,7 @@ typedef char	t_arg_type;
 typedef struct		header_s
 {
   unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
+  char				prog_name[PROG_NAME_LENGTH + 3];
   unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
+  char				comment[COMMENT_LENGTH + 3];
 }					header_t;
