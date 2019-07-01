@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/27 19:36:07 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:26:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #define __ASM_H__
 
 #include "op.h"
-//#include "../../cortest/bb/libft/includes/libft.h"
-//#include "../../cortest/bb/libft/includes/get_next_line.h"
-//#include "../../cortest/bb/libft/includes/ft_printf.h"
 #include "../ft_printf/includes/ft_printf.h"
 #include "../ft_printf/libft/inc/libft.h"
 #include "get_next_line.h"
@@ -72,7 +69,7 @@ typedef enum s_type
 
 typedef union
 {
-	t_op *operation;
+	t_op	*operation;
 	int		number;
 	char	*data;
 }		u_value;
@@ -106,7 +103,6 @@ typedef struct s_champion
 	int			number_warning;
 
 	char		prog[CHAMP_MAX_SIZE];
-	int			nb_bytes;
 }				t_champion;
 
 

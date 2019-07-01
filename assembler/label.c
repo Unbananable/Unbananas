@@ -31,13 +31,13 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 	t_token *next;
 
 	next = c->tokens[pos + 1];
+
 	if (!next || (next->type != INSTRUCTION && next->type != LABEL))
 		error_champion(c, "instruction or label not found", t->line);
 	else if (already_label(c, t->value.data, pos))
 		error_champion(c, "label already exist", t->line);
 	else
 	{
-		//t->param[0] = next;
 		if (next->line == t->line)
 			check_instruction(c, next, pos + 1, nb - 1);
 	}

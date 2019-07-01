@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:22:02 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/27 21:05:21 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:34:49 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,12 @@ int			write_header(header_t *header, int fd)
 	ft_putstr_fd(header->prog_name , fd);
 	ft_bzero(buff, SIZEMAX_STRING + 4);
 	tmp = PROG_NAME_LENGTH - ft_strlen(header->prog_name);
-	if (tmp > 0)
-		write(fd, buff, tmp + 4);
-	else
-		write(fd, buff, 4);
-	convert_bigendian(fd, header->prog_size, 4);
-	// changer !!!!!!!!!!!!!!!!
-	ft_printf("taille comment %d\n", ft_strlen(header->comment));
+	write(fd, buff, tmp + 4);
+	tmp = convert_bigendian(header->prog_size, 4);
+	write(fd, &tmp, 4);
 	ft_putstr_fd(header->comment , fd);
 	tmp = COMMENT_LENGTH - ft_strlen(header->comment);
-	if (tmp > 0)
-		write(fd, buff, tmp + 4);
-	else
-		write(fd, buff, 4);
+	write(fd, buff, tmp + 4);
 	return (1);
 }
 
@@ -102,29 +95,15 @@ static unsigned char opcode(t_token *token)
 }
 
 
-// a changer
-int		convert_param_hexa(t_champion *c, t_token *token, int start, int id, int beg)
+int		convert_param_hexa(t_champion *c, t_token *token, int start, int id)
 {
 	int res;
 	int type;
 	int label;
-	int v;
 
 	res = 0;
 	type = token->type;
-	if (type == DIRECT_LABEL || type == INDIRECT_LABEL)
-	{
-		v = token->value.number;
-		v -= beg;
-		c->prog[start + ++res] = (v & 0x0000ff00) >> 8;
-		c->prog[start + ++res] = v & 0x000000ff;
-		return (2);
-	}
-	if (!(token->type == DIRECT || token->type == DIRECT_LABEL
-	 || type == INDIRECT_LABEL || type == INDIRECT))
-		c->prog[start + ++res] = token->value.number & 0x000000ff;
-	if (type == DIRECT || type == DIRECT_LABEL || type == INDIRECT_LABEL || 
-	type == INDIRECT)
+	if (type != REGISTER)
 	{
 		if((type == DIRECT || type == DIRECT_LABEL) &&
 		!(id > 8 && id < 16 && id != 13))
@@ -133,8 +112,8 @@ int		convert_param_hexa(t_champion *c, t_token *token, int start, int id, int be
 			c->prog[start + ++res] = (token->value.number & 0x00ff0000) >> 16;
 		}
 		c->prog[start + ++res] = (token->value.number & 0x0000ff00) >> 8;
-		c->prog[start + ++res] = token->value.number & 0x000000ff;
 	}
+	c->prog[start + ++res] = token->value.number & 0x000000ff;
 	return (res);
 }
 
@@ -152,7 +131,12 @@ int		convert_token_hexa(t_champion *c, int start, t_token *token)
 		c->prog[start + ++res] = opcode(token);
 	i = -1;
 	while (++i < token->value.operation->number_param)
-		res += convert_param_hexa(c, token->param[i], start + res, token->value.operation->id, start);
+	{
+		if (token->param[i]->type == DIRECT_LABEL ||
+				token->param[i]->type == INDIRECT_LABEL)
+			token->param[i]->value.number -= start;
+res += convert_param_hexa(c, token->param[i], start + res, token->value.operation->id);
+	}
 	return (res + 1);
 }
 
@@ -160,9 +144,6 @@ int			manage_prog(t_champion *champion)
 {
 	int i;
 	int tok;
-	int pos;
-	int v;
-	int	j;
 
 	i = 0;
 	tok = -1;
@@ -172,9 +153,7 @@ int			manage_prog(t_champion *champion)
 				champion->tokens[tok]->type != INSTRUCTION)
 			tok++;
 		if (tok < champion->number_token)
-		{
 			i += convert_token_hexa(champion, i, champion->tokens[tok]);
-		}
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:55 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/27 20:07:54 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:34:47 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 		if ((t->type == NAME && c->hasname) ||
 			(t->type == COMMENT && c->hascomment))
 			c->number_warning += warning_champion(c,
-			"champion has already a nameor a comment", t->line);
+			"champion has already a name or a comment", t->line);
 		(t->type != NAME) ? ft_strcpy(c->header->comment, next->value.data) :
 			ft_strcpy(c->header->prog_name, next->value.data);
 	}
@@ -61,9 +61,6 @@ int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
 	else if (t == UNKNOWN)
 		error_champion(c, "moi pas comprendre", c->tokens[deb]->line);//erreur
 	else
-	{
-		//affichetype(t);
 		ft_printf("n'a rien a faire la (%d)\n", c->tokens[deb]->line);
-	}
 	return (1);
 }

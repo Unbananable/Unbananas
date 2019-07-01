@@ -6,13 +6,17 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/17 18:14:42 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/06/29 22:52:55 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 extern t_op g_op_tab[17];
 
+
+/*
+ ** on part du principe que operation existe
+ */
 t_token		*add_token_operation(t_token *token, char *s)
 {
 	int i;
@@ -29,7 +33,6 @@ t_token		*add_token_operation(t_token *token, char *s)
 t_token		*add_token_string(t_token *token, char *str)
 {
 	token->value.data = ft_strdup(str);
-	//ft_printf("(%s)", token->value.data);
 	return (token);
 }
 
@@ -46,9 +49,9 @@ t_token *create_token(t_champion *c, int line_nb, int type)
 	token = malloc(sizeof(t_token));
 	token->line = line_nb;
 	token->type = type;
-	token->param[0] = 0;
-	token->param[1] = 0;
-	token->param[2] = 0;
+	token->param[0] = 0x0;
+	token->param[1] = 0x0;
+	token->param[2] = 0x0;
 	return (token);
 }
 

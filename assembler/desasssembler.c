@@ -3,6 +3,10 @@
 
 int	read_champion(t_champion *champion, int fd)
 {
+	int i;
+
+	i = -1;
+	while (++i < champion->header)
 	return(0);
 }
 
@@ -27,19 +31,16 @@ int		read_header(t_champion *champion, int fd)
 		ft_printf("probleme nombre magic\n");
 		return (0);
 	}
-	ft_printf("nom : %s, comment : %s taille %d\n", header->prog_name,
-	header->comment, header->prog_size);
-	
+	header->prog_size = convert_bigendian(header->prog_size);
 	return (0);
 }
-
 
 int		open_champion(char *str)
 {
 	int size;
 
 	size = ft_strlen(str);
-	if (size > 2 && str[size - 1] == 's' && str[size - 2] == '.')
+	if (size > 5 && !ft_strcmp(&str[size - 4], ".cor"))
 		return (open(str, O_RDONLY));
 	return (-1);
 }
@@ -64,3 +65,4 @@ int main(int argc, char *argv[])
 			write_champion_prog(champion, argv[1]);
 	return 0;
 }
+
