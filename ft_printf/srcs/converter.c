@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dump.c                                             :+:      :+:    :+:   */
+/*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 12:00:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 16:31:24 by anleclab         ###   ########.fr       */
+/*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/07/01 17:04:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "ft_printf.h"
 
-void		dump(t_cor *cor)
+char		*converter(t_specs *specs, va_list ap)
 {
-	int		i;
-	int		j;
+	char	*res;
 
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("%#.4x : ", i); // [TO DO] Quand on utilise # a la place de '0x', ft_printf a un heap use after free
-		j = -1;
-		while (++j < 32)
-			ft_printf("%.2x ", cor->arena[i + j]);
-		ft_putchar('\n');
-		i += j;
-	}
-	end(cor);
+	res = parse_conv(ap, specs);
+	if (specs->null_char)
+		specs->len = 1;
+	else
+		specs->len = ft_strlen(res);
+	res = parse_accufield(res, specs);
+	res = parse_flag(res, specs);
+	return (res);
 }
