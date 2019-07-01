@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:28:54 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 11:18:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:52:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	manager(t_cor *cor, int key)
 	{
 		modify_speed_factor(cor, key);
 		apply_speed(cor);
-	}	
+	}
 	draw_arenas(cor);
-	
 }
 
 void	draw_arenas(t_cor *cor)

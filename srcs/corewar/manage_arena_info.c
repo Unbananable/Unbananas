@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 11:31:31 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:16:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,11 @@ void			manage_arena_info(t_cor *cor)
 		draw_player_infos(cor, &y, i);
 	draw_live_breakdowns(cor, &y);
 	draw_constants_arena_info(cor, y);
-	wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
-	box(cor->visu->arena_info, '*', '*');
-	wattroff(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));
+	boxing(cor->visu->arena_info);
+	wmove(cor->visu->arena_info, 4, 3);
+	wprintw(cor->visu->arena_info, "Speed : << | < | o | > | >>");
+	wattron(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
 	highlight_speed_button(cor);
+	wattroff(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
 	wrefresh(cor->visu->arena_info);
 }

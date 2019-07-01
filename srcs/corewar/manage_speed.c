@@ -6,64 +6,58 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 11:10:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 12:12:32 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	apply_speed(t_cor *cor)
+static void	wait_time(t_cor *cor, int time)
 {
-	int		i;
-	int		key;
 	int		t;
-	
-	i = 0;
+	int		key;
+
 	t = clock();
-	if (cor->visu->speed == -2)
+	while (clock() - t < (unsigned long)time)
 	{
-		while (clock() - t < VERY_SLOW)
-		{
-			key = wgetch(stdscr);
-			if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
-				break ;
-		}
+		key = wgetch(stdscr);
+		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r'
+					|| key == ' '))
+			break ;
+	}
+	if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r'
+				|| key == ' '))
+		manager(cor, key);
+}
+
+static void	wait_time_very_slow(t_cor *cor)
+{
+	int		t;
+	int		key;
+
+	t = clock();
+	while (clock() - t < VERY_SLOW)
+	{
+		key = wgetch(stdscr);
 		if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
-			manager(cor, key);
+			break ;
 	}
+	if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
+		manager(cor, key);
+}
+
+void		apply_speed(t_cor *cor)
+{
+	int key;
+
+	if (cor->visu->speed == -2)
+		wait_time_very_slow(cor);
 	else if (cor->visu->speed == -1)
-	{
-		while (clock() - t < SLOW)
-		{
-			key = wgetch(stdscr);
-			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break ;
-		}
-		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-			manager(cor, key);
-	}
+		wait_time(cor, SLOW);
 	else if (cor->visu->speed == 0)
-	{
-		while (clock() - t < NORMAL)
-		{
-			key = wgetch(stdscr);
-			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break ;
-		}
-		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-			manager(cor, key);
-	}
+		wait_time(cor, NORMAL);
 	else if (cor->visu->speed == 1)
-	{
-		while (clock() - t < FAST)
-		{
-			key = wgetch(stdscr);
-			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break ;
-		}
-		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-			manager(cor, key);
-	}
+		wait_time(cor, FAST);
 	else if (cor->visu->speed == 2)
 	{
 		key = wgetch(stdscr);
@@ -73,7 +67,7 @@ void	apply_speed(t_cor *cor)
 	draw_arenas(cor);
 }
 
-void	modify_speed_factor(t_cor *cor, int key)
+void		modify_speed_factor(t_cor *cor, int key)
 {
 	if (key == 'q')
 		cor->visu->speed = -2;
@@ -83,16 +77,17 @@ void	modify_speed_factor(t_cor *cor, int key)
 		cor->visu->speed += 1;
 	else if (key == 'r')
 		cor->visu->speed = 2;
-	highlight_speed_button(cor);
-	wrefresh(cor->visu->arena_info);
-}
-
-void	highlight_speed_button(t_cor *cor)
-{
 	wmove(cor->visu->arena_info, 4, 3);
 	wprintw(cor->visu->arena_info, "Speed : << | < | o | > | >>");
 	wattron(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
-    if (cor->visu->speed == -2)
+	highlight_speed_button(cor);
+	wattroff(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
+	wrefresh(cor->visu->arena_info);
+}
+
+void		highlight_speed_button(t_cor *cor)
+{
+	if (cor->visu->speed == -2)
 	{
 		wmove(cor->visu->arena_info, 4, 11);
 		wprintw(cor->visu->arena_info, "<<");
@@ -117,5 +112,4 @@ void	highlight_speed_button(t_cor *cor)
 		wmove(cor->visu->arena_info, 4, 28);
 		wprintw(cor->visu->arena_info, ">>");
 	}
-	wattroff(cor->visu->arena_info, COLOR_PAIR(SPEED_HIGHLIGHT));
 }
