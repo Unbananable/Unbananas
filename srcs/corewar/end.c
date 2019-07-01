@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 14:01:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:53:38 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,21 @@ void	end(t_cor *cor)
 	{
 		i = -1;
 		while (cor->champs[++i])
-			delete_champion(cor->champs);
+			delete_champion(&(cor->champs[i]));
 	}
 	free(cor->champs);
 	free(cor->arena);
 	delete_procs(&(cor->procs));
+	if (cor->visual_on)
+	{
+		if (cor->visu->arena)
+			delwin(cor->visu->arena);
+		if (cor->visu->arena)
+			delwin(cor->visu->arena_info);
+		if (cor->visu->arena_period_bar)
+			delwin(cor->visu->arena_period_bar);
+		free(cor->visu);
+	}
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:37:00 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:59:30 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:51:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void		init_visu(t_cor *cor)
 	int i;
 
 	start_set_windows();
-	if (!(cor->visu = malloc(sizeof(t_visu))))
+	if (!(cor->visu = (t_visu *)malloc(sizeof(t_visu))))
 		error(cor, "Malloc of the visu has failed");
+	cor->visu->arena = NULL;
+	cor->visu->arena_info = NULL;
+	cor->visu->arena_period_bar = NULL;
 	if (!(cor->visu->arena = newwin(HEIGHT, WIDTH, 1, 1)))
 		error(cor, "Visu arena newwin had failed");
 	if (!(cor->visu->arena_info = newwin(HEIGHT, WIDTH / 3, 1, WIDTH + 2)))

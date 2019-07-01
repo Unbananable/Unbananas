@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 14:05:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:54:54 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	initialize(t_cor *cor)
 	cor->new_proc_n = 1;
 	cor->op_tab = op_tab;
 	cor->visual_on = false;
+	cor->visu = NULL;
 }
