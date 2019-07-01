@@ -1,25 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   desasssembler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
+/*   Updated: 2019/07/01 23:14:53 by anyahyao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 
-int	read_champion(t_champion *champion, int fd)
+
+
+
+int			read_champion(t_champion *champion, int fd)
 {
 	int i;
+	int n;
 
-	i = -1;
-	while (++i < champion->header)
-	return(0);
+	i = 0;
+	n = read(fd, champion->prog, champion->header->prog_size * 2);
+	if (n != champion->header->prog_size)
+	{
+		ft_printf("bad size %d /%d\n", n, champion->header->prog_size);
+		return (0);
+	}
+	while (i < champion->header->prog_size)
+		i += get_instruction(champion, &champion->prog[i]);
+	//test_champion(champion, MODEREEL);
+	return(1);
 }
 
-int write_champion_prog(t_champion *champion, char *str)
-{
-	return (0);
-}
-
-int		read_header(t_champion *champion, int fd)
+int			read_header(t_champion *champion, int fd)
 {
 	int n;
 	int size;
 	header_t *header;
+	char	tab[4];
 
 	header = champion->header;
 	size = 12 + PROG_NAME_LENGTH + COMMENT_LENGTH;
@@ -31,11 +51,12 @@ int		read_header(t_champion *champion, int fd)
 		ft_printf("probleme nombre magic\n");
 		return (0);
 	}
-	header->prog_size = convert_bigendian(header->prog_size);
-	return (0);
+	header->prog_size = convert_bigendian(header->prog_size, 4);
+	read(fd, tab, 4);
+	return (1);
 }
 
-int		open_champion(char *str)
+static int	open_champion(char *str)
 {
 	int size;
 
@@ -45,7 +66,7 @@ int		open_champion(char *str)
 	return (-1);
 }
 
-int main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
 	int fd;
 	t_champion *champion;
