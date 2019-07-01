@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/06/27 18:26:57 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/01 11:18:33 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC = announce_winner.c \
 	  tools_instr2.c \
 	  tools_procs.c \
 	  get_attribute.c \
-	  draw_arena.c \
+	  draw_arenas.c \
 	  create_color_panel.c \
 	  init_visu.c \
 	  manage_arena_info.c \

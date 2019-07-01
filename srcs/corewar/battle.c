@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:23:19 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 16:44:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:24:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,11 @@ static void	kill_processes(t_cor *cor)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
 						current->n, cor->curr_cycle - current->last_live_cycle,
 						cor->cycle_to_die);
-			if (previous)
+			if (previous && cor->nb_procs--)
 				previous->next = current->next;
 			else
 				cor->procs = current->next;
 			delete_proc(&current);
-			cor->nb_procs--;
 			current = (previous) ? previous->next : cor->procs;
 		}
 		else

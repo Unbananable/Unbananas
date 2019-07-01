@@ -6,13 +6,13 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 10:06:35 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 18:25:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:31:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void draw_constants_arena_info(t_cor *cor, int y)
+static void		draw_constants_arena_info(t_cor *cor, int y)
 {
 	y += 3;
 	wmove(cor->visu->arena_info, y, 3);
@@ -28,7 +28,7 @@ static void draw_constants_arena_info(t_cor *cor, int y)
 	wprintw(cor->visu->arena_info, "MAX_CHECKS : %d", MAX_CHECKS);
 }
 
-static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
+static void		draw_cycle_proc_arena_info(t_cor *cor, int *y)
 {
 	wmove(cor->visu->arena_info, *y, 3);
 	if (cor->visu->is_running)
@@ -43,7 +43,7 @@ static void draw_cycle_proc_arena_info(t_cor *cor, int *y)
 	wprintw(cor->visu->arena_info, "Processes : %d", cor->nb_procs);
 }
 
-static void draw_live_breakdowns(t_cor *cor, int *y)
+static void		draw_live_breakdowns(t_cor *cor, int *y)
 {
 	*y += 2;
 	wmove(cor->visu->arena_info, *y, 3);
@@ -59,35 +59,39 @@ static void draw_live_breakdowns(t_cor *cor, int *y)
 	draw_last_live(cor);
 }
 
-void manage_arena_info(t_cor *cor)
+static void		draw_player_infos(t_cor *cor, int *y, int i)
 {
-	int i;
-	int y;
 	int attribute;
+
+	*y += 3;
+	wmove(cor->visu->arena_info, *y, 3);
+	wprintw(cor->visu->arena_info, "Player -%d : ",
+			cor->champs[i]->player_no);
+	attribute = get_champ_color(i);
+	wattron(cor->visu->arena_info, attribute);
+	wprintw(cor->visu->arena_info, "%s", cor->champs[i]->head.prog_name);
+	wattroff(cor->visu->arena_info, attribute);
+	*y += 1;
+	wmove(cor->visu->arena_info, *y, 5);
+	wprintw(cor->visu->arena_info, "Last live :                %d",
+			cor->champs[i]->last_live);
+	*y += 1;
+	wmove(cor->visu->arena_info, *y, 5);
+	wprintw(cor->visu->arena_info, "Lives in current period :  %d",
+			cor->champs[i]->lives_in_curr_period);
+}
+
+void			manage_arena_info(t_cor *cor)
+{
+	int		i;
+	int		y;
 
 	y = 2;
 	werase(cor->visu->arena_info);
 	draw_cycle_proc_arena_info(cor, &y);
 	i = -1;
 	while (++i < cor->nb_champs)
-	{
-		y += 3;
-		wmove(cor->visu->arena_info, y, 3);
-		wprintw(cor->visu->arena_info, "Player -%d : ",
-				cor->champs[i]->player_no);
-		attribute = get_champ_color(i);
-		wattron(cor->visu->arena_info, attribute);
-		wprintw(cor->visu->arena_info, "%s", cor->champs[i]->head.prog_name);
-		wattroff(cor->visu->arena_info, attribute);
-		y += 1;
-		wmove(cor->visu->arena_info, y, 5);
-		wprintw(cor->visu->arena_info, "Last live :                %d",
-				cor->champs[i]->last_live);
-		y += 1;
-		wmove(cor->visu->arena_info, y, 5);
-		wprintw(cor->visu->arena_info, "Lives in current period :  %d",
-				cor->champs[i]->lives_in_curr_period);
-	}
+		draw_player_infos(cor, &y, i);
 	draw_live_breakdowns(cor, &y);
 	draw_constants_arena_info(cor, y);
 	wattron(cor->visu->arena_info, COLOR_PAIR(GRAY_CURSOR));

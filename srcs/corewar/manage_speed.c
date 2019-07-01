@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:22:44 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 16:18:13 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:10:06 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	apply_speed(t_cor *cor)
 {
-	int i;
-	int key;
-	int t;
+	int		i;
+	int		key;
+	int		t;
 	
 	i = 0;
 	t = clock();
@@ -26,7 +26,7 @@ void	apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
-				break;
+				break ;
 		}
 		if (key != -1 && (key == 'e' || key == 'r' || key == ' '))
 			manager(cor, key);
@@ -37,7 +37,7 @@ void	apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break;
+				break ;
 		}
 		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
 			manager(cor, key);
@@ -48,7 +48,7 @@ void	apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break;
+				break ;
 		}
 		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
 			manager(cor, key);
@@ -59,7 +59,7 @@ void	apply_speed(t_cor *cor)
 		{
 			key = wgetch(stdscr);
 			if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
-				break;
+				break ;
 		}
 		if (key != -1 && (key == 'q' || key == 'w' || key == 'e' || key == 'r' || key == ' '))
 			manager(cor, key);

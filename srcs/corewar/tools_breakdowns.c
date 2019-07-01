@@ -6,13 +6,13 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:26:17 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 18:28:24 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 11:07:19 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int get_champ_color(int i)
+int				get_champ_color(int i)
 {
 	if (!i)
 		return (COLOR_PAIR(RED) | A_BOLD);
@@ -25,15 +25,16 @@ int get_champ_color(int i)
 	return (COLOR_PAIR(MAGENTA) | A_BOLD);
 }
 
-static void draw_curr_dash(t_cor *cor, int total, int i, int *max)
+static void		draw_curr_dash(t_cor *cor, int total, int i, int *max)
 {
-	int j;
-	int attribute;
-	
+	int		j;
+	int		attribute;
+
 	j = -1;
 	attribute = get_champ_color(i);
 	wattron(cor->visu->arena_info, attribute);
-	while (++j < (((double)cor->champs[i]->lives_in_curr_period * 50) / total) && *max < 50)
+	while (++j < (((double)cor->champs[i]->lives_in_curr_period * 50)
+				/ total) && *max < 50)
 	{
 		waddch(cor->visu->arena_info, '-');
 		(*max)++;
@@ -41,15 +42,16 @@ static void draw_curr_dash(t_cor *cor, int total, int i, int *max)
 	wattroff(cor->visu->arena_info, attribute);
 }
 
-static void draw_last_dash(t_cor *cor, int total, int i, int *max)
+static void		draw_last_dash(t_cor *cor, int total, int i, int *max)
 {
-	int j;
-	int attribute;
-	
+	int		j;
+	int		attribute;
+
 	j = -1;
 	attribute = get_champ_color(i);
 	wattron(cor->visu->arena_info, attribute);
-	while (++j < (((double)cor->champs[i]->lives_in_last_period * 50) / total) && *max < 50)
+	while (++j < (((double)cor->champs[i]->lives_in_last_period * 50)
+				/ total) && *max < 50)
 	{
 		waddch(cor->visu->arena_info, '-');
 		(*max)++;
@@ -57,18 +59,19 @@ static void draw_last_dash(t_cor *cor, int total, int i, int *max)
 	wattroff(cor->visu->arena_info, attribute);
 }
 
-void draw_current_live(t_cor *cor)
+void			draw_current_live(t_cor *cor)
 {
-	int i;
-	int total;
-	int max;
+	int		i;
+	int		total;
+	int		max;
 
 	i = -1;
 	total = 0;
 	while (++i < cor->nb_champs)
 		total += cor->champs[i]->lives_in_curr_period;
 	if (total == 0)
-		wprintw(cor->visu->arena_info, "--------------------------------------------------");
+		wprintw(cor->visu->arena_info,
+				"--------------------------------------------------");
 	else
 	{
 		i = -1;
@@ -80,11 +83,11 @@ void draw_current_live(t_cor *cor)
 	waddch(cor->visu->arena_info, ']');
 }
 
-void draw_last_live(t_cor *cor)
+void			draw_last_live(t_cor *cor)
 {
-	int i;
-	int total;
-	int max;
+	int		i;
+	int		total;
+	int		max;
 
 	i = -1;
 	total = 0;
@@ -92,7 +95,8 @@ void draw_last_live(t_cor *cor)
 	while (++i < cor->nb_champs)
 		total += cor->champs[i]->lives_in_last_period;
 	if (total == 0)
-		wprintw(cor->visu->arena_info, "--------------------------------------------------");
+		wprintw(cor->visu->arena_info,
+				"--------------------------------------------------");
 	else
 	{
 		i = -1;
