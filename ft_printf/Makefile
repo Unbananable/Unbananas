@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/28 09:14:19 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/06/12 16:59:56 by anleclab         ###   ########.fr        #
+#    Updated: 2019/07/01 17:17:42 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ SRC = ft_printf.c	\
 	  flag_functions.c \
 	  color_functions.c \
 	  exit_error.c \
+	  print_current.c \
+	  write_arg.c \
+	  converter.c \
+	  add_flag.c \
 	  tools.c
 OBJSFD = objs/
 OBJS = $(addprefix $(OBJSFD), $(SRC:.c=.o))

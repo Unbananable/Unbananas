@@ -3,44 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   flag_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 17:11:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:27:17 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:46:35 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*flag_hash(char *str, char conv)
+char	*flag_hash(char *str, t_specs *specs)
 {
-	int		i;
-	int		trigger_1;
-	int		trigger_2;
+	char	*ret;
 
-	trigger_1 = 0;
-	trigger_2 = 1;
-	i = -1;
-	while (str[++i] == ' ')
-		;
-	if ((ft_strequ(str + i, "0") || ft_strequ(str + i, ""))
-			&& (conv == 'x' || conv == 'X'))
-		return (str);
-	if (str[i--] == '0')
-		trigger_1 = 1;
-	while (str[++i])
-		if (str[i] != '0')
-			trigger_2++;
-	if (conv == 'o' && trigger_2 && !trigger_1)
-		return (suffix("0", str));
-	if (conv == 'x' && trigger_2)
-		return (suffix("0x", str));
-	if (conv == 'X' && trigger_2)
-		return (suffix("0X", str));
+	if (specs->conv == 'o' || specs->conv == 'x' || specs->conv == 'X')
+	{
+		ret = str;
+		if (ft_strequ(str, "0") || ft_strequ(str, ""))
+			return (str);
+		if (specs->conv == 'o')
+			ret = suffix("0", str);
+		else if (specs->conv == 'x')
+			ret = suffix("0x", str);
+		else if (specs->conv == 'X')
+			ret = suffix("0X", str);
+		specs->len = ft_strlen(ret);
+		return (ret);
+	}
 	return (str);
 }
 
-char	*flag_space(char *str, char conv)
+char	*flag_space(char *str, t_specs *specs)
 {
 	char	*res;
 	int		i;
@@ -48,29 +41,41 @@ char	*flag_space(char *str, char conv)
 	i = -1;
 	while (str[++i] == ' ')
 		;
-	if ((conv == 'd' || conv == 'i' || conv == 'f') && str[i] != '-')
+	if ((specs->conv == 'd' || specs->conv == 'i' || specs->conv == 'f')
+			&& str[i] != '-')
 	{
 		res = suffix("\t", str);
+		specs->len = ft_strlen(res);
 		return (res);
 	}
 	return (str);
 }
 
-char	*flag_plus(char *str, char conv)
+char	*flag_plus(char *str, t_specs *specs)
 {
-	if ((conv == 'd' || conv == 'i' || conv == 'f') && !ft_strchr(str, '-'))
+	char	*ret;
+
+	if ((specs->conv == 'd' || specs->conv == 'i'
+			|| specs->conv == 'f') && !ft_strchr(str, '-'))
 	{
-		return (suffix("+", str));
+		ret = suffix("+", str);
+		specs->len = ft_strlen(ret);
+		return (ret);
 	}
 	return (str);
 }
 
-char	*flag_minus(char *str, char conv)
+char	*flag_minus(char *str, t_specs *specs)
 {
 	int		i;
 	int		j;
 
-	conv += 0;
+	if (specs->null_char)
+	{
+		str[specs->len - 1] = ' ';
+		*str = 0;
+		return (str);
+	}
 	i = 0;
 	while (str[i] == ' ')
 		i++;
@@ -82,12 +87,12 @@ char	*flag_minus(char *str, char conv)
 	return (str);
 }
 
-char	*flag_zero(char *str, char conv)
+char	*flag_zero(char *str, t_specs *specs)
 {
 	int		i;
 
 	i = -1;
-	conv += 0;
+	(void)specs;
 	while (str[++i] == ' ')
 		str[i] = '0';
 	if (str[i] == '\t')
