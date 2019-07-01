@@ -5,26 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 22:38:34 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/29 22:48:03 by anyahyao         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_token.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/17 14:29:30 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:36:21 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_isnumber(char *s)
+int			ft_isnumber(char *s)
 {
 	int size;
 
@@ -48,19 +36,20 @@ int			move_token(t_token **token, t_token **anc)
 	return (1);
 }
 
-
 t_token		*get_direct_token(t_champion *c, int line, char *s)
 {
 	if (*s == DIRECT_CHAR)
 	{
 		s++;
 		if (ft_isnumber(s))
-			return (add_token_integer(create_token(c, line, DIRECT), ft_atoi(s)));
+			return (add_token_integer(create_token(c, line, DIRECT),
+						ft_atoi(s)));
 		if (*s == LABEL_CHAR)
 		{
 			s++;
 			if (compose_withthese_letters(s, LABEL_CHARS))
-				return (add_token_string(create_token(c, line, DIRECT_LABEL), s));
+				return (add_token_string(create_token(c, line, DIRECT_LABEL),
+							s));
 		}
 	}
 	ft_printf("probleme syntax incorrect pour un \"Direct\" %s", s);
@@ -69,8 +58,8 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 
 t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 {
-	t_token *token;
-	char last_char;
+	t_token	*token;
+	char	last_char;
 
 	last_char = s[end];
 	s[end] = '\0';
@@ -94,7 +83,8 @@ t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 		token = add_token_integer(create_token(c, line_nb, INDIRECT), ft_atoi(s));
 	else if (isindirect_label(s))
 		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL), &s[1]);
-	else{
+	else
+	{
 		token = create_token(c, line_nb, UNKNOWN);
 		ft_printf("probleme syntax error %s", s);
 	}

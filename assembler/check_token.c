@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:55 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 16:34:47 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:27:19 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		error_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 		(t->type == NAME && ft_strlen(next->value.data) > PROG_NAME_LENGTH) ||
 		(t->type == COMMENT && ft_strlen(next->value.data) > COMMENT_LENGTH))
 	{
-
-		ft_printf("NULL ?? <%s> <%d>\n",next->value.data, ft_strlen(next->value.data));
+		ft_printf("NULL ?? <%s> <%d>\n",
+				next->value.data, ft_strlen(next->value.data));
 		error += error_champion(c, "name or comment doesn't have a good format",
 		t->line);
 	}
@@ -59,7 +59,7 @@ int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
 	else if (t == INSTRUCTION)
 		check_instruction(c, c->tokens[deb], deb, tok_line);
 	else if (t == UNKNOWN)
-		error_champion(c, "moi pas comprendre", c->tokens[deb]->line);//erreur
+		error_champion(c, "moi pas comprendre", c->tokens[deb]->line);
 	else
 		ft_printf("n'a rien a faire la (%d)\n", c->tokens[deb]->line);
 	return (1);
