@@ -6,12 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/29 22:52:55 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 22:27:41 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-extern t_op g_op_tab[17];
 
 
 /*
@@ -97,7 +96,6 @@ int			size_token(t_token *token, int t, t_champion *champion)
 	}
 	return (res);
 }
-
 void		add_token(t_token *token, t_champion *champion)
 {
 	if (token->type == INSTRUCTION)

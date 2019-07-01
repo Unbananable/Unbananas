@@ -6,14 +6,13 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 16:34:56 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 23:26:51 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-
-static int		isgoodparam(t_champion *c, t_token *token, int expected)
+static int	isgoodparam(t_champion *c, t_token *token, int expected)
 {
 	int type;
 	int tmp;
@@ -24,7 +23,7 @@ static int		isgoodparam(t_champion *c, t_token *token, int expected)
 		tmp = manage_label_param(c, token->value.data);
 		ft_memdel((void**)&token->value.data);
 		(tmp == -1) ? error_champion(c, "label no found", token->line) :
-		token->value.number = tmp;
+		(token->value.number = tmp);
 	}
 	if (type == REGISTER && expected & T_REG)
 		return (1);
@@ -36,7 +35,8 @@ static int		isgoodparam(t_champion *c, t_token *token, int expected)
 	return (0);
 }
 
-static int		manage_instruction(t_champion *c, t_op *inst, t_token *token, int pos)
+static int	manage_instruction(t_champion *c, t_op *inst, t_token *token,
+		int pos)
 {
 	move_token(&token->param[0], &c->tokens[pos + 1]);
 	if (inst->number_param > 1)
@@ -52,7 +52,8 @@ static int		manage_instruction(t_champion *c, t_op *inst, t_token *token, int po
 	return (1);
 }
 
-int		check_instruction(t_champion *c, t_token *token, int pos, int tok_line)
+int			check_instruction(t_champion *c, t_token *token, int pos,
+		int tok_line)
 {
 	t_op	*instruction;
 	int i;

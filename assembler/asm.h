@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/29 22:26:32 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 22:08:05 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef enum s_type
 }		e_type;
 
 
-
 typedef union
 {
 	t_op	*operation;
@@ -102,14 +101,17 @@ typedef struct s_champion
 	int			number_error;
 	int			number_warning;
 
-	char		prog[CHAMP_MAX_SIZE];
+	unsigned char	prog[CHAMP_MAX_SIZE];
 }				t_champion;
 
+
+extern t_op g_op_tab[17];
 
 /**
  **=======================PROTO========================
  **
  */
+int		get_instruction(t_champion *champion, unsigned char *prog);
 //libft a ajoute
 char	*ft_strnjoin(char *s1, char *s2, int size);
 int		manage_label_param(t_champion *champion, char *str);
@@ -123,6 +125,7 @@ int			afficheLabels(t_champion *champion);
 
 // write_champion
 
+long long	convert_bigendian(long long val, unsigned int size);
 int			create_champion(t_fichier *file, t_champion *champion);
 
 int			already_label(t_champion *c, char *str, int s);

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:22:02 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 16:34:49 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/01 22:56:02 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ long long		convert_bigendian(long long val, unsigned int size)
 	long	long unsigned res;
 	int		base;
 
+	if (size == 1)
+		return (val);
 	if (size > sizeof(long long) || !size || size % 2)
 		return (0);
 	i = -1;
