@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_conv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:47:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:39:19 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 13:44:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_conv	*initialize_conv_functions(void)
 	return (conv_list);
 }
 
-char			*parse_conv(va_list ap, t_specs specs)
+char			*parse_conv(va_list ap, t_specs *specs)
 {
 	char	*str;
 	int		i;
@@ -58,8 +58,9 @@ char			*parse_conv(va_list ap, t_specs specs)
 
 	conv_list = initialize_conv_functions();
 	i = -1;
-	while (conv_list[i].f)
-		if (specs.conv == conv_list[i].conv)
+	str = NULL;
+	while (conv_list[++i].f)
+		if (specs->conv == conv_list[i].conv)
 		{
 			str = conv_list[i].f(ap, specs);
 			break;

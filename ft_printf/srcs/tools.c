@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 14:54:00 by anleclab          #+#    #+#             */
-/*   Updated: 2019/05/06 16:28:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:46:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,55 +37,38 @@ int				move_right(char *str, int nbchar, char c)
 
 static char		*suffix_ret(char *suf, char *str, int init_sp, int end_sp)
 {
-	int		tmp;
-	int		i;
+	int		len;
 	char	*ret;
 
-	tmp = ft_strlen(str);
-	if (!(ret = ft_strnew(tmp + ft_strlen(suf) - init_sp - end_sp)))
-		exit_error("error: malloc failed\n", 1, str);
+	len = ft_strlen(str) + ft_strlen(suf) - init_sp - end_sp;
+	if (!(ret = ft_strnew(len)))
+		exit_error("malloc failed", 1, str);
 	ft_strncpy(ret, suf, ft_strlen(suf));
-	ret = ft_strncat(ret, str + init_sp, ft_strlen(str) - init_sp - end_sp);
+	ft_strncat(ret, str + init_sp, ft_strlen(str) - init_sp - end_sp);
 	free(str);
-	if (!(str = ft_strnew(tmp)))
-		exit_error("error: malloc failed\n", 1, str);
-	i = 0;
-	if (ft_strlen(suf) == 2)
-		init_sp--;
-	while (i < init_sp - 1)
-	{
-		str[i] = ' ';
-		i++;
-	}
-	str = ft_strcat(str, ret);
-	free(ret);
-	return (str);
+	return (ret);
 }
 
-static char		*suffix_condition(char *suf, char *str, int init_sp, int end_sp)
+static char		*suffix_condition(char *suf, char *str, int init_sp)
 {
 	int		i;
 
-	if (init_sp + end_sp >= (int)ft_strlen(suf))
+	i = ft_strlen(suf) - 1;
+	while (--init_sp >= 0 && i >= 0)
 	{
-		i = ft_strlen(suf) - 1;
-		while (--init_sp >= 0 && i >= 0)
+		str[init_sp] = suf[i];
+		i--;
+	}
+	if (i >= 0)
+	{
+		move_right(str, i + 1, '0');
+		while (i >= 0)
 		{
-			str[init_sp] = suf[i];
+			str[i] = suf[i];
 			i--;
 		}
-		if (i >= 0)
-		{
-			move_right(str, i + 1, '0');
-			while (i >= 0)
-			{
-				str[i] = suf[i];
-				i--;
-			}
-		}
-		return (str);
 	}
-	return (NULL);
+	return (str);
 }
 
 char			*suffix(char *suf, char *str)
@@ -99,8 +82,8 @@ char			*suffix(char *suf, char *str)
 	end_sp = 0;
 	while (str[ft_strlen(str) - 1 - end_sp] == ' ')
 		end_sp++;
-	if (suffix_condition(suf, str, init_sp, end_sp))
-		str = suffix_condition(suf, str, init_sp, end_sp);
+	if (init_sp + end_sp >= (int)ft_strlen(suf))
+		return(suffix_condition(suf, str, init_sp));
 	return (suffix_ret(suf, str, init_sp, end_sp));
 }
 

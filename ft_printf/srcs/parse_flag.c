@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:28:38 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/26 12:39:43 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 16:28:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*parse_flag(char *str, t_specs specs)
+char	*parse_flag(char *str, t_specs *specs)
 {
-	if (specs.flags & FLAG_SPACE)
-		str = flag_space(str, specs.conv);
-	if (specs.flags & FLAG_OCTO)
-		str = flag_hash(str, specs.conv);
-	if (specs.flags & FLAG_PLUS)
-		str = flag_plus(str, specs.conv);
-	if (specs.flags & FLAG_ZERO)
-		str = flag_zero(str, specs.conv);
-	if (specs.flags & FLAG_MIN)
-		str = flag_minus(str, specs.conv);
-	return (str);
+	char	*ret;
+
+	ret = str;
+	if (specs->flags & FLAG_SPACE)
+		ret = flag_space(str, specs);
+	if (specs->flags & FLAG_OCTO)
+		ret = flag_hash(str, specs);
+	if (specs->flags & FLAG_PLUS)
+		ret = flag_plus(str, specs);
+	if (specs->flags & FLAG_ZERO)
+		ret = flag_zero(str, specs);
+	if (specs->flags & FLAG_MIN)
+		ret = flag_minus(str, specs);
+	return (ret);
 }

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:56:09 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 13:42:13 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 14:48:40 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned char	*conv_c_wchar(va_list ap)
+static unsigned char	*conv_c_wchar(va_list ap, t_specs *specs)
 {
 	wint_t			c;
 	unsigned char	*res;
 
-	c = va_arg(ap, wint_t);
+	if ((c = va_arg(ap, wint_t)) == 0)
+		specs->null_char = 1;
 	res = ft_wchar_to_bytes(c);
 	return (res);
 }
@@ -39,7 +40,7 @@ static unsigned char	*conv_s_wchar(va_list ap)
 	return (res);
 }
 
-char					*conv_p(va_list ap, t_specs specs)
+char					*conv_p(va_list ap, t_specs *specs)
 {
 	void	*str;
 	char	*res;
@@ -57,16 +58,17 @@ char					*conv_p(va_list ap, t_specs specs)
 	return (res);
 }
 
-char					*conv_c(va_list ap, t_specs specs)
+char					*conv_c(va_list ap, t_specs *specs)
 {
 	char			*res;
 	unsigned char	arg;
 
-	if (specs.mod & MOD_L)
-		res = (char *)conv_c_wchar(ap);
+	if (specs->mod & MOD_L)
+		res = (char *)conv_c_wchar(ap, specs);
 	else
 	{
-		arg = (unsigned char)va_arg(ap, int); // [TO DO] Cas ou le caractere est le caractere nul
+		if ((arg = (unsigned char)va_arg(ap, int)) == 0)
+			specs->null_char = 1;
 		if (!(res = ft_strnew(1)))
 			exit_error("error: malloc_failed\n", 0);
 		res[0] = arg;
@@ -74,11 +76,11 @@ char					*conv_c(va_list ap, t_specs specs)
 	return (res);
 }
 
-char					*conv_s(va_list ap, t_specs specs)
+char					*conv_s(va_list ap, t_specs *specs)
 {
 	char	*res;
 
-	if (specs.mod & MOD_L)
+	if (specs->mod & MOD_L)
 		res = (char *)conv_s_wchar(ap);
 	else
 	{

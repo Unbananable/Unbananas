@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:15:45 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:52:27 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 15:30:19 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ typedef va_list	t_va;
 
 typedef struct	s_specs
 {
-	int				flags;
-	int				mod;
+	char			flags;
+	char			mod;
 	unsigned int	field_width;
 	unsigned int	accuracy;
 	char			conv;
+	char			null_char;
+	unsigned int	len;
 }				t_specs;
 
 typedef struct	s_conv
 {
 	char	conv;
-	char	*(*f)(t_va, t_specs);
+	char	*(*f)(t_va, t_specs *);
 }				t_conv;
 
 typedef struct	s_flag
@@ -71,45 +73,45 @@ typedef struct	s_flag
 
 typedef struct	s_form
 {
-	int			i;
-	int			cnt;
-	const char	*str;
+	int				i;
+	int				cnt;
+	const char		*str;
 }				t_form;
 
 int				ft_printf(const char *format, ...);
 int				param_len(const char *format);
 char			*parse_color(const char *format);
-char			*parse_flag(char *str, t_specs specs);
-char			*parse_accufield(char *str, t_specs specs);
-char			*parse_conv(va_list ap, t_specs specs);
-char			*conv_d(va_list ap, t_specs specs);
-char			*conv_i(va_list ap, t_specs specs);
-char			*conv_o(va_list ap, t_specs specs);
-char			*conv_u(va_list ap, t_specs specs);
-char			*conv_x(va_list ap, t_specs specs);
-char			*conv_big_x(va_list ap, t_specs specs);
-char			*conv_f(va_list ap, t_specs specs);
-char			*conv_c(va_list ap, t_specs specs);
-char			*conv_s(va_list ap, t_specs specs);
-char			*conv_p(va_list ap, t_specs specs);
-char			*conv_binary(va_list ap, t_specs specs);
-char			*conv_percentage(va_list ap, t_specs specs);
-char			*flag_plus(char *str, char c);
-char			*flag_minus(char *str, char c);
-char			*flag_space(char *str, char c);
-char			*flag_hash(char *str, char c);
-char			*flag_zero(char *str, char c);
-char			*accuracy(char *str, t_specs specs);
-char			*field_width(char *str, t_specs specs);
+char			*parse_flag(char *str, t_specs *specs);
+char			*parse_accufield(char *str, t_specs *specs);
+char			*parse_conv(va_list ap, t_specs *specs);
+char			*conv_d(va_list ap, t_specs *specs);
+char			*conv_i(va_list ap, t_specs *specs);
+char			*conv_o(va_list ap, t_specs *specs);
+char			*conv_u(va_list ap, t_specs *specs);
+char			*conv_x(va_list ap, t_specs *specs);
+char			*conv_big_x(va_list ap, t_specs *specs);
+char			*conv_f(va_list ap, t_specs *specs);
+char			*conv_c(va_list ap, t_specs *specs);
+char			*conv_s(va_list ap, t_specs *specs);
+char			*conv_p(va_list ap, t_specs *specs);
+char			*conv_binary(va_list ap, t_specs *specs);
+char			*conv_percentage(va_list ap, t_specs *specs);
+char			*flag_plus(char *str, t_specs *specs);
+char			*flag_minus(char *str, t_specs *specs);
+char			*flag_space(char *str, t_specs *specs);
+char			*flag_hash(char *str, t_specs *specs);
+char			*flag_zero(char *str, t_specs *specs);
+char			*accuracy(char *str, t_specs *specs);
+char			*field_width(char *str, t_specs *specs);
 void			exit_error(char *er_mess, int nbfree, ...);
 int				move_right(char *str, int nbchar, char c);
 char			*suffix(char *suf, char *str);
 char			*parse_color(const char *format);
 int				param_len(const char *format);
 unsigned char	*concatenate(unsigned char *s1, unsigned char *s2);
-char			*conv_longf(va_list ap, t_specs specs);
+char			*conv_longf(va_list ap, t_specs *specs);
 void			print_current(t_form *fmt);
 void			write_arg(t_form *fmt, va_list ap);
-char			*converter(t_specs specs, va_list ap);
+char			*converter(t_specs *specs, va_list ap);
 
 #endif

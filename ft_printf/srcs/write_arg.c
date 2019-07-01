@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 static void	flag_sanitize (t_specs *specs)
 {
@@ -64,17 +65,22 @@ static void add_flag(t_form *fmt, t_specs *specs) // [TO DO] Cas ou les flags so
 	else if (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
 	{
 		specs->flags = specs->flags | FIELD_WIDTH;
-		specs->field_width = fmt->str[fmt->i] - '0';
-		while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
+		while (fmt->str[fmt->i] >= '0' && fmt->str[fmt->i] <= '9')
+		{
 			specs->field_width = specs->field_width * 10 + fmt->str[fmt->i] - '0';
+			fmt->i++;
+		}
 		fmt->i--;
 	}
 	else if (fmt->str[fmt->i] == '.')
 	{
 		specs->flags = specs->flags | ACCURACY;
-		specs->accuracy = 0;
-		while (fmt->str[++fmt->i] >= '1' && fmt->str[++fmt->i] <= '9')
-			specs->field_width = specs->field_width * 10 + fmt->str[fmt->i] - '0';
+		fmt->i++;
+		while (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
+		{
+			specs->accuracy = specs->accuracy * 10 + fmt->str[fmt->i] - '0';
+			fmt->i++;
+		}
 		fmt->i--;
 	}
 	else
@@ -90,28 +96,57 @@ static int  is_conv(char c)
 	return (0);
 }
 
-static int  set_conv_specs(t_form *fmt, t_specs *specs)
+static void  set_conv_specs(t_form *fmt, t_specs *specs)
 {
 	specs->flags = 0;
+	specs->mod = 0;
+	specs->accuracy = 0;
+	specs->field_width = 0;
+	specs->null_char = 0;
+	specs->len = 0;
 	while (fmt->str[fmt->i] && !is_conv(fmt->str[fmt->i]))
 		add_flag(fmt, specs);
 	specs->conv = (fmt->str[fmt->i] == 'i') ? 'd' : fmt->str[fmt->i];
 	flag_sanitize(specs);
 	//[TO DO] Gérer le cas ou il n'y a pas de conversion
-	fmt->str += fmt->i;
+	fmt->str += fmt->i + 1;
 	fmt->i = 0;
 }
 
-void	write_specs(t_form *fmt, va_list ap)
+void	write_arg(t_form *fmt, va_list ap)
 {
 	char	*res;
 	t_specs	specs;
 
 	fmt->i++;
 	set_conv_specs(fmt, &specs);
-	res = converter(specs, ap);
-	write(1, res, ft_strlen(res));
-	fmt->cnt += ft_strlen(res);
+/*printf("========= SPECS =========\n");
+printf("FW  .  0  +  -  # SP\n");
+char i = 1 << 6;
+while (i)
+{
+printf("%2d ", i & specs.flags);
+i >>= 1;
+}
+printf("\n");
+printf("========= MODS  =========\n");
+printf("ll  L  l  z  j hh  h\n");
+i = 1 << 6;
+while (i)
+{
+printf("%2d ", i & specs.mod);
+i >>= 1;
+}
+printf("\n");
+printf("conv = %c\n", specs.conv);
+printf("accuracy = %d\n", specs.accuracy);
+printf("field_width = %d\n", specs.field_width);*/
+	res = converter(&specs, ap);
+//printf("null_char = %d\n", specs.null_char);
+//printf("res = %s\n", res);
+	write(1, res, specs.len);
+	fmt->cnt += specs.len;
 	free(res);
+	res = NULL;
 	fmt->i = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_double.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 10:46:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 14:09:07 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 16:08:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,20 @@ static char	*integ_part(double *dbl)
 	return (res);
 }
 
-char		*conv_f(va_list ap, t_specs specs)
+char		*conv_f(va_list ap, t_specs *specs)
 {
-	int		accu;
 	char	*res;
 	double	dbl;
 	char	*tmp;
 	int		isneg;
 
-	if (specs.mod & MOD_BIG_L)
+	if (specs->mod & MOD_BIG_L)
 		return (conv_longf(ap, specs));
 	dbl = va_arg(ap, double);
 	isneg = (dbl < 0 ? 1 : 0);
 	res = integ_part(&dbl);
-	if (specs.flags & ACCURACY)
-		res = concat(concat(res, ft_strdup(".")), deci_part(dbl, specs.accuracy));
+	if (specs->flags & ACCURACY)
+		res = concat(concat(res, ft_strdup(".")), deci_part(dbl, specs->accuracy));
 	if (isneg)
 	{
 		if (!(tmp = ft_strnew(ft_strlen(res) + 2)))

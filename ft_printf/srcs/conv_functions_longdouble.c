@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conv_functions_longdouble.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 10:46:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/27 13:47:31 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 13:46:42 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*integ_part(long double *dbl)
 	return (res);
 }
 
-char		*conv_longf(va_list ap, t_specs specs)
+char		*conv_longf(va_list ap, t_specs *specs)
 {
 	char		*res;
 	long double	dbl;
@@ -88,10 +88,10 @@ char		*conv_longf(va_list ap, t_specs specs)
 	dbl = (long double)va_arg(ap, long double);
 	isneg = (dbl < 0 ? 1 : 0);
 	res = integ_part(&dbl);
-	if (specs.flags & ACCURACY)
+	if (specs->flags & ACCURACY)
 	{
 		res = concat(res, ft_strdup("."));
-		res = concat(res, deci_part(dbl, specs.accuracy));
+		res = concat(res, deci_part(dbl, specs->accuracy));
 	}
 	if (isneg)
 	{
