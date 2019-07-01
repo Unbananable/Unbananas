@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 14:54:00 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 16:46:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:06:34 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char			*suffix(char *suf, char *str)
 	while (str[ft_strlen(str) - 1 - end_sp] == ' ')
 		end_sp++;
 	if (init_sp + end_sp >= (int)ft_strlen(suf))
-		return(suffix_condition(suf, str, init_sp));
+		return (suffix_condition(suf, str, init_sp));
 	return (suffix_ret(suf, str, init_sp, end_sp));
 }
 

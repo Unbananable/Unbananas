@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 15:28:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:04:16 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ char		*converter(t_specs *specs, va_list ap)
 		specs->len = 1;
 	else
 		specs->len = ft_strlen(res);
-//printf("res (parse_conv) = %s\n", res);
 	res = parse_accufield(res, specs);
-//printf("res (parse_accufield) = %s\n", res);
 	res = parse_flag(res, specs);
-//printf("res (parse_flag) = %s\n", res);
 	return (res);
 }

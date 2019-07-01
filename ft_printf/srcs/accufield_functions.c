@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:41:20 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 15:27:22 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:05:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,20 @@ char		*accuracy(char *str, t_specs *specs)
 	while (str[++i] && iszero)
 		if (str[i] != '0' && str[i] != ' ')
 			iszero = 0;
-	if (ft_strchr("duoxX", specs->conv) && iszero && !specs->accuracy)
+	if (ft_strchr("duoxX", specs->conv) && iszero && specs->accuracy == 0)
 		ret = ft_strdup("");
 	else if (specs->conv == 'p' && ft_strequ(str, "0x0") && !specs->accuracy)
-		specs->len = 2;
+		ret = ft_strdup("0x");
 	else if (specs->conv == 'p' && specs->accuracy + 2 >= specs->len)
 		ret = accuracy_p(str, specs->accuracy);
 	else if (specs->conv == 's')
 		ret = accuracy_s(str, specs->accuracy);
-	else if (!ft_strchr("cpf%", specs->conv) && ft_strlen(str) <= specs->accuracy)
+	else if (!ft_strchr("cpf%", specs->conv) && specs->len <= specs->accuracy)
 		ret = accuracy_reg(str, specs->accuracy);
 	else
 		return (str);
 	free(str);
-	if (!specs->null_char)
-		specs->len = ft_strlen(ret);
+	specs->len = (!specs->null_char) ? ft_strlen(ret) : specs->len;
 	return (ret);
 }
 

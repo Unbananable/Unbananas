@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:47:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 13:44:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:06:14 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char			*parse_conv(va_list ap, t_specs *specs)
 		if (specs->conv == conv_list[i].conv)
 		{
 			str = conv_list[i].f(ap, specs);
-			break;
+			break ;
 		}
 	// [TO DO] Cas ou la conversion ne correspond pas / conversion nulle
 	free(conv_list);

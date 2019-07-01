@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:15:45 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 15:30:19 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:17:30 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ char			*conv_longf(va_list ap, t_specs *specs);
 void			print_current(t_form *fmt);
 void			write_arg(t_form *fmt, va_list ap);
 char			*converter(t_specs *specs, va_list ap);
+void        	add_flag(t_form *fmt, t_specs *specs);
 
 #endif

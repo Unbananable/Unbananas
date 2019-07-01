@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anaiel <anaiel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 19:47:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/27 13:37:49 by anaiel           ###   ########.fr       */
+/*   Updated: 2019/07/01 17:05:09 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_form	init_struct(const char *format)
 	return (fmt);
 }
 
-static void	write_color(t_form *fmt)
+static void		write_color(t_form *fmt)
 {
 	char *color;
 
@@ -47,7 +47,7 @@ static void	write_color(t_form *fmt)
 ** the same until the end of the format is reached.
 */
 
-int		ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_form		fmt;

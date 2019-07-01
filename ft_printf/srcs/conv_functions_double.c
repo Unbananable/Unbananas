@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 10:46:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 16:08:04 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/01 17:04:47 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ char		*conv_f(va_list ap, t_specs *specs)
 	isneg = (dbl < 0 ? 1 : 0);
 	res = integ_part(&dbl);
 	if (specs->flags & ACCURACY)
-		res = concat(concat(res, ft_strdup(".")), deci_part(dbl, specs->accuracy));
+		res = concat(concat(res, ft_strdup(".")),
+				deci_part(dbl, specs->accuracy));
 	if (isneg)
 	{
 		if (!(tmp = ft_strnew(ft_strlen(res) + 2)))
