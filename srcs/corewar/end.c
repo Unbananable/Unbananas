@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 16:53:38 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:52:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Frees a single champion
 */
 
-void	delete_champion(t_champ **champ)
+void			delete_champion(t_champ **champ)
 {
 	if (*champ)
 		free((*champ)->redcode);
@@ -24,11 +24,25 @@ void	delete_champion(t_champ **champ)
 	*champ = NULL;
 }
 
+static void		delete_visu(t_cor *cor)
+{
+	if (cor->visu)
+	{
+		if (cor->visu->arena)
+			delwin(cor->visu->arena);
+		if (cor->visu->arena_info)
+			delwin(cor->visu->arena_info);
+		if (cor->visu->arena_period_bar)
+			delwin(cor->visu->arena_period_bar);
+		free(cor->visu);
+	}
+}
+
 /*
 ** Frees the whole t_cor structure.
 */
 
-void	end(t_cor *cor)
+void			end(t_cor *cor)
 {
 	int		i;
 
@@ -41,16 +55,8 @@ void	end(t_cor *cor)
 	free(cor->champs);
 	free(cor->arena);
 	delete_procs(&(cor->procs));
-	if (cor->visual_on)
-	{
-		if (cor->visu->arena)
-			delwin(cor->visu->arena);
-		if (cor->visu->arena)
-			delwin(cor->visu->arena_info);
-		if (cor->visu->arena_period_bar)
-			delwin(cor->visu->arena_period_bar);
-		free(cor->visu);
-	}
+	if (cor->visual_on == true)
+		delete_visu(cor);
 	exit(0);
 }
 
@@ -59,7 +65,7 @@ void	end(t_cor *cor)
 ** output and exits the program.
 */
 
-void	error(t_cor *cor, char *err_type)
+void			error(t_cor *cor, char *err_type)
 {
 	ft_putstr_fd("error: ", 2);
 	ft_putendl_fd(err_type, 2);

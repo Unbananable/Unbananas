@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 15:51:43 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:57:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ static t_champ	*read_champion(char *str, int player_no)
 	return (champ);
 }
 
+static void		free_champs(t_cor *cor)
+{
+	free(cor->champs);
+	cor->champs = NULL;
+}
+
 /*
 ** For all parameters of the corewar program, get the information contained in
 ** the files for the champions.
@@ -113,8 +119,7 @@ void			get_champions(t_cor *cor, int ac, char **av)
 		{
 			while (--i_champ >= 0)
 				delete_champion(&(cor->champs[i_champ]));
-			free(cor->champs);
-			cor->champs = NULL;
+			free_champs(cor);
 			error(cor, "invalid champion");
 		}
 	}

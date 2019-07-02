@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:43:24 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 13:46:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:16:42 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	al_isspace(const char c)
 
 int			ft_atoui(const char *s)
 {
-	unsigned int    	res;
-	int					i;
+	unsigned int	res;
+	int				i;
 
 	i = 0;
 	res = 0;
