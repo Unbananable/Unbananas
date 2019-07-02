@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:41:20 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:25:24 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:15:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ static char	*accuracy_s(char *str, t_specs specs)
 	if (!(ret = ft_strnew(specs.accuracy)))
 		return (NULL);
 	ft_strncpy(ret, str, specs.accuracy);
-	if (specs.mod & MOD_L)
-	{
-		i = -1;
-		while (++i < (int)specs.accuracy)
+	if (specs.mod & MOD_L && (i = -1))
+		while (++i < (int)specs.accuracy && !(j = 0))
 		{
-			j = 0;
 			byte = 128;
 			while (byte & ret[i])
 			{
@@ -54,7 +51,6 @@ static char	*accuracy_s(char *str, t_specs specs)
 				while (ret[i])
 					ret[i++] = 0;
 		}
-	}
 	return (ret);
 }
 

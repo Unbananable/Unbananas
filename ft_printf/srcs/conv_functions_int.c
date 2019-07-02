@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:57:10 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 13:46:13 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:46:07 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*conv_d(va_list ap, t_specs *specs)
 	else if (specs->mod & MOD_J)
 		return (ft_llitoa(va_arg(ap, intmax_t)));
 	else if (specs->mod & MOD_Z)
-		return (ft_llitoa(va_arg(ap, ssize_t)));
+		return (ft_llitoa(va_arg(ap, size_t)));
 	else
 		res = va_arg(ap, int);
 	return (ft_itoa(res));

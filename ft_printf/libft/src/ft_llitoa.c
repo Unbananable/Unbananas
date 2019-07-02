@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_llitoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 18:25:53 by anleclab          #+#    #+#             */
-/*   Updated: 2019/01/23 14:09:22 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:29:17 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ char		*ft_llitoa(long long int n)
 	long long int		i;
 	long long int		len;
 
+	if ((unsigned long)n == -9223372036854775808U)
+		return (ft_strdup("-9223372036854775808"));
 	len = (n < 0 ? al_nbdigit(n) + 1 : al_nbdigit(n));
 	if (!(res = ft_strnew(len)))
 		return (NULL);
 	res[0] = (n == 0 ? '0' : '-');
-	if ((unsigned long)n == -9223372036854775808U)
-		return (ft_strdup("-9223372036854775808"));
 	i = len - 1;
 	if (n < 0)
 		n = -n;

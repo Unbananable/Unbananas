@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:56:09 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:33:18 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:39:05 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static unsigned char	*conv_s_wchar(va_list ap)
 	int				i;
 
 	if (!(arg = va_arg(ap, wchar_t *)))
-		return((unsigned char *)ft_strdup("(null)"));
+		return ((unsigned char *)ft_strdup("(null)"));
 	if (!*arg)
-		return((unsigned char *)ft_strdup(""));
+		return ((unsigned char *)ft_strdup(""));
 	i = 0;
 	res = NULL;
 	while (arg[i])

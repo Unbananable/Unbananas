@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 17:11:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:02:45 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:37:32 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*flag_space(char *str, t_specs *specs)
 	if ((specs->conv == 'd' || specs->conv == 'i' || specs->conv == 'f')
 			&& str[i] != '-')
 	{
-		res = suffix("\t", str);
+		res = suffix(" ", str);
 		specs->len = ft_strlen(res);
 		return (res);
 	}
@@ -79,11 +79,14 @@ char	*flag_minus(char *str, t_specs *specs)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	j = 0;
-	while (str[i])
-		str[j++] = str[i++];
-	while (str[j])
-		str[j++] = ' ';
+	j = ((specs->flags & FLAG_SPACE) && str[0] == ' ' && str[i] != '-') ? 1 : 0;
+	if (j != i)
+	{
+		while (str[i])
+			str[j++] = str[i++];
+		while (str[j])
+			str[j++] = ' ';
+	}
 	return (str);
 }
 
@@ -91,7 +94,7 @@ char	*flag_zero(char *str, t_specs *specs)
 {
 	int		i;
 
-	i = -1;
+	i = (specs->flags & FLAG_SPACE && str[0] == ' ') ? 0 : -1;
 	(void)specs;
 	while (str[++i] == ' ')
 		str[i] = '0';
