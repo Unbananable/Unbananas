@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 13:16:46 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:46:08 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,35 +118,6 @@ typedef struct		s_proc
 }					t_proc;
 
 /*
-** OPERATION STRUCTURE:
-** - name: nom de l'operation
-** - nb_args: nombre d'arguments que prend l'operation
-** - args : liste contenant les types d'arguments acceptable pour chaque
-**          argument
-** - opcode: code de l'operation
-** - wait: nombre de cycles d'attente avant execution de l'operation
-** - full_name: nom etendu de l'operation
-** - f: pointer to the associated function
-** - dir_size: size (in byte) of the direct reference (2 or 4)
-** - ind_size: type of indirect reference (2 for short, 4 for int)
-*/
-
-struct				s_cor;
-
-typedef struct		s_op
-{
-	char			*name;
-	int				nb_args;
-	int				args[3];
-	unsigned char	opcode;
-	unsigned int	wait;
-	char			*full_name;
-	void			(*f)(struct s_cor *, t_proc *);
-	int				dir_size;
-	int				ind_size;
-}					t_op;
-
-/*
 ** ARGUMENT STRUCTURE:
 ** - type: type of the argument. One of T_REG, T_DIR, T_IND or 0
 ** - val: value of the argumen. It corresponds to the value of the DIR, the
@@ -193,7 +164,7 @@ typedef struct		s_cor
 	t_champ			**champs;
 	unsigned char	*arena;
 	t_proc			*procs;
-	t_op			*op_tab;
+	struct s_op		*op_tab;
 	t_arg			args[3];
 	unsigned int	curr_cycle;
 	unsigned int	curr_cycle_period;
@@ -209,6 +180,33 @@ typedef struct		s_cor
 	struct s_visu	*visu;
 	t_bool			visual_on;
 }					t_cor;
+
+/*
+** OPERATION STRUCTURE:
+** - name: nom de l'operation
+** - nb_args: nombre d'arguments que prend l'operation
+** - args : liste contenant les types d'arguments acceptable pour chaque
+**          argument
+** - opcode: code de l'operation
+** - wait: nombre de cycles d'attente avant execution de l'operation
+** - full_name: nom etendu de l'operation
+** - f: pointer to the associated function
+** - dir_size: size (in byte) of the direct reference (2 or 4)
+** - ind_size: type of indirect reference (2 for short, 4 for int)
+*/
+
+typedef struct		s_op
+{
+	char			*name;
+	int				nb_args;
+	int				args[3];
+	unsigned char	opcode;
+	unsigned int	wait;
+	char			*full_name;
+	void			(*f)(struct s_cor *, t_proc *);
+	int				dir_size;
+	int				ind_size;
+}					t_op;
 
 void			initialize(t_cor *cor);
 
