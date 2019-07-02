@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 23:01:32 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:58:14 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,6 @@ t_token		*add_token_operation_id(t_token *token, unsigned int id)
 	token->value.operation = &g_op_tab[id];
 	return (token);
 }
-
-/*
-int		size_token(int type, int id)
-{
-	if ((type == DIRECT || type == DIRECT_LABEL) && !(id > 8 && id < 16
-	&& id != 13))
-		return (4);
-	else if (type == REGISTER)
-		return (1);
-	else if (!(type == DIRECT || type == DIRECT_LABEL || type == INDIRECT
-	|| type == INDIRECT_LABEL))
-	{
-		ft_printf("probleme de taille ;)");
-		return (10);
-	}
-	else
-		return (2);
-}
-*/
 
 int		get_param(t_champion *champion, char param, unsigned char *prog, int pos, t_token **tt)
 {
@@ -62,9 +43,10 @@ int		get_param(t_champion *champion, char param, unsigned char *prog, int pos, t
 	ft_memcpy(&value, &prog[pos], size);
 	value = convert_bigendian(value, size);
 	add_token_integer(token, value);
-	add_token(token, champion);
-	affichetype(token->type);
-	ft_printf("== %hd\n", value);
+	//add_token(token, champion);
+	//affichetype(token->type);
+	//ft_printf("== %hd\n", value);
+	*tt = token;
 	return (size);
 }
 int		get_instruction(t_champion *champion, unsigned char *prog)
@@ -81,7 +63,7 @@ int		get_instruction(t_champion *champion, unsigned char *prog)
 	token = create_token(champion, 0, INSTRUCTION);
 	add_token_operation_id(token, prog[0] - 1);
 	add_token(token, champion);
-	ft_printf("INSTRUCTION %s\n", token->value.operation->operation);
+	ft_printf("INSTRUCTION \n:%s\n", token->value.operation->operation);
 	if (!(prog[0] == 1 || prog[0] == 9 || prog[0] == 12 || prog[0] == 15))
 	{
 		pos++;
