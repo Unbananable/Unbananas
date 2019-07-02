@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:56:09 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 14:48:40 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:33:18 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static unsigned char	*conv_s_wchar(va_list ap)
 	unsigned char	*res;
 	int				i;
 
-	arg = va_arg(ap, wchar_t *);
+	if (!(arg = va_arg(ap, wchar_t *)))
+		return((unsigned char *)ft_strdup("(null)"));
+	if (!*arg)
+		return((unsigned char *)ft_strdup(""));
 	i = 0;
 	res = NULL;
 	while (arg[i])
@@ -43,19 +46,13 @@ static unsigned char	*conv_s_wchar(va_list ap)
 char					*conv_p(va_list ap, t_specs *specs)
 {
 	void	*str;
-	char	*res;
 	char	*conv;
 
 	(void)specs;
 	str = va_arg(ap, void *);
-	if (!(res = ft_strnew(sizeof(short) + 3)))
-		exit_error("error: malloc failed\n", 1, str);
-	ft_bzero(res, sizeof(short) + 3);
-	ft_strncpy(res, "0x", 2);
 	conv = ft_itoa_base((unsigned long)str, 16);
-	ft_strncat(res, conv, sizeof(short));
-	free(conv);
-	return (res);
+	conv = suffix("0x", conv);
+	return (conv);
 }
 
 char					*conv_c(va_list ap, t_specs *specs)

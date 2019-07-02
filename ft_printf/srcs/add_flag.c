@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:16:53 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 17:22:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:02:26 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	add_accufield(t_form *fmt, t_specs *specs)
 	{
 		specs->flags = specs->flags | ACCURACY;
 		fmt->i++;
-		while (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
+		while (fmt->str[fmt->i] >= '0' && fmt->str[fmt->i] <= '9')
 		{
 			specs->accuracy = specs->accuracy * 10 + fmt->str[fmt->i] - '0';
 			fmt->i++;
@@ -81,14 +81,11 @@ void		add_flag(t_form *fmt, t_specs *specs) // [TO DO] Cas ou les flags sont ré
 		specs->flags = specs->flags | FLAG_MIN;
 	else if (fmt->str[fmt->i] == '0')
 		specs->flags = specs->flags | FLAG_ZERO;
+	else if (is_mod(fmt->str[fmt->i]))
+		add_mod(fmt, specs);
+	else if (ft_isdigit(fmt->str[fmt->i]) || fmt->str[fmt->i] == '.')
+		add_accufield(fmt, specs);
 	else
-	{
-		if (is_mod(fmt->str[fmt->i]))
-			add_mod(fmt, specs);
-		if (ft_isdigit(fmt->str[fmt->i]) || fmt->str[fmt->i] == '.')
-			add_accufield(fmt, specs);
-		else
-			fmt->i--;
-	}
+		fmt->i--;
 	fmt->i++;
 }
