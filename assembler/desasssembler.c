@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:48:10 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:28:27 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,25 @@ int			read_champion(t_champion *champion, int fd)
 {
 	int i;
 	int n;
+	int tmp;
 
 	i = 0;
-	n = read(fd, champion->prog, champion->header->prog_size * 2);
+	ft_printf("read_champion %d /%d\n", champion->header->prog_size, CHAMP_MAX_SIZE);
+	n = read(fd, champion->prog, champion->header->prog_size + 1);
 	if (n != champion->header->prog_size)
 	{
 		ft_printf("bad size %d /%d\n", n, champion->header->prog_size);
 		return (0);
 	}
 	while (i < champion->header->prog_size)
-		i += get_instruction(champion, &champion->prog[i]);
+	{
+		if ((tmp = get_instruction(champion, &champion->prog[i])))
+			i += tmp;
+		else
+			return (0);
+	}
 	ft_printf("=============\n\n\n");
-	test_champion(champion, MODEREEL);
+	//test_champion(champion, MODEREEL);
 	return(1);
 }
 
@@ -42,8 +49,9 @@ int			read_header(t_champion *champion, int fd)
 	header_t *header;
 	char	tab[4];
 
+	ft_printf("read_header\n");
 	header = champion->header;
-	size = 12 + PROG_NAME_LENGTH + COMMENT_LENGTH;
+	size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
 	n = read(fd, header, size);
 	if (n < size)
 		return (0);
@@ -53,7 +61,7 @@ int			read_header(t_champion *champion, int fd)
 		return (0);
 	}
 	header->prog_size = convert_bigendian(header->prog_size, 4);
-	read(fd, tab, 4);
+	//read(fd, tab, 4);
 	return (1);
 }
 
@@ -85,6 +93,6 @@ int			main(int argc, char *argv[])
 	if (read_header(champion, fd))
 		if (read_champion(champion, fd))
 			write_champion_prog(champion, argv[1]);
-	return 0;
+	return (0);
 }
 

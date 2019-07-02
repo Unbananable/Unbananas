@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:58:14 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:11:00 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token		*add_token_operation_id(t_token *token, unsigned int id)
 int		get_param(t_champion *champion, char param, unsigned char *prog, int pos, t_token **tt)
 {
 	int size;
-	int value;
+	unsigned int value;
 	t_token *token = *tt;
 
 	if (param == REG_CODE || param == T_REG)
@@ -59,17 +59,20 @@ int		get_instruction(t_champion *champion, unsigned char *prog)
 	i = -1;
 	pos = 1;
 	if (prog[0] > 16 && prog[0] > 0)
+	{
+		ft_printf("error %d\n", prog[0]);
 		return (0);
+	}
 	token = create_token(champion, 0, INSTRUCTION);
 	add_token_operation_id(token, prog[0] - 1);
 	add_token(token, champion);
-	ft_printf("INSTRUCTION \n:%s\n", token->value.operation->operation);
+	//ft_printf("INSTRUCTION \n:%s\n", token->value.operation->operation);
 	if (!(prog[0] == 1 || prog[0] == 9 || prog[0] == 12 || prog[0] == 15))
 	{
 		pos++;
-		param[0] = (prog[1] & 192) >> 6;
-		param[1] = (prog[1] & 46) >> 4;
-		param[2] = (prog[1] & 12) >> 2;
+		param[0] = (prog[1] & 0xc0) >> 6;
+		param[1] = (prog[1] & 0x30) >> 4;
+		param[2] = (prog[1] & 0x0c) >> 2;
 		while (param[++i])
 			pos += get_param(champion, param[i], prog, pos, &token->param[i]);
 	}
