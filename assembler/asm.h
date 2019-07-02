@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:12:55 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:34:19 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ t_token				*add_token_string(t_token *token, char *str);
 t_token				*add_token_integer(t_token *token, int value);
 t_token				*create_token(t_champion *champion, int line_nb, int type);
 void				add_token(t_token *token, t_champion *champion);
+int					size_token(int t, int id);
 
 /*
 ** get_token.c

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 17:19:24 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:49:04 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token		*add_token_operation(t_token *token, char *s)
 	while (g_op_tab[i].operation && ft_strcmp(g_op_tab[i].operation, s))
 		i++;
 	if (!g_op_tab[i].operation)
-		exit_msg("pb add_token_operation");
+		exit_msg("Problem in function: add_token_operation (token.c)");
 	token->value.operation = &g_op_tab[i];
 	return (token);
 }
@@ -107,7 +107,7 @@ void		add_token(t_token *token, t_champion *champion)
 	if (token->type == LABEL)
 	{
 		if (champion->number_labels >= BUFFER_LABELS - 1)
-			exit_msg("fatal error to much labels");
+			exit_msg("Fatal error: too many labels");
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}

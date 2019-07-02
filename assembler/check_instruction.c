@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:14:58 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:20:40 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 	{
 		tmp = manage_label_param(c, token->value.data);
 		ft_memdel((void**)&token->value.data);
-		(tmp == -1) ? error_champion(c, "label no found", token->line) :
+		(tmp == -1) ? error_champion(c, "Label not found", token->line) :
 		(token->value.number = tmp);
 	}
 	if (type == REGISTER && expected & T_REG)
@@ -31,7 +31,6 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 		return (1);
 	if ((type == INDIRECT_LABEL || type == INDIRECT) && expected & T_IND)
 		return (1);
-	ft_printf("mauvais parametre %s\n", token->value.data);
 	return (0);
 }
 
@@ -66,16 +65,16 @@ int			check_instruction(t_champion *c, t_token *token, int pos,
 		{
 			if (!isgoodparam(c, c->tokens[pos + 2 * i + 1],
 						instruction->tab[i]))
-				return (error_champion(c, "bad parameters", token->line));
+				return (error_champion(c, "Incorrect parameter", token->line));
 			if (i < instruction->number_param - 1 &&
 			c->tokens[pos + 2 * i + 2]->type != SEPARATOR)
-				return (error_champion(c, "separator expected", token->line));
+				return (error_champion(c, "Separator expected", token->line));
 		}
 		if (tok_line > instruction->number_param * 2)
-			return (error_champion(c, "trop d'elements", token->line));
+			return (error_champion(c, "Too many parameters", token->line));
 		manage_instruction(c, instruction, token, pos);
 		return (2 * i);
 	}
-	error_champion(c, "missing parameters", token->line);
+	error_champion(c, "Missing parameter", token->line);
 	return (3);
 }

@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/02 15:51:49 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:40:55 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 
 	next = c->tokens[pos + 1];
 	if (!next || (next->type != INSTRUCTION && next->type != LABEL))
-		error_champion(c, "instruction or label not found", t->line);
+		error_champion(c, "Instruction or label not found", t->line);
 	else if (already_label(c, t->value.data, pos))
-		error_champion(c, "label already exist", t->line);
+		error_champion(c, "Label already exists", t->line);
 	else
 	{
 		if (next->line == t->line)
@@ -57,7 +57,7 @@ int		manage_label_param(t_champion *champion, char *str)
 	int val;
 
 	if ((position_label = find_label(champion, str)) == -1)
-		return (error_champion(champion, "label don't exist", -1));
+		return (error_champion(champion, "Label does not exist", -1));
 	val = champion->tokens[position_label]->pos;
 	return (champion->instructions[val]);
 }

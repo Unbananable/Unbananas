@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:47:38 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:50:04 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static int	verify_labelparameter(t_champion *c)
 									token->param[j]->type == INDIRECT_LABEL))
 					if (!search_label(c, token->param[j]->value.data))
 					{
-						ft_printf("fatal error line :%d label \"%s\" not found",
+						ft_printf("Fatal error line :%d label \"%s\" not found",
 								token->line, token->param[j]->value.data);
-						exit_msg("bye\n");
+						exit_msg("Bye\n");
 					}
 			}
 		}
@@ -78,7 +78,7 @@ int			verify_champion(t_champion *c)
 		if (i == c->number_token)
 			break ;
 		if (!c->tokens[i])
-			exit_msg("probleme champion!");
+			exit_msg("Problem with Champion");
 		l = c->tokens[i]->line;
 		j = i;
 		while (j < c->number_token && c->tokens[j] && c->tokens[j]->line == l)
