@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:39:57 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:44:23 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char			*string_exeption(t_fichier *file, char *line)
 	char	*s;
 	char	*tmp;
 
-	*s = ft_strnew(1);
+	s = ft_strnew(1);
 	line_nb = file->line_nb;
 	while (!(tmp = ft_strchr(line, '"')) && file->line)
 	{

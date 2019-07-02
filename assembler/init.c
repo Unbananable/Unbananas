@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:16:17 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:46:26 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_fichier			*init_file(char *str)
 		malloc_error("init_fichier");
 	if ((file->fd_in = open(str, O_RDONLY)) == -1)
 		exit_msg("probleme open file (fichier non existant)\n");
-	file->file_name = ft_strnjoin(str, "cor2", ft_strlen(str) - 1);
+	file->file_name = ft_strnjoin(str, "9.cor", ft_strlen(str) - 2);
 	file->fd_out = -1;
 	file->line = 0x0;
 	file->line_nb = 1;

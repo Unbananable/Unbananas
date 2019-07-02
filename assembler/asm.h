@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:12:55 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:44:51 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ extern				t_op g_op_tab[17];
 ** Autres
 */
 
+int					size_token(int t, int id);
 int					get_instruction(t_champion *champion, unsigned char *prog);
 
 /*
