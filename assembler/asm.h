@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 20:28:51 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:36:45 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct		s_champion
 	int				number_error;
 	int				number_warning;
 
-	char			prog[CHAMP_MAX_SIZE];
+	unsigned char	prog[CHAMP_MAX_SIZE];
 }					t_champion;
 
 extern				t_op g_op_tab[17];
