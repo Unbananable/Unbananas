@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 16:57:49 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 11:29:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 12:08:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,23 @@ static void	announce_winner_visu(t_cor *cor, int winner_no, int i)
 	wprintw(cor->visu->arena_period_bar,
 			"Contestant %d, \"%s\", has won ! Congratulations !!\n",
 			winner_no, cor->champs[i]->head.prog_name);
-	wattron(cor->visu->arena_period_bar, COLOR_PAIR(GRAY_CURSOR));
-	box(cor->visu->arena_period_bar, '*', '*');
-	wattroff(cor->visu->arena_period_bar, COLOR_PAIR(GRAY_CURSOR));
+	boxing(cor->visu->arena_period_bar);
 	wrefresh(cor->visu->arena_period_bar);
+}
+
+static void	no_winner(t_cor *cor)
+{
+	if (cor->visual_on)
+	{
+		werase(cor->visu->arena_period_bar);
+		wmove(cor->visu->arena_period_bar, 2, 20);
+		wprintw(cor->visu->arena_period_bar,
+				"No winner... Don't forget to live, it's important !");
+		boxing(cor->visu->arena_period_bar);
+		wrefresh(cor->visu->arena_period_bar);
+		return ;
+	}
+	ft_printf("No winner...\n");
 }
 
 void		announce_winner(t_cor *cor)
@@ -44,5 +57,5 @@ void		announce_winner(t_cor *cor)
 					cor->champs[i]->head.prog_name);
 			return ;
 		}
-	ft_printf("No winner...\n");
+	no_winner(cor);
 }

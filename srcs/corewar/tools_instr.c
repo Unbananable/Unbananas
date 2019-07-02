@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_instr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 11:29:38 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:40:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 
 int					get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
-		t_bool addr_restriction)
+		bool addr_restriction)
 {
 	if (arg.type == T_REG)
 		return (get_reg_value(proc->regs[arg.val - 1]));

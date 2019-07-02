@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 10:53:20 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/02 10:53:22 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:40:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int				get_arg(t_cor *cor, t_proc *proc, unsigned char argtype,
 	return (arg);
 }
 
-t_bool			set_args(t_cor *cor, t_proc *proc, int opcode)
+bool			set_args(t_cor *cor, t_proc *proc, int opcode)
 {
 	int				i;
 	unsigned char	argtype;
 	unsigned char	argbits;
 	int				arglength;
-	t_bool			arg_ok;
+	bool			arg_ok;
 
 	arg_ok = true;
 	argbits = 0b11000000;

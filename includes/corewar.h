@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 11:33:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:40:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,6 @@
 # define WHITE			27
 # define SPEED_HIGHLIGHT 28
 
-typedef enum		e_bool
-{
-	false,
-	true
-}					t_bool;
-
 /*
 ** CHAMPION STRUCTURE:
 ** - head: structure containing information about the champion (name, comment,
@@ -145,7 +139,7 @@ typedef struct		s_proc
 {
 	int				n;
 	int				parent_id;
-	t_bool			carry;
+	bool			carry;
 	unsigned char	opcode;
 	unsigned int	last_live_cycle;
 	unsigned int	wait;
@@ -210,13 +204,13 @@ typedef struct		s_cor
 	unsigned int	nb_live;
 	unsigned int	nb_checks;
 	int				last_alive;
-	t_bool			dump;
+	bool			dump;
 	unsigned int	dump_cycle;
 	char			verbose;
 	unsigned int	nb_procs;
 	unsigned int	new_proc_n;
 	struct s_visu	*visu;
-	t_bool			visual_on;
+	bool			visual_on;
 }					t_cor;
 
 /*
@@ -255,7 +249,7 @@ typedef struct		s_op
 
 typedef struct	s_attr
 {
-	t_bool	cursor;
+	bool	cursor;
 	int		owner;
 	int		live_bright;
 	int		store_bright;
@@ -319,7 +313,7 @@ void			instr_fork(t_cor *cor, t_proc *proc);
 void			instr_lfork(t_cor *cor, t_proc *proc);
 
 int				get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
-		t_bool addr_restriction);
+		bool addr_restriction);
 int				get_args(t_cor *cor, t_proc *proc);
 short			get_short_arg_value(t_cor *cor, int idx);
 int				get_int_arg_value(t_cor *cor, int idx, int size);
