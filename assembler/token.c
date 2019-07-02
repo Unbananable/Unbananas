@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 22:27:41 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:34:12 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ static	int		get_last_intruction_id(t_champion *champion)
 	int i;
 
 	i = champion->number_token;
-	while (--i > 0 && champion->tokens[i]->type != INSTRUCTION)
+	while (--i >= 0 && champion->tokens[i]->type != INSTRUCTION)
 		;
-	id = (champion->tokens[i]->type != INSTRUCTION) ? -1 :
-	champion->tokens[i]->value.operation->id;
+	id = (i < 0) ? -1 : champion->tokens[i]->value.operation->id;
 	return (id);
 }
 
@@ -93,10 +92,16 @@ int			size_token(int t, int id)
 	}
 	return (res);
 }
+
 void		add_token(t_token *token, t_champion *champion)
 {
 	if (token->type == INSTRUCTION)
+	{
 		champion->instructions[champion->number_instructions++] = champion->size;
+		champion->size += size_token(token->type, token->value.operation->id);
+	}
+	else
+		champion->size += size_token(token->type, get_last_intruction_id(champion));
 	if (token->type == LABEL)
 	{
 		if (champion->number_labels >= BUFFER_LABELS - 1)
@@ -104,7 +109,6 @@ void		add_token(t_token *token, t_champion *champion)
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
-	champion->size += size_token(token->type, get_last_intruction_id(champion));
 	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS -1)
 	{
 		champion->tokens = realloc(champion->tokens,

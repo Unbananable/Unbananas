@@ -6,13 +6,13 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 16:34:46 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:47:38 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	delete_token(t_token *token)
+void		delete_token(t_token *token)
 {
 	int t;
 
@@ -22,7 +22,7 @@ void	delete_token(t_token *token)
 		ft_memdel((void**)(&token->value.data));
 }
 
-int search_label(t_champion *c, char *s)
+int			search_label(t_champion *c, char *s)
 {
 	int i;
 
@@ -30,19 +30,18 @@ int search_label(t_champion *c, char *s)
 	while (++i < c->number_token)
 		if (c->tokens[i]->type == LABEL &&
 				!ft_strcmp(c->tokens[i]->value.data, s))
-				return (i);
+			return (i);
 	return (-1);
 }
 
-// appeler seulement apres verify_champion CHANGER
-static int		verify_labelparameter(t_champion *c)
+static int	verify_labelparameter(t_champion *c)
 {
-	int i;
-	int j;
-	t_token *token;
+	int		i;
+	int		j;
+	t_token	*token;
 
-	i = 0;
-	while (i < c->number_token)
+	i = -1;
+	while (++i < c->number_token)
 	{
 		token = c->tokens[i];
 		if (token->type == INSTRUCTION)
@@ -56,16 +55,15 @@ static int		verify_labelparameter(t_champion *c)
 					{
 						ft_printf("fatal error line :%d label \"%s\" not found",
 								token->line, token->param[j]->value.data);
-						exit_msg (" bye\n");
+						exit_msg("bye\n");
 					}
 			}
 		}
-		i++;
 	}
 	return (1);
 }
 
-int		verify_champion(t_champion *c)
+int			verify_champion(t_champion *c)
 {
 	int i;
 	int l;
@@ -74,10 +72,11 @@ int		verify_champion(t_champion *c)
 	i = 0;
 	while (i < c->number_token)
 	{
-		while (i < c->number_token && c->tokens[i] && c->tokens[i]->type == EMPTY)
+		while (i < c->number_token && c->tokens[i] && c->tokens[i]->type
+				== EMPTY)
 			i++;
 		if (i == c->number_token)
-			break;
+			break ;
 		if (!c->tokens[i])
 			exit_msg("probleme champion!");
 		l = c->tokens[i]->line;
@@ -89,6 +88,5 @@ int		verify_champion(t_champion *c)
 		if (c->number_error > NUMBERMAX_ERROR)
 			return (-1);
 	}
-	//verify_labelparameter(c);
 	return ((c->number_error || !c->hasname || !c->hascomment) ? -1 : 1);
 }

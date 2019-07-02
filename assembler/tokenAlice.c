@@ -6,16 +6,16 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:34:12 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:43:59 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-
 /*
- ** on part du principe que operation existe
- */
+** on part du principe que operation existe
+*/
+
 t_token		*add_token_operation(t_token *token, char *s)
 {
 	int i;
@@ -41,7 +41,7 @@ t_token		*add_token_integer(t_token *token, int value)
 	return (token);
 }
 
-t_token *create_token(t_champion *c, int line_nb, int type)
+t_token		*create_token(t_champion *c, int line_nb, int type)
 {
 	t_token		*token;
 
@@ -54,15 +54,16 @@ t_token *create_token(t_champion *c, int line_nb, int type)
 	return (token);
 }
 
-static	int		get_last_intruction_id(t_champion *champion)
+static int	get_last_intruction_id(t_champion *champion)
 {
 	int id;
 	int i;
 
 	i = champion->number_token;
-	while (--i >= 0 && champion->tokens[i]->type != INSTRUCTION)
+	while (--i > 0 && champion->tokens[i]->type != INSTRUCTION)
 		;
-	id = (i < 0) ? -1 : champion->tokens[i]->value.operation->id;
+	id = (champion->tokens[i]->type != INSTRUCTION) ? -1 :
+	champion->tokens[i]->value.operation->id;
 	return (id);
 }
 
@@ -87,7 +88,7 @@ int			size_token(int t, int id)
 	if (t == DIRECT || t == DIRECT_LABEL)
 	{
 		if (id < 0)
-			return (10); // il y'a forcement une erreurs
+			return (10);
 		res = (id > 8 && id < 16 && id != 13) ? 2 : 4;
 	}
 	return (res);
@@ -96,12 +97,8 @@ int			size_token(int t, int id)
 void		add_token(t_token *token, t_champion *champion)
 {
 	if (token->type == INSTRUCTION)
-	{
-		champion->instructions[champion->number_instructions++] = champion->size;
-		champion->size += size_token(token->type, token->value.operation->id);
-	}
-	else
-		champion->size += size_token(token->type, get_last_intruction_id(champion));
+		champion->instructions[champion->number_instructions++] =
+			champion->size;
 	if (token->type == LABEL)
 	{
 		if (champion->number_labels >= BUFFER_LABELS - 1)
@@ -109,7 +106,8 @@ void		add_token(t_token *token, t_champion *champion)
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
-	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS -1)
+	champion->size += size_token(token->type, get_last_intruction_id(champion));
+	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS - 1)
 	{
 		champion->tokens = realloc(champion->tokens,
 		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*));

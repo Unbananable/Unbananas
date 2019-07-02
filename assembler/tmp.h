@@ -6,12 +6,12 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 16:12:55 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:41:47 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
+#ifndef __ASM_H__
+# define __ASM_H__
 
 # include "op.h"
 # include "../ft_printf/includes/ft_printf.h"
@@ -107,7 +107,7 @@ extern				t_op g_op_tab[17];
 ** Autres
 */
 
-int					get_instruction(t_champion *champion, unsigned char *prog);
+
 
 /*
 **=======================PROTO========================

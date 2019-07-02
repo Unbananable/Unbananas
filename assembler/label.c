@@ -1,5 +1,16 @@
-#include "asm.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   label.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
+/*   Updated: 2019/07/02 15:51:49 by abossard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "asm.h"
 
 int		find_label(t_champion *champion, char *str)
 {
@@ -11,8 +22,6 @@ int		find_label(t_champion *champion, char *str)
 			return (champion->labels[i]);
 	return (-1);
 }
-
-
 
 int		already_label(t_champion *champion, char *str, int pos)
 {
@@ -31,7 +40,6 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 	t_token *next;
 
 	next = c->tokens[pos + 1];
-
 	if (!next || (next->type != INSTRUCTION && next->type != LABEL))
 		error_champion(c, "instruction or label not found", t->line);
 	else if (already_label(c, t->value.data, pos))
