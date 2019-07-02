@@ -54,23 +54,24 @@ t_token *create_token(t_champion *c, int line_nb, int type)
 	return (token);
 }
 
-static	t_token	*get_last_intruction(t_champion *champion)
+static	int		get_last_intruction_id(t_champion *champion)
 {
-	t_token *t;
+	int id;
 	int i;
 
 	i = champion->number_token;
 	while (--i > 0 && champion->tokens[i]->type != INSTRUCTION)
 		;
-	t = (champion->tokens[i]->type != INSTRUCTION) ? 0x0 : champion->tokens[i];
-	return (t);
+	id = (champion->tokens[i]->type != INSTRUCTION) ? -1 :
+	champion->tokens[i]->value.operation->id;
+	return (id);
 }
 
 /*
 **	en cad de pb return 10
 */
 
-int			size_token(t_token *token, int t, t_champion *champion)
+int			size_token(int t, int id)
 {
 	int		res;
 	int		tmp;
@@ -83,16 +84,12 @@ int			size_token(t_token *token, int t, t_champion *champion)
 	if (t == INDIRECT || t == INDIRECT_LABEL)
 		res = 2;
 	if (t == INSTRUCTION)
-	{
-		tmp = token->value.operation->id;
-		res = (tmp == 1 || tmp == 9 || tmp == 12) ? 1 : 2;
-	}
+		res = (id == 1 || id == 9 || id == 12) ? 1 : 2;
 	if (t == DIRECT || t == DIRECT_LABEL)
 	{
-		if (!(token = get_last_intruction(champion)))
+		if (id < 0)
 			return (10); // il y'a forcement une erreurs
-		tmp = token->value.operation->id;
-		res = (tmp > 8 && tmp < 16 && tmp != 13) ? 2 : 4;
+		res = (id > 8 && id < 16 && id != 13) ? 2 : 4;
 	}
 	return (res);
 }
@@ -107,7 +104,7 @@ void		add_token(t_token *token, t_champion *champion)
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
-	champion->size += size_token(token, token->type, champion);
+	champion->size += size_token(token->type, get_last_intruction_id(champion));
 	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS -1)
 	{
 		champion->tokens = realloc(champion->tokens,

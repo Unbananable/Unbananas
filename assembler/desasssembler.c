@@ -30,7 +30,8 @@ int			read_champion(t_champion *champion, int fd)
 	}
 	while (i < champion->header->prog_size)
 		i += get_instruction(champion, &champion->prog[i]);
-	//test_champion(champion, MODEREEL);
+	ft_printf("=============\n");
+	test_champion(champion, MODEREEL);
 	return(1);
 }
 

@@ -112,6 +112,7 @@ extern t_op g_op_tab[17];
  **
  */
 int		get_instruction(t_champion *champion, unsigned char *prog);
+int			write_champion_prog(t_champion *champion, char *str);
 //libft a ajoute
 char	*ft_strnjoin(char *s1, char *s2, int size);
 int		manage_label_param(t_champion *champion, char *str);
