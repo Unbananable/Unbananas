@@ -6,13 +6,13 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/27 19:24:21 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:16:17 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_champion *init_champion()
+t_champion			*init_champion(void)
 {
 	t_champion *champion;
 
@@ -35,7 +35,6 @@ t_champion *init_champion()
 	champion->number_instructions = 0;
 	champion->size = 0;
 	champion->number_labels = 0;
-//	champion->number_labels_verif = 0;
 	champion->header->magic = COREWAR_EXEC_MAGIC;
 	return (champion);
 }
@@ -49,7 +48,7 @@ t_fichier			*init_file(char *str)
 	if ((file->fd_in = open(str, O_RDONLY)) == -1)
 		exit_msg("probleme open file (fichier non existant)\n");
 	file->file_name = ft_strnjoin(str, "cor2", ft_strlen(str) - 1);
-	file->fd_out = -1;//j'ouvre le fichier seulement quand ca compile
+	file->fd_out = -1;
 	file->line = 0x0;
 	file->line_nb = 1;
 	return (file);

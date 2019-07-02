@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   recognize.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
+/*   Updated: 2019/07/02 15:50:36 by abossard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 #define NUMBER_OPERATION_MAX 16
+
 extern t_op g_op_tab[17];
 
 int		islabel(char *s)
 {
-
 	int i;
 	int len;
 
@@ -26,7 +38,7 @@ int		isintruction(char *s)
 	while (g_op_tab[++i].operation)
 		if (!ft_strcmp(g_op_tab[i].operation, s))
 			return (1);
-		return (0);
+	return (0);
 }
 
 int		isregister(char *s)
@@ -60,7 +72,7 @@ int		ft_isinteger(char *s)
 	return (0);
 }
 
-int			compose_withthese_letters(char *word, char *letters)
+int		compose_withthese_letters(char *word, char *letters)
 {
 	while (*word)
 	{
@@ -70,7 +82,11 @@ int			compose_withthese_letters(char *word, char *letters)
 	}
 	return (1);
 }
-// verifier si on peux mettre un  '+' devant un nombre indirect
+
+/*
+** verifier si on peux mettre un  '+' devant un nombre indirect
+*/
+
 int		isindirect_label(char *s)
 {
 	if (*s == LABEL_CHAR && ft_strlen(s) > 1 &&

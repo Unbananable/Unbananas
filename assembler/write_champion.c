@@ -6,13 +6,13 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:22:02 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 22:56:02 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:30:10 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char	*ft_strnjoin(char *s1, char *s2, int size)
+char					*ft_strnjoin(char *s1, char *s2, int size)
 {
 	char	*str;
 
@@ -25,12 +25,12 @@ char	*ft_strnjoin(char *s1, char *s2, int size)
 	return (str);
 }
 
-long long		convert_bigendian(long long val, unsigned int size)
+long long				convert_bigendian(long long val, unsigned int size)
 {
-	int		i;
-	int		len;
-	long	long unsigned res;
-	int		base;
+	int					i;
+	int					len;
+	long long unsigned	res;
+	int					base;
 
 	if (size == 1)
 		return (val);
@@ -45,39 +45,40 @@ long long		convert_bigendian(long long val, unsigned int size)
 		if (len > 0)
 			res += (base & val) << len;
 		else
+		{
 			res += (base & val) >> (-len);
 			len -= 16;
+		}
 		base <<= 8;
 	}
 	return (res);
 }
 
-int			write_header(header_t *header, int fd)
+int						write_header(header_t *header, int fd)
 {
 	char		buff[SIZEMAX_STRING + 4];
-	int tmp;
+	int			tmp;
 
-	tmp = convert_bigendian( header->magic, 4);
+	tmp = convert_bigendian(header->magic, 4);
 	write(fd, &tmp, 4);
-	ft_putstr_fd(header->prog_name , fd);
+	ft_putstr_fd(header->prog_name, fd);
 	ft_bzero(buff, SIZEMAX_STRING + 4);
 	tmp = PROG_NAME_LENGTH - ft_strlen(header->prog_name);
 	write(fd, buff, tmp + 4);
 	tmp = convert_bigendian(header->prog_size, 4);
 	write(fd, &tmp, 4);
-	ft_putstr_fd(header->comment , fd);
+	ft_putstr_fd(header->comment, fd);
 	tmp = COMMENT_LENGTH - ft_strlen(header->comment);
 	write(fd, buff, tmp + 4);
 	return (1);
 }
 
-static unsigned char opcode(t_token *token)
+static unsigned char	opcode(t_token *token)
 {
 	unsigned char	res;
 	int				i;
 	int				decalage;
 	int				tmp;
-
 
 	i = -1;
 	decalage = 6;
@@ -96,8 +97,8 @@ static unsigned char opcode(t_token *token)
 	return (res);
 }
 
-
-int		convert_param_hexa(t_champion *c, t_token *token, int start, int id)
+int						convert_param_hexa(t_champion *c, t_token *token,
+							int start, int id)
 {
 	int res;
 	int type;
@@ -107,7 +108,7 @@ int		convert_param_hexa(t_champion *c, t_token *token, int start, int id)
 	type = token->type;
 	if (type != REGISTER)
 	{
-		if((type == DIRECT || type == DIRECT_LABEL) &&
+		if ((type == DIRECT || type == DIRECT_LABEL) &&
 		!(id > 8 && id < 16 && id != 13))
 		{
 			c->prog[start + ++res] = (token->value.number & 0xff000000) >> 24;
@@ -119,12 +120,13 @@ int		convert_param_hexa(t_champion *c, t_token *token, int start, int id)
 	return (res);
 }
 
-int		convert_token_hexa(t_champion *c, int start, t_token *token)
+int						convert_token_hexa(t_champion *c, int start,
+							t_token *token)
 {
-	int res;
-	int id;
-	int i;
-	t_token *tmp;
+	int		res;
+	int		id;
+	int		i;
+	t_token	*tmp;
 
 	res = -1;
 	id = token->value.operation->id;
@@ -137,12 +139,13 @@ int		convert_token_hexa(t_champion *c, int start, t_token *token)
 		if (token->param[i]->type == DIRECT_LABEL ||
 				token->param[i]->type == INDIRECT_LABEL)
 			token->param[i]->value.number -= start;
-res += convert_param_hexa(c, token->param[i], start + res, token->value.operation->id);
+		res += convert_param_hexa(c, token->param[i], start + res,
+				token->value.operation->id);
 	}
 	return (res + 1);
 }
 
-int			manage_prog(t_champion *champion)
+int						manage_prog(t_champion *champion)
 {
 	int i;
 	int tok;
@@ -160,11 +163,10 @@ int			manage_prog(t_champion *champion)
 	return (i);
 }
 
-int			create_champion(t_fichier *file, t_champion *champion)
+int						create_champion(t_fichier *file, t_champion *champion)
 {
 	int size;
 
-	//test_champion(champion, MODEREEL);
 	file->fd_out = open(file->file_name, O_WRONLY | O_CREAT);
 	champion->header->prog_size = champion->size;
 	write_header(champion->header, file->fd_out);
@@ -172,13 +174,5 @@ int			create_champion(t_fichier *file, t_champion *champion)
 	size = manage_prog(champion);
 	write(file->fd_out, champion->prog, size);
 	close(file->fd_out);
-
-	/*afficheLabels(champion);
-	ft_printf("nb magic %u\n", 0xff000000,champion->header->magic%256);
-	ft_printf("prog_name %s\n", champion->header->prog_name);
-	ft_printf("comment %s\n", champion->header->comment);
-	ft_printf("size champion %u\n", champion->size);
-	ft_printf("file: %s\n", file->file_name);
-	*/
 	return (1);
 }

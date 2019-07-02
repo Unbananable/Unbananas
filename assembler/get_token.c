@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 17:36:21 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:57:03 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 	else if (isintruction(s))
 		token = add_token_operation(create_token(c, line_nb, INSTRUCTION), s);
 	else if (isregister(s))
-		token = add_token_integer(create_token(c, line_nb, REGISTER), ft_atoi(&s[1]));
+		token = add_token_integer(create_token(c, line_nb, REGISTER),
+				ft_atoi(&s[1]));
 	else if (ft_isnumber(s))
-		token = add_token_integer(create_token(c, line_nb, INDIRECT), ft_atoi(s));
+		token = add_token_integer(create_token(c, line_nb, INDIRECT),
+				ft_atoi(s));
 	else if (isindirect_label(s))
-		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL), &s[1]);
+		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL),
+				&s[1]);
 	else
 	{
 		token = create_token(c, line_nb, UNKNOWN);

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 23:26:51 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:14:58 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 		return (1);
 	if ((type == INDIRECT_LABEL || type == INDIRECT) && expected & T_IND)
 		return (1);
-		ft_printf("mauvais parametre %s\n", token->value.data);
+	ft_printf("mauvais parametre %s\n", token->value.data);
 	return (0);
 }
 
@@ -56,7 +56,7 @@ int			check_instruction(t_champion *c, t_token *token, int pos,
 		int tok_line)
 {
 	t_op	*instruction;
-	int i;
+	int		i;
 
 	instruction = token->value.operation;
 	if (tok_line >= instruction->number_param * 2)
@@ -64,11 +64,12 @@ int			check_instruction(t_champion *c, t_token *token, int pos,
 		i = -1;
 		while (++i < instruction->number_param)
 		{
-			if (!isgoodparam(c, c->tokens[pos + 2 * i + 1], instruction->tab[i]))
-				return error_champion(c, "bad parameters", token->line);
+			if (!isgoodparam(c, c->tokens[pos + 2 * i + 1],
+						instruction->tab[i]))
+				return (error_champion(c, "bad parameters", token->line));
 			if (i < instruction->number_param - 1 &&
 			c->tokens[pos + 2 * i + 2]->type != SEPARATOR)
-				return error_champion(c, "separator expected", token->line);
+				return (error_champion(c, "separator expected", token->line));
 		}
 		if (tok_line > instruction->number_param * 2)
 			return (error_champion(c, "trop d'elements", token->line));

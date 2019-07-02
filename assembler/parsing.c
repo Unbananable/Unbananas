@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 13:38:44 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:39:57 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char		*join_norme(char *s, char *line, int line_nb)
 {
 	char *res;
-
 
 	if (ft_strlen(s) + ft_strlen(line) < COMMENT_LENGTH + PROG_NAME_LENGTH)
 	{
@@ -32,10 +31,11 @@ static char		*join_norme(char *s, char *line, int line_nb)
 
 char			*string_exeption(t_fichier *file, char *line)
 {
-	int line_nb;
-	char *s = ft_strnew(1);
-	char *tmp;
+	int		line_nb;
+	char	*s;
+	char	*tmp;
 
+	*s = ft_strnew(1);
 	line_nb = file->line_nb;
 	while (!(tmp = ft_strchr(line, '"')) && file->line)
 	{
@@ -54,12 +54,10 @@ char			*string_exeption(t_fichier *file, char *line)
 	return (s);
 }
 
-
-
 static int		is_end_word(char c)
 {
 	if (c == '"' || c == COMMENT_CHAR || c == SEPARATOR_CHAR || c == ';')
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -73,14 +71,14 @@ static int		end_word(char *s, int start)
 	return (start);
 }
 
-static void			analyse_line(t_fichier *file, char *line, t_champion *champion)
+static void		analyse_line(t_fichier *file, char *line, t_champion *champion)
 {
 	int		end;
 	int		len;
 	char	*tmp;
 	int		actual;
 	t_token	*token;
-	
+
 	len = ft_strlen(line);
 	actual = file->line_nb;
 	while (*line && ft_isspace(*line))
@@ -101,7 +99,7 @@ static void			analyse_line(t_fichier *file, char *line, t_champion *champion)
 			end = ft_strchr(line, '"') - line + 1;
 		}
 		else if (*line == COMMENT_CHAR || *line == ';')
-			break;
+			break ;
 		else if (*line == SEPARATOR_CHAR)
 		{
 			line++;
@@ -119,7 +117,7 @@ static void			analyse_line(t_fichier *file, char *line, t_champion *champion)
 	}
 }
 
-int			parsing(t_fichier *f, t_champion *champion)
+int				parsing(t_fichier *f, t_champion *champion)
 {
 	while (get_next_line(f->fd_in, &f->line) > 0)
 	{
@@ -129,10 +127,10 @@ int			parsing(t_fichier *f, t_champion *champion)
 	}
 	ft_strdel(&f->line);
 	ft_printf("verification des erreurs\n");
-
 	if (verify_champion(champion))
 		;
-	if (champion->number_error == 0) create_champion(f, champion);
+	if (champion->number_error == 0)
+		create_champion(f, champion);
 	ft_printf("taille champion %d]", champion->size);
 	free_champion(&champion);
 	free_file(&f);
