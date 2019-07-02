@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_args.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtrigalo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/02 10:53:20 by dtrigalo          #+#    #+#             */
+/*   Updated: 2019/07/02 10:53:22 by dtrigalo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 unsigned char	t_arg(unsigned char argcode)
@@ -17,7 +29,9 @@ int				arg_length(unsigned char argtype, unsigned char opcode)
 		return (1);
 	if (argtype == T_DIR)
 	{
-		if (opcode == FORK_CODE || opcode == LDI_CODE || opcode == LFORK_CODE || opcode == LLD_CODE || opcode == LLDI_CODE || opcode == STI_CODE || opcode == ZJMP_CODE)
+		if (opcode == FORK_CODE || opcode == LDI_CODE || opcode == LFORK_CODE
+				|| opcode == LLD_CODE || opcode == LLDI_CODE
+				|| opcode == STI_CODE || opcode == ZJMP_CODE)
 			return (2);
 		else
 			return (4);
@@ -27,7 +41,8 @@ int				arg_length(unsigned char argtype, unsigned char opcode)
 	return (0);
 }
 
-int				get_arg(t_cor *cor, t_proc *proc, unsigned char argtype, int arglength)
+int				get_arg(t_cor *cor, t_proc *proc, unsigned char argtype,
+		int arglength)
 {
 	int		arg;
 	int		i;
@@ -53,7 +68,8 @@ t_bool			set_args(t_cor *cor, t_proc *proc, int opcode)
 	i = -1;
 	while (++i < op_code[opcode][ARG_NB])
 	{
-		argtype = t_arg((argbits & cor->arena[restricted_add(proc->idx + 1)]) >> (6 - 2 * i));
+		argtype = t_arg((argbits & cor->arena[restricted_add(proc->idx
+						+ 1)]) >> (6 - 2 * i));
 		arglength = arg_length(argtype, opcode);
 		if (argtype & op_code[opcode][ARG_TYPE][i])
 			proc->args[i] = get_arg(cor, proc, argtype, arglength);

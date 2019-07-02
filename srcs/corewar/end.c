@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 10:39:58 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 10:52:09 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Frees a single champion
 */
 
-void delete_champion(t_champ **champ)
+void			delete_champion(t_champ **champ)
 {
 	if (*champ)
 		free((*champ)->redcode);
@@ -24,7 +24,7 @@ void delete_champion(t_champ **champ)
 	*champ = NULL;
 }
 
-static void delete_visu(t_cor *cor)
+static void		delete_visu(t_cor *cor)
 {
 	if (cor->visu)
 	{
@@ -42,9 +42,9 @@ static void delete_visu(t_cor *cor)
 ** Frees the whole t_cor structure.
 */
 
-void end(t_cor *cor)
+void			end(t_cor *cor)
 {
-	int i;
+	int		i;
 
 	if (cor->champs)
 	{
@@ -65,7 +65,7 @@ void end(t_cor *cor)
 ** output and exits the program.
 */
 
-void error(t_cor *cor, char *err_type)
+void			error(t_cor *cor, char *err_type)
 {
 	ft_putstr_fd("error: ", 2);
 	ft_putendl_fd(err_type, 2);
