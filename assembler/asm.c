@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 16:52:50 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:42:23 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ static int		firstcheck(int argc, char **argv)
 	if (len > 2 && s[len - 2] == '.' && s[len - 1] == 's')
 		return (1);
 	return (0);
+}
+
+static int		main_champion(t_champion *champion, t_fichier *file, char *name)
+{
+
+
+	return (1);
 }
 
 int				main(int argc, char **argv)
