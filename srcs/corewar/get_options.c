@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_options.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:27:11 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/25 14:11:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:01:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int			get_options(t_cor *cor, int *ac, char ***av)
 			cor->dump = false;
 			cor->verbose = 0;
 			(*av)++;
-			(*ac)--;
+			if (!((*ac)--))
+				return (ERROR);
 		}
 		else
 			return (ERROR);

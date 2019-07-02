@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:26:17 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/02 12:17:06 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:38:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				get_champ_color(int i)
 		return (COLOR_PAIR(YELLOW) | A_BOLD);
 	if (i == 3)
 		return (COLOR_PAIR(BLUE) | A_BOLD);
-	return (COLOR_PAIR(MAGENTA) | A_BOLD);
+	return (COLOR_PAIR(GRAY) | A_BOLD);
 }
 
 static void		draw_curr_dash(t_cor *cor, int total, int i, int *max)

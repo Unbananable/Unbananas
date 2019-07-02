@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 11:40:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:09:41 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,6 @@
 # define BLUE			17
 # define BLUE_CURSOR	18
 # define BLUE_LIVE		19
-# define MAGENTA		20
-# define MAGENTA_CURSOR	21
-# define MAGENTA_LIVE	22
 # define COLOR_GRAY		23
 # define GRAY			24
 # define GRAY_CURSOR	25
@@ -108,7 +105,7 @@
 
 typedef struct		s_champ
 {
-	header_t		head;
+	t_header		head;
 	int				player_no;
 	unsigned char	*redcode;
 	unsigned int	last_live;
@@ -186,8 +183,8 @@ typedef struct		s_arg
 ** - verbose: verbose level. Each bit represents an aspect of the verbosity.
 ** - nb_procs: current number of live processes [IMPROVE] What if il y en a plus que UINT_MAX ?
 ** - new_proc_n: identifier for the next process created by fork/lfork [IMPROVE] Si > UINT_MAX ?
-** - visu: [TO DO]
-** - visual_on: [TO DO]
+** - visu: structure to manage the visualizer
+** - visual_on: switch related to the presence of the visual option
 */
 
 typedef struct		s_cor
@@ -247,13 +244,13 @@ typedef struct		s_op
 ** - store_bright: bright time after a store (bold)
 */
 
-typedef struct	s_attr
+typedef struct		s_attr
 {
 	bool	cursor;
 	int		owner;
 	int		live_bright;
 	int		store_bright;
-}				t_attr;
+}					t_attr;
 
 /*
 ** VISUALIZER STUCTURE:
@@ -265,7 +262,7 @@ typedef struct	s_attr
 ** - speed: speed descriptor for the Visualizer (from -2 to +2)
 */
 
-typedef struct	s_visu
+typedef struct		s_visu
 {
 	WINDOW	*arena;
 	WINDOW	*arena_info;
@@ -273,90 +270,84 @@ typedef struct	s_visu
 	t_attr	attr_arena[MEM_SIZE];
 	int		is_running;
 	int		speed;
-}				t_visu;
-void			initialize(t_cor *cor);
+}					t_visu;
 
-int				get_options(t_cor *cor, int *ac, char ***av);
+void				initialize(t_cor *cor);
 
-void			get_champions(t_cor *cor, int ac, char **av);
-unsigned int	get_magic(int fd);
-int				get_prog_name(t_champ *champ, int fd);
-unsigned int	get_prog_size(int fd);
-int				get_comment(t_champ *champ, int fd);
-unsigned char	*get_redcode(int fd, unsigned int size);
+int					get_options(t_cor *cor, int *ac, char ***av);
 
-void			order_champions(t_cor *cor);
+void				get_champions(t_cor *cor, int ac, char **av);
+unsigned int		get_magic(int fd);
+int					get_prog_name(t_champ *champ, int fd);
+unsigned int		get_prog_size(int fd);
+int					get_comment(t_champ *champ, int fd);
+unsigned char		*get_redcode(int fd, unsigned int size);
 
-void			arena_setup(t_cor *cor);
+void				order_champions(t_cor *cor);
 
-void			introduce_champions(t_cor *cor);
+void				arena_setup(t_cor *cor);
 
-void			battle(t_cor *cor);
+void				introduce_champions(t_cor *cor);
 
-void			announce_winner(t_cor *cor);
+void				battle(t_cor *cor);
 
-void			instr_live(t_cor *cor, t_proc *proc);
-void			instr_ld(t_cor *cor, t_proc *proc);
-void			instr_st(t_cor *cor, t_proc *proc);
-void			instr_add(t_cor *cor, t_proc *proc);
-void			instr_sub(t_cor *cor, t_proc *proc);
-void			instr_or(t_cor *cor, t_proc *proc);
-void			instr_and(t_cor *cor, t_proc *proc);
-void			instr_xor(t_cor *cor, t_proc *proc);
-void			instr_zjmp(t_cor *cor, t_proc *proc);
-void			instr_sti(t_cor *cor, t_proc *proc);
-void			instr_ldi(t_cor *cor, t_proc *proc);
-void			instr_lld(t_cor *cor, t_proc *proc);
-void			instr_lldi(t_cor *cor, t_proc *proc);
-void			instr_aff(t_cor *cor, t_proc *proc);
-void			instr_fork(t_cor *cor, t_proc *proc);
-void			instr_lfork(t_cor *cor, t_proc *proc);
+void				announce_winner(t_cor *cor);
 
-int				get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
+void				instr_live(t_cor *cor, t_proc *proc);
+void				instr_ld(t_cor *cor, t_proc *proc);
+void				instr_st(t_cor *cor, t_proc *proc);
+void				instr_add(t_cor *cor, t_proc *proc);
+void				instr_sub(t_cor *cor, t_proc *proc);
+void				instr_or(t_cor *cor, t_proc *proc);
+void				instr_and(t_cor *cor, t_proc *proc);
+void				instr_xor(t_cor *cor, t_proc *proc);
+void				instr_zjmp(t_cor *cor, t_proc *proc);
+void				instr_sti(t_cor *cor, t_proc *proc);
+void				instr_ldi(t_cor *cor, t_proc *proc);
+void				instr_lld(t_cor *cor, t_proc *proc);
+void				instr_lldi(t_cor *cor, t_proc *proc);
+void				instr_aff(t_cor *cor, t_proc *proc);
+void				instr_fork(t_cor *cor, t_proc *proc);
+void				instr_lfork(t_cor *cor, t_proc *proc);
+
+int					get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
 		bool addr_restriction);
-int				get_args(t_cor *cor, t_proc *proc);
-short			get_short_arg_value(t_cor *cor, int idx);
-int				get_int_arg_value(t_cor *cor, int idx, int size);
-int				get_reg_value(unsigned char *reg);
-int				restricted_addr(int new_idx);
-void			mapcpy(t_cor *cor, t_proc *proc, unsigned int idx,
+int					get_args(t_cor *cor, t_proc *proc);
+short				get_short_arg_value(t_cor *cor, int idx);
+int					get_int_arg_value(t_cor *cor, int idx, int size);
+int					get_reg_value(unsigned char *reg);
+int					restricted_addr(int new_idx);
+void				mapcpy(t_cor *cor, t_proc *proc, unsigned int idx,
 		void *content);
-void			regcpy(unsigned char *reg, void *content);
+void				regcpy(unsigned char *reg, void *content);
 
-t_proc			*new_proc(void);
-t_proc			*add_proc(t_proc *new, t_proc *list);
-void			delete_procs(t_proc **procs);
-void			delete_proc(t_proc **proc);
-t_proc			*clone_proc(t_cor *cor, t_proc *original);
+t_proc				*new_proc(void);
+t_proc				*add_proc(t_proc *new, t_proc *list);
+void				delete_procs(t_proc **procs);
+void				delete_proc(t_proc **proc);
+t_proc				*clone_proc(t_cor *cor, t_proc *original);
 
-void			dump(t_cor *cor);
+void				dump(t_cor *cor);
 
-void			end(t_cor *cor);
-void			error(t_cor *cor, char *err_type);
-void			delete_champion(t_champ **champ);
+void				end(t_cor *cor);
+void				error(t_cor *cor, char *err_type);
+void				delete_champion(t_champ **champ);
 
-//
-/* DEV */
-void		print_cor(t_cor *cor);
-
-
-
-void init_visu(t_cor *cor);
-int get_attribute(t_cor *cor, int idx);
-void draw_starting_arena(t_cor *cor);
-void draw_arenas(t_cor *cor);
-void create_color_panel(void);
-void highlight_speed_button(t_cor *cor);
-void modify_speed_factor(t_cor *cor, int key);
-void apply_speed(t_cor *cor);
-void manage_arena(t_cor *cor);
-void manage_arena_info(t_cor *cor);
-void manage_arena_period_bar(t_cor *cor);
-void manager(t_cor *cor, int key);
-void boxing(WINDOW *window);
-void draw_current_live(t_cor *cor);
-void draw_last_live(t_cor *cor);
-int get_champ_color(int i);
-
+void				init_visu(t_cor *cor);
+int					get_attribute(t_cor *cor, int idx);
+void				draw_starting_arena(t_cor *cor);
+void				draw_arenas(t_cor *cor);
+void				create_color_panel(void);
+void				highlight_speed_button(t_cor *cor);
+void				modify_speed_factor(t_cor *cor, int key);
+void				apply_speed(t_cor *cor);
+void				manage_arena(t_cor *cor);
+void				manage_arena_info(t_cor *cor);
+void				manage_arena_period_bar(t_cor *cor);
+void				manager(t_cor *cor, int key);
+void				boxing(WINDOW *window);
+void				draw_current_live(t_cor *cor);
+void				draw_last_live(t_cor *cor);
+int					get_champ_color(int i);
 
 #endif
