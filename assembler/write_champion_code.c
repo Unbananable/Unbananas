@@ -13,8 +13,30 @@
 #include "asm.h"
 
 
-void		write_line_token(t_token *token)
+void		write_line_token(t_token *token, int fd)
 {
+	int i = -1;
+	int id;
+	char *tmp;
+	char tab[1000];
+
+	ft_bzero(tab, 1000);
+	ft_strcat(tab, token->value.operation->operation);
+	ft_strcat(tab, "\t");
+	id = token->value.operation->id;
+	while (++i < token->value.operation->number_param)
+	{
+		if (token->param[i]->type == REGISTER)
+			ft_strcat(tab, "r");
+		else if (token->param[i]->type == DIRECT)
+			ft_strcat(tab, "%");
+		//cast la valeur puis ft_itoa +> strcat > si i < lim = strcat(,) 
+//tmp = ft_itoa()
+		//ft_(token->param[i]->value.number, )
+
+
+
+	}
 
 
 }
@@ -37,7 +59,7 @@ int			write_champion_prog(t_champion *champion, char *str)
 	ft_putstr_fd(champion->header->comment, fd);
 	ft_putstr_fd("\"\n",fd);
 	while (++i < champion->number_token)
-		write_line_token(champion->tokens[i]);
+		write_line_token(champion->tokens[i], fd);
 	close (fd);
 	return (0);
 }

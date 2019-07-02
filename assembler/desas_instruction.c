@@ -20,12 +20,30 @@ t_token		*add_token_operation_id(t_token *token, unsigned int id)
 	return (token);
 }
 
-
-int		get_param(t_champion *champion, char param, unsigned char *prog, int pos)
+/*
+int		size_token(int type, int id)
 {
-	t_token *token;
+	if ((type == DIRECT || type == DIRECT_LABEL) && !(id > 8 && id < 16
+	&& id != 13))
+		return (4);
+	else if (type == REGISTER)
+		return (1);
+	else if (!(type == DIRECT || type == DIRECT_LABEL || type == INDIRECT
+	|| type == INDIRECT_LABEL))
+	{
+		ft_printf("probleme de taille ;)");
+		return (10);
+	}
+	else
+		return (2);
+}
+*/
+
+int		get_param(t_champion *champion, char param, unsigned char *prog, int pos, t_token **tt)
+{
 	int size;
 	int value;
+	t_token *token = *tt;
 
 	if (param == REG_CODE || param == T_REG)
 		token = create_token(champion, 0 , REGISTER);
@@ -71,12 +89,12 @@ int		get_instruction(t_champion *champion, unsigned char *prog)
 		param[1] = (prog[1] & 46) >> 4;
 		param[2] = (prog[1] & 12) >> 2;
 		while (param[++i])
-			pos += get_param(champion, param[i], prog, pos);
+			pos += get_param(champion, param[i], prog, pos, &token->param[i]);
 	}
 	else
 		while (++i < token->value.operation->number_param)
 			pos += get_param(champion, token->value.operation->tab[i],
-					prog, pos);
+					prog, pos, &token->param[i]);
 
 	return (pos);
 }
