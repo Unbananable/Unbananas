@@ -6,20 +6,42 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:03:42 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 23:17:58 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:37:36 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+long long	ft_cast_element(long long value, unsigned char size)
+{
+	if (size == 1)
+		value = (char) value;
+	else if (size == 2)
+		value = (short int) value;
+	else if (size == 4)
+		value = (int) value;
+	else if (size == 8)
+		value = (long) value;
+	else if (size == 16)
+		value = (long long) value;
+	return (value);
+}
+int oo = 0;
 
 void		write_line_token(t_token *token, int fd)
 {
-	int i = -1;
+	int i;
 	int id;
 	char *tmp;
 	char tab[1000];
+	char separator[3];
 
+
+	ft_printf("ecriture inst\n");
+	i = -1;
+	separator[0] = SEPARATOR_CHAR;
+	separator[1] = ' ';
+	separator[2] = '\0';
 	ft_bzero(tab, 1000);
 	ft_strcat(tab, token->value.operation->operation);
 	ft_strcat(tab, "\t");
@@ -30,15 +52,14 @@ void		write_line_token(t_token *token, int fd)
 			ft_strcat(tab, "r");
 		else if (token->param[i]->type == DIRECT)
 			ft_strcat(tab, "%");
-		//cast la valeur puis ft_itoa +> strcat > si i < lim = strcat(,) 
-//tmp = ft_itoa()
-		//ft_(token->param[i]->value.number, )
-
-
-
+		tmp = ft_itoa(ft_cast_element(token->param[i]->value.number,
+				size_token(token->param[i]->type, id)));
+		ft_strcat(tab, tmp);
+		(i < token->value.operation->number_param - 1) ?
+			ft_strcat(tab, separator) : ft_strcat(tab, "\n");
+		ft_strdel(&tmp);
 	}
-
-
+	ft_putstr_fd(tab, fd);
 }
 
 int			write_champion_prog(t_champion *champion, char *str)
@@ -47,7 +68,7 @@ int			write_champion_prog(t_champion *champion, char *str)
 	int i;
 
 	i = -1;
-	str = ft_strnjoin(str, "s2", ft_strlen(str) - 3);
+	str = ft_strnjoin(str, "2.s", ft_strlen(str) - 4);
 	fd = open(str, O_WRONLY | O_CREAT);
 	ft_memdel((void**)&str);
 	ft_putstr_fd(NAME_CMD_STRING,fd);
@@ -58,6 +79,7 @@ int			write_champion_prog(t_champion *champion, char *str)
 	ft_putstr_fd(" \"",fd);
 	ft_putstr_fd(champion->header->comment, fd);
 	ft_putstr_fd("\"\n",fd);
+	ft_printf("ecriture\n");
 	while (++i < champion->number_token)
 		write_line_token(champion->tokens[i], fd);
 	close (fd);

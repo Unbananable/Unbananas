@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 23:14:53 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:48:10 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			read_champion(t_champion *champion, int fd)
 	}
 	while (i < champion->header->prog_size)
 		i += get_instruction(champion, &champion->prog[i]);
-	ft_printf("=============\n");
+	ft_printf("=============\n\n\n");
 	test_champion(champion, MODEREEL);
 	return(1);
 }
