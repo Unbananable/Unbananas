@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 15:46:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/02 11:33:47 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "ft_printf.h"
 
 # include <stdio.h>
+# include <ncurses.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -56,6 +57,43 @@
 # define V_OPERATIONS 4
 # define V_DEATHS 8
 # define V_PROC 16
+
+/*
+** Visualizer related defines
+*/
+
+# define HEIGHT (MEM_SIZE / 64 + 4)
+# define WIDTH ((MEM_SIZE / 64) * 3 + 5)
+
+# define LIVE_BRIGHT_TIME 50
+# define STORE_BRIGHT_TIME 50
+
+# define VERY_SLOW 900000
+# define SLOW 300000
+# define NORMAL 100000
+# define FAST 40000
+
+# define RED			8
+# define RED_CURSOR		9
+# define RED_LIVE		10
+# define GREEN			11
+# define GREEN_CURSOR	12
+# define GREEN_LIVE		13
+# define YELLOW			14
+# define YELLOW_CURSOR	15
+# define YELLOW_LIVE	16
+# define BLUE			17
+# define BLUE_CURSOR	18
+# define BLUE_LIVE		19
+# define MAGENTA		20
+# define MAGENTA_CURSOR	21
+# define MAGENTA_LIVE	22
+# define COLOR_GRAY		23
+# define GRAY			24
+# define GRAY_CURSOR	25
+# define BLACK			26
+# define WHITE			27
+# define SPEED_HIGHLIGHT 28
 
 typedef enum		e_bool
 {
@@ -183,13 +221,12 @@ typedef struct		s_cor
 
 /*
 ** OPERATION STRUCTURE:
-** - name: nom de l'operation
-** - nb_args: nombre d'arguments que prend l'operation
-** - args : liste contenant les types d'arguments acceptable pour chaque
-**          argument
-** - opcode: code de l'operation
-** - wait: nombre de cycles d'attente avant execution de l'operation
-** - full_name: nom etendu de l'operation
+** - name: operation name
+** - nb_args: number of arguments taken by the operation
+** - args : list containing the acceptable argument types for every arguments
+** - opcode: operation code
+** - wait: number of cycles to wait before the operation execution
+** - full_name: extended name of the operation
 ** - f: pointer to the associated function
 ** - dir_size: size (in byte) of the direct reference (2 or 4)
 ** - ind_size: type of indirect reference (2 for short, 4 for int)
@@ -208,6 +245,41 @@ typedef struct		s_op
 	int				ind_size;
 }					t_op;
 
+/*
+** ATTRIBUTES STRUCTURE:
+** - cursor: is the cursor on the case or not
+** - owner: color of the owning process (related to its original champion)
+** - live_bright: bright time after a live_bright
+** - store_bright: bright time after a store (bold)
+*/
+
+typedef struct	s_attr
+{
+	t_bool	cursor;
+	int		owner;
+	int		live_bright;
+	int		store_bright;
+}				t_attr;
+
+/*
+** VISUALIZER STUCTURE:
+** - arena: main arena, containing the memory
+** - arena_info: sidebar with every infos (cycle, champions, ...)
+** - arena_period_bar: bottom bar describing distance to the end of periods
+** - attr_arena: virtual map associating every case with it ATTRIBUTES
+** - is_running: is the VM running or paused
+** - speed: speed descriptor for the Visualizer (from -2 to +2)
+*/
+
+typedef struct	s_visu
+{
+	WINDOW	*arena;
+	WINDOW	*arena_info;
+	WINDOW	*arena_period_bar;
+	t_attr	attr_arena[MEM_SIZE];
+	int		is_running;
+	int		speed;
+}				t_visu;
 void			initialize(t_cor *cor);
 
 int				get_options(t_cor *cor, int *ac, char ***av);
@@ -251,9 +323,10 @@ int				get_arg_true_val(t_cor *cor, t_proc *proc, t_arg arg,
 int				get_args(t_cor *cor, t_proc *proc);
 short			get_short_arg_value(t_cor *cor, int idx);
 int				get_int_arg_value(t_cor *cor, int idx, int size);
-int 			get_reg_value(unsigned char *reg);
+int				get_reg_value(unsigned char *reg);
 int				restricted_addr(int new_idx);
-void			mapcpy(t_cor *cor, t_proc *proc, unsigned int idx, void *content);
+void			mapcpy(t_cor *cor, t_proc *proc, unsigned int idx,
+		void *content);
 void			regcpy(unsigned char *reg, void *content);
 
 t_proc			*new_proc(void);
@@ -268,65 +341,11 @@ void			end(t_cor *cor);
 void			error(t_cor *cor, char *err_type);
 void			delete_champion(t_champ **champ);
 
-//# include "op.c"
-
+//
 /* DEV */
 void		print_cor(t_cor *cor);
 
-/* *** VISU *** */
 
-# include <ncurses.h>
-
-# define HEIGHT (MEM_SIZE / 64 + 4)
-# define WIDTH ((MEM_SIZE / 64) * 3 + 5)
-
-# define LIVE_BRIGHT_TIME 50
-# define STORE_BRIGHT_TIME 50
-
-# define VERY_SLOW 900000
-# define SLOW 300000
-# define NORMAL 100000
-# define FAST 40000
-
-# define RED			8
-# define RED_CURSOR		9
-# define RED_LIVE		10
-# define GREEN			11
-# define GREEN_CURSOR	12
-# define GREEN_LIVE		13
-# define YELLOW			14
-# define YELLOW_CURSOR	15
-# define YELLOW_LIVE	16
-# define BLUE			17
-# define BLUE_CURSOR	18
-# define BLUE_LIVE		19
-# define MAGENTA		20
-# define MAGENTA_CURSOR	21
-# define MAGENTA_LIVE	22
-# define COLOR_GRAY		23
-# define GRAY			24
-# define GRAY_CURSOR	25
-# define BLACK			26
-# define WHITE			27
-# define SPEED_HIGHLIGHT 28
-
-typedef struct	s_attr
-{
-	t_bool	cursor;
-	int		owner;
-	int		live_bright;
-	int		store_bright;
-}				t_attr;
-
-typedef struct	s_visu
-{
-	WINDOW	*arena;
-	WINDOW	*arena_info;
-	WINDOW	*arena_period_bar;
-	t_attr	attr_arena[MEM_SIZE];
-	int		is_running;
-	int		speed;
-}				t_visu;
 
 void init_visu(t_cor *cor);
 int get_attribute(t_cor *cor, int idx);
