@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:41:20 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 17:05:25 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 14:25:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*accuracy_p(char *str, size_t len)
 	return (ret);
 }
 
-static char	*accuracy_s(char *str, size_t len)
+static char	*accuracy_s(char *str, t_specs specs)
 {
 	char			*ret;
 	int				i;
@@ -35,22 +35,25 @@ static char	*accuracy_s(char *str, size_t len)
 
 	if (!str[0])
 		return (ft_strdup(""));
-	if (!(ret = ft_strnew(len + 1)))
+	if (!(ret = ft_strnew(specs.accuracy)))
 		return (NULL);
-	ft_strncpy(ret, str, len);
-	i = -1;
-	while (++i < (int)len)
+	ft_strncpy(ret, str, specs.accuracy);
+	if (specs.mod & MOD_L)
 	{
-		j = 0;
-		byte = 128;
-		while (byte & ret[i])
+		i = -1;
+		while (++i < (int)specs.accuracy)
 		{
-			byte = byte >> 1;
-			j++;
+			j = 0;
+			byte = 128;
+			while (byte & ret[i])
+			{
+				byte = byte >> 1;
+				j++;
+			}
+			if (i + j > (int)specs.accuracy)
+				while (ret[i])
+					ret[i++] = 0;
 		}
-		if (i + j > (int)len)
-			while (ret[i])
-				ret[i++] = 0;
 	}
 	return (ret);
 }
@@ -89,7 +92,7 @@ char		*accuracy(char *str, t_specs *specs)
 	else if (specs->conv == 'p' && specs->accuracy + 2 >= specs->len)
 		ret = accuracy_p(str, specs->accuracy);
 	else if (specs->conv == 's')
-		ret = accuracy_s(str, specs->accuracy);
+		ret = accuracy_s(str, *specs);
 	else if (!ft_strchr("cpf%", specs->conv) && specs->len <= specs->accuracy)
 		ret = accuracy_reg(str, specs->accuracy);
 	else
