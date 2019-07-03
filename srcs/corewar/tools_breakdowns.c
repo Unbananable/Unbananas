@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 18:26:17 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/02 15:38:47 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:48:27 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void		draw_last_dash(t_cor *cor, int total, int i, int *max)
 	int		attribute;
 
 	j = -1;
-	attribute = (cor->curr_cycle >= CYCLE_TO_DIE) ? get_champ_color(i) : COLOR_PAIR(GRAY);
-	
+	attribute = (cor->curr_cycle >= CYCLE_TO_DIE)
+		? get_champ_color(i) : COLOR_PAIR(GRAY);
 	wattron(cor->visu->arena_info, attribute);
 	while (++j < (((double)cor->champs[i]->lives_in_last_period * 50)
 				/ total) && *max < 50)

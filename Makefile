@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 17:21:08 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/03 17:43:40 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME2 = asm
 NAME3 = unassembler
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = announce_winner.c \
+SRC = op.c \
+	  announce_winner.c \
 	  arena_setup.c \
 	  battle.c \
 	  dump.c \
@@ -55,8 +56,6 @@ SRC = announce_winner.c \
 	  manage_arena_period_bar.c \
 	  manage_arena.c \
 	  tools_breakdowns.c
-
-SRCZAZ = op.c
 
 SRCASSEMBLER = check_instruction.c \
 			   check_token.c \

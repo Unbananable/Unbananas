@@ -6,12 +6,13 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 16:54:54 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:42:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "op.c"
+
+extern	struct s_op op_tab[17];
 
 /*
 ** Initializes the t_cor structure.
