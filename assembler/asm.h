@@ -154,7 +154,7 @@ void				exit_msg(char *str);
 ** init.c
 */
 
-t_fichier			*init_file(char *str);
+t_fichier			*init_file();
 t_champion			*init_champion();
 header_t			*init_header(t_champion *champion);
 
