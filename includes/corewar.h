@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 16:09:41 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:24:16 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ typedef struct		s_champ
 
 typedef struct		s_proc
 {
-	int				n;
+	unsigned int	n;
 	int				parent_id;
 	bool			carry;
 	unsigned char	opcode;
@@ -181,8 +181,8 @@ typedef struct		s_arg
 ** - dump_cycle: number of the cycle at which the memory (arena) must be dumped
 **               (only when dump is set to 1)
 ** - verbose: verbose level. Each bit represents an aspect of the verbosity.
-** - nb_procs: current number of live processes [IMPROVE] What if il y en a plus que UINT_MAX ?
-** - new_proc_n: identifier for the next process created by fork/lfork [IMPROVE] Si > UINT_MAX ?
+** - nb_procs: current number of live processes
+** - new_proc_n: identifier for the next process created by fork/lfork
 ** - visu: structure to manage the visualizer
 ** - visual_on: switch related to the presence of the visual option
 */
