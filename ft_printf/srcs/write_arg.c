@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:26:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:07:28 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:51:57 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	flag_sanitize(t_specs *specs)
 static int	is_conv(char c)
 {
 	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
-			|| c == 'u' || c == 'x' || c == '%' || c == 'f')
+			|| c == 'u' || c == 'x' || c == 'X' || c == '%' || c == 'f')
 		return (1);
 	return (0);
 }

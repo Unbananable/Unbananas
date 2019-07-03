@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:00:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:59:12 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ int					ft_intlen(int nb);
 int					ft_round_double(double n);
 int					ft_atoui(const char *s);
 int					ft_isuint(char *str);
+char				*ft_llitoa_base(unsigned long long n, int base);
 
 #endif

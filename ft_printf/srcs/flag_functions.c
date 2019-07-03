@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 17:11:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 15:37:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:34:58 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 char	*flag_hash(char *str, t_specs *specs)
 {
 	char	*ret;
+	int		i;
+	int		j;
 
 	if (specs->conv == 'o' || specs->conv == 'x' || specs->conv == 'X')
 	{
 		ret = str;
-		if (ft_strequ(str, "0") || ft_strequ(str, ""))
+		i = 0;
+		while (str[i] && str[i] == ' ')
+			i++;
+		j = i;
+		while (str[j])
+			if (str[j] != '0')
+				break ;
+			else
+				j++;
+		if (!str[j])
 			return (str);
-		if (specs->conv == 'o')
+		if (specs->conv == 'o' && str[i] != '0')
 			ret = suffix("0", str);
 		else if (specs->conv == 'x')
 			ret = suffix("0x", str);
