@@ -12,26 +12,26 @@
 
 #include "asm.h"
 
-static int		firstcheck(int argc, char **argv)
+static int		firstcheck(t_fichier **file, char *s)
 {
 	int				len;
-	char			*s;
 
-	if (argc == 1)
-		return (0);
-	else if (argc > 2)
-		return (0);
-	s = argv[1];
 	len = ft_strlen(s);
 	if (len > 2 && s[len - 2] == '.' && s[len - 1] == 's')
-		return (1);
+		if (((*file)->fd_in = open(s, O_RDONLY)) != -1)
+		{
+			(*file)->file_name = ft_strnjoin(s, "9.cor", ft_strlen(s) - 2);
+			return (1);
+		}
 	return (0);
 }
 
 static int		main_champion(t_champion *champion, t_fichier *file, char *name)
 {
-
-
+	if (!firstcheck(&file, name))
+		return (0);
+	if (!parsing(file, champion))
+		return (0);
 	return (1);
 }
 
@@ -39,13 +39,12 @@ int				main(int argc, char **argv)
 {
 	t_champion		*champion;
 	t_fichier		*file;
+	int i;
 
-	if (!firstcheck(argc, argv))
+	i = 0;
+	if(!(champion = init_champion()) || !(file = init_file()))
 		return (0);
-	champion = init_champion();
-	if (!(file = init_file(argv[1])))
-		return (0);
-	if (!parsing(file, champion))
-		return (0);
+	while (++i < argc)
+		main_champion(champion, file, argv[i]);
 	return (0);
 }
