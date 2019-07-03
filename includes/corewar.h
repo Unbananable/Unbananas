@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/03 10:24:16 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:01:17 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
-# define UINT_MAX 4294967295
 
 # define CYCLE_LIVE 10
 # define CYCLE_LD 5

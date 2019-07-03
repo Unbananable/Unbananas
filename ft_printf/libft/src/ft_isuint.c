@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:25:58 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 11:17:08 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:59:51 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		ft_isuint(char *str)
 		return (1);
 	last_digit = str[ft_strlen(str) - 1];
 	str[ft_strlen(str) - 1] = 0;
-	if (ft_atoi(str) > UINT_MAX / 10 || (ft_atoi(str) == UINT_MAX / 10
+	if ((unsigned int)ft_atoi(str) > UINT_MAX / 10
+			|| ((unsigned int)ft_atoi(str) == UINT_MAX / 10
 				&& last_digit > 5))
 		return (0);
 	return (1);

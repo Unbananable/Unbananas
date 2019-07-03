@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:19:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:00:08 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:41:24 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <limits.h>
+# include "get_next_line.h"
 
-# define BUFF_SIZE 2048
-# define UINT_MAX 4294967295
+# define BUFF_SIZE 4096
 
 typedef struct		s_list
 {
@@ -36,6 +37,7 @@ typedef struct		s_file
 	int				i;
 }					t_file;
 
+int					ft_isspace(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -74,6 +76,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 int					ft_atoi(const char *str);
+long long			ft_atoll(const char *str);
 unsigned int		ft_atoi_base(unsigned char *str, int base);
 char				*ft_itoa(int n);
 void				ft_putnbr(int n);

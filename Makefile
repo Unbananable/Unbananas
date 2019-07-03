@@ -6,11 +6,13 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/01 11:18:33 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/03 17:21:08 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
+NAME2 = asm
+NAME3 = unassembler
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = announce_winner.c \
@@ -53,11 +55,38 @@ SRC = announce_winner.c \
 	  manage_arena_period_bar.c \
 	  manage_arena.c \
 	  tools_breakdowns.c
-SRCSFD = srcs/corewar/
-OBJSFD = objs_cor/
-OBJS = $(addprefix $(OBJSFD),$(SRC:.c=.o))
 
-HDR = corewar.h op.h 
+SRCZAZ = op.c
+
+SRCASSEMBLER = check_instruction.c \
+			   check_token.c \
+				op.c\
+			   error.c free.c\
+			   get_token.c\
+			   init.c\
+			   label.c\
+			   parsing.c\
+			   recognize.c\
+				test.c\
+				token.c\
+				verify.c\
+				write_champion.c\
+				desas_instruction.c\
+				write_champion_code.c
+
+MAIN_ASSEMBLER = asm.c
+MAIN_UNASSEMBLER = desasssembler.c
+
+SRCSFD = srcs/
+OBJSFD = objs/
+OBJSVM = $(addprefix $(OBJSFD)$(VMFOLDER),$(SRC:.c=.o))
+OBJSASM = $(addprefix $(OBJSFD)$(ASMFOLDER),$(SRCASSEMBLER:.c=.o))
+OBJSASM += $(addprefix $(OBJSFD)$(ASMFOLDER),$(MAIN_ASSEMBLER:.c=.o))
+OBJSUNASM = $(addprefix $(OBJSFD)$(ASMFOLDER),$(SRCASSEMBLER:.c=.o))
+OBJSUNASM += $(addprefix $(OBJSFD)$(ASMFOLDER),$(MAIN_UNASSEMBLER:.c=.o))
+VMFOLDER = corewar/
+ASMFOLDER = assembler/
+HDR = corewar.h op.h asm.h
 HDRSFD = includes/
 HDRS = $(addprefix $(HDRSFD),$(HDR))
 
@@ -71,11 +100,19 @@ GREEN = \033[0;32m
 NONE = \033[0m
 BOLD_UNDERLINED = \033[1;4m
 
-all: make_start check_libft project $(NAME) $(HDRS)
+all: make_start check_libft project $(NAME) $(NAME2) $(NAME3) $(HDRS)
 	@echo "\n\033[1;4;42m!! Success !!$(NONE)\n"
 
-$(NAME): $(OBJSFD) $(OBJS) $(LIBFT) $(HDRS)
-	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) -o $@
+$(NAME): $(OBJSFD) $(OBJSVM) $(LIBFT) $(HDRS)
+	@gcc $(CFLAGS) $(OBJSVM) $(LIB_BINARY) -o $@
+	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
+
+$(NAME2): $(OBJSFD) $(OBJSASM) $(LIBFT) $(HDRS)
+	@gcc  $(OBJSASM) $(LIB_BINARY) -o $@
+	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
+
+$(NAME3): $(OBJSFD) $(OBJSUNASM) $(LIBFT) $(HDRS)
+	@gcc  $(OBJSUNASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 make_start:
@@ -90,15 +127,17 @@ project:
 
 $(OBJSFD):
 	@mkdir $@
+	@mkdir $@/$(VMFOLDER)
+	@mkdir $@/$(ASMFOLDER)
 	@echo "[ $(GREEN)✔$(NONE) ] objs/ directory"
 
-$(OBJSFD)%.o: $(SRCSFD)%.c $(HDRS) $(LIBFT)
+$(OBJSFD)$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c  $(HDRS) $(LIBFT)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
-visualizer:
-	@echo "\n$(BOLD_UNDERLINED)<| Adding visualizer |>$(NONE)"
-	@make -C ./bonus_visualizer
+$(OBJSFD)$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c  $(HDRS) $(LIBFT)
+	@gcc  $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
+	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 clean:
 	@/bin/rm -rf $(OBJSFD)
@@ -112,4 +151,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: make_start all check_libft project clean fclean re visualizer
+.PHONY: make_start all check_libft project clean fclean re

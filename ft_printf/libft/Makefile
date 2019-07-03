@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/01 17:26:04 by anleclab         ###   ########.fr        #
+#    Updated: 2019/07/03 16:36:54 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME = libft.a
 FLAGS = -Wall -Werror -Wextra -g3
 INC = -I./inc
 SRC_DIR = src
-SRC_NAMES = ft_round_double.c \
+SRC_NAMES = ft_isspace.c\
+	  ft_atoll.c\
+	  get_next_line.c\
+	  ft_round_double.c \
 	  ft_memset.c \
 	  ft_bzero.c \
 	  ft_memcpy.c \
