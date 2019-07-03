@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 11:31:43 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 13:58:31 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 16:11:12 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static unsigned char	*ft_wchar_to_3bytes(wint_t c)
 static unsigned char	*ft_wchar_to_2bytes(wint_t c)
 {
 	unsigned char	*res;
+
 	if (!(res = (unsigned char *)ft_strnew(2)))
 		return (NULL);
 	res[0] = (((c & (0b11111 << 6)) >> 6) | 0b11000000);

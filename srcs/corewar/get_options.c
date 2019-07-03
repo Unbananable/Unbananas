@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_options.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:27:11 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/25 14:11:50 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:59:40 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_dump_info(t_cor *cor, int *ac, char ***av)
 	{
 		if (!ft_isuint((*av)[1]))
 			return (ERROR);
-		cor->dump = true;
+		cor->dump = !cor->visual_on;
 		cor->dump_cycle = ft_atoui((*av)[1]);
 		(*av) += 2;
 		(*ac) -= 2;
@@ -34,7 +34,7 @@ static int	get_verbose_info(t_cor *cor, int *ac, char ***av)
 	{
 		if (!ft_isuint((*av)[1]) || ft_atoui((*av)[1]) > 31)
 			return (ERROR);
-		cor->verbose = (char)ft_atoui((*av)[1]);
+		cor->verbose = (cor->visual_on == true) ? 0 : (char)ft_atoui((*av)[1]);
 		(*av) += 2;
 		(*ac) -= 2;
 		return (0);
@@ -45,7 +45,7 @@ static int	get_verbose_info(t_cor *cor, int *ac, char ***av)
 
 int			get_options(t_cor *cor, int *ac, char ***av)
 {
-	while ((*av)[0][0] == '-')
+	while (*ac && (*av)[0][0] == '-')
 		if (ft_strequ((*av)[0], "-dump"))
 		{
 			if (get_dump_info(cor, ac, av) == ERROR)

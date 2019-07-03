@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_procs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 18:38:34 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/24 12:17:29 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 09:56:10 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_proc	*clone_proc(t_cor *cor, t_proc *original)
 	new->parent_id = original->parent_id;
 	new->carry = original->carry;
 	new->last_live_cycle = original->last_live_cycle;
+	if (cor->nb_procs > UINT_MAX || new->n > UINT_MAX)
+		error(cor, "Processus number exceeded (UINT_MAX)");
 	i = -1;
 	while (++i < REG_NUMBER)
 		ft_memcpy(new->regs[i], original->regs[i], REG_SIZE);

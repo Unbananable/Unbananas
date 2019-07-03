@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_color_panel.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 11:35:15 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/06/25 13:51:32 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:38:57 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,5 @@ void	create_color_panel(void)
 	init_pair(BLUE, COLOR_BLUE, BLACK);
 	init_pair(BLUE_CURSOR, BLACK, COLOR_BLUE);
 	init_pair(BLUE_LIVE, WHITE, COLOR_BLUE);
-	init_pair(MAGENTA, COLOR_MAGENTA, BLACK);
-	init_pair(MAGENTA_CURSOR, BLACK, COLOR_MAGENTA);
-	init_pair(MAGENTA_LIVE, WHITE, COLOR_MAGENTA);
 	init_pair(SPEED_HIGHLIGHT, BLACK, WHITE);
 }
