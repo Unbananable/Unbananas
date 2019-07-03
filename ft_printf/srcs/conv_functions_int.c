@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 09:57:10 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 14:46:07 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:48:25 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*conv_o(va_list ap, t_specs *specs)
 		res = va_arg(ap, unsigned int);
 	if (res == 0)
 		return (ft_strdup("0"));
-	return (ft_itoa_base(res, 8));
+	return (ft_llitoa_base(res, 8));
 }
 
 char	*conv_u(va_list ap, t_specs *specs)
@@ -77,7 +77,7 @@ char	*conv_u(va_list ap, t_specs *specs)
 		res = va_arg(ap, size_t);
 	else
 		res = va_arg(ap, unsigned int);
-	return (ft_itoa_base(res, 10));
+	return (ft_llitoa(res));
 }
 
 char	*conv_x(va_list ap, t_specs *specs)
@@ -99,7 +99,7 @@ char	*conv_x(va_list ap, t_specs *specs)
 		res = va_arg(ap, size_t);
 	else
 		res = va_arg(ap, unsigned int);
-	return (ft_itoa_base(res, 16));
+	return (ft_llitoa_base(res, 16));
 }
 
 char	*conv_big_x(va_list ap, t_specs *specs)

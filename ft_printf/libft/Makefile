@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 16:36:54 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/03 17:25:54 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,8 @@ SRC_NAMES = ft_isspace.c\
 	  ft_char_realloc.c \
 	  ft_intlen.c \
 	  ft_atoui.c \
-	  ft_isuint.c
+	  ft_isuint.c \
+	  ft_llitoa_base.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_NAMES))
 OBJ_DIR = obj
 OBJ_NAMES = $(SRC_NAMES:.c=.o)
