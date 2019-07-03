@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:03:42 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 12:24:59 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:21:20 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int			write_champion_prog(t_champion *champion, char *str)
 	str = ft_strnjoin(str, "9.s", ft_strlen(str) - 4);
 	fd = open(str, O_WRONLY | O_CREAT);
 	ft_memdel((void**)&str);
-	ft_printf("name \"%s\", ize :%d,\"%s\":", champion->header->prog_name,
-			champion->header->prog_size, champion->header->comment);
 	ft_putstr_fd(NAME_CMD_STRING, fd);
 	ft_putstr_fd(" \"", fd);
 	ft_putstr_fd(champion->header->prog_name, fd);
@@ -80,9 +78,8 @@ int			write_champion_prog(t_champion *champion, char *str)
 	ft_putstr_fd(" \"", fd);
 	ft_putstr_fd(champion->header->comment, fd);
 	ft_putstr_fd("\"\n", fd);
-	ft_printf("ecriture\n");
 	while (++i < champion->number_token)
 		write_line_token(champion->tokens[i], fd);
 	close(fd);
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 20:22:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 17:32:09 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/03 18:40:37 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ void	free_token(t_token **token)
 	if (*token)
 	{
 		t = (*token)->type;
-		if (t != LABEL)
-			free_token(&(*token)->param[0]);
+		free_token(&(*token)->param[0]);
 		free_token(&(*token)->param[1]);
 		free_token(&(*token)->param[2]);
-		if (t == STRING)
+		if (t == STRING || t == LABEL)
 			ft_memdel((void**)&(*token)->value.data);
 		ft_memdel((void**)token);
 	}

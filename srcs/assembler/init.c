@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:05:23 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_champion			*clear_champion(t_champion *champion)
 	while (++i < (champion)->number_token)
 		if ((champion)->tokens[i])
 			free_token(&(champion)->tokens[i]);
-	ft_bzero(champion->tokens, sizeof(t_token) * (CHAMP_MAX_SIZE * 2));
+	ft_bzero(champion->tokens, sizeof(t_token*) * (BUFFER_TOKENS));
 	champion->hasname = 0;
 	champion->hascomment = 0;
 	champion->number_token = 0;
@@ -33,7 +33,7 @@ t_champion			*clear_champion(t_champion *champion)
 	champion->header->prog_size = 0;
 	champion->header->magic = COREWAR_EXEC_MAGIC;
 	ft_bzero(champion->header->prog_name, PROG_NAME_LENGTH + 4);
-	ft_bzero(champion->header->comment, PROG_NAME_LENGTH + 4);
+	ft_bzero(champion->header->comment, COMMENT_LENGTH + 4);
 	return (champion);
 }
 
@@ -55,9 +55,10 @@ t_champion			*init_champion(void)
 	clear_champion(champion);
 	return (champion);
 }
+
 t_fichier			*clear_file(t_fichier *file)
 {
-	if (!file->file_name)
+	if (file->file_name)
 		ft_strdel(&file->file_name);
 	file->fd_out = -1;
 	file->line = 0x0;

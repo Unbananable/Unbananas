@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 20:28:12 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:10:45 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,8 @@ int				parsing(t_fichier *f, t_champion *champion)
 		f->line_nb++;
 	}
 	ft_strdel(&f->line);
-	ft_printf("verification des erreurs\n");
-	if (verify_champion(champion))
-		;
+	verify_champion(champion);
 	if (champion->number_error == 0)
-		create_champion(f, champion);
-	ft_printf("taille champion %d]", champion->size);
-	free_champion(&champion);
-	free_file(&f);
-	return (1);
+		return (create_champion(f, champion));
+	return (0);
 }

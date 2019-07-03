@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 17:42:23 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/03 21:58:08 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static int		firstcheck(t_fichier **file, char *s)
 	return (0);
 }
 
-static int		main_champion(t_champion *champion, t_fichier *file, char *name)
+static int		main_asm(t_champion *champion, t_fichier *file, char *name)
 {
+	clear_champion(champion);
+	clear_file(file);
 	if (!firstcheck(&file, name))
 		return (0);
 	if (!parsing(file, champion))
@@ -45,6 +47,13 @@ int				main(int argc, char **argv)
 	if(!(champion = init_champion()) || !(file = init_file()))
 		return (0);
 	while (++i < argc)
-		main_champion(champion, file, argv[i]);
+	{
+		if (main_asm(champion, file, argv[i]))
+			ft_printf("Writing output program to %s\n", argv[i]);
+		else
+			ft_printf("IMPOSSIBLEW: %s\n", argv[i]);
+	}
+	free_champion(&champion);
+	free_file(&file);
 	return (0);
 }

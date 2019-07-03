@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:04:11 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 21:58:09 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			get_instruction(t_champion *champion, unsigned char *prog)
 
 	i = -1;
 	pos = 1;
-	if (prog[0] > 16 && prog[0] > 0)
+	if (prog[0] > 16 && prog[0] <= 0)
 	{
 		ft_printf("error %d\n", prog[0]);
 		return (0);

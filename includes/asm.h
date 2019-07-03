@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:05:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/03 21:58:11 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_fichier
 
 typedef enum		e_type
 {
+	EMPTY,
 	NAME,
 	COMMENT,
 	STRING,
@@ -61,7 +62,6 @@ typedef enum		e_type
 	INDIRECT,
 	INDIRECT_LABEL,
 	UNKNOWN,
-	EMPTY,
 }					t_type;
 
 typedef union		u_value
@@ -156,6 +156,8 @@ void				exit_msg(char *str);
 
 t_fichier			*init_file();
 t_champion			*init_champion();
+t_champion			*clear_champion(t_champion *champion);
+t_fichier			*clear_file(t_fichier *file);
 
 /*
 ** check.c
