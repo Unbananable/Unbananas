@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:16:53 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 16:12:32 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:46:04 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,24 @@
 
 static void	add_mod(t_form *fmt, t_specs *specs)
 {
-	if (fmt->str[fmt->i] == 'l')
+	if (fmt->str[fmt->i] == 'h' && specs->mod < MOD_H)
 	{
-		specs->mod = (fmt->str[fmt->i + 1] == 'l') ? specs->mod | MOD_LL
-				: specs->mod | MOD_L;
-		if (fmt->str[fmt->i + 1] == 'l')
-			fmt->i++;
-	}
-	else if (fmt->str[fmt->i] == 'j')
-		specs->mod = specs->mod | MOD_J;
-	else if (fmt->str[fmt->i] == 'z')
-		specs->mod = specs->mod | MOD_Z;
-	else if (fmt->str[fmt->i] == 'L')
-		specs->mod = specs->mod | MOD_BIG_L;
-	else if (fmt->str[fmt->i] == 'h')
-	{
-		specs->mod = (fmt->str[fmt->i + 1] == 'h') ? specs->mod | MOD_HH
-				: specs->mod | MOD_H;
+		specs->mod = (fmt->str[fmt->i + 1] == 'h' && !specs->mod) ? specs->mod
+				| MOD_HH : specs->mod | MOD_H;
 		if (fmt->str[fmt->i + 1] == 'h')
 			fmt->i++;
 	}
+	else if (fmt->str[fmt->i] == 'l' && specs->mod < MOD_L)
+	{
+		specs->mod = (fmt->str[fmt->i + 1] == 'l' && specs->mod < MOD_LL) ?
+				specs->mod | MOD_LL : specs->mod | MOD_L;
+		if (fmt->str[fmt->i + 1] == 'l')
+			fmt->i++;
+	}
+	else if (fmt->str[fmt->i] == 'j' && specs->mod < MOD_J)
+		specs->mod = specs->mod | MOD_J;
+	else if (fmt->str[fmt->i] == 'z' && specs->mod < MOD_Z)
+		specs->mod = specs->mod | MOD_Z;
 }
 
 static void	add_accufield(t_form *fmt, t_specs *specs)
@@ -41,6 +39,7 @@ static void	add_accufield(t_form *fmt, t_specs *specs)
 	if (fmt->str[fmt->i] >= '1' && fmt->str[fmt->i] <= '9')
 	{
 		specs->flags = specs->flags | FIELD_WIDTH;
+		specs->field_width = 0;
 		while (fmt->str[fmt->i] >= '0' && fmt->str[fmt->i] <= '9')
 		{
 			specs->field_width = specs->field_width * 10
@@ -53,6 +52,7 @@ static void	add_accufield(t_form *fmt, t_specs *specs)
 	{
 		specs->flags = specs->flags | ACCURACY;
 		fmt->i++;
+		specs->accuracy = 0;
 		while (fmt->str[fmt->i] >= '0' && fmt->str[fmt->i] <= '9')
 		{
 			specs->accuracy = specs->accuracy * 10 + fmt->str[fmt->i] - '0';
@@ -69,7 +69,7 @@ static int	is_mod(char c)
 	return (0);
 }
 
-void		add_flag(t_form *fmt, t_specs *specs) // [TO DO] Cas ou les flags sont répétés [TO DO] Cas d'un flag invalide [TO DO] Cas de plusieurs modifiers
+void		add_flag(t_form *fmt, t_specs *specs)
 {
 	if (fmt->str[fmt->i] == ' ')
 		specs->flags = specs->flags | FLAG_SPACE;

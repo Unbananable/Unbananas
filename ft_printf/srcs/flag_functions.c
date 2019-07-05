@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 17:11:40 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/03 15:34:58 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:59:28 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ char	*flag_hash(char *str, t_specs *specs)
 		while (str[i] && str[i] == ' ')
 			i++;
 		j = i;
-		while (str[j])
-			if (str[j] != '0')
-				break ;
-			else
-				j++;
+		while (str[j] == '0')
+			j++;
 		if (!str[j])
 			return (str);
 		if (specs->conv == 'o' && str[i] != '0')

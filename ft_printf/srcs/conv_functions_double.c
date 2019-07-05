@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 10:46:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/01 17:04:47 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:50:45 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ char		*conv_f(va_list ap, t_specs *specs)
 	char	*tmp;
 	int		isneg;
 
-	if (specs->mod & MOD_BIG_L)
-		return (conv_longf(ap, specs));
 	dbl = va_arg(ap, double);
 	isneg = (dbl < 0 ? 1 : 0);
 	res = integ_part(&dbl);

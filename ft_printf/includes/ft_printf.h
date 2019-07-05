@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:15:45 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/03 15:00:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:50:21 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@
 # define ACCURACY 32
 # define FIELD_WIDTH 64
 
-# define MOD_H 1
-# define MOD_HH 2
-# define MOD_J 4
-# define MOD_Z 8
-# define MOD_L 16
-# define MOD_BIG_L 32
-# define MOD_LL 64
+# define MOD_HH 1
+# define MOD_H 2
+# define MOD_L 4
+# define MOD_LL 8
+# define MOD_J 16
+# define MOD_Z 32
 
 typedef va_list	t_va;
 
@@ -107,7 +106,6 @@ char			*suffix(char *suf, char *str);
 char			*parse_color(const char *format);
 int				param_len(const char *format);
 unsigned char	*concatenate(unsigned char *s1, unsigned char *s2);
-char			*conv_longf(va_list ap, t_specs *specs);
 void			print_current(t_form *fmt);
 void			write_arg(t_form *fmt, va_list ap);
 char			*converter(t_specs *specs, va_list ap);

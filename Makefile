@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
+#    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 17:43:40 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/05 10:47:25 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,7 +144,7 @@ clean:
 	@make -C ./ft_printf clean
 
 fclean: clean
-	@/bin/rm -f $(NAME) visualizer
+	@/bin/rm -f $(NAME) $(NAME2) $(NAME3)
 	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
 	@make -C ./ft_printf fclean
 

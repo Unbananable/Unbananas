@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/28 09:14:19 by dtrigalo          #+#    #+#              #
-#    Updated: 2019/07/02 14:56:58 by anleclab         ###   ########.fr        #
+#    Updated: 2019/07/05 10:49:56 by anleclab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRC = ft_printf.c	\
 	  conv_functions_char.c \
 	  conv_functions_int.c \
 	  conv_functions_double.c \
-	  conv_functions_longdouble.c	\
 	  conv_functions_percentage.c	\
 	  conv_functions_binary.c	\
 	  parse_accufield.c \
