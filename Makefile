@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 17:43:40 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/05 09:50:35 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,11 +130,11 @@ $(OBJSFD):
 	@mkdir $@/$(ASMFOLDER)
 	@echo "[ $(GREEN)✔$(NONE) ] objs/ directory"
 
-$(OBJSFD)$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c  $(HDRS) $(LIBFT)
+$(OBJSFD)$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c $(HDRS) $(LIBFT)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
-$(OBJSFD)$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c  $(HDRS) $(LIBFT)
+$(OBJSFD)$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c $(HDRS) $(LIBFT)
 	@gcc  $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
@@ -144,8 +144,8 @@ clean:
 	@make -C ./ft_printf clean
 
 fclean: clean
-	@/bin/rm -f $(NAME) visualizer
-	@echo "[ $(RED)✗$(NONE) ] $(NAME) executable"
+	@/bin/rm -f $(NAME) $(NAME2) $(NAME3)
+	@echo "[ $(RED)✗$(NONE) ] $(NAME), $(NAME2), $(NAME3) executables"
 	@make -C ./ft_printf fclean
 
 re: fclean all
