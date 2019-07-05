@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/05 11:59:52 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:21:10 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void		init_champs(t_cor *cor, int ac, char **av)
 		error(cor, "too many players");
 	else if (cor->nb_champs <= 0)
 		error(cor, "invalid options");
-	if (!(cor->champs = (t_champ **)malloc(sizeof(t_champ *)
-			* (ac + 1))))
+	if (!(cor->champs = (t_champ **)malloc(sizeof(t_champ *) * (ac + 1))))
 		error(cor, "malloc failed");
 	i = -1;
 	while (++i <= ac)
@@ -109,22 +108,21 @@ void			get_champions(t_cor *cor, int ac, char **av)
 {
 	int		i;
 	int		i_champ;
-	int		player_no;
+	int		player;
 
 	init_champs(cor, ac, av);
 	i = -1;
 	i_champ = -1;
-	while (++i < ac && ++i_champ < cor->nb_champs && !(player_no = 0))
+	while (++i < ac && ++i_champ < cor->nb_champs && !(player = 0))
 	{
 		if (ft_strequ(av[i], "-n"))
 		{
-			if (++i >= ac - 1 || !ft_isuint(av[i])
-					|| (player_no = ft_atoi(av[i])) > cor->nb_champs
-					|| player_no < 1)
+			if (++i >= ac - 1 || !ft_isuint(av[i]) || (player = ft_atoi(av[i]))
+					> cor->nb_champs || player < 1)
 				error(cor, "invalid option");
 			i++;
 		}
-		if (!(cor->champs[i_champ] = read_champion(av[i], player_no)))
+		if (!(cor->champs[i_champ] = read_champion(av[i], player)))
 		{
 			while (--i_champ >= 0)
 				delete_champion(&(cor->champs[i_champ]));
