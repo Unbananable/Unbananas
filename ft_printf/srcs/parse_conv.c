@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:47:36 by dtrigalo          #+#    #+#             */
-/*   Updated: 2019/07/01 17:06:14 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:54:22 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char			*parse_conv(va_list ap, t_specs *specs)
 	char	*str;
 	int		i;
 	t_conv	*conv_list;
+	char	invalid_conv[2];
 
 	conv_list = initialize_conv_functions();
 	i = -1;
@@ -65,7 +66,13 @@ char			*parse_conv(va_list ap, t_specs *specs)
 			str = conv_list[i].f(ap, specs);
 			break ;
 		}
-	// [TO DO] Cas ou la conversion ne correspond pas / conversion nulle
+	if (!conv_list[i].conv)
+	{
+		invalid_conv[0] = specs->conv;
+		invalid_conv[1] = 0;
+		if (!(str = ft_strdup(invalid_conv)))
+			exit_error("malloc failed", 1, conv_list);
+	}
 	free(conv_list);
 	return (str);
 }

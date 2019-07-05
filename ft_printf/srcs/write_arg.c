@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:26:32 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/03 15:51:57 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/05 10:36:24 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	flag_sanitize(t_specs *specs)
 {
+	int		mod_sanitizer;
+
 	if ((ft_strchr("diouxX", specs->conv) && specs->flags & ACCURACY)
 			|| specs->flags & FLAG_MIN)
 		if (specs->flags & FLAG_ZERO)
@@ -21,12 +23,21 @@ static void	flag_sanitize(t_specs *specs)
 	if (specs->flags & FLAG_PLUS)
 		if (specs->flags & FLAG_SPACE)
 			specs->flags = specs->flags ^ FLAG_SPACE;
+	mod_sanitizer = MOD_Z;
+	while (mod_sanitizer)
+		if (specs->mod / mod_sanitizer)
+		{
+			specs->mod = mod_sanitizer;
+			break ;
+		}
+		else
+			mod_sanitizer /= 2;
 }
 
-static int	is_conv(char c)
+static int	is_flag(char c)
 {
-	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o'
-			|| c == 'u' || c == 'x' || c == 'X' || c == '%' || c == 'f')
+	if (c == '#' || c == ' ' || c == '-' || c == '+' || c == 'h' || c == 'l'
+			|| c == 'j' || c == 'z' || c == '.' || (c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }
@@ -39,11 +50,11 @@ static void	set_conv_specs(t_form *fmt, t_specs *specs)
 	specs->field_width = 0;
 	specs->null_char = 0;
 	specs->len = 0;
-	while (fmt->str[fmt->i] && !is_conv(fmt->str[fmt->i]))
+	specs->conv = 0;
+	while (fmt->str[fmt->i] && is_flag(fmt->str[fmt->i]))
 		add_flag(fmt, specs);
 	specs->conv = (fmt->str[fmt->i] == 'i') ? 'd' : fmt->str[fmt->i];
 	flag_sanitize(specs);
-	//[TO DO] Gérer le cas ou il n'y a pas de conversion
 	fmt->str += fmt->i + 1;
 	fmt->i = 0;
 }
