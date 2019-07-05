@@ -6,7 +6,7 @@
 /*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:10:26 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 10:57:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/05 11:59:52 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@ static void		init_champs(t_cor *cor, int ac, char **av)
 	i = -1;
 	while (++i < ac)
 		if (ft_strequ(av[i], "-n"))
+		{
+			if (i + 2 < ac)
+			{
+				if (ft_atoi(av[i + 1]) == 0)
+					error(cor, "invalid options");
+			}
+			else
+				error(cor, "invalid options");
 			cor->nb_champs -= 2;
+		}
 	if (cor->nb_champs > MAX_PLAYERS)
 		error(cor, "too many players");
 	else if (cor->nb_champs <= 0)
