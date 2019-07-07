@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 17:43:40 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/03 18:26:24 by anyahyao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = corewar
 NAME2 = asm
 NAME3 = unassembler
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 SRC = op.c \
 	  announce_winner.c \
 	  arena_setup.c \
