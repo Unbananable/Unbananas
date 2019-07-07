@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 22:28:19 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/07 23:41:50 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,11 @@ int				parsing(t_fichier *f, t_champion *champion)
 		analyse_line(f, f->line, champion);
 		ft_strdel(&f->line);
 		f->line_nb++;
+		if (champion->size > CHAMP_MAX_SIZE)
+		{
+			ft_printf("Exceeding file size\n");
+			return (0);
+		}
 	}
 	ft_strdel(&f->line);
 	verify_champion(champion);
