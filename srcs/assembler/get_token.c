@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:57:03 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:06:13 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,32 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 	return (create_token(c, line, UNKNOWN));
 }
 
+
+t_token		*get_token_param(t_champion *c, char *s, int line_nb)
+{
+	t_token *token;
+
+
+	if (ft_strchr(s, DIRECT_CHAR))
+		token = get_direct_token(c, line_nb, s);
+	else if (isregister(s))
+		token = add_token_integer(create_token(c, line_nb, REGISTER),
+				ft_atoi(&s[1]));
+	else if (ft_isnumber(s))
+		token = add_token_integer(create_token(c, line_nb, INDIRECT),
+				ft_atoi(s));
+	else if (isindirect_label(s))
+		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL),
+				&s[1]);
+	else
+	{
+		token = create_token(c, line_nb, UNKNOWN);
+		ft_printf("probleme syntax error %s", s);
+	}
+	return (token);
+}
+
+
 t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 {
 	t_token	*token;
@@ -73,24 +99,10 @@ t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 		token->value.data[ft_strlen(s) - 1] = '\0';
 		token->pos = c->number_instructions;
 	}
-	else if (ft_strchr(s, DIRECT_CHAR))
-		token = get_direct_token(c, line_nb, s);
 	else if (isintruction(s))
 		token = add_token_operation(create_token(c, line_nb, INSTRUCTION), s);
-	else if (isregister(s))
-		token = add_token_integer(create_token(c, line_nb, REGISTER),
-				ft_atoi(&s[1]));
-	else if (ft_isnumber(s))
-		token = add_token_integer(create_token(c, line_nb, INDIRECT),
-				ft_atoi(s));
-	else if (isindirect_label(s))
-		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL),
-				&s[1]);
 	else
-	{
-		token = create_token(c, line_nb, UNKNOWN);
-		ft_printf("probleme syntax error %s", s);
-	}
+		token = get_token_param(c, s, line_nb);
 	s[end] = last_char;
 	return (token);
 }

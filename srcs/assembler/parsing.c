@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 20:10:45 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:33:07 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int		is_end_word(char c)
 
 static int		end_word(char *s, int start)
 {
-	start = 0;
 	if (!s[start])
 		return (start);
 	while (s[start] && !(is_end_word(s[start]) || ft_isspace(s[start])))
@@ -71,47 +70,75 @@ static int		end_word(char *s, int start)
 	return (start);
 }
 
-static void		analyse_line(t_fichier *file, char *line, t_champion *champion)
+
+
+static t_token *analyse_element(t_champion *champion, char **line, t_fichier *file)
+{
+	t_token *token;
+	int end;
+
+
+	if (**line == '"')
+	{
+
+	}
+	else if (**line == COMMENT_CHAR || **line == ';')
+		return (0x0);
+	else if (**line == SEPARATOR_CHAR)
+	{
+		*line += 1;
+		token = create_token(champion, file->line_nb, SEPARATOR);
+	}
+	else
+	{
+		end = end_word(*line, 0);
+		token = get_token(champion, *line, end, file->line_nb);
+		*line += end;
+	}
+	return (token);
+}
+
+
+static t_token *analyse_string(t_champion *champion, char **line, t_fichier *file)
 {
 	int		end;
-	int		len;
 	char	*tmp;
 	int		actual;
+	t_token *token;
+
+	actual = file->line_nb;
+	token = create_token(champion, actual, STRING);
+	tmp = string_exeption(file, *line);
+	token = add_token_string(token, tmp);
+	ft_strdel(&tmp);
+	if (actual != file->line_nb)
+		ft_printf("String too long ?");
+	*line = (actual < file->line_nb) ? file->line : *line;
+	end = ft_strchr(*line, '"') - *line + 1;
+	*line += end;
+	return (token);
+}
+
+static void		analyse_line(t_fichier *file, char *line, t_champion *champion)
+{
 	t_token	*token;
 
-	len = ft_strlen(line);
-	actual = file->line_nb;
 	while (*line && ft_isspace(*line))
 		line++;
 	while (*line)
 	{
-		end = 0;
 		if (*line == '"')
 		{
 			line++;
-			token = create_token(champion, actual, STRING);
-			tmp = string_exeption(file, line);
-			token = add_token_string(token, tmp);
-			ft_strdel(&tmp);
-			if (actual != file->line_nb)
-				ft_printf("String problem");
-			line = (actual < file->line_nb) ? file->line : line;
-			end = ft_strchr(line, '"') - line + 1;
-		}
-		else if (*line == COMMENT_CHAR || *line == ';')
-			break ;
-		else if (*line == SEPARATOR_CHAR)
-		{
-			line++;
-			token = create_token(champion, actual, SEPARATOR);
+			token = analyse_string(champion, &line, file);
 		}
 		else
 		{
-			end = end_word(line, end);
-			token = get_token(champion, line, end, file->line_nb);
+			token = analyse_element(champion, &line, file);
+			if (!token)
+				break;
 		}
 		add_token(token, champion);
-		line = &line[end];
 		while (*line && ft_isspace(*line))
 			line++;
 	}
