@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 20:33:07 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/07 22:28:19 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ static t_token *analyse_element(t_champion *champion, char **line, t_fichier *fi
 	int end;
 
 
-	if (**line == '"')
-	{
-
-	}
-	else if (**line == COMMENT_CHAR || **line == ';')
+	if (**line == COMMENT_CHAR || **line == ';')
 		return (0x0);
 	else if (**line == SEPARATOR_CHAR)
 	{

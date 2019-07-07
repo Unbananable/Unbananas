@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:38:38 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/01 17:23:33 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/07 22:48:56 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 int		warning_champion(t_champion *champion, char *s, int line)
 {
 	champion->number_warning++;
-	ft_printf("line %d : warning %s\n", line, s);
+	if (line >= 0)
+		ft_printf("line %d : warning %s\n", line, s);
+	else
+		ft_printf("warning %s\n", s);
 	return (1);
 }
 
 int		error_champion(t_champion *champion, char *s, int line)
 {
 	champion->number_error++;
-	ft_printf("line %d : error %s\n", line, s);
+	if (line >= 0)
+		ft_printf("line %d : error %s\n", line, s);
+	else
+		ft_printf("error %s\n", s);
 	return (1);
 }
 
