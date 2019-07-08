@@ -71,7 +71,8 @@ SRCASSEMBLER = check_instruction.c \
 				verify.c\
 				write_champion.c\
 				desas_instruction.c\
-				write_champion_code.c
+				write_champion_code.c\
+				add_token.c
 
 MAIN_ASSEMBLER = asm.c
 MAIN_UNASSEMBLER = desasssembler.c

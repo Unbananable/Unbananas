@@ -43,7 +43,6 @@ char			*string_exeption(t_fichier *file, char *line)
 			return (0x0);
 		ft_strdel(&file->line);
 		get_next_line(file->fd_in, &file->line);
-		ft_printf("\n");
 		line = file->line;
 		file->line_nb++;
 	}
@@ -78,9 +77,7 @@ static t_token *analyse_element(t_champion *champion, char **line, t_fichier *fi
 	int end;
 
 
-	if (**line == COMMENT_CHAR || **line == ';')
-		return (0x0);
-	else if (**line == SEPARATOR_CHAR)
+	if (**line == SEPARATOR_CHAR)
 	{
 		*line += 1;
 		token = create_token(champion, file->line_nb, SEPARATOR);
@@ -115,13 +112,13 @@ static t_token *analyse_string(t_champion *champion, char **line, t_fichier *fil
 	return (token);
 }
 
-static void		analyse_line(t_fichier *file, char *line, t_champion *champion)
+static int		analyse_line(t_fichier *file, char *line, t_champion *champion)
 {
 	t_token	*token;
 
 	while (*line && ft_isspace(*line))
 		line++;
-	while (*line)
+	while (*line && *line != COMMENT_CHAR && *line != ';')
 	{
 		if (*line == '"')
 		{
@@ -132,19 +129,21 @@ static void		analyse_line(t_fichier *file, char *line, t_champion *champion)
 		{
 			token = analyse_element(champion, &line, file);
 			if (!token)
-				break;
+				return (0);
 		}
 		add_token(token, champion);
 		while (*line && ft_isspace(*line))
 			line++;
 	}
+	return (1);
 }
 
 int				parsing(t_fichier *f, t_champion *champion)
 {
 	while (get_next_line(f->fd_in, &f->line) > 0)
 	{
-		analyse_line(f, f->line, champion);
+		if (!analyse_line(f, f->line, champion))
+			return (0);
 		ft_strdel(&f->line);
 		f->line_nb++;
 		if (champion->size > CHAMP_MAX_SIZE)

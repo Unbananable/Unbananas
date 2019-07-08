@@ -34,35 +34,6 @@ int			search_label(t_champion *c, char *s)
 	return (-1);
 }
 
-static int	verify_labelparameter(t_champion *c)
-{
-	int		i;
-	int		j;
-	t_token	*token;
-
-	i = -1;
-	while (++i < c->number_token)
-	{
-		token = c->tokens[i];
-		if (token->type == INSTRUCTION)
-		{
-			j = -1;
-			while (++j < 3)
-			{
-				if (token->param[j] && (token->param[j]->type == DIRECT_LABEL ||
-									token->param[j]->type == INDIRECT_LABEL))
-					if (!search_label(c, token->param[j]->value.data))
-					{
-						ft_printf("Fatal error line :%d label \"%s\" not found",
-								token->line, token->param[j]->value.data);
-						exit_msg("Bye\n");
-					}
-			}
-		}
-	}
-	return (1);
-}
-
 int			verify_champion(t_champion *c)
 {
 	int i;
@@ -72,13 +43,13 @@ int			verify_champion(t_champion *c)
 	i = 0;
 	while (i < c->number_token)
 	{
-		while (i < c->number_token && c->tokens[i] && c->tokens[i]->type
-				== EMPTY)
+		while (i < c->number_token && c->tokens[i] &&
+			c->tokens[i]->type == EMPTY)
 			i++;
 		if (i == c->number_token)
 			break ;
-		if (!c->tokens[i])
-			exit_msg("Problem with Champion");
+		if (!c->tokens[i]) // impossible
+			exit_msg("Problem with Champion"); // impossible
 		l = c->tokens[i]->line;
 		j = i;
 		while (j < c->number_token && c->tokens[j] && c->tokens[j]->line == l)
@@ -89,6 +60,6 @@ int			verify_champion(t_champion *c)
 			return (-1);
 	}
 	if (!c->hasname || !c->hascomment)
-		error_champion(c, "missing name or comment", -1);
+		warning_champion(c, "missing name or comment", -1);
 	return ((c->number_error || !c->hasname || !c->hascomment) ? -1 : 1);
 }

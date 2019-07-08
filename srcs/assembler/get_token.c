@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int			ft_isnumber(char *s)
+int			ft_isnumber(char *s) // libft ??
 {
 	int size;
 
@@ -80,7 +80,6 @@ t_token		*get_token_param(t_champion *c, char *s, int line_nb)
 	}
 	return (token);
 }
-
 
 t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 {

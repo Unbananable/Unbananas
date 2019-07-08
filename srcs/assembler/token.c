@@ -12,37 +12,6 @@
 
 #include "asm.h"
 
-extern				t_op op_tab[17];
-
-/*
-** on part du principe que operation existe
-*/
-
-t_token		*add_token_operation(t_token *token, char *s)
-{
-	int i;
-
-	i = 0;
-	while (op_tab[i].operation && ft_strcmp(op_tab[i].operation, s))
-		i++;
-	if (!op_tab[i].operation)
-		exit_msg("Problem in function: add_token_operation (token.c)");
-	token->value.operation = &op_tab[i];
-	return (token);
-}
-
-t_token		*add_token_string(t_token *token, char *str)
-{
-	token->value.data = ft_strdup(str);
-	return (token);
-}
-
-t_token		*add_token_integer(t_token *token, int value)
-{
-	token->value.number = value;
-	return (token);
-}
-
 t_token		*create_token(t_champion *c, int line_nb, int type)
 {
 	t_token		*token;
@@ -95,7 +64,7 @@ int			size_token(int t, int id)
 	return (res);
 }
 
-void		add_token(t_token *token, t_champion *champion)
+int			add_token(t_token *token, t_champion *champion)
 {
 	if (token->type == INSTRUCTION)
 	{
@@ -109,7 +78,10 @@ void		add_token(t_token *token, t_champion *champion)
 	if (token->type == LABEL)
 	{
 		if (champion->number_labels >= BUFFER_LABELS - 1)
-			exit_msg("Fatal error: too many labels");
+		{
+			ft_printf("Fatal error: too many labels"); // a changer
+			return (0);
+		}
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
@@ -120,4 +92,5 @@ void		add_token(t_token *token, t_champion *champion)
 	}
 	champion->tokens[champion->number_token] = token;
 	champion->number_token++;
+	return (1);
 }

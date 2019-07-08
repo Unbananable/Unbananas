@@ -13,10 +13,9 @@
 #include "asm.h"
 
 extern				t_op op_tab[17];
-t_token		*add_token_operation_id(t_token *token, unsigned int id)
+
+static t_token		*add_token_operation_id(t_token *token, unsigned int id)
 {
-	if (id > 16)
-		exit_msg("pb add_token_operation_id\n");
 	token->value.operation = &op_tab[id];
 	return (token);
 }

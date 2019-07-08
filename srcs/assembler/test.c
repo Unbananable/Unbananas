@@ -132,7 +132,7 @@ int			test_champion(t_champion *champion, int mode)
 			break;
 		token = champion->tokens[i];
 		if (!token)
-			exit_msg("probleme test_champion!");
+			exit_msg("probleme test_champion!"); // test.c
 		while (line < token->line)
 		{
 			ft_printf("\nline%d:", line);

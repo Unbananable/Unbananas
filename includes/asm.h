@@ -171,14 +171,19 @@ void				check_label(t_champion *c, t_token *t, int deb,
 											int tok_line);
 
 /*
+** add_token.c
+*/
+
+t_token				*add_token_operation(t_token *token, char *str);
+t_token				*add_token_string(t_token *token, char *str);
+t_token				*add_token_integer(t_token *token, int value);
+int					add_token(t_token *token, t_champion *champion);
+
+/*
 ** token.c
 */
 
-t_token				*add_token_operation(t_token *token, char *s);
-t_token				*add_token_string(t_token *token, char *str);
-t_token				*add_token_integer(t_token *token, int value);
 t_token				*create_token(t_champion *champion, int line_nb, int type);
-void				add_token(t_token *token, t_champion *champion);
 int					size_token(int t, int id);
 
 /*
