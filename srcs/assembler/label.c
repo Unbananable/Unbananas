@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/02 18:40:55 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/08 17:55:52 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int		manage_label_param(t_champion *champion, char *str)
 	int val;
 
 	if ((position_label = find_label(champion, str)) == -1)
-		return (error_champion(champion, "Label does not exist", -1));
+	{
+		ft_printf("Label \"%s\" does not exist\n", str);
+		return (-1);
+	}
 	val = champion->tokens[position_label]->pos;
 	return (champion->instructions[val]);
 }

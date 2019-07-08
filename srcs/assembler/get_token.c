@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 20:06:13 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/08 23:04:49 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			ft_isnumber(char *s) // libft ??
 	int size;
 
 	size = 0;
-	if (*s == '-' || *s == '+')
+	if (*s == '-')
 		s++;
 	while (ft_isdigit(*s))
 	{
@@ -48,11 +48,11 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 		{
 			s++;
 			if (compose_withthese_letters(s, LABEL_CHARS))
-				return (add_token_string(create_token(c, line, DIRECT_LABEL),
-							s));
+				return (add_token_string(create_token(c, line,
+								DIRECT_LABEL_STR), s));
 		}
 	}
-	ft_printf("probleme syntax incorrect pour un \"Direct\" %s", s);
+	ft_printf("probleme syntax incorrect pour un \"Direct\" %s\n", s);
 	return (create_token(c, line, UNKNOWN));
 }
 
@@ -71,12 +71,12 @@ t_token		*get_token_param(t_champion *c, char *s, int line_nb)
 		token = add_token_integer(create_token(c, line_nb, INDIRECT),
 				ft_atoi(s));
 	else if (isindirect_label(s))
-		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL),
+		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL_STR),
 				&s[1]);
 	else
 	{
 		token = create_token(c, line_nb, UNKNOWN);
-		ft_printf("probleme syntax error %s", s);
+		ft_printf("probleme syntax error %s\n", s);
 	}
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 20:05:23 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/08 23:05:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_champion			*clear_champion(t_champion *champion)
 	champion->size = 0;
 	champion->number_labels = 0;
 	champion->header->prog_size = 0;
-	champion->header->magic = COREWAR_EXEC_MAGIC;
 	ft_bzero(champion->header->prog_name, PROG_NAME_LENGTH + 4);
 	ft_bzero(champion->header->comment, COMMENT_LENGTH + 4);
 	return (champion);
@@ -52,6 +51,7 @@ t_champion			*init_champion(void)
 		champion = 0X0;
 		malloc_error("init_champion");
 	}
+	champion->header->magic = COREWAR_EXEC_MAGIC;
 	clear_champion(champion);
 	return (champion);
 }

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:02:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:03:41 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int			size_token(int t, int id)
 		res = 10;
 	if (t == REGISTER)
 		res = 1;
-	if (t == INDIRECT || t == INDIRECT_LABEL)
+	if (t == INDIRECT || t == INDIRECT_LABEL || t == INDIRECT_LABEL_STR )
 		res = 2;
 	if (t == INSTRUCTION)
 		res = (id == 1 || id == 9 || id == 12) ? 1 : 2;
-	if (t == DIRECT || t == DIRECT_LABEL)
+	if (t == DIRECT || t == DIRECT_LABEL || t == DIRECT_LABEL_STR)
 	{
 		if (id < 0)
 			return (10);

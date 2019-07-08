@@ -6,7 +6,7 @@
 #    By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 18:26:24 by anyahyao         ###   ########.fr        #
+#    Updated: 2019/07/08 20:13:36 by anyahyao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ SRCASSEMBLER = check_instruction.c \
 				write_champion.c\
 				desas_instruction.c\
 				write_champion_code.c\
-				add_token.c
+				add_token.c\
+				analyse_string.c
 
 MAIN_ASSEMBLER = asm.c
 MAIN_UNASSEMBLER = desasssembler.c

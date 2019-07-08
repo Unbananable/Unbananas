@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 20:33:08 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/08 23:05:10 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ typedef enum		e_type
 	SEPARATOR,
 	REGISTER,
 	DIRECT_LABEL,
+	DIRECT_LABEL_STR,
 	DIRECT,
 	INDIRECT,
 	INDIRECT_LABEL,
+	INDIRECT_LABEL_STR,
 	UNKNOWN,
 }					t_type;
 
@@ -220,8 +222,9 @@ int					compose_withthese_letters(char *word, char *letters);
 ** parsing.c
 */
 
+t_token				*analyse_string(t_champion *champion, char **line,
+		t_fichier *file);
 int					parsing(t_fichier *file, t_champion *champion);
-char				*string_exeption(t_fichier *f, char *line);
 
 /*
 ** free.c

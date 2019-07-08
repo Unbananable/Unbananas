@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/03 17:04:32 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/08 23:04:48 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,6 @@ int		isregister(char *s)
 	return (0);
 }
 
-int		ft_isinteger(char *s)
-{
-	if (*s == '-' || *s == '+')
-		s++;
-	while (*s == '0')
-		s++;
-	if (ft_atoll(s) <= INT_MAX)
-	{
-		while (ft_isdigit(*s))
-			s++;
-		if (!*s)
-			return (1);
-	}
-	return (0);
-}
-
 int		compose_withthese_letters(char *word, char *letters)
 {
 	while (*word)
@@ -82,10 +66,6 @@ int		compose_withthese_letters(char *word, char *letters)
 	}
 	return (1);
 }
-
-/*
-** verifier si on peux mettre un  '+' devant un nombre indirect
-*/
 
 int		isindirect_label(char *s)
 {
