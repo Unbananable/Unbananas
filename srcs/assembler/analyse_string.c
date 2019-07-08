@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-static char		*join_norme(char *s, char *line, int line_nb)
+
+static char		*join_norme(char *s, char *line, int line_nb, int option)
 {
 	char *res;
 
 	if (ft_strlen(s) + ft_strlen(line) < COMMENT_LENGTH + PROG_NAME_LENGTH)
 	{
-		res = ft_strjoin(s, line);
+		res = (option) ? ft_strcjoin(s, line, '\n') : ft_strjoin(s, line);
 		free(s);
 		return (res);
 	}
@@ -34,12 +35,14 @@ static char			*string_exeption(t_fichier *file, char *line)
 	int		line_nb;
 	char	*s;
 	char	*tmp;
+	int		last;
 
+	last = 0;
 	s = ft_strnew(1);
 	line_nb = file->line_nb;
 	while (!(tmp = ft_strchr(line, '"')) && file->line)
 	{
-		if (!(s = join_norme(s, line, line_nb)))
+		if (!(s = join_norme(s, line, line_nb, last++)))
 			return (0x0);
 		ft_strdel(&file->line);
 		if (get_next_line(file->fd_in, &file->line) < 1)
@@ -51,7 +54,7 @@ static char			*string_exeption(t_fichier *file, char *line)
 		file->line_nb++;
 	}
 	*tmp = '\0';
-	if (!(s = join_norme(s, line, line_nb)))
+	if (!(s = join_norme(s, line, line_nb, last)))
 		return (0x0);
 	*tmp = '"';
 	return (s);

@@ -60,6 +60,7 @@ SRC_NAMES = ft_isspace.c\
 	  ft_strnequ.c \
 	  ft_strsub.c \
 	  ft_strjoin.c \
+	  ft_strcjoin.c \
 	  ft_strtrim.c \
 	  ft_strsplit.c \
 	  ft_itoa.c \
