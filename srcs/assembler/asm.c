@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 23:04:48 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:41:39 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 static int		firstcheck(t_fichier **file, char *s)
 {
@@ -44,10 +44,10 @@ int				main(int argc, char **argv)
 {
 	t_champion		*champion;
 	t_fichier		*file;
-	int i;
+	int				i;
 
 	i = 0;
-	if(!(champion = init_champion()) || !(file = init_file()))
+	if (!(champion = init_champion()) || !(file = init_file()))
 		return (0);
 	while (++i < argc)
 	{

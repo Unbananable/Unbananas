@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 23:05:14 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:50:48 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 static int		is_end_word(char c)
 {
@@ -28,11 +28,11 @@ static int		end_word(char *s, int start)
 	return (start);
 }
 
-static t_token *analyse_element(t_champion *champion, char **line, t_fichier *file)
+static t_token	*analyse_element(t_champion *champion, char **line,
+					t_fichier *file)
 {
-	t_token *token;
-	int end;
-
+	t_token		*token;
+	int			end;
 
 	if (**line == SEPARATOR_CHAR)
 	{

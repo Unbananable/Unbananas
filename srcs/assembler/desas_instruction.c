@@ -6,22 +6,22 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 20:33:02 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:45:15 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
-extern				t_op op_tab[17];
+extern t_op			op_tab[17];
 
-static t_token		*add_token_operation_id(t_token *token, unsigned int id)
+static t_token	*add_token_operation_id(t_token *token, unsigned int id)
 {
 	token->value.operation = &op_tab[id];
 	return (token);
 }
 
-t_token			*get_param(t_champion *champion, char param, unsigned char *prog,
-					int *pos, t_token **tt)
+t_token			*get_param(t_champion *champion, char param,
+						unsigned char *prog, int *pos, t_token **tt)
 {
 	int				size;
 	unsigned int	value;
@@ -49,9 +49,8 @@ t_token			*get_param(t_champion *champion, char param, unsigned char *prog,
 	return (token);
 }
 
-
-int			get_instruction_argcode(t_champion *champion, unsigned char *prog,
-			t_token *token)
+int				get_instruction_argcode(t_champion *champion,
+						unsigned char *prog, t_token *token)
 {
 	int		pos;
 	int		i;
@@ -64,11 +63,12 @@ int			get_instruction_argcode(t_champion *champion, unsigned char *prog,
 	param[1] = (prog[1] & 0x30) >> 4;
 	param[2] = (prog[1] & 0x0c) >> 2;
 	while (param[++i] && i < 3)
-		token->param[i] = get_param(champion, param[i], prog, &pos, &token->param[i]);
+		token->param[i] = get_param(champion, param[i], prog,
+				&pos, &token->param[i]);
 	return (pos);
 }
 
-int			get_instruction(t_champion *champion, unsigned char *prog)
+int				get_instruction(t_champion *champion, unsigned char *prog)
 {
 	t_token	*token;
 	int		pos;
@@ -85,7 +85,7 @@ int			get_instruction(t_champion *champion, unsigned char *prog)
 		return (get_instruction_argcode(champion, prog, token));
 	else
 		while (++i < token->value.operation->number_param)
-			token->param[i] = get_param(champion, token->value.operation->tab[i],
-					prog, &pos, &token->param[i]);
+			token->param[i] = get_param(champion,
+				token->value.operation->tab[i], prog, &pos, &token->param[i]);
 	return (pos);
 }

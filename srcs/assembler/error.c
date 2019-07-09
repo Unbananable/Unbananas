@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:38:38 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/07 22:48:56 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:46:32 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int		warning_champion(t_champion *champion, char *s, int line)
 {

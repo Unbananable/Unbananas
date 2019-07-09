@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 22:05:05 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:41:27 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 static int	isgoodparam(t_champion *c, t_token *token, int expected)
 {
@@ -23,7 +23,8 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 	{
 		tmp = manage_label_param(c, token->value.data);
 		ft_strdel(&(token->value.data));
-		token->type = (type == DIRECT_LABEL_STR) ? DIRECT_LABEL : INDIRECT_LABEL;
+		token->type = (type == DIRECT_LABEL_STR) ?
+			DIRECT_LABEL : INDIRECT_LABEL;
 		if (tmp == -1)
 			return (0);
 		token->value.number = tmp;
@@ -41,9 +42,11 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 static int	manage_instruction(t_champion *c, int limits, t_token *token,
 		int pos)
 {
-	int i = -1;
-	int param = -1;
+	int i;
+	int param;
 
+	i = -1;
+	param = -1;
 	while (++i < limits)
 		if (c->tokens[pos + i]->type != SEPARATOR)
 			move_token(&token->param[++param], &c->tokens[pos + i]);
@@ -52,7 +55,7 @@ static int	manage_instruction(t_champion *c, int limits, t_token *token,
 	return (1);
 }
 
-static int check_parameters(t_champion *c, t_token *token, int pos, int limits)
+static int	check_parameters(t_champion *c, t_token *token, int pos, int limits)
 {
 	int		i;
 	t_op	*instruction;
@@ -77,7 +80,7 @@ static int check_parameters(t_champion *c, t_token *token, int pos, int limits)
 		}
 		expected = (expected == 0) ? SEPARATOR : 0;
 	}
-		manage_instruction(c, limits, token, pos);
+	manage_instruction(c, limits, token, pos);
 	return (limits);
 }
 

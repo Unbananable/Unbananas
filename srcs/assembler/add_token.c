@@ -6,12 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:14:48 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 17:14:51 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:39:07 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-
+#include "../../includes/asm.h"
 
 t_token		*add_token_string(t_token *token, char *str)
 {

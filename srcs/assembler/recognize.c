@@ -6,14 +6,13 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/08 23:04:48 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:51:26 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 #define NUMBER_OPERATION_MAX 16
-
 
 int		islabel(char *s)
 {
@@ -33,7 +32,6 @@ int		isintruction(char *s)
 {
 	int i;
 
-	
 	i = -1;
 	while (op_tab[++i].operation)
 		if (!ft_strcmp(op_tab[i].operation, s))

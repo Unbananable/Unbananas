@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 22:11:27 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:46:16 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int			read_champion(t_champion *champion, int fd)
 {
@@ -63,7 +63,7 @@ static int	main_unasm(t_champion *champion, char *name)
 
 	size = ft_strlen(name);
 	if (size > 5 && !ft_strcmp(&name[size - 4], ".cor"))
-		fd  = (open(name, O_RDONLY));
+		fd = (open(name, O_RDONLY));
 	else
 		fd = -1;
 	champion = clear_champion(champion);
@@ -80,9 +80,9 @@ static int	main_unasm(t_champion *champion, char *name)
 int			main(int argc, char *argv[])
 {
 	t_champion	*champion;
-	int i;
+	int			i;
 
-		champion = init_champion();
+	champion = init_champion();
 	i = 0;
 	while (++i < argc)
 		if (main_unasm(champion, argv[i]))

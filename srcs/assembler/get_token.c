@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 23:04:49 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:47:53 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int			ft_isnumber(char *s) // libft ??
 {
@@ -56,11 +56,9 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 	return (create_token(c, line, UNKNOWN));
 }
 
-
 t_token		*get_token_param(t_champion *c, char *s, int line_nb)
 {
 	t_token *token;
-
 
 	if (ft_strchr(s, DIRECT_CHAR))
 		token = get_direct_token(c, line_nb, s);

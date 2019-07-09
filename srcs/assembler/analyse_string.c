@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:38:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 17:22:42 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:38:51 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 static char		*join_norme(char *s, char *line, int line_nb, int option)
 {
@@ -30,7 +30,7 @@ static char		*join_norme(char *s, char *line, int line_nb, int option)
 	}
 }
 
-static char			*string_exeption(t_fichier *file, char *line)
+static char		*string_exeption(t_fichier *file, char *line)
 {
 	int		line_nb;
 	char	*s;
@@ -60,7 +60,7 @@ static char			*string_exeption(t_fichier *file, char *line)
 	return (s);
 }
 
-t_token				*analyse_string(t_champion *champion, char **line,
+t_token			*analyse_string(t_champion *champion, char **line,
 		t_fichier *file)
 {
 	int		end;

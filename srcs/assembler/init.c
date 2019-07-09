@@ -6,12 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 23:05:32 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:48:41 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-
+#include "../../includes/asm.h"
 
 t_champion			*clear_champion(t_champion *champion)
 {
@@ -66,7 +65,7 @@ t_fichier			*clear_file(t_fichier *file)
 	return (file);
 }
 
-t_fichier			*init_file()
+t_fichier			*init_file(void)
 {
 	t_fichier *file;
 
