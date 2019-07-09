@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/05 11:00:54 by anleclab         ###   ########.fr        #
+#    Updated: 2019/07/09 20:36:00 by anyahyao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = corewar
 NAME2 = asm
 NAME3 = unassembler
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 SRC = op.c \
 	  announce_winner.c \
 	  arena_setup.c \
@@ -71,7 +71,10 @@ SRCASSEMBLER = check_instruction.c \
 				verify.c\
 				write_champion.c\
 				desas_instruction.c\
-				write_champion_code.c
+				write_champion_code.c\
+				add_token.c\
+				analyse_string.c\
+				hexa.c
 
 MAIN_ASSEMBLER = asm.c
 MAIN_UNASSEMBLER = desasssembler.c

@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:55 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 18:39:16 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:42:14 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int		error_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 {
@@ -45,6 +45,8 @@ void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 			"Champion already has a name or a comment", t->line);
 		(t->type != NAME) ? ft_strcpy(c->header->comment, next->value.data) :
 			ft_strcpy(c->header->prog_name, next->value.data);
+		c->hasname = (t->type == NAME) ? 1 : c->hasname;
+		c->hascomment = (t->type == COMMENT) ? 1 : c->hascomment;
 	}
 	delete_token(t);
 	delete_token(next);
@@ -61,6 +63,10 @@ int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
 	else if (t == UNKNOWN)
 		error_champion(c, "Unknown token", c->tokens[deb]->line);
 	else
+	{
+		affichetype(c->tokens[deb]->type);
 		ft_printf("Does not belong here: (%d)\n", c->tokens[deb]->line);
+		c->number_error++;
+	}
 	return (1);
 }

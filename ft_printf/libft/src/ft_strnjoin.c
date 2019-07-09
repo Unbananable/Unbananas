@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 13:51:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/09 20:21:15 by anyahyao         ###   ########.fr       */
+/*   Created: 2019/07/09 19:19:18 by anyahyao          #+#    #+#             */
+/*   Updated: 2019/07/09 19:19:41 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *s)
+char					*ft_strnjoin(char const *s1, char const *s2, int size)
 {
-	return ((int)(ft_atoll(s)));
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(str = ft_strnew(size + ft_strlen(s2) + 1)))
+		return (NULL);
+	ft_strncpy(str, s1, size);
+	ft_strcat(str, s2);
+	return (str);
 }

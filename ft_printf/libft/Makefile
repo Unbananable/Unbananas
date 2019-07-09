@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:19:55 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/03 17:25:54 by dtrigalo         ###   ########.fr        #
+#    Updated: 2019/07/09 19:18:15 by anyahyao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRC_NAMES = ft_isspace.c\
 	  ft_strnequ.c \
 	  ft_strsub.c \
 	  ft_strjoin.c \
+	  ft_strnjoin.c \
+	  ft_strcjoin.c \
 	  ft_strtrim.c \
 	  ft_strsplit.c \
 	  ft_itoa.c \
