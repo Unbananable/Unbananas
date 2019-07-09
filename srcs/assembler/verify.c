@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:52:53 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:16:01 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int			verify_champion(t_champion *c)
 			i++;
 		if (i == c->number_token)
 			break ;
-		if (!c->tokens[i]) // impossible
-			exit_msg("Problem with Champion"); // impossible
 		l = c->tokens[i]->line;
 		j = i;
 		while (j < c->number_token && c->tokens[j] && c->tokens[j]->line == l)

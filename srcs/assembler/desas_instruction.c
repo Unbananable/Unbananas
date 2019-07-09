@@ -6,13 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:45:15 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:11:45 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
-
-extern t_op			op_tab[17];
 
 static t_token	*add_token_operation_id(t_token *token, unsigned int id)
 {
@@ -21,7 +19,7 @@ static t_token	*add_token_operation_id(t_token *token, unsigned int id)
 }
 
 t_token			*get_param(t_champion *champion, char param,
-						unsigned char *prog, int *pos, t_token **tt)
+						unsigned char *prog, int *pos)
 {
 	int				size;
 	unsigned int	value;
@@ -64,7 +62,7 @@ int				get_instruction_argcode(t_champion *champion,
 	param[2] = (prog[1] & 0x0c) >> 2;
 	while (param[++i] && i < 3)
 		token->param[i] = get_param(champion, param[i], prog,
-				&pos, &token->param[i]);
+				&pos);
 	return (pos);
 }
 
@@ -86,6 +84,6 @@ int				get_instruction(t_champion *champion, unsigned char *prog)
 	else
 		while (++i < token->value.operation->number_param)
 			token->param[i] = get_param(champion,
-				token->value.operation->tab[i], prog, &pos, &token->param[i]);
+				token->value.operation->tab[i], prog, &pos);
 	return (pos);
 }

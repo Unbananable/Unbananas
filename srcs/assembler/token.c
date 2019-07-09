@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:52:21 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:17:02 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			add_token(t_token *token, t_champion *champion)
 	if (token->type == LABEL)
 	{
 		if (champion->number_labels % BUFFER_LABELS == BUFFER_LABELS - 1)
-			if(!(champion->labels = realloc(champion->labels,
+			if (!(champion->labels = realloc(champion->labels,
 			(champion->number_labels + BUFFER_LABELS + 1) * sizeof(int))))
 				return (0);
 		champion->labels[champion->number_labels] = champion->number_token;

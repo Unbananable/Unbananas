@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/08 23:05:10 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 20:21:15 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <fcntl.h>
 
 # define NUMBERMAX_ERROR 5
-# define BUFFER_TOKENS 2
-# define BUFFER_LABELS 2
+# define BUFFER_TOKENS CHAMP_MAX_SIZE
+# define BUFFER_LABELS CHAMP_MAX_SIZE
 # define SIZEMAX_STRING 2048
 
 typedef struct		s_op
@@ -117,7 +117,6 @@ int					get_instruction(t_champion *champion, unsigned char *prog);
 ** libft a ajoute
 */
 
-char				*ft_strnjoin(char *s1, char *s2, int size);
 int					manage_label_param(t_champion *champion, char *str);
 
 /*
@@ -138,12 +137,15 @@ int					affichelabels(t_champion *champion);
 int					create_champion(t_fichier *file, t_champion *champion);
 int					already_label(t_champion *c, char *str, int s);
 long long			convert_bigendian(long long val, unsigned int size);
+unsigned char		opcode(t_token *token);
 
 /*
 ** write_champion.c
 */
 
 int					write_champion_prog(t_champion *champion, char *str);
+int					convert_token_hexa(t_champion *c, int start,
+							t_token *token);
 
 /*
 ** error.c

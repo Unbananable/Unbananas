@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:38:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:38:51 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:11:20 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ static char		*string_exeption(t_fichier *file, char *line)
 			return (0x0);
 		ft_strdel(&file->line);
 		if (get_next_line(file->fd_in, &file->line) < 1)
-		{
-			ft_printf("fatal error: STRING\n");
-			return (0x0);
-		}
+			return (0x0); // fatal error
 		line = file->line;
 		file->line_nb++;
 	}

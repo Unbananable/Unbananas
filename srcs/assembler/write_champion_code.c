@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:03:42 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:53:37 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:34:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,16 @@ long long	ft_cast_element(long long value, unsigned char size)
 	return (value);
 }
 
-int oo = 0;
+static void	init_variable(int *i, char *separator, char *tab, t_token *token)
+{
+	*i = -1;
+	separator[0] = SEPARATOR_CHAR;
+	separator[1] = ' ';
+	separator[2] = '\0';
+	ft_bzero(tab, 1000);
+	ft_strcat(tab, token->value.operation->operation);
+	ft_strcat(tab, "\t");
+}
 
 void		write_line_token(t_token *token, int fd)
 {
@@ -37,13 +46,7 @@ void		write_line_token(t_token *token, int fd)
 	char	tab[1000];
 	char	separator[3];
 
-	i = -1;
-	separator[0] = SEPARATOR_CHAR;
-	separator[1] = ' ';
-	separator[2] = '\0';
-	ft_bzero(tab, 1000);
-	ft_strcat(tab, token->value.operation->operation);
-	ft_strcat(tab, "\t");
+	init_variable(&i, separator, tab, token);
 	id = token->value.operation->id;
 	while (++i < token->value.operation->number_param)
 	{

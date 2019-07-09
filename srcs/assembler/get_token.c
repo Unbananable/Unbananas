@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:47:53 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 20:21:17 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 	{
 		s++;
 		if (ft_isnumber(s))
-			return (add_token_integer(create_token(c, line, DIRECT),
-						(int)ft_atoll(s)));
+		{
+			return (add_token_integer(create_token(c, line,
+							DIRECT), ft_atoi(s)));
+		}
 		if (*s == LABEL_CHAR)
 		{
 			s++;
@@ -64,10 +66,10 @@ t_token		*get_token_param(t_champion *c, char *s, int line_nb)
 		token = get_direct_token(c, line_nb, s);
 	else if (isregister(s))
 		token = add_token_integer(create_token(c, line_nb, REGISTER),
-				(int)ft_atoll(&s[1]));
+				ft_atoi(&s[1]));
 	else if (ft_isnumber(s))
 		token = add_token_integer(create_token(c, line_nb, INDIRECT),
-				(int)ft_atoll(s));
+				ft_atoi(s));
 	else if (isindirect_label(s))
 		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL_STR),
 				&s[1]);
