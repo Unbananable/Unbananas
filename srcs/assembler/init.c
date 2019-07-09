@@ -42,7 +42,8 @@ t_champion			*init_champion(void)
 	if (!(champion = (t_champion*)ft_memalloc(sizeof(t_champion))))
 		malloc_error("init_champion");
 	else if ((!(champion->header = (t_header*)ft_memalloc(sizeof(t_header))) ||
-	!(champion->tokens = (t_token**)malloc(sizeof(t_token*) * BUFFER_TOKENS))))
+	!(champion->tokens = (t_token**)malloc(sizeof(t_token*) * BUFFER_TOKENS)) ||
+	!(champion->labels = (int*)malloc(sizeof(int) * BUFFER_LABELS))))
 	{
 		if (champion->header)
 			free(champion->header);

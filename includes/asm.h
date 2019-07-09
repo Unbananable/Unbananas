@@ -21,8 +21,8 @@
 # include <fcntl.h>
 
 # define NUMBERMAX_ERROR 5
-# define BUFFER_TOKENS 100
-# define BUFFER_LABELS CHAMP_MAX_SIZE / 2
+# define BUFFER_TOKENS 2
+# define BUFFER_LABELS 2
 # define SIZEMAX_STRING 2048
 
 typedef struct		s_op
@@ -88,7 +88,7 @@ typedef struct		s_champion
 	t_token			**tokens;
 	int				number_token;
 
-	int				labels[BUFFER_LABELS];
+	int				*labels;
 	int				number_labels;
 
 	int				instructions[CHAMP_MAX_SIZE];

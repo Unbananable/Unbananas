@@ -77,19 +77,17 @@ int			add_token(t_token *token, t_champion *champion)
 				get_last_intruction_id(champion));
 	if (token->type == LABEL)
 	{
-		if (champion->number_labels >= BUFFER_LABELS - 1)
-		{
-			ft_printf("Fatal error: too many labels"); // a changer
-			return (0);
-		}
+		if (champion->number_labels % BUFFER_LABELS == BUFFER_LABELS - 1)
+			if(!(champion->labels = realloc(champion->labels,
+			(champion->number_labels + BUFFER_LABELS + 1) * sizeof(int))))
+				return (0);
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
 	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS - 1)
-	{
-		champion->tokens = realloc(champion->tokens,
-		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*));
-	}
+		if (!(champion->tokens = realloc(champion->tokens,
+		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*))))
+			return (0);
 	champion->tokens[champion->number_token] = token;
 	champion->number_token++;
 	return (1);

@@ -43,7 +43,7 @@ t_token		*get_direct_token(t_champion *c, int line, char *s)
 		s++;
 		if (ft_isnumber(s))
 			return (add_token_integer(create_token(c, line, DIRECT),
-						ft_atoi(s)));
+						(int)ft_atoll(s)));
 		if (*s == LABEL_CHAR)
 		{
 			s++;
@@ -64,10 +64,10 @@ t_token		*get_token_param(t_champion *c, char *s, int line_nb)
 		token = get_direct_token(c, line_nb, s);
 	else if (isregister(s))
 		token = add_token_integer(create_token(c, line_nb, REGISTER),
-				ft_atoi(&s[1]));
+				(int)ft_atoll(&s[1]));
 	else if (ft_isnumber(s))
 		token = add_token_integer(create_token(c, line_nb, INDIRECT),
-				ft_atoi(s));
+				(int)ft_atoll(s));
 	else if (isindirect_label(s))
 		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL_STR),
 				&s[1]);
