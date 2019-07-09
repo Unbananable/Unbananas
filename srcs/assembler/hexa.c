@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 19:21:02 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 20:21:16 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:49:45 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ long long				convert_bigendian(long long val, unsigned int size)
 	len = (size - 1) * 8;
 	res = 0;
 	base = 0x000000ff;
-	while (++i < size)
+	while (++i < (int)size)
 	{
 		if (len > 0)
 			res += (base & val) << len;
@@ -44,7 +44,6 @@ int						convert_param_hexa(t_champion *c, t_token *token,
 {
 	int res;
 	int type;
-	int label;
 
 	res = 0;
 	type = token->type;
@@ -68,7 +67,6 @@ int						convert_token_hexa(t_champion *c, int start,
 	int		res;
 	int		id;
 	int		i;
-	t_token	*tmp;
 
 	res = -1;
 	id = token->value.operation->id;

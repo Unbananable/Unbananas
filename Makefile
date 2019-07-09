@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/09 20:36:00 by anyahyao         ###   ########.fr        #
+#    Updated: 2019/07/09 22:45:00 by anyahyao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = corewar
 NAME2 = asm
 NAME3 = unassembler
 
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra #-Werror -g3 #-fsanitize=address
 SRC = op.c \
 	  announce_winner.c \
 	  arena_setup.c \
@@ -110,11 +110,11 @@ $(NAME): $(OBJSFD) $(OBJSVM) $(LIBFT) $(HDRS)
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 $(NAME2): $(OBJSFD) $(OBJSASM) $(LIBFT) $(HDRS)
-	@gcc  $(OBJSASM) $(LIB_BINARY) -o $@
+	@gcc  $(CFLAGS) $(OBJSASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 $(NAME3): $(OBJSFD) $(OBJSUNASM) $(LIBFT) $(HDRS)
-	@gcc  $(OBJSUNASM) $(LIB_BINARY) -o $@
+	@gcc  $(CFLAGS) $(OBJSUNASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 make_start:
@@ -138,7 +138,7 @@ $(OBJSFD)$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c $(HDRS) $(LIBFT)
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 $(OBJSFD)$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c $(HDRS) $(LIBFT)
-	@gcc  $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
+	@gcc  $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 clean:

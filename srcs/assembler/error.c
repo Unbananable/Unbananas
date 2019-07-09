@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:38:38 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:46:32 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 21:29:01 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,8 @@ int		error_champion(t_champion *champion, char *s, int line)
 	return (1);
 }
 
-void	malloc_error(char *str)
+int		malloc_error(char *str)
 {
 	ft_printf("Error malloc: %s", str);
-}
-
-void	exit_msg(char *str)
-{
-	ft_printf("%s", str);
-	exit(1);
+	return (1);
 }

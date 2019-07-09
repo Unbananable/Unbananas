@@ -6,17 +6,21 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 19:17:02 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:45:19 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-t_token		*create_token(t_champion *c, int line_nb, int type)
+t_token		*create_token(int line_nb, int type)
 {
 	t_token		*token;
 
-	token = malloc(sizeof(t_token));
+	if (!(token = malloc(sizeof(t_token))))
+	{
+		malloc_error("create_token");
+		return (0x0);
+	}
 	token->line = line_nb;
 	token->type = type;
 	token->param[0] = 0x0;
@@ -44,7 +48,6 @@ static int	get_last_intruction_id(t_champion *champion)
 int			size_token(int t, int id)
 {
 	int		res;
-	int		tmp;
 
 	res = 0;
 	if (t == UNKNOWN)
@@ -80,14 +83,14 @@ int			add_token(t_token *token, t_champion *champion)
 		if (champion->number_labels % BUFFER_LABELS == BUFFER_LABELS - 1)
 			if (!(champion->labels = realloc(champion->labels,
 			(champion->number_labels + BUFFER_LABELS + 1) * sizeof(int))))
-				return (0);
+				return (malloc_error("add_token"));
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
 	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS - 1)
 		if (!(champion->tokens = realloc(champion->tokens,
 		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*))))
-			return (0);
+			return (malloc_error("add_token"));
 	champion->tokens[champion->number_token] = token;
 	champion->number_token++;
 	return (1);

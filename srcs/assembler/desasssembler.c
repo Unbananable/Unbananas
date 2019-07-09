@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:46:16 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:50:47 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int			read_champion(t_champion *champion, int fd)
 
 	i = 0;
 	n = read(fd, champion->prog, champion->header->prog_size + 1);
-	if (n != champion->header->prog_size)
+	if (n != (int)champion->header->prog_size)
 	{
 		ft_printf("bad size %d /%d\n", n, champion->header->prog_size);
 		return (0);
 	}
-	while (i < champion->header->prog_size)
+	while (i < (int)champion->header->prog_size)
 	{
 		if ((tmp = get_instruction(champion, &champion->prog[i])))
 			i += tmp;
@@ -40,7 +40,6 @@ int			read_header(t_champion *champion, int fd)
 	int			n;
 	int			size;
 	t_header	*header;
-	char		tab[4];
 
 	header = champion->header;
 	size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;

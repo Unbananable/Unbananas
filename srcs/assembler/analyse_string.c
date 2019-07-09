@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:38:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 19:11:20 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:48:05 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char		*string_exeption(t_fichier *file, char *line)
 			return (0x0);
 		ft_strdel(&file->line);
 		if (get_next_line(file->fd_in, &file->line) < 1)
-			return (0x0); // fatal error
+			return (0x0);
 		line = file->line;
 		file->line_nb++;
 	}
@@ -57,8 +57,7 @@ static char		*string_exeption(t_fichier *file, char *line)
 	return (s);
 }
 
-t_token			*analyse_string(t_champion *champion, char **line,
-		t_fichier *file)
+t_token			*analyse_string(char **line, t_fichier *file)
 {
 	int		end;
 	char	*tmp;
@@ -66,13 +65,11 @@ t_token			*analyse_string(t_champion *champion, char **line,
 	t_token *token;
 
 	actual = file->line_nb;
-	token = create_token(champion, actual, STRING);
+	token = create_token(actual, STRING);
 	if (!(tmp = string_exeption(file, *line)))
 		return (0x0);
 	token = add_token_string(token, tmp);
 	ft_strdel(&tmp);
-	if (actual != file->line_nb)
-		ft_printf("String too long ? multiple lines\n"); // a supprimer
 	*line = (actual < file->line_nb) ? file->line : *line;
 	end = ft_strchr(*line, '"') - *line + 1;
 	*line += end;

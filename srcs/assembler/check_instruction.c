@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:41:27 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:41:34 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	isgoodparam(t_champion *c, t_token *token, int expected)
 {
 	int		type;
 	int		tmp;
-	char	*error;
 
 	type = token->type;
 	if ((type == DIRECT_LABEL_STR || type == INDIRECT_LABEL_STR))
@@ -88,7 +87,6 @@ int			check_instruction(t_champion *c, t_token *token, int pos,
 		int tok_line)
 {
 	t_op	*instruction;
-	int		i;
 
 	instruction = token->value.operation;
 	if (tok_line > instruction->number_param * 2)

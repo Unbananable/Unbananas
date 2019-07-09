@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 13:50:48 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:48:17 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_token	*analyse_element(t_champion *champion, char **line,
 	if (**line == SEPARATOR_CHAR)
 	{
 		*line += 1;
-		token = create_token(champion, file->line_nb, SEPARATOR);
+		token = create_token(file->line_nb, SEPARATOR);
 	}
 	else
 	{
@@ -59,7 +59,7 @@ static int		analyse_line(t_fichier *file, char *line, t_champion *champion)
 		if (*line == '"')
 		{
 			line++;
-			token = analyse_string(champion, &line, file);
+			token = analyse_string(&line, file);
 		}
 		else
 			token = analyse_element(champion, &line, file);

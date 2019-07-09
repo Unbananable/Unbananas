@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 20:21:15 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:48:25 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct		s_op
 	char			*comment;
 	int				val1;
 	int				val2;
-	int				val3;
 }					t_op;
 
 typedef struct		s_fichier
@@ -151,7 +150,7 @@ int					convert_token_hexa(t_champion *c, int start,
 ** error.c
 */
 
-void				malloc_error(char *str);
+int					malloc_error(char *str);
 void				exit_msg(char *str);
 
 /*
@@ -187,14 +186,14 @@ int					add_token(t_token *token, t_champion *champion);
 ** token.c
 */
 
-t_token				*create_token(t_champion *champion, int line_nb, int type);
+t_token				*create_token(int line_nb, int type);
 int					size_token(int t, int id);
 
 /*
 ** get_token.c
 */
 
-t_token				*get_direct_token(t_champion *champion, int line, char *s);
+t_token				*get_direct_token(int line, char *s);
 t_token				*get_token(t_champion *c, char *s, int end, int line_nb);
 int					move_token(t_token **token, t_token **t);
 
@@ -224,7 +223,7 @@ int					compose_withthese_letters(char *word, char *letters);
 ** parsing.c
 */
 
-t_token				*analyse_string(t_champion *champion, char **line,
+t_token				*analyse_string(char **line,
 		t_fichier *file);
 int					parsing(t_fichier *file, t_champion *champion);
 
