@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/10 13:49:50 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:44:45 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 		if (next->type == INSTRUCTION)
 			check_instruction(c, next, pos + 1, nb - 1);
 		else
-			error_champion(c, "many labels in the same line", t->line);
+			error_champion(c, "Several labels in the same line", t->line);
 	}
 }
 
