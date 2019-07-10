@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:33:54 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 21:43:52 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 22:03:37 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ static t_gnl			*ft_new_gnl(int fd, char **l, t_gnl *gnl, t_gnl *prec)
 	int				len;
 
 	while (gnl != 0x0 && gnl->fd != fd && (prec = gnl) != 0x0)
-			gnl = gnl->next;
+		gnl = gnl->next;
 	len = (gnl && gnl->fd == fd) ? gnl->len : 1;
-	if (!(*l = (char *)malloc(sizeof(char) * ((len * BUFF_SIZE) + 1))))
+	if (!(*l = (char *)ft_memalloc(sizeof(char) * ((len * BUFF_SIZE) + 1))))
 		return (0x0);
-	ft_bzero(*l, BUFF_SIZE + 1);
 	if (gnl && gnl->fd == fd)
 		return (gnl);
 	if (!(gnl = (t_gnl *)malloc(sizeof(t_gnl))))
@@ -78,9 +77,8 @@ static t_gnl			*ft_new_gnl(int fd, char **l, t_gnl *gnl, t_gnl *prec)
 	gnl->fd = fd;
 	gnl->len = 1;
 	gnl->empty = 1;
-	if (!(gnl->str = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
+	if (!(gnl->str = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1))))
 		return (0x0);
-	ft_bzero(gnl->str, BUFF_SIZE + 1);
 	gnl->next = 0x0;
 	gnl->prec = prec;
 	if (prec)
