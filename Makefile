@@ -6,7 +6,11 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/09 22:45:00 by anyahyao         ###   ########.fr        #
+<<<<<<< HEAD
+#    Updated: 2019/07/10 13:16:17 by anleclab         ###   ########.fr        #
+=======
+#    Updated: 2019/07/10 13:24:36 by dtrigalo         ###   ########.fr        #
+>>>>>>> 18c19cffc932501885ca237a688a208516261ab7
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +18,7 @@ NAME = corewar
 NAME2 = asm
 NAME3 = unassembler
 
-CFLAGS = -Wall -Wextra #-Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 SRC = op.c \
 	  announce_winner.c \
 	  arena_setup.c \
@@ -105,15 +109,15 @@ BOLD_UNDERLINED = \033[1;4m
 all: make_start check_libft project $(NAME) $(NAME2) $(NAME3) $(HDRS)
 	@echo "\n\033[1;4;42m!! Success !!$(NONE)\n"
 
-$(NAME): $(OBJSFD) $(OBJSVM) $(LIBFT) $(HDRS)
+$(NAME): | check_libft $(OBJSFD) $(OBJSVM) $(LIBFT) $(HDRS)
 	@gcc $(CFLAGS) $(OBJSVM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
-$(NAME2): $(OBJSFD) $(OBJSASM) $(LIBFT) $(HDRS)
+$(NAME2): | check_libft $(OBJSFD) $(OBJSASM) $(LIBFT) $(HDRS)
 	@gcc  $(CFLAGS) $(OBJSASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
-$(NAME3): $(OBJSFD) $(OBJSUNASM) $(LIBFT) $(HDRS)
+$(NAME3): | check_libft $(OBJSFD) $(OBJSUNASM) $(LIBFT) $(HDRS)
 	@gcc  $(CFLAGS) $(OBJSUNASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 

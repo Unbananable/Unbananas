@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   desasssembler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:50:47 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:20:11 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int			main(int argc, char *argv[])
 	t_champion	*champion;
 	int			i;
 
+	if (argc == 1)
+	{
+		ft_printf("usage: ./unassembler champion_file1.cor ...\n");
+		return (0);
+	}
 	champion = init_champion();
 	i = 0;
 	while (++i < argc)
