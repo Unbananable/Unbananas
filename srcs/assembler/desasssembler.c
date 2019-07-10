@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:19:18 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:50:47 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int			read_champion(t_champion *champion, int fd)
 {
@@ -19,21 +19,19 @@ int			read_champion(t_champion *champion, int fd)
 	int		tmp;
 
 	i = 0;
-	ft_printf("read_chp %d /%d\n", champion->header->prog_size, CHAMP_MAX_SIZE);
 	n = read(fd, champion->prog, champion->header->prog_size + 1);
-	if (n != champion->header->prog_size)
+	if (n != (int)champion->header->prog_size)
 	{
 		ft_printf("bad size %d /%d\n", n, champion->header->prog_size);
 		return (0);
 	}
-	while (i < champion->header->prog_size)
+	while (i < (int)champion->header->prog_size)
 	{
 		if ((tmp = get_instruction(champion, &champion->prog[i])))
 			i += tmp;
 		else
 			return (0);
 	}
-	ft_printf("=============\n\n\n");
 	return (1);
 }
 
@@ -42,9 +40,7 @@ int			read_header(t_champion *champion, int fd)
 	int			n;
 	int			size;
 	t_header	*header;
-	char		tab[4];
 
-	ft_printf("read_header\n");
 	header = champion->header;
 	size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
 	n = read(fd, header, size);
@@ -59,32 +55,39 @@ int			read_header(t_champion *champion, int fd)
 	return (1);
 }
 
-static int	open_champion(char *str)
+static int	main_unasm(t_champion *champion, char *name)
 {
+	int fd;
 	int size;
 
-	size = ft_strlen(str);
-	if (size > 5 && !ft_strcmp(&str[size - 4], ".cor"))
-		return (open(str, O_RDONLY));
-	return (-1);
+	size = ft_strlen(name);
+	if (size > 5 && !ft_strcmp(&name[size - 4], ".cor"))
+		fd = (open(name, O_RDONLY));
+	else
+		fd = -1;
+	champion = clear_champion(champion);
+	if (fd == -1)
+	{
+		ft_printf("probleme nom du fichier");
+		return (0);
+	}
+	if (read_header(champion, fd) && read_champion(champion, fd))
+		return (write_champion_prog(champion, name));
+	return (0);
 }
 
 int			main(int argc, char *argv[])
 {
-	int			fd;
 	t_champion	*champion;
+	int			i;
 
-	if (argc != 2)
-		return (0);
-	fd = open_champion(argv[1]);
-	if (fd == -1)
-	{
-		ft_printf("probleme nom du fichier");
-		return (-1);
-	}
 	champion = init_champion();
-	if (read_header(champion, fd))
-		if (read_champion(champion, fd))
-			write_champion_prog(champion, argv[1]);
+	i = 0;
+	while (++i < argc)
+		if (main_unasm(champion, argv[i]))
+			ft_printf("Writing output program to %s\n", argv[i]);
+		else
+			ft_printf("IMPOSSIBLE: %s\n", argv[i]);
+	free_champion(&champion);
 	return (0);
 }

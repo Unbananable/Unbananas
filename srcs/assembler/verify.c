@@ -6,64 +6,33 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 18:50:04 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:58:30 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
-void		delete_token(t_token *token)
+static int		verify_champion_line(t_champion *c, int t, int deb,
+		int tok_line)
 {
-	int t;
-
-	t = token->type;
-	token->type = EMPTY;
-	if (t == STRING)
-		ft_memdel((void**)(&token->value.data));
-}
-
-int			search_label(t_champion *c, char *s)
-{
-	int i;
-
-	i = -1;
-	while (++i < c->number_token)
-		if (c->tokens[i]->type == LABEL &&
-				!ft_strcmp(c->tokens[i]->value.data, s))
-			return (i);
-	return (-1);
-}
-
-static int	verify_labelparameter(t_champion *c)
-{
-	int		i;
-	int		j;
-	t_token	*token;
-
-	i = -1;
-	while (++i < c->number_token)
+	if (t == NAME || t == COMMENT)
+		check_name_comment(c, c->tokens[deb], c->tokens[deb + 1], tok_line);
+	else if (t == LABEL)
+		check_label(c, c->tokens[deb], deb, tok_line);
+	else if (t == INSTRUCTION)
+		check_instruction(c, c->tokens[deb], deb, tok_line);
+	else if (t == UNKNOWN)
+		error_champion(c, "Unknown token", c->tokens[deb]->line);
+	else
 	{
-		token = c->tokens[i];
-		if (token->type == INSTRUCTION)
-		{
-			j = -1;
-			while (++j < 3)
-			{
-				if (token->param[j] && (token->param[j]->type == DIRECT_LABEL ||
-									token->param[j]->type == INDIRECT_LABEL))
-					if (!search_label(c, token->param[j]->value.data))
-					{
-						ft_printf("Fatal error line :%d label \"%s\" not found",
-								token->line, token->param[j]->value.data);
-						exit_msg("Bye\n");
-					}
-			}
-		}
+		affichetype(c->tokens[deb]->type);
+		ft_printf("Does not belong here: (%d)\n", c->tokens[deb]->line);
+		c->number_error++;
 	}
 	return (1);
 }
 
-int			verify_champion(t_champion *c)
+int				verify_champion(t_champion *c)
 {
 	int i;
 	int l;
@@ -72,13 +41,11 @@ int			verify_champion(t_champion *c)
 	i = 0;
 	while (i < c->number_token)
 	{
-		while (i < c->number_token && c->tokens[i] && c->tokens[i]->type
-				== EMPTY)
+		while (i < c->number_token && c->tokens[i] &&
+			c->tokens[i]->type == EMPTY)
 			i++;
 		if (i == c->number_token)
 			break ;
-		if (!c->tokens[i])
-			exit_msg("Problem with Champion");
 		l = c->tokens[i]->line;
 		j = i;
 		while (j < c->number_token && c->tokens[j] && c->tokens[j]->line == l)
@@ -88,5 +55,7 @@ int			verify_champion(t_champion *c)
 		if (c->number_error > NUMBERMAX_ERROR)
 			return (-1);
 	}
+	if (!c->hasname || !c->hascomment)
+		warning_champion(c, "missing name or comment", -1);
 	return ((c->number_error || !c->hasname || !c->hascomment) ? -1 : 1);
 }

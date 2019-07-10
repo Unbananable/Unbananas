@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:49:18 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/06/21 16:53:45 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:16:04 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	affichetype(int type)
 		ft_printf("NAME ");
 	else if (type == COMMENT)
 		ft_printf("COMMENT ");
-	else if (type == DIRECT_LABEL)
+	else if (type == DIRECT_LABEL || type == DIRECT_LABEL_STR)
 		ft_printf("DIRECT_LABEL ");
 	else if (type == DIRECT)
 		ft_printf("DIRECT ");
-	else if (type == INDIRECT_LABEL)
+	else if (type == INDIRECT_LABEL || type == INDIRECT_LABEL_STR)
 		ft_printf("INDIRECT_LABEL ");
 	else if (type == INDIRECT)
 		ft_printf("INDIRECT ");
@@ -132,7 +132,10 @@ int			test_champion(t_champion *champion, int mode)
 			break;
 		token = champion->tokens[i];
 		if (!token)
-			exit_msg("probleme test_champion!");
+		{
+			ft_printf("probleme test_champion!"); // test.c
+			exit(1);
+		}
 		while (line < token->line)
 		{
 			ft_printf("\nline%d:", line);

@@ -6,7 +6,11 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2019/07/05 12:33:59 by anleclab         ###   ########.fr        #
+=======
+#    Updated: 2019/07/09 22:45:00 by anyahyao         ###   ########.fr        #
+>>>>>>> 597336d7dc51be8e628c73fc56ba049f092fcd3e
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +18,11 @@ NAME = corewar
 NAME2 = asm
 NAME3 = unassembler
 
+<<<<<<< HEAD
 CFLAGS = -Wall -Wextra -Werror
+=======
+CFLAGS = -Wall -Wextra #-Werror -g3 #-fsanitize=address
+>>>>>>> 597336d7dc51be8e628c73fc56ba049f092fcd3e
 SRC = op.c \
 	  announce_winner.c \
 	  arena_setup.c \
@@ -71,7 +79,10 @@ SRCASSEMBLER = check_instruction.c \
 				verify.c\
 				write_champion.c\
 				desas_instruction.c\
-				write_champion_code.c
+				write_champion_code.c\
+				add_token.c\
+				analyse_string.c\
+				hexa.c
 
 MAIN_ASSEMBLER = asm.c
 MAIN_UNASSEMBLER = desasssembler.c
@@ -107,11 +118,11 @@ $(NAME): $(OBJSFD) $(OBJSVM) $(LIBFT) $(HDRS)
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 $(NAME2): $(OBJSFD) $(OBJSASM) $(LIBFT) $(HDRS)
-	@gcc  $(OBJSASM) $(LIB_BINARY) -o $@
+	@gcc  $(CFLAGS) $(OBJSASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 $(NAME3): $(OBJSFD) $(OBJSUNASM) $(LIBFT) $(HDRS)
-	@gcc  $(OBJSUNASM) $(LIB_BINARY) -o $@
+	@gcc  $(CFLAGS) $(OBJSUNASM) $(LIB_BINARY) -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ executable"
 
 make_start:
@@ -135,7 +146,7 @@ $(OBJSFD)$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c $(HDRS) $(LIBFT)
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 $(OBJSFD)$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c $(HDRS) $(LIBFT)
-	@gcc  $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
+	@gcc  $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
 clean:

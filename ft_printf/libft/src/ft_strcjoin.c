@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anleclab <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 13:51:13 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/09 20:21:15 by anyahyao         ###   ########.fr       */
+/*   Created: 2018/11/08 08:37:24 by anleclab          #+#    #+#             */
+/*   Updated: 2019/01/23 14:13:47 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *s)
+char	*ft_strcjoin(char const *s1, char const *s2, char c)
 {
-	return ((int)(ft_atoll(s)));
+	char	*res;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	if (!(res = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1 + 1)))
+		return (NULL);
+	ft_strcpy(res, s1);
+	res[ft_strlen(s1)] = c;
+	ft_strcat(res, s2);
+	return (res);
 }

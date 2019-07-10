@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:03:42 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 12:24:59 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:34:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 long long	ft_cast_element(long long value, unsigned char size)
 {
@@ -27,7 +27,16 @@ long long	ft_cast_element(long long value, unsigned char size)
 	return (value);
 }
 
-int oo = 0;
+static void	init_variable(int *i, char *separator, char *tab, t_token *token)
+{
+	*i = -1;
+	separator[0] = SEPARATOR_CHAR;
+	separator[1] = ' ';
+	separator[2] = '\0';
+	ft_bzero(tab, 1000);
+	ft_strcat(tab, token->value.operation->operation);
+	ft_strcat(tab, "\t");
+}
 
 void		write_line_token(t_token *token, int fd)
 {
@@ -37,13 +46,7 @@ void		write_line_token(t_token *token, int fd)
 	char	tab[1000];
 	char	separator[3];
 
-	i = -1;
-	separator[0] = SEPARATOR_CHAR;
-	separator[1] = ' ';
-	separator[2] = '\0';
-	ft_bzero(tab, 1000);
-	ft_strcat(tab, token->value.operation->operation);
-	ft_strcat(tab, "\t");
+	init_variable(&i, separator, tab, token);
 	id = token->value.operation->id;
 	while (++i < token->value.operation->number_param)
 	{
@@ -70,8 +73,6 @@ int			write_champion_prog(t_champion *champion, char *str)
 	str = ft_strnjoin(str, "9.s", ft_strlen(str) - 4);
 	fd = open(str, O_WRONLY | O_CREAT);
 	ft_memdel((void**)&str);
-	ft_printf("name \"%s\", ize :%d,\"%s\":", champion->header->prog_name,
-			champion->header->prog_size, champion->header->comment);
 	ft_putstr_fd(NAME_CMD_STRING, fd);
 	ft_putstr_fd(" \"", fd);
 	ft_putstr_fd(champion->header->prog_name, fd);
@@ -80,9 +81,8 @@ int			write_champion_prog(t_champion *champion, char *str)
 	ft_putstr_fd(" \"", fd);
 	ft_putstr_fd(champion->header->comment, fd);
 	ft_putstr_fd("\"\n", fd);
-	ft_printf("ecriture\n");
 	while (++i < champion->number_token)
 		write_line_token(champion->tokens[i], fd);
 	close(fd);
-	return (0);
+	return (1);
 }

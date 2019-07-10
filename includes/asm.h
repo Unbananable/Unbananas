@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:05:12 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:04:59 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <fcntl.h>
 
 # define NUMBERMAX_ERROR 5
-# define BUFFER_TOKENS 100
-# define BUFFER_LABELS CHAMP_MAX_SIZE / 2
+# define BUFFER_TOKENS CHAMP_MAX_SIZE
+# define BUFFER_LABELS CHAMP_MAX_SIZE
 # define SIZEMAX_STRING 2048
 
 typedef struct		s_op
@@ -35,7 +35,6 @@ typedef struct		s_op
 	char			*comment;
 	int				val1;
 	int				val2;
-	int				val3;
 }					t_op;
 
 typedef struct		s_fichier
@@ -49,6 +48,7 @@ typedef struct		s_fichier
 
 typedef enum		e_type
 {
+	EMPTY,
 	NAME,
 	COMMENT,
 	STRING,
@@ -57,11 +57,12 @@ typedef enum		e_type
 	SEPARATOR,
 	REGISTER,
 	DIRECT_LABEL,
+	DIRECT_LABEL_STR,
 	DIRECT,
 	INDIRECT,
 	INDIRECT_LABEL,
+	INDIRECT_LABEL_STR,
 	UNKNOWN,
-	EMPTY,
 }					t_type;
 
 typedef union		u_value
@@ -86,7 +87,7 @@ typedef struct		s_champion
 	t_token			**tokens;
 	int				number_token;
 
-	int				labels[BUFFER_LABELS];
+	int				*labels;
 	int				number_labels;
 
 	int				instructions[CHAMP_MAX_SIZE];
@@ -101,7 +102,7 @@ typedef struct		s_champion
 	unsigned char	prog[CHAMP_MAX_SIZE * 2];
 }					t_champion;
 
-extern				t_op op_tab[17];
+extern t_op			g_tab[17];
 
 /*
 ** Autres
@@ -115,7 +116,6 @@ int					get_instruction(t_champion *champion, unsigned char *prog);
 ** libft a ajoute
 */
 
-char				*ft_strnjoin(char *s1, char *s2, int size);
 int					manage_label_param(t_champion *champion, char *str);
 
 /*
@@ -136,18 +136,21 @@ int					affichelabels(t_champion *champion);
 int					create_champion(t_fichier *file, t_champion *champion);
 int					already_label(t_champion *c, char *str, int s);
 long long			convert_bigendian(long long val, unsigned int size);
+unsigned char		opcode(t_token *token);
 
 /*
 ** write_champion.c
 */
 
 int					write_champion_prog(t_champion *champion, char *str);
+int					convert_token_hexa(t_champion *c, int start,
+							t_token *token);
 
 /*
 ** error.c
 */
 
-void				malloc_error(char *str);
+int					malloc_error(char *str);
 void				exit_msg(char *str);
 
 /*
@@ -156,6 +159,8 @@ void				exit_msg(char *str);
 
 t_fichier			*init_file();
 t_champion			*init_champion();
+t_champion			*clear_champion(t_champion *champion);
+t_fichier			*clear_file(t_fichier *file);
 
 /*
 ** check.c
@@ -163,27 +168,29 @@ t_champion			*init_champion();
 
 int					check_instruction(t_champion *c, t_token *token, int pos,
 											int tok_line);
-int					verify_champion_line(t_champion *c, int t, int deb,
-											int tok_line);
 void				check_label(t_champion *c, t_token *t, int deb,
 											int tok_line);
+
+/*
+** add_token.c
+*/
+
+t_token				*add_token_operation(t_token *token, char *str);
+t_token				*add_token_string(t_token *token, char *str);
+t_token				*add_token_integer(t_token *token, int value);
+int					add_token(t_token *token, t_champion *champion);
 
 /*
 ** token.c
 */
 
-t_token				*add_token_operation(t_token *token, char *s);
-t_token				*add_token_string(t_token *token, char *str);
-t_token				*add_token_integer(t_token *token, int value);
-t_token				*create_token(t_champion *champion, int line_nb, int type);
-void				add_token(t_token *token, t_champion *champion);
+t_token				*create_token(int line_nb, int type);
 int					size_token(int t, int id);
 
 /*
 ** get_token.c
 */
 
-t_token				*get_direct_token(t_champion *champion, int line, char *s);
 t_token				*get_token(t_champion *c, char *s, int end, int line_nb);
 int					move_token(t_token **token, t_token **t);
 
@@ -191,11 +198,12 @@ int					move_token(t_token **token, t_token **t);
 ** verify.c
 */
 
-int					search_label(t_champion *c, char *s);
 int					verify_champion(t_champion *c);
 int					error_champion(t_champion *champion, char *s, int line);
 void				delete_token(t_token *token);
 int					warning_champion(t_champion *champion, char *s, int line);
+void				check_name_comment(t_champion *c, t_token *t, t_token *next,
+		int nb_tok);
 
 /*
 ** recognize.c
@@ -213,8 +221,9 @@ int					compose_withthese_letters(char *word, char *letters);
 ** parsing.c
 */
 
+t_token				*analyse_string(char **line,
+		t_fichier *file);
 int					parsing(t_fichier *file, t_champion *champion);
-char				*string_exeption(t_fichier *f, char *line);
 
 /*
 ** free.c

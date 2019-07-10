@@ -6,48 +6,21 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:03:47 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/03 17:02:53 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/09 22:45:19 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
-extern				t_op op_tab[17];
-
-/*
-** on part du principe que operation existe
-*/
-
-t_token		*add_token_operation(t_token *token, char *s)
-{
-	int i;
-
-	i = 0;
-	while (op_tab[i].operation && ft_strcmp(op_tab[i].operation, s))
-		i++;
-	if (!op_tab[i].operation)
-		exit_msg("Problem in function: add_token_operation (token.c)");
-	token->value.operation = &op_tab[i];
-	return (token);
-}
-
-t_token		*add_token_string(t_token *token, char *str)
-{
-	token->value.data = ft_strdup(str);
-	return (token);
-}
-
-t_token		*add_token_integer(t_token *token, int value)
-{
-	token->value.number = value;
-	return (token);
-}
-
-t_token		*create_token(t_champion *c, int line_nb, int type)
+t_token		*create_token(int line_nb, int type)
 {
 	t_token		*token;
 
-	token = malloc(sizeof(t_token));
+	if (!(token = malloc(sizeof(t_token))))
+	{
+		malloc_error("create_token");
+		return (0x0);
+	}
 	token->line = line_nb;
 	token->type = type;
 	token->param[0] = 0x0;
@@ -75,18 +48,17 @@ static int	get_last_intruction_id(t_champion *champion)
 int			size_token(int t, int id)
 {
 	int		res;
-	int		tmp;
 
 	res = 0;
 	if (t == UNKNOWN)
 		res = 10;
 	if (t == REGISTER)
 		res = 1;
-	if (t == INDIRECT || t == INDIRECT_LABEL)
+	if (t == INDIRECT || t == INDIRECT_LABEL || t == INDIRECT_LABEL_STR)
 		res = 2;
 	if (t == INSTRUCTION)
 		res = (id == 1 || id == 9 || id == 12) ? 1 : 2;
-	if (t == DIRECT || t == DIRECT_LABEL)
+	if (t == DIRECT || t == DIRECT_LABEL || t == DIRECT_LABEL_STR)
 	{
 		if (id < 0)
 			return (10);
@@ -95,7 +67,7 @@ int			size_token(int t, int id)
 	return (res);
 }
 
-void		add_token(t_token *token, t_champion *champion)
+int			add_token(t_token *token, t_champion *champion)
 {
 	if (token->type == INSTRUCTION)
 	{
@@ -108,16 +80,18 @@ void		add_token(t_token *token, t_champion *champion)
 				get_last_intruction_id(champion));
 	if (token->type == LABEL)
 	{
-		if (champion->number_labels >= BUFFER_LABELS - 1)
-			exit_msg("Fatal error: too many labels");
+		if (champion->number_labels % BUFFER_LABELS == BUFFER_LABELS - 1)
+			if (!(champion->labels = realloc(champion->labels,
+			(champion->number_labels + BUFFER_LABELS + 1) * sizeof(int))))
+				return (malloc_error("add_token"));
 		champion->labels[champion->number_labels] = champion->number_token;
 		champion->number_labels++;
 	}
 	if (champion->number_token % BUFFER_TOKENS == BUFFER_TOKENS - 1)
-	{
-		champion->tokens = realloc(champion->tokens,
-		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*));
-	}
+		if (!(champion->tokens = realloc(champion->tokens,
+		(champion->number_token + BUFFER_TOKENS + 1) * sizeof(t_token*))))
+			return (malloc_error("add_token"));
 	champion->tokens[champion->number_token] = token;
 	champion->number_token++;
+	return (1);
 }

@@ -6,18 +6,22 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/02 15:57:03 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:00:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
-int			ft_isnumber(char *s)
+/*
+** libft ??
+*/
+
+int					ft_isnumber(char *s)
 {
 	int size;
 
 	size = 0;
-	if (*s == '-' || *s == '+')
+	if (*s == '-')
 		s++;
 	while (ft_isdigit(*s))
 	{
@@ -29,34 +33,59 @@ int			ft_isnumber(char *s)
 	return (0);
 }
 
-int			move_token(t_token **token, t_token **anc)
+int					move_token(t_token **token, t_token **anc)
 {
+	t_token *tok;
+
+	if (!(tok = create_token((*anc)->line, EMPTY)))
+		return (0);
 	*token = *anc;
-	*anc = create_token(NULL, (*token)->line, EMPTY);
+	*anc = tok;
 	return (1);
 }
 
-t_token		*get_direct_token(t_champion *c, int line, char *s)
+static t_token		*get_direct_token(int line, char *s)
 {
 	if (*s == DIRECT_CHAR)
 	{
 		s++;
 		if (ft_isnumber(s))
-			return (add_token_integer(create_token(c, line, DIRECT),
-						ft_atoi(s)));
+			return (add_token_integer(create_token(line, DIRECT), ft_atoi(s)));
 		if (*s == LABEL_CHAR)
 		{
 			s++;
 			if (compose_withthese_letters(s, LABEL_CHARS))
-				return (add_token_string(create_token(c, line, DIRECT_LABEL),
+				return (add_token_string(create_token(line, DIRECT_LABEL_STR),
 							s));
 		}
 	}
-	ft_printf("probleme syntax incorrect pour un \"Direct\" %s", s);
-	return (create_token(c, line, UNKNOWN));
+	ft_printf("probleme syntax incorrect pour un \"Direct\" %s\n", s);
+	return (create_token(line, UNKNOWN));
 }
 
-t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
+static t_token		*get_token_param(char *s, int line_nb)
+{
+	t_token *token;
+
+	if (ft_strchr(s, DIRECT_CHAR))
+		token = get_direct_token(line_nb, s);
+	else if (isregister(s))
+		token = add_token_integer(create_token(line_nb, REGISTER),
+				ft_atoi(&s[1]));
+	else if (ft_isnumber(s))
+		token = add_token_integer(create_token(line_nb, INDIRECT), ft_atoi(s));
+	else if (isindirect_label(s))
+		token = add_token_string(create_token(line_nb, INDIRECT_LABEL_STR),
+				&s[1]);
+	else
+	{
+		token = create_token(line_nb, UNKNOWN);
+		ft_printf("probleme syntax error %s\n", s);
+	}
+	return (token);
+}
+
+t_token				*get_token(t_champion *c, char *s, int end, int line_nb)
 {
 	t_token	*token;
 	char	last_char;
@@ -64,33 +93,19 @@ t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
 	last_char = s[end];
 	s[end] = '\0';
 	if (!ft_strcmp(s, NAME_CMD_STRING))
-		token = create_token(c, line_nb, NAME);
+		token = create_token(line_nb, NAME);
 	else if (!ft_strcmp(s, COMMENT_CMD_STRING))
-		token = create_token(c, line_nb, COMMENT);
+		token = create_token(line_nb, COMMENT);
 	else if (islabel(s))
 	{
-		token = add_token_string(create_token(c, line_nb, LABEL), s);
+		token = add_token_string(create_token(line_nb, LABEL), s);
 		token->value.data[ft_strlen(s) - 1] = '\0';
 		token->pos = c->number_instructions;
 	}
-	else if (ft_strchr(s, DIRECT_CHAR))
-		token = get_direct_token(c, line_nb, s);
 	else if (isintruction(s))
-		token = add_token_operation(create_token(c, line_nb, INSTRUCTION), s);
-	else if (isregister(s))
-		token = add_token_integer(create_token(c, line_nb, REGISTER),
-				ft_atoi(&s[1]));
-	else if (ft_isnumber(s))
-		token = add_token_integer(create_token(c, line_nb, INDIRECT),
-				ft_atoi(s));
-	else if (isindirect_label(s))
-		token = add_token_string(create_token(c, line_nb, INDIRECT_LABEL),
-				&s[1]);
+		token = add_token_operation(create_token(line_nb, INSTRUCTION), s);
 	else
-	{
-		token = create_token(c, line_nb, UNKNOWN);
-		ft_printf("probleme syntax error %s", s);
-	}
+		token = get_token_param(s, line_nb);
 	s[end] = last_char;
 	return (token);
 }
