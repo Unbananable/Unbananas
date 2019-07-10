@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:19:09 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:19:20 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int				main(int argc, char **argv)
 	t_fichier		*file;
 	int				i;
 
+	if (argc == 1)
+	{
+		ft_printf("usage: ./asm champion_file1.s ...\n");
+		return (0);
+	}
 	i = 0;
 	if (!(champion = init_champion()) ||
 			!(file = init_file()))
