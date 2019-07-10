@@ -6,13 +6,13 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/10 14:44:45 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:59:43 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-int		find_label(t_champion *champion, char *str)
+static int		find_label(t_champion *champion, char *str)
 {
 	int i;
 
@@ -23,7 +23,7 @@ int		find_label(t_champion *champion, char *str)
 	return (-1);
 }
 
-int		already_label(t_champion *champion, char *str, int pos)
+int				already_label(t_champion *champion, char *str, int pos)
 {
 	int i;
 
@@ -35,7 +35,7 @@ int		already_label(t_champion *champion, char *str, int pos)
 	return (0);
 }
 
-void	check_label(t_champion *c, t_token *t, int pos, int nb)
+void			check_label(t_champion *c, t_token *t, int pos, int nb)
 {
 	t_token *next;
 
@@ -54,7 +54,7 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 	}
 }
 
-int		manage_label_param(t_champion *champion, char *str)
+int				manage_label_param(t_champion *champion, char *str)
 {
 	int position_label;
 	int val;

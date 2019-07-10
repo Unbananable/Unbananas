@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:59:59 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/03 17:42:05 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:59:15 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ void	initialize(t_cor *cor)
 	cor->op_tab = op_tab;
 	cor->visual_on = false;
 	cor->visu = NULL;
+	if (!(cor->aff = ft_strnew(BUFF_SIZE)))
+		error(cor, "malloc failed");
 }

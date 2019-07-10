@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/03 15:01:17 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:57:46 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ typedef struct		s_cor
 	unsigned int	new_proc_n;
 	struct s_visu	*visu;
 	bool			visual_on;
+	char			*aff;
 }					t_cor;
 
 /*

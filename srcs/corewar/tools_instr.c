@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_instr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:28:41 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 11:40:36 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:25:56 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int					get_args(t_cor *cor, t_proc *proc)
 	while (++i < cor->op_tab[proc->opcode - 1].nb_args)
 	{
 		cor->args[i].type = get_arg_type(cor->arena[restricted_addr(proc->idx
-					+ 1)], i);
+				+ 1)], i);
 		get_arg(cor, proc, &arg_idx, i);
 		if (!(cor->args[i].type & cor->op_tab[proc->opcode - 1].args[i])
 				|| (cor->args[i].type == T_REG && (cor->args[i].val <= 0
