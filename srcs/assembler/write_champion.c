@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:22:02 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 19:36:38 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:07:34 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int						create_champion(t_fichier *file, t_champion *champion)
 {
 	int size;
 
-	file->fd_out = open(file->file_name, O_WRONLY | O_CREAT);
+	file->fd_out = open(file->file_name, O_WRONLY | O_CREAT | O_TRUNC);
 	champion->header->prog_size = champion->size;
 	write_header(champion->header, file->fd_out);
 	size = manage_prog(champion);
