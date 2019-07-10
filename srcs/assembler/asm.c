@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 14:19:00 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:15:53 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int				main(int argc, char **argv)
 		else
 			ft_printf("IMPOSSIBLE: %s\n", argv[i]);
 	}
+		get_next_line(1000000000 + file->fd_in, &file->line);
+		ft_strdel(&file->line);
+		close(file->fd_in);
+	close(file->fd_in);
 	free_champion(&champion);
 	free_file(&file);
 	return (0);

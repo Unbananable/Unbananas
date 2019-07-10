@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:48:17 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 19:53:48 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ static int		is_end_word(char c)
 
 static int		end_word(char *s, int start)
 {
+	int i;
+
+	i = 0;
 	if (!s[start])
 		return (start);
-	while (s[start] && !(is_end_word(s[start]) || ft_isspace(s[start])))
-		start++;
-	return (start);
+	while (s[start + i] &&
+	!(is_end_word(s[start + i]) || ft_isspace(s[start + i]) ||
+	(i > 0 && (s[start + i] == DIRECT_CHAR || s[start] == LABEL_CHAR))))
+		i++;
+	return (start + i);
 }
 
 static t_token	*analyse_element(t_champion *champion, char **line,
