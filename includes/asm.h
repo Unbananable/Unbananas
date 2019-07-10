@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 12:04:59 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:54:54 by abossard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,53 +105,89 @@ typedef struct		s_champion
 extern t_op			g_tab[17];
 
 /*
-** Autres
-*/
-
-int					size_token(int t, int id);
-int					get_instruction(t_champion *champion, unsigned char *prog);
-
-/*
 **=======================PROTO========================
-** libft a ajoute
 */
-
-int					manage_label_param(t_champion *champion, char *str);
 
 /*
-** test.c
+** add_token.c
 */
 
-# define MODETOKEN 1
-# define MODEREEL 2
-
-int					affichetype(int type);
-int					test_champion(t_champion *champion, int mode);
-int					affichelabels(t_champion *champion);
+t_token				*add_token_operation(t_token *token, char *str);
+t_token				*add_token_string(t_token *token, char *str);
+t_token				*add_token_integer(t_token *token, int value);
 
 /*
-** write_champion.c
+** analyse_string.c
 */
 
-int					create_champion(t_fichier *file, t_champion *champion);
-int					already_label(t_champion *c, char *str, int s);
-long long			convert_bigendian(long long val, unsigned int size);
-unsigned char		opcode(t_token *token);
+t_token				*analyse_string(char **line, t_fichier *file);
 
 /*
-** write_champion.c
+** check_instruction.c
 */
 
-int					write_champion_prog(t_champion *champion, char *str);
-int					convert_token_hexa(t_champion *c, int start,
-							t_token *token);
+int					check_instruction(t_champion *c, t_token *token, int pos,
+											int tok_line);
+
+/*
+** check_token.c
+*/
+
+int					error_name_comment(t_champion *c, t_token *t, t_token
+						*next, int nb_tok);
+void				check_name_comment(t_champion *c, t_token *t, t_token *next,
+						int nb_tok);
+
+/*
+** desas_instruction.c
+*/
+
+int					get_instruction(t_champion *champion, unsigned char *prog);
+int					get_instruction_argcode(unsigned char *prog,
+						t_token *token);
+t_token				*get_param(char param, unsigned char *prog, int *pos);
+
+/*
+** desassembler.c
+*/
+
+int					read_header(t_champion *champion, int fd);
+int					read_champion(t_champion *champion, int fd);
 
 /*
 ** error.c
 */
 
 int					malloc_error(char *str);
-void				exit_msg(char *str);
+int					warning_champion(t_champion *champion, char *s, int line);
+int					error_champion(t_champion *champion, char *s, int line);
+
+/*
+** free.c
+*/
+
+void				free_token(t_token **token);
+void				free_file(t_fichier **file);
+void				free_champion(t_champion **champion);
+void				delete_token(t_token *token);
+
+/*
+** get_token.c
+*/
+
+t_token				*get_token(t_champion *c, char *s, int end, int line_nb);
+int					move_token(t_token **token, t_token **t);
+int					ft_isnumber(char *s);
+
+/*
+** hexa.c
+*/
+
+long long			convert_bigendian(long long val, unsigned int size);
+int					convert_token_hexa(t_champion *c, int start,
+						t_token *token);
+int					convert_param_hexa(t_champion *c, t_token *token,
+						int start, int id);
 
 /*
 ** init.c
@@ -163,22 +199,29 @@ t_champion			*clear_champion(t_champion *champion);
 t_fichier			*clear_file(t_fichier *file);
 
 /*
-** check.c
+** label.c
 */
 
-int					check_instruction(t_champion *c, t_token *token, int pos,
-											int tok_line);
+int					manage_label_param(t_champion *champion, char *str);
 void				check_label(t_champion *c, t_token *t, int deb,
 											int tok_line);
+int					already_label(t_champion *c, char *str, int s);
 
 /*
-** add_token.c
+** parsing.c
 */
 
-t_token				*add_token_operation(t_token *token, char *str);
-t_token				*add_token_string(t_token *token, char *str);
-t_token				*add_token_integer(t_token *token, int value);
-int					add_token(t_token *token, t_champion *champion);
+int					parsing(t_fichier *file, t_champion *champion);
+
+/*
+** recognize.c
+*/
+
+int					islabel(char *s);
+int					isintruction(char *s);
+int					isindirect_label(char *s);
+int					isregister(char *s);
+int					compose_withthese_letters(char *word, char *letters);
 
 /*
 ** token.c
@@ -186,51 +229,40 @@ int					add_token(t_token *token, t_champion *champion);
 
 t_token				*create_token(int line_nb, int type);
 int					size_token(int t, int id);
-
-/*
-** get_token.c
-*/
-
-t_token				*get_token(t_champion *c, char *s, int end, int line_nb);
-int					move_token(t_token **token, t_token **t);
+int					add_token(t_token *token, t_champion *champion);
 
 /*
 ** verify.c
 */
 
 int					verify_champion(t_champion *c);
-int					error_champion(t_champion *champion, char *s, int line);
-void				delete_token(t_token *token);
-int					warning_champion(t_champion *champion, char *s, int line);
-void				check_name_comment(t_champion *c, t_token *t, t_token *next,
-		int nb_tok);
 
 /*
-** recognize.c
+** write_champion.c
 */
 
-int					islabel(char *s);
-int					isdirect(char *s);
-int					isintruction(char *s);
-int					isindirect_label(char *s);
-int					isregister(char *s);
-int					ft_isinteger(char *s);
-int					compose_withthese_letters(char *word, char *letters);
+int					write_header(t_header *header, int fd);
+int					create_champion(t_fichier *file, t_champion *champion);
+unsigned char		opcode(t_token *token);
+int					manage_prog(t_champion *champion);
 
 /*
-** parsing.c
+** write_champion.c
 */
 
-t_token				*analyse_string(char **line,
-		t_fichier *file);
-int					parsing(t_fichier *file, t_champion *champion);
+int					write_champion_prog(t_champion *champion, char *str);
+void				write_line_token(t_token *token, int fd);
+long long			cast_element(long long value, unsigned char size);
 
 /*
-** free.c
+** test.c
 */
 
-void				free_token(t_token **token);
-void				free_file(t_fichier **file);
-void				free_champion(t_champion **champion);
+# define MODETOKEN 1
+# define MODEREEL 2
+
+int					affichetype(int type);
+int					test_champion(t_champion *champion, int mode);
+int					affichelabels(t_champion *champion);
 
 #endif
