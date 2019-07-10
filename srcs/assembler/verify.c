@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 11:58:30 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:27:36 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int				verify_champion(t_champion *c)
 			return (-1);
 	}
 	if (!c->hasname || !c->hascomment)
-		warning_champion(c, "missing name or comment", -1);
+		warning_champion(c, "Missing name or comment", -1);
 	return ((c->number_error || !c->hasname || !c->hascomment) ? -1 : 1);
 }
