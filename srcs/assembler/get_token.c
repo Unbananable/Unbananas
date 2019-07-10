@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 12:00:32 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:24:23 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static t_token		*get_direct_token(int line, char *s)
 							s));
 		}
 	}
-	ft_printf("probleme syntax incorrect pour un \"Direct\" %s\n", s);
+	ft_printf("Issue: Incorrect Syntax for a \"Direct\" %s\n", s);
 	return (create_token(line, UNKNOWN));
 }
 
@@ -80,7 +80,7 @@ static t_token		*get_token_param(char *s, int line_nb)
 	else
 	{
 		token = create_token(line_nb, UNKNOWN);
-		ft_printf("probleme syntax error %s\n", s);
+		ft_printf("Issue: Syntax Error %s\n", s);
 	}
 	return (token);
 }

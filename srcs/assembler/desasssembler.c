@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 13:20:11 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:31:50 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			read_champion(t_champion *champion, int fd)
 	n = read(fd, champion->prog, champion->header->prog_size + 1);
 	if (n != (int)champion->header->prog_size)
 	{
-		ft_printf("bad size %d /%d\n", n, champion->header->prog_size);
+		ft_printf("Bad size %d /%d\n", n, champion->header->prog_size);
 		return (0);
 	}
 	while (i < (int)champion->header->prog_size)
@@ -48,7 +48,7 @@ int			read_header(t_champion *champion, int fd)
 		return (0);
 	if (convert_bigendian(header->magic, 4) != COREWAR_EXEC_MAGIC)
 	{
-		ft_printf("probleme nombre magic\n");
+		ft_printf("Issue: Magic Number\n");
 		return (0);
 	}
 	header->prog_size = convert_bigendian(header->prog_size, 4);
@@ -68,7 +68,7 @@ static int	main_unasm(t_champion *champion, char *name)
 	champion = clear_champion(champion);
 	if (fd == -1)
 	{
-		ft_printf("probleme nom du fichier");
+		ft_printf("Issue: File Name");
 		return (0);
 	}
 	if (read_header(champion, fd) && read_champion(champion, fd))

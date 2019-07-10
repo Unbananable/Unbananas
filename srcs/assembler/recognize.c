@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/10 12:06:10 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:09:57 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		islabel(char *s)
 	i = 0;
 	while (i < len && ft_strchr(LABEL_CHARS, s[i]))
 		i++;
-	if (i == len - 1 && s[i] == LABEL_CHAR)
+	if (i == len - 1 && s[i] == LABEL_CHAR && len > 1)
 		return (1);
 	return (0);
 }
