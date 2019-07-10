@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtrigalo <dtrigalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:03:03 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/02 10:52:09 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:59:39 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			end(t_cor *cor)
 	}
 	free(cor->champs);
 	free(cor->arena);
+	free(cor->aff);
 	delete_procs(&(cor->procs));
 	if (cor->visual_on == true)
 		delete_visu(cor);

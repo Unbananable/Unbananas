@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:08:05 by anleclab          #+#    #+#             */
-/*   Updated: 2019/06/21 11:36:09 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:12:59 by anleclab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,26 @@
 
 void		instr_aff(t_cor *cor, t_proc *proc)
 {
-	char	tmp;
+	int		tmp;
+	char	c;
+	int		size;
 
 	if (get_args(cor, proc))
 	{
 		proc->carry = !cor->args[0].val;
-		tmp = (char)(cor->args[0].val % 255);
-		write(1, &tmp, 1);
+		if ((tmp = cor->args[0].val) < REG_NUMBER)
+		{
+			c = get_reg_value(proc->regs[tmp - 1]) % 256;
+			size = ft_strlen(cor->aff);
+			if (size == BUFF_SIZE)
+				if (!(cor->aff = (char *)realloc(cor->aff, size + BUFF_SIZE)))
+					error(cor, "malloc failed");
+			ft_bzero(cor->aff + size, BUFF_SIZE);
+			ft_strncat(cor->aff, &c, 1);
+		}
 		if (cor->verbose & V_OPERATIONS)
-			ft_printf("P %4d | aff %d\n", proc->n, cor->args[0].val);
+			ft_printf("P %4d | aff r%d\n", proc->n, cor->args[0].val);
+		else if (!cor->visual_on)
+			ft_printf("Aff: %s\n", cor->aff);
 	}
 }
