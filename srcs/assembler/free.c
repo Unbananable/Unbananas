@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 20:22:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 11:59:15 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:13:48 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_champion(t_champion **champion)
 			if ((*champion)->tokens[i])
 				free_token(&(*champion)->tokens[i]);
 		ft_memdel((void**)(&(*champion)->tokens));
+		ft_memdel((void**)(&(*champion)->labels));
 		ft_memdel((void**)(&(*champion)->header));
 		ft_memdel((void**)(champion));
 		*champion = 0x0;

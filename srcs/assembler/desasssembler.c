@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:09:00 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 14:31:50 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:49:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			read_champion(t_champion *champion, int fd)
 	n = read(fd, champion->prog, champion->header->prog_size + 1);
 	if (n != (int)champion->header->prog_size)
 	{
-		ft_printf("Bad size %d /%d\n", n, champion->header->prog_size);
+		ft_printf("Bad size %d / %d\n", n, champion->header->prog_size);
 		return (0);
 	}
 	while (i < (int)champion->header->prog_size)
@@ -68,7 +68,7 @@ static int	main_unasm(t_champion *champion, char *name)
 	champion = clear_champion(champion);
 	if (fd == -1)
 	{
-		ft_printf("Issue: File Name");
+		ft_printf("Issue: File Name\n");
 		return (0);
 	}
 	if (read_header(champion, fd) && read_champion(champion, fd))

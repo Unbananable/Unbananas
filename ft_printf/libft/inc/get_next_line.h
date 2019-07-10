@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 22:07:14 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 15:28:01 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 19:48:29 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 # include <fcntl.h>
 # include "libft.h"
 
+int					get_next_line(const int fd, char **l);
+
 typedef struct		s_gnl
 {
 	char			*str;
 	int				fd;
 	int				len;
-	int				exeption;
 	int				empty;
 	struct s_gnl	*next;
 	struct s_gnl	*prec;
