@@ -37,6 +37,8 @@ int		error_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 
 void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 {
+	int i;
+
 	if (!error_name_comment(c, t, next, nb_tok))
 	{
 		if ((t->type == NAME && c->hasname) ||
@@ -48,25 +50,11 @@ void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 		c->hasname = (t->type == NAME) ? 1 : c->hasname;
 		c->hascomment = (t->type == COMMENT) ? 1 : c->hascomment;
 	}
+	i = -1;
+	while (++i < c->number_token && c->tokens[i]->type == EMPTY)
+		;
+	if (i == c->number_token || t->type != c->tokens[i]->type)
+		warning_champion(c, "comment or name are not at the begining", t->line);
 	delete_token(t);
 	delete_token(next);
-}
-
-int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
-{
-	if (t == NAME || t == COMMENT)
-		check_name_comment(c, c->tokens[deb], c->tokens[deb + 1], tok_line);
-	else if (t == LABEL)
-		check_label(c, c->tokens[deb], deb, tok_line);
-	else if (t == INSTRUCTION)
-		check_instruction(c, c->tokens[deb], deb, tok_line);
-	else if (t == UNKNOWN)
-		error_champion(c, "Unknown token", c->tokens[deb]->line);
-	else
-	{
-		affichetype(c->tokens[deb]->type);
-		ft_printf("Does not belong here: (%d)\n", c->tokens[deb]->line);
-		c->number_error++;
-	}
-	return (1);
 }

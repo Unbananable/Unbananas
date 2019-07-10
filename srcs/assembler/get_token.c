@@ -44,7 +44,7 @@ int			move_token(t_token **token, t_token **anc)
 	return (1);
 }
 
-t_token		*get_direct_token(int line, char *s)
+static t_token		*get_direct_token(int line, char *s)
 {
 	if (*s == DIRECT_CHAR)
 	{

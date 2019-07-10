@@ -12,6 +12,16 @@
 
 #include "../../includes/asm.h"
 
+void		delete_token(t_token *token)
+{
+	int t;
+
+	t = token->type;
+	token->type = EMPTY;
+	if (t == STRING)
+		ft_memdel((void**)(&token->value.data));
+}
+
 void	free_token(t_token **token)
 {
 	int t;

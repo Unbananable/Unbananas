@@ -35,5 +35,5 @@ int		error_champion(t_champion *champion, char *s, int line)
 int		malloc_error(char *str)
 {
 	ft_printf("Error malloc: %s", str);
-	return (1);
+	return (0);
 }

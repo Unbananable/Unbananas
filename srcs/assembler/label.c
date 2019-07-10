@@ -40,15 +40,13 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 	t_token *next;
 
 	next = c->tokens[pos + 1];
-	if (!next || (next->type != INSTRUCTION && next->type != LABEL))
+	if (pos + 1 < c->number_token &&
+		(next->type != INSTRUCTION && next->type != LABEL))
 		error_champion(c, "Instruction or label not found", t->line);
 	else if (already_label(c, t->value.data, pos))
 		error_champion(c, "Label already exists", t->line);
-	else
-	{
-		if (next->line == t->line)
+	else if (next && next->line == t->line)
 			check_instruction(c, next, pos + 1, nb - 1);
-	}
 }
 
 int		manage_label_param(t_champion *champion, char *str)
@@ -62,5 +60,6 @@ int		manage_label_param(t_champion *champion, char *str)
 		return (-1);
 	}
 	val = champion->tokens[position_label]->pos;
-	return (champion->instructions[val]);
+	return ((val < champion->number_instructions) ?
+	champion->instructions[val] : champion->size);
 }

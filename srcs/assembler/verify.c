@@ -12,29 +12,26 @@
 
 #include "../../includes/asm.h"
 
-void		delete_token(t_token *token)
+static int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
 {
-	int t;
-
-	t = token->type;
-	token->type = EMPTY;
-	if (t == STRING)
-		ft_memdel((void**)(&token->value.data));
+	if (t == NAME || t == COMMENT)
+		check_name_comment(c, c->tokens[deb], c->tokens[deb + 1], tok_line);
+	else if (t == LABEL)
+		check_label(c, c->tokens[deb], deb, tok_line);
+	else if (t == INSTRUCTION)
+		check_instruction(c, c->tokens[deb], deb, tok_line);
+	else if (t == UNKNOWN)
+		error_champion(c, "Unknown token", c->tokens[deb]->line);
+	else
+	{
+		affichetype(c->tokens[deb]->type);
+		ft_printf("Does not belong here: (%d)\n", c->tokens[deb]->line);
+		c->number_error++;
+	}
+	return (1);
 }
 
-int			search_label(t_champion *c, char *s)
-{
-	int i;
-
-	i = -1;
-	while (++i < c->number_token)
-		if (c->tokens[i]->type == LABEL &&
-				!ft_strcmp(c->tokens[i]->value.data, s))
-			return (i);
-	return (-1);
-}
-
-int			verify_champion(t_champion *c)
+int				verify_champion(t_champion *c)
 {
 	int i;
 	int l;

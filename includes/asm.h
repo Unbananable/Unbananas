@@ -168,8 +168,6 @@ t_fichier			*clear_file(t_fichier *file);
 
 int					check_instruction(t_champion *c, t_token *token, int pos,
 											int tok_line);
-int					verify_champion_line(t_champion *c, int t, int deb,
-											int tok_line);
 void				check_label(t_champion *c, t_token *t, int deb,
 											int tok_line);
 
@@ -193,7 +191,6 @@ int					size_token(int t, int id);
 ** get_token.c
 */
 
-t_token				*get_direct_token(int line, char *s);
 t_token				*get_token(t_champion *c, char *s, int end, int line_nb);
 int					move_token(t_token **token, t_token **t);
 
@@ -201,11 +198,11 @@ int					move_token(t_token **token, t_token **t);
 ** verify.c
 */
 
-int					search_label(t_champion *c, char *s);
 int					verify_champion(t_champion *c);
 int					error_champion(t_champion *champion, char *s, int line);
 void				delete_token(t_token *token);
 int					warning_champion(t_champion *champion, char *s, int line);
+void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok);
 
 /*
 ** recognize.c
