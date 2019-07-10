@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:05:56 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:48:25 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:04:59 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct		s_champion
 	unsigned char	prog[CHAMP_MAX_SIZE * 2];
 }					t_champion;
 
-extern				t_op op_tab[17];
+extern t_op			g_tab[17];
 
 /*
 ** Autres
@@ -202,7 +202,8 @@ int					verify_champion(t_champion *c);
 int					error_champion(t_champion *champion, char *s, int line);
 void				delete_token(t_token *token);
 int					warning_champion(t_champion *champion, char *s, int line);
-void	check_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok);
+void				check_name_comment(t_champion *c, t_token *t, t_token *next,
+		int nb_tok);
 
 /*
 ** recognize.c

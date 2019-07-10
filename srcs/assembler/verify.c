@@ -6,13 +6,14 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:31:53 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:58:30 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-static int		verify_champion_line(t_champion *c, int t, int deb, int tok_line)
+static int		verify_champion_line(t_champion *c, int t, int deb,
+		int tok_line)
 {
 	if (t == NAME || t == COMMENT)
 		check_name_comment(c, c->tokens[deb], c->tokens[deb + 1], tok_line);

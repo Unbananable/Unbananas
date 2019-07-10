@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/09 13:51:26 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:06:10 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int		isintruction(char *s)
 	int i;
 
 	i = -1;
-	while (op_tab[++i].operation)
-		if (!ft_strcmp(op_tab[i].operation, s))
+	while (g_tab[++i].operation)
+		if (!ft_strcmp(g_tab[i].operation, s))
 			return (1);
 	return (0);
 }

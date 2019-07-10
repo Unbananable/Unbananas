@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:14:48 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 21:43:14 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:05:56 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_token		*add_token_operation(t_token *token, char *s)
 	i = 0;
 	if (!token)
 		return (0x0);
-	while (op_tab[i].operation && ft_strcmp(op_tab[i].operation, s))
+	while (g_tab[i].operation && ft_strcmp(g_tab[i].operation, s))
 		i++;
-	if (!op_tab[i].operation)
+	if (!g_tab[i].operation)
 		return (0x0);
-	token->value.operation = &op_tab[i];
+	token->value.operation = &g_tab[i];
 	return (token);
 }

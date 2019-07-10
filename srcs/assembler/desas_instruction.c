@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:47:23 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:06:28 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_token	*add_token_operation_id(t_token *token, unsigned int id)
 {
-	token->value.operation = &op_tab[id];
+	token->value.operation = &g_tab[id];
 	return (token);
 }
 

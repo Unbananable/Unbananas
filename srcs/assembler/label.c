@@ -6,7 +6,7 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/09 13:49:10 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:58:48 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_label(t_champion *c, t_token *t, int pos, int nb)
 	else if (already_label(c, t->value.data, pos))
 		error_champion(c, "Label already exists", t->line);
 	else if (next && next->line == t->line)
-			check_instruction(c, next, pos + 1, nb - 1);
+		check_instruction(c, next, pos + 1, nb - 1);
 }
 
 int		manage_label_param(t_champion *champion, char *str)

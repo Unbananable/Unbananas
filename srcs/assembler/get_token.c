@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 12:51:33 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:44:36 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:00:32 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** libft ??
 */
 
-int			ft_isnumber(char *s)
+int					ft_isnumber(char *s)
 {
 	int size;
 
@@ -33,7 +33,7 @@ int			ft_isnumber(char *s)
 	return (0);
 }
 
-int			move_token(t_token **token, t_token **anc)
+int					move_token(t_token **token, t_token **anc)
 {
 	t_token *tok;
 
@@ -85,7 +85,7 @@ static t_token		*get_token_param(char *s, int line_nb)
 	return (token);
 }
 
-t_token		*get_token(t_champion *c, char *s, int end, int line_nb)
+t_token				*get_token(t_champion *c, char *s, int end, int line_nb)
 {
 	t_token	*token;
 	char	last_char;
