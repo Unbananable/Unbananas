@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 16:38:30 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:48:20 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,7 @@ t_champion			*init_champion(void)
 t_fichier			*clear_file(t_fichier *file)
 {
 	if (file->fd_in != -1)
-	{
-		get_next_line(1000000000 + file->fd_in, &file->line);
-		ft_strdel(&file->line);
 		close(file->fd_in);
-	}
 	if (file->file_name)
 		ft_strdel(&file->file_name);
 	file->fd_out = -1;

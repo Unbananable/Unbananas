@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:33:54 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 19:49:46 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:43:52 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static int				ft_decal_finish(t_gnl *gnl, int i)
 
 	if (i == -1)
 	{
-		if (gnl->str)
-			free(gnl->str);
-		gnl->str = 0x0;
+		ft_strdel(&gnl->str);
 		return (0);
 	}
 	j = 0;
@@ -67,8 +65,7 @@ static t_gnl			*ft_new_gnl(int fd, char **l, t_gnl *gnl, t_gnl *prec)
 {
 	int				len;
 
-	if (gnl != 0x0)
-		while ((gnl != 0x0 && gnl->fd != fd) && (prec = gnl) != 0x0)
+	while (gnl != 0x0 && gnl->fd != fd && (prec = gnl) != 0x0)
 			gnl = gnl->next;
 	len = (gnl && gnl->fd == fd) ? gnl->len : 1;
 	if (!(*l = (char *)malloc(sizeof(char) * ((len * BUFF_SIZE) + 1))))
@@ -119,11 +116,21 @@ static int				ft_gnl_suite(char **l, t_gnl *gnl, int i, int j)
 	return (1);
 }
 
+int					exit_gnl(t_gnl **gnl, int fd)
+{
+	if (fd == STOP_GNL_FD && gnl)
+		ft_strdel(&((*gnl)->str));
+	ft_memdel((void**)gnl);
+	return (0);
+}
+
 int						get_next_line(const int fd, char **l)
 {
 	static t_gnl	*gnl = 0x0;
 	int				i;
 
+	if (fd > 1000000000)
+		return (exit_gnl(&gnl, fd));
 	i = -1;
 	if (l == 0x0 || fd < 0 || read(fd, 0x0, 0))
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:48:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 19:53:48 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:42:05 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		end_word(char *s, int start)
 		return (start);
 	while (s[start + i] &&
 	!(is_end_word(s[start + i]) || ft_isspace(s[start + i]) ||
-	(i > 0 && (s[start + i] == DIRECT_CHAR || s[start] == LABEL_CHAR))))
+	(i > 0 && s[start + i] == DIRECT_CHAR)))
 		i++;
 	return (start + i);
 }
@@ -81,16 +81,19 @@ int				parsing(t_fichier *f, t_champion *champion)
 {
 	while (get_next_line(f->fd_in, &f->line) > 0)
 	{
-		if (!analyse_line(f, f->line, champion))
-			return (0);
-		ft_strdel(&f->line);
-		f->line_nb++;
-		if (champion->size > CHAMP_MAX_SIZE)
+		if (!analyse_line(f, f->line, champion) ||
+				(champion->size > CHAMP_MAX_SIZE))
 		{
-			ft_printf("Exceeding file size\n");
+			get_next_line(STOP_GNL_FD, &f->file_name);
+			if (champion->size > CHAMP_MAX_SIZE)
+				ft_printf("Exceeding file size\n");
+			ft_strdel(&f->line);
 			return (0);
 		}
+		ft_strdel(&f->line);
+		f->line_nb++;
 	}
+	get_next_line(STOP_GNL_FD, &f->file_name);
 	ft_strdel(&f->line);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 22:07:14 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 19:48:29 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:44:17 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <string.h>
 # include <fcntl.h>
 # include "libft.h"
+
+# define STOP_GNL_FD 1000000002
+# define NO_MORE_REACHABLE 1000000001
 
 int					get_next_line(const int fd, char **l);
 
