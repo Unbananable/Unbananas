@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:14:48 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/11 14:37:59 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:40:35 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_token		*add_token_string(t_token *token, char *str)
 {
 	if (!token)
 		return (0x0);
-	token->value.data = ft_strdup(str);
+	if (!(token->value.data = ft_strdup(str)))
+		return (0x0);
 	return (token);
 }
 

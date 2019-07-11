@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 19:29:46 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/11 15:24:10 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:41:30 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int		firstcheck(t_fichier **file, char *s)
 	if (len > 2 && s[len - 2] == '.' && s[len - 1] == 's')
 		if (((*file)->fd_in = open(s, O_RDONLY)) != -1)
 		{
-			(*file)->file_name = ft_strnjoin(s, "cor", ft_strlen(s) - 1);
+			if (!((*file)->file_name = ft_strnjoin(s, "cor", ft_strlen(s) - 1)))
+				return (0);
 			return (1);
 		}
 	return (0);
