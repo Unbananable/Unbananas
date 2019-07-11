@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:03:42 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/11 14:37:56 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:25:52 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			write_champion_prog(t_champion *champion, char *str)
 	int i;
 
 	i = -1;
-	if (!(str = ft_strnjoin(str, "9.s", ft_strlen(str) - 4)))
+	if (!(str = ft_strnjoin(str, "s", ft_strlen(str) - 3)))
 		return (0);
 	fd = open(str, O_WRONLY | O_CREAT | O_TRUNC);
 	ft_memdel((void**)&str);

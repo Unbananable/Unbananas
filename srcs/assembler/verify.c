@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/11 14:47:55 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:19:07 by anyahyao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ static int		verify_champion_line(t_champion *c, int t, int deb,
 		c->number_error++;
 	}
 	return (1);
+}
+
+static void		check_warning_champion(t_champion *c)
+{
+	int i;
+
+	i = -1;
+	while (++i < c->number_token && c->tokens[i]->type != INSTRUCTION)
+		;
+	if (i == c->number_token)
+		warning_champion(c, "code empty", -1);
+	if (!c->hasname || !c->hascomment)
+		warning_champion(c, "Missing name or comment", -1);
 }
 
 int				verify_champion(t_champion *c)
@@ -54,7 +67,6 @@ int				verify_champion(t_champion *c)
 		if (c->number_error > NUMBERMAX_ERROR)
 			return (-1);
 	}
-	if (!c->hasname || !c->hascomment)
-		warning_champion(c, "Missing name or comment", -1);
+	check_warning_champion(c);
 	return ((c->number_error || !c->hasname || !c->hascomment) ? -1 : 1);
 }
