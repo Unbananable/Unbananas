@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 15:51:12 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 20:48:20 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 t_champion			*clear_champion(t_champion *champion)
 {

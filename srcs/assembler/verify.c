@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 21:41:46 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:47:55 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int		verify_champion_line(t_champion *c, int t, int deb,
 		int tok_line)
@@ -25,7 +25,6 @@ static int		verify_champion_line(t_champion *c, int t, int deb,
 		error_champion(c, "Unknown token", c->tokens[deb]->line);
 	else
 	{
-		affichetype(c->tokens[deb]->type);
 		ft_printf("Does not belong here: (%d)\n", c->tokens[deb]->line);
 		c->number_error++;
 	}

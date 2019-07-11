@@ -6,7 +6,7 @@
 /*   By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:45 by anleclab          #+#    #+#             */
-/*   Updated: 2019/07/10 15:57:46 by anleclab         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:32:11 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "op.h"
 # include "libft.h"
 # include "ft_printf.h"
-
-# include <stdio.h>
 # include <ncurses.h>
 
 # define STDIN 0

@@ -6,11 +6,11 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:51:05 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/10 15:59:43 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int		find_label(t_champion *champion, char *str)
 {

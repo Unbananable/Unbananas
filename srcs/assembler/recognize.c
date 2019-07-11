@@ -6,11 +6,11 @@
 /*   By: abossard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:48:47 by abossard          #+#    #+#             */
-/*   Updated: 2019/07/10 14:09:57 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:05 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 #define NUMBER_OPERATION_MAX 16
 

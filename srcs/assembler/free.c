@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 20:22:23 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 15:13:48 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:02 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 void	delete_token(t_token *token)
 {

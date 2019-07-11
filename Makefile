@@ -6,7 +6,7 @@
 #    By: anleclab <anleclab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/15 15:21:21 by anleclab          #+#    #+#              #
-#    Updated: 2019/07/10 16:00:01 by abossard         ###   ########.fr        #
+#    Updated: 2019/07/11 14:49:14 by dtrigalo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ SRCVM = op.c \
 		instr_sti.c \
 		instr_sub.c \
 		instr_xor.c \
-	  	instr_zjmp.c \
+		instr_zjmp.c \
 		introduce_champions.c \
-	  	main.c \
-	  	order_champions.c \
+		main.c \
+		order_champions.c \
 		tools_get_champions.c \
 		tools_instr.c \
 		tools_instr2.c \
@@ -57,27 +57,26 @@ SRCVM = op.c \
 		manage_arena.c \
 		tools_breakdowns.c
 SRCASM = add_token.c \
-		 token.c \
-		 op.c \
-		 free.c \
-		 init.c \
-		 hexa.c \
-		 write_champion.c \
-		 test.c #[TO DO] Supprimer
+		token.c \
+		op.c \
+		free.c \
+		init.c \
+		hexa.c \
+		write_champion.c
 SRCASSEMBLER = $(SRCASM)
 SRCASSEMBLER += check_instruction.c \
-			    check_token.c \
-			    error.c \
-			    get_token.c \
-			    label.c \
-			    parsing.c \
-			    recognize.c \
-			    verify.c \
-			    analyse_string.c
+		check_token.c \
+		error.c \
+		get_token.c \
+		label.c \
+		parsing.c \
+		recognize.c \
+		verify.c \
+		analyse_string.c
 MAIN_ASSEMBLER = asm.c
 SRCUNASSEMBLER = $(SRCASM)
 SRCUNASSEMBLER += desas_instruction.c \
-				  write_champion_code.c
+		write_champion_code.c
 MAIN_UNASSEMBLER = desasssembler.c
 
 SRCSFD = srcs/
@@ -106,33 +105,27 @@ NONE = \033[0m
 BOLD_UNDERLINED = \033[1;4m
 HIGHLIGHT = \033[1;4;42m
 
-all: make_start check_libft project $(NAME) $(NAME2) $(NAME3) $(HDRS)
+all: make_start project check_libft $(NAME) $(NAME2) $(NAME3) $(HDRS)
 	@echo "\n\$(HIGHLIGHT)!! Success !!$(NONE)\n"
 
-$(NAME): check_libft $(OBJSFD) corewar_exec
+check_libft:
+	@echo "\n$(BOLD_UNDERLINED)<| Checking libft_printf |>$(NONE)\n"
+	@make -C ft_printf
 
-corewar_exec: $(LIBFT) $(OBJSVM) $(HDRS)
+$(NAME): $(OBJSFD) $(LIBFT) $(OBJSVM) $(HDRS)
 	@gcc $(CFLAGS) $(OBJSVM) $(LIB_BINARY) -o $(NAME)
 	@echo "[ $(GREEN)✔$(NONE) ] $(NAME) executable"
 
-$(NAME2): check_libft  $(OBJSFD) asm_exec
-
-asm_exec: $(LIBFT) $(OBJSASM) $(HDRS)
+$(NAME2): $(OBJSFD) $(LIBFT) $(OBJSASM) $(HDRS)
 	@gcc  $(CFLAGS) $(OBJSASM) $(LIB_BINARY) -o $(NAME2)
 	@echo "[ $(GREEN)✔$(NONE) ] $(NAME2) executable"
 
-$(NAME3): check_libft $(OBJSFD) unassembler_exec
-
-unassembler_exec: $(LIBFT) $(OBJSUNASM) $(HDRS)
+$(NAME3): $(OBJSFD) $(LIBFT) $(OBJSUNASM) $(HDRS)
 	@gcc  $(CFLAGS) $(OBJSUNASM) $(LIB_BINARY) -o $(NAME3)
 	@echo "[ $(GREEN)✔$(NONE) ] $(NAME3) executable"
 
 make_start:
 	@echo "\n$(HIGHLIGHT)Beginning process...$(NONE)"
-
-check_libft:
-	@echo "\n$(BOLD_UNDERLINED)<| Checking libft_printf |>$(NONE)\n"
-	@make -C ft_printf
 
 project:
 	@echo "\n$(BOLD_UNDERLINED)<| Checking project |>$(NONE)\n"
@@ -143,11 +136,11 @@ $(OBJSFD):
 	@mkdir $@/$(ASMFOLDER)
 	@echo "[ $(GREEN)✔$(NONE) ] objs/ directory"
 
-$(OBJSFD)/$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c $(HDRS) $(LIBFT) | $(OBJSFD)
+$(OBJSFD)/$(VMFOLDER)%.o: $(SRCSFD)$(VMFOLDER)%.c $(HDRS) $(LIBFT) $(OBJSFD)
 	@gcc $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
-$(OBJSFD)/$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c $(HDRS) $(LIBFT) | $(OBJSFD)
+$(OBJSFD)/$(ASMFOLDER)%.o: $(SRCSFD)$(ASMFOLDER)%.c $(HDRS) $(LIBFT) $(OBJSFD)
 	@gcc  $(CFLAGS) $(HDR_INC) $(LIBFT_HDR) -c $< -o $@
 	@echo "[ $(GREEN)✔$(NONE) ] $@ object"
 
@@ -163,4 +156,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: make_start all check_libft project clean fclean re
+.PHONY: all clean fclean re project make_start

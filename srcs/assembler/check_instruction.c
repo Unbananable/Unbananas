@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 19:33:31 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/09 22:41:34 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:37:59 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static int	isgoodparam(t_champion *c, t_token *token, int expected)
 {

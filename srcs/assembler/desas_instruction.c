@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:31:50 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 12:06:28 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static t_token	*add_token_operation_id(t_token *token, unsigned int id)
 {

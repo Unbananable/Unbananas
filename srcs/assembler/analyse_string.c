@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:38:22 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 14:49:51 by abossard         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:37:58 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 static char		*join_norme(char *s, char *line, int line_nb, int option)
 {

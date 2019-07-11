@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 22:07:14 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 20:44:17 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:08:04 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
 # include "libft.h"

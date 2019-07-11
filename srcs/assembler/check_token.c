@@ -6,11 +6,11 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 13:04:55 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 21:07:01 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:38:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/asm.h"
+#include "asm.h"
 
 int		error_name_comment(t_champion *c, t_token *t, t_token *next, int nb_tok)
 {
