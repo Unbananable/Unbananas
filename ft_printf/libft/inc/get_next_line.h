@@ -6,7 +6,7 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 22:07:14 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/11 14:08:04 by dtrigalo         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:13:31 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ typedef struct		s_gnl
 }					t_gnl;
 
 int					get_next_line(const int fd, char **line);
+int					ft_strccpy(char **l, t_gnl *gnl, char c, int k);
 
 #endif

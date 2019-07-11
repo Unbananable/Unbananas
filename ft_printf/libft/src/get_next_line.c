@@ -6,38 +6,12 @@
 /*   By: anyahyao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:33:54 by anyahyao          #+#    #+#             */
-/*   Updated: 2019/07/10 22:03:37 by anyahyao         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:12:00 by dtrigalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static int				ft_strccpy(char **l, t_gnl *gnl, char c, int k)
-{
-	int				i;
-	int				ok;
-
-	i = -1;
-	ok = 1;
-	(*l)[k] = '\0';
-	while (gnl->str[++i] && gnl->str[i] != c)
-	{
-		if (ok && k > (BUFF_SIZE - 1) * gnl->len)
-		{
-			if (k > 100000)
-				return (-1);
-			ok = 0;
-			gnl->len++;
-			if (!(*l = (char *)realloc(*l, sizeof(char) *
-							(((gnl->len) * BUFF_SIZE) + 1))))
-				return (-1);
-		}
-		(*l)[k] = (char)gnl->str[i];
-		k++;
-	}
-	(*l)[k] = '\0';
-	return (i);
-}
+#include "libft.h"
 
 static int				ft_decal_finish(t_gnl *gnl, int i)
 {
@@ -114,7 +88,7 @@ static int				ft_gnl_suite(char **l, t_gnl *gnl, int i, int j)
 	return (1);
 }
 
-int					exit_gnl(t_gnl **gnl, int fd)
+static int				exit_gnl(t_gnl **gnl, int fd)
 {
 	if (fd == STOP_GNL_FD && gnl)
 		ft_strdel(&((*gnl)->str));
